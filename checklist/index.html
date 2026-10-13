@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>修正チェックリスト（草案）</title>
+<style>
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray-t: #efefec;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; font-size: 15px; line-height: 1.7; }
+  .wrap { max-width: 980px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 72px; }
+  .kicker { font-size: 12px; letter-spacing: .12em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 6px 0 8px; font-size: 26px; line-height: 1.35; }
+  .draft { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px; background: var(--orange-t); color: #b4470e; font-size: 13px; font-weight: 700; vertical-align: middle; }
+  .lead { color: var(--soft); margin: 0 0 14px; }
+  .info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 16px 0 6px; }
+  @media (max-width: 720px) { .info { grid-template-columns: 1fr; } }
+  .info div { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; }
+  .info b { display: block; font-size: 18px; color: var(--blue); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--soft); margin: 10px 0 4px; }
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--bg); padding: 10px 0; border-bottom: 1px solid var(--line); margin-top: 10px; }
+  .prog { flex: 1 1 200px; height: 8px; border-radius: 999px; background: var(--gray-t); overflow: hidden; }
+  .prog i { display: block; height: 100%; width: 0; background: var(--green); transition: width .2s; }
+  .count { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .reset { border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; color: var(--ink); }
+  section { margin-top: 26px; }
+  h2 { font-size: 17px; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+  h2 .c { font-size: 12px; color: var(--soft); font-weight: 500; }
+  ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  ul.list li { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+  ul.list label { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: start; padding: 10px 12px; cursor: pointer; }
+  ul.list input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--green); }
+  ul.list li.done { background: #f3faf6; border-color: #b9dcc8; }
+  ul.list li.done .t { color: var(--soft); text-decoration: line-through; text-decoration-color: #9dcbb0; }
+  .t { font-weight: 600; }
+  .why { display: block; font-size: 12.5px; color: var(--soft); font-weight: 400; margin-top: 2px; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .b { display: inline-block; white-space: nowrap; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+  .rep { background: var(--orange-t); color: #b4470e; }
+  .auto { background: var(--blue-t); color: var(--blue); }
+  @media (max-width: 600px) { ul.list label { grid-template-columns: 22px 1fr; } .badges { grid-column: 2; justify-content: flex-start; } }
+  .note { margin-top: 28px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; font-size: 13.5px; color: var(--soft); }
+  .note ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .b.cat { background: var(--gray-t); color: var(--soft); font-weight: 600; }
+  h2 .lv { display: inline-block; padding: 2px 10px; border-radius: 6px; color: #fff; font-size: 13px; margin-right: 4px; }
+  .tier.high h2 .lv { background: var(--orange); } .tier.mid h2 .lv { background: var(--blue); } .tier.low h2 .lv { background: #8a8a86; }
+  .tier.high ul.list li { border-left: 4px solid var(--orange); } .tier.mid ul.list li { border-left: 4px solid var(--blue); }
+  input:focus-visible, .reset:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+  <div class="kicker">LP制作スキーム改善のご提案 ／ 参考資料 ／ 株式会社HSE ／ 2026年10月</div>
+  <h1>修正チェックリスト<span class="draft">草案</span></h1>
+  <p class="lead">過去1か月に品質チェックのチャンネルで出された修正依頼を整理し、提出前に確認する項目にまとめました。案件を問わず使えるように、表現を一般化しています。</p>
+
+  <div class="info">
+    <div>対象の期間<b>9月13日〜10月12日</b>品質チェックのチャンネル</div>
+    <div>確認項目<b id="total">0項目</b>指摘の回数で3段階に分類</div>
+    <div>くり返し出ている指摘<b id="reps">0項目</b>2回以上出ているもの</div>
+  </div>
+  <div class="legend"><span><span class="b rep">5回</span>　期間内に同じ趣旨の指摘が出た回数（目安）</span><span><span class="b cat">余白・レイアウト</span>　項目の分類</span><span><span class="b auto">道具で判定</span>　検査の道具で自動判定できる見込みの項目</span></div>
+
+  <div class="bar"><span class="count" id="cnt">0 / 0</span><div class="prog"><i id="pg"></i></div><button class="reset" id="reset" type="button">チェックを外す</button></div>
+
+  <section class="tier high">
+    <h2><span class="lv">優先度 高</span>くり返し指摘されている項目（5回以上）<span class="c">6項目</span></h2>
+    <ul class="list">
+      <li data-rep="11"><label><input type="checkbox" id="c-sw1"><span class="t">1回の操作で、1セクションだけ進むか<span class="why">大きなホイール操作・トラックパッドの慣性で、複数ページ進まないこと。PCとスマホの両方で確認</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span><span class="b rep">約11回</span></span></label></li>
+      <li data-rep="8"><label><input type="checkbox" id="c-ly1"><span class="t">枠の内側・リスト・セクションの上下に、十分な余白があるか<span class="why">「キツキツ」と指摘されやすい。スマホの表示でも確認</span></span><span class="badges"><span class="b cat">余白・レイアウト</span><span class="b rep">約8回</span></span></label></li>
+      <li data-rep="7"><label><input type="checkbox" id="c-hd1"><span class="t">ヘッダーのボタンの内側の余白が自然か<span class="why">スマホの表示でも確認</span></span><span class="badges"><span class="b cat">ヘッダー</span><span class="b rep">約7回</span></span></label></li>
+      <li data-rep="7"><label><input type="checkbox" id="c-pc1"><span class="t">PC全体の背景がベースの色で、単調すぎないか<span class="why">ずっと同じ背景にせず、複数のパターンでリッチに</span></span><span class="badges"><span class="b cat">PCでの表示</span><span class="b rep">約7回</span></span></label></li>
+      <li data-rep="6"><label><input type="checkbox" id="c-ly2"><span class="t">同じ型のレイアウトが続いていないか<span class="why">上から同じ形が並ぶだけだと、AIで作った印象になる</span></span><span class="badges"><span class="b cat">余白・レイアウト</span><span class="b rep">約6回</span></span></label></li>
+      <li data-rep="6"><label><input type="checkbox" id="c-tx1"><span class="t">最小の文字が13px以上か</span><span class="badges"><span class="b cat">文字・文言</span><span class="b rep">6回</span><span class="b auto">道具で判定</span></span></label></li>
+    </ul>
+  </section>
+
+  <section class="tier mid">
+    <h2><span class="lv">優先度 中</span>複数回指摘されている項目（2〜4回）<span class="c">8項目</span></h2>
+    <ul class="list">
+      <li data-rep="4"><label><input type="checkbox" id="c-sw2"><span class="t">募集要項・エントリーの最下部で、勝手に上へ戻らないか<span class="why">最下部までスワイプしたときに、上のセクションへ戻されないこと</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span><span class="b rep">4回</span></span></label></li>
+      <li data-rep="4"><label><input type="checkbox" id="c-ly4"><span class="t">文字とイラスト・装飾、英字の見出しと日本語が重なっていないか</span><span class="badges"><span class="b cat">余白・レイアウト</span><span class="b rep">約4回</span><span class="b auto">道具で判定</span></span></label></li>
+      <li data-rep="4"><label><input type="checkbox" id="c-hd2"><span class="t">ヘッダーがロゴと2つのボタンだけになっているか<span class="why">ドロップダウン・メニューなどが残っていないこと</span></span><span class="badges"><span class="b cat">ヘッダー</span><span class="b rep">4回</span></span></label></li>
+      <li data-rep="3"><label><input type="checkbox" id="c-sw6"><span class="t">スクロールバーが表示されていないか</span><span class="badges"><span class="b cat">スワイプ・スクロール</span><span class="b rep">3回</span><span class="b auto">道具で判定</span></span></label></li>
+      <li data-rep="3"><label><input type="checkbox" id="c-pc2"><span class="t">中央の枠に影（ボックスシャドウ）が付いているか</span><span class="badges"><span class="b cat">PCでの表示</span><span class="b rep">3回</span></span></label></li>
+      <li data-rep="3"><label><input type="checkbox" id="c-im1"><span class="t">画像が使い回し・仮のままになっていないか</span><span class="badges"><span class="b cat">画像・動き</span><span class="b rep">3回</span></span></label></li>
+      <li data-rep="3"><label><input type="checkbox" id="c-dl1"><span class="t">通知メールの題名・追加ヘッダー・本文が、定型どおりか</span><span class="badges"><span class="b cat">納品・公開</span><span class="b rep">3回</span></span></label></li>
+      <li data-rep="2"><label><input type="checkbox" id="c-im2"><span class="t">冒頭の動画は、素材をそのまま配置しているか<span class="why">余計な加工やアニメーションを足していないこと</span></span><span class="badges"><span class="b cat">画像・動き</span><span class="b rep">2回</span></span></label></li>
+    </ul>
+  </section>
+
+  <section class="tier low">
+    <h2><span class="lv">優先度 低</span>1回指摘された項目・事例のある項目<span class="c">22項目</span></h2>
+    <ul class="list">
+      <li><label><input type="checkbox" id="c-sw3"><span class="t">上方向のスワイプも、下方向と同じ動きになっているか<span class="why">スマホで上方向だけ通常のスクロールになる事例あり。制作者の環境では再現しにくいため、実機で確認</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span></span></label></li>
+      <li><label><input type="checkbox" id="c-sw4"><span class="t">指のスワイプで遷移できるか<span class="why">ブラウザによって、矢印ボタンでしか遷移できない事例あり</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span></span></label></li>
+      <li><label><input type="checkbox" id="c-sw5"><span class="t">募集要項・エントリーは、ページ単位のスクロールになっているか<span class="why">枠の中だけがスクロールする作りになっていないこと</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span></span></label></li>
+      <li><label><input type="checkbox" id="c-sw7"><span class="t">スクロールが固く感じないか<span class="why">スマホで、操作に対して動きが重くないこと</span></span><span class="badges"><span class="b cat">スワイプ・スクロール</span></span></label></li>
+      <li><label><input type="checkbox" id="c-ly3"><span class="t">同じ役割の見出し・カードの体裁がそろっているか</span><span class="badges"><span class="b cat">余白・レイアウト</span></span></label></li>
+      <li><label><input type="checkbox" id="c-ly5"><span class="t">下部やページの端が見切れていないか<span class="why">PCの低い画面でも確認</span></span><span class="badges"><span class="b cat">余白・レイアウト</span><span class="b auto">道具で判定</span></span></label></li>
+      <li><label><input type="checkbox" id="c-ly6"><span class="t">要素が画面の縦方向で中央に収まっているか<span class="why">上に寄りすぎていないこと</span></span><span class="badges"><span class="b cat">余白・レイアウト</span></span></label></li>
+      <li><label><input type="checkbox" id="c-ly7"><span class="t">文字の揃え（中央・左）が、ページ内で一貫しているか</span><span class="badges"><span class="b cat">余白・レイアウト</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx2"><span class="t">フォントが統一されているか<span class="why">ポップ体などが混ざっていないこと</span></span><span class="badges"><span class="b cat">文字・文言</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx3"><span class="t">英字の見出しと日本語の間隔が、0になっていないか</span><span class="badges"><span class="b cat">文字・文言</span><span class="b auto">道具で判定</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx4"><span class="t">原稿と一致しているか（誤字・表記・数字）<span class="why">例：休日の表記の違い。原稿の文章を省略しすぎていないか</span></span><span class="badges"><span class="b cat">文字・文言</span><span class="b auto">道具で判定</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx5"><span class="t">クライアントからの名称変更・追記が反映されているか</span><span class="badges"><span class="b cat">文字・文言</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx6"><span class="t">原稿で強調指定された文字（赤文字など）に、強調の装飾が付いているか</span><span class="badges"><span class="b cat">文字・文言</span></span></label></li>
+      <li><label><input type="checkbox" id="c-tx7"><span class="t">強調の見せ方が1種類だけの繰り返しになっていないか<span class="why">マーカーだけ、など。文字が読める濃さか</span></span><span class="badges"><span class="b cat">文字・文言</span></span></label></li>
+      <li><label><input type="checkbox" id="c-hd3"><span class="t">ヘッダーのロゴは支給データで、全ページで統一されているか</span><span class="badges"><span class="b cat">ヘッダー</span></span></label></li>
+      <li><label><input type="checkbox" id="c-hd4"><span class="t">ヘッダーの背景が完全な白か（半透明になっていないか）</span><span class="badges"><span class="b cat">ヘッダー</span></span></label></li>
+      <li><label><input type="checkbox" id="c-im3"><span class="t">アニメーションが1回で正しく表示されるか<span class="why">表示 → 消える → 再表示、にならないこと。出現が遅すぎないこと</span></span><span class="badges"><span class="b cat">画像・動き</span></span></label></li>
+      <li><label><input type="checkbox" id="c-im4"><span class="t">不要な操作部品が残っていないか<span class="why">写真の左右矢印・枚数表示など。写真はゆっくり自動で流す</span></span><span class="badges"><span class="b cat">画像・動き</span></span></label></li>
+      <li><label><input type="checkbox" id="c-fm1"><span class="t">入力欄が画面の幅からはみ出していないか<span class="why">スマホで日時の欄が横に突き抜ける事例あり</span></span><span class="badges"><span class="b cat">フォーム</span><span class="b auto">道具で判定</span></span></label></li>
+      <li><label><input type="checkbox" id="c-fm2"><span class="t">入力項目が左寄せでそろっているか</span><span class="badges"><span class="b cat">フォーム</span></span></label></li>
+      <li><label><input type="checkbox" id="c-dl2"><span class="t">faviconがオリジナルのものか</span><span class="badges"><span class="b cat">納品・公開</span></span></label></li>
+      <li><label><input type="checkbox" id="c-dl3"><span class="t">納品時に、フォームの送信先と返信の設定画面のスクリーンショットを添付したか</span><span class="badges"><span class="b cat">納品・公開</span></span></label></li>
+    </ul>
+  </section>
+
+  <div class="note">
+    <b style="color:var(--ink)">この草案について</b>
+    <ul>
+      <li>品質チェックのチャンネル（9月13日〜10月12日）の修正依頼を、テキストの範囲で整理しました。添付の画像・動画・外部資料の中身は含んでいません。</li>
+      <li>回数は、同じ趣旨の指摘が出た回数の目安です。優先度は回数で分けています（高：5回以上／中：2〜4回／低：1回または事例のみ）。</li>
+      <li>「道具で判定」の項目は、ご提案の検査の道具に組み込むことで、提出前に自動で確認できる見込みのものです。それ以外は、見本と並べて人が確認する項目です。</li>
+      <li>チェックの状態は、このページを開いたブラウザにだけ保存されます。</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.list input[type=checkbox]'));
+  var KEY = 'spinova-checklist-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
+  document.getElementById('total').textContent = boxes.length + '項目';
+  document.getElementById('reps').textContent = document.querySelectorAll('li[data-rep]').length + '項目';
+  function update() {
+    var n = 0;
+    boxes.forEach(function (b) { b.closest('li').classList.toggle('done', b.checked); if (b.checked) n++; });
+    document.getElementById('cnt').textContent = n + ' / ' + boxes.length;
+    document.getElementById('pg').style.width = (n / boxes.length * 100) + '%';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.id];
+    b.addEventListener('change', function () {
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      update();
+    });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    state = {};
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    update();
+  });
+  update();
+})();
+</script>
