@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PELLICULE 採用サイト 編集マニュアル（見本）</title>
+<style>
+:root{--ink:#212121;--soft:#5c5c5c;--line:#d9d9d9;--bg:#f7f7f7;--paper:#fff;--blue:#0563ae;--orange:#f26923;--tint:#dfe9f5;--warn:#fde3d4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 80px}
+header.top{background:var(--blue);color:#fff;padding:28px 16px 24px}
+header.top .in{max-width:780px;margin:0 auto}
+header.top p{margin:0;font-size:13px;opacity:.85}
+header.top h1{margin:6px 0 4px;font-size:clamp(22px,5.5vw,30px);line-height:1.35}
+.badge{display:inline-block;background:var(--orange);color:#fff;font-size:12px;font-weight:700;border-radius:99px;padding:1px 10px;margin-bottom:6px}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:22px 0}
+nav.toc b{display:block;margin-bottom:4px}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--blue)}
+h2{font-size:22px;line-height:1.4;margin:48px 0 14px;padding-left:12px;border-left:6px solid var(--orange)}
+h3{font-size:19px;margin:36px 0 10px}
+h3 span{font-size:13px;color:var(--soft);font-weight:400;margin-left:4px}
+h4{font-size:15px;margin:18px 0 6px;color:var(--blue)}
+p,li{margin:.6em 0}
+ul,ol{padding-left:1.4em}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px 18px 10px;margin:14px 0}
+.box.warn{background:var(--warn);border-color:#f6a77c}
+.box.ok{background:var(--tint);border-color:#a9c4e4}
+.box p:first-child{margin-top:.8em}
+.code{font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#212121;color:#eee;border-radius:10px;padding:12px 14px;white-space:pre-wrap;word-break:break-all;margin:10px 0}
+.code .cm{color:#9ec6f0}
+.code mark{background:var(--orange);color:#fff;border-radius:3px;padding:0 2px}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#ececec;border-radius:4px;padding:1px 5px;word-break:break-all}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{counter-increment:s;position:relative;padding:2px 0 2px 44px;margin:14px 0}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:grid;place-items:center}
+.shots{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.shots img{width:min(100%,360px);height:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table.t{border-collapse:collapse;width:100%;font-size:14px;line-height:1.6}
+.t th{background:#efefef;text-align:left;padding:8px 10px;white-space:nowrap}
+.t td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+.t td:first-child{white-space:nowrap}
+b.e,b.i{display:inline-block;color:#fff;border-radius:99px;padding:0 10px;font:700 13px/22px Arial,sans-serif}
+b.e{background:var(--orange)} b.i{background:var(--blue)}
+small.nt{display:block;color:var(--soft);font-size:12px;line-height:1.5;margin-top:3px}
+.nt2{font-size:14px;color:var(--soft)}
+.chk li{list-style:none;margin:.35em 0}
+.chk{padding-left:.2em}
+.chk li::before{content:"□ ";color:var(--blue)}
+table.leg{border-collapse:collapse;font-size:14px;margin:8px 0}
+table.leg td,table.leg th{border:1px solid var(--line);padding:6px 10px;background:#fff;text-align:left}
+@media (max-width:640px){
+  .t thead{display:none}
+  .t,.t tbody,.t tr,.t td{display:block;width:100%}
+  .t tr{border-top:1px solid var(--line);padding:8px 10px}
+  .t tr:first-child{border-top:0}
+  .t td{border:0;padding:2px 0}
+  .t td::before{content:attr(data-l);display:inline-block;min-width:6.5em;color:var(--soft);font-size:12px}
+  .t td:first-child::before{display:none}
+  .t td:first-child{margin-bottom:2px}
+}
+footer{color:var(--soft);font-size:13px;margin-top:48px}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><span class="badge">見本・仮版</span><p>PELLICULE株式会社 採用サイト</p><h1>編集マニュアル</h1><p>文言を直す／画像を差し替える（2026年10月12日版）</p></div></header>
+<div class="wrap">
+
+<nav class="toc"><b>もくじ</b><ol>
+<li><a href="#s1">はじめに</a></li>
+<li><a href="#s2">文言の直し方</a></li>
+<li><a href="#s3">画像の差し替え方</a></li>
+<li><a href="#s4">ページ別の一覧（番号つきの画面と表）</a></li>
+<li><a href="#s5">やってはいけないこと</a></li>
+<li><a href="#s6">直した後の確認</a></li>
+<li><a href="#s7">困ったら</a></li>
+</ol></nav>
+
+<h2 id="s1">1．はじめに</h2>
+<p>このサイトで、ご自身で直してよいのは<b>「目印」がついている所だけ</b>です。直せるのは次の2つです。</p>
+<ul>
+<li><b>文言（✏️）</b>…サイトの文章。軽い言い換えや、数字・名前の変更。</li>
+<li><b>画像（🖼）</b>…写真の差し替え。</li>
+</ul>
+<p>目印は、<code>index.html</code> というファイルの中に、次のような一行で入っています。</p>
+<div class="code"><span class="cm">&lt;!-- ✏️E05 ○P 本文｜文字数の目安｜注意 --&gt;</span>
+<span class="cm">&lt;!-- 🖼I13 ○P 写真｜ファイル名｜縦横比・サイズ --&gt;</span></div>
+<p><b>✏️E</b>＋数字が文言、<b>🖼I</b>＋数字が画像の番号です。目印の<b>すぐ下（または同じ行のすぐ後）</b>にあるものが、その番号の直す対象です。番号はこのマニュアルの画面や表にも同じものが出ています。</p>
+<div class="box warn"><p><b>作業の前に、必ず控えを取ってください。</b></p>
+<ol>
+<li>「01_PELLICULE株式会社」フォルダを、まるごとコピーします（Macは右クリック→「複製」、Windowsはコピーして貼り付け）。</li>
+<li>名前を「01_PELLICULE株式会社_控え」のようにして、作業日を足します。</li>
+<li>直す作業は、元のフォルダのほうで行います。</li>
+</ol>
+<p>画像は「整理版」の1つ外側にある <code>assets</code> フォルダに入っています。<b>「整理版」だけでなく、1つ上の「01_PELLICULE株式会社」ごと</b>コピーしてください。</p></div>
+<div class="box"><p><b>用意するもの</b></p>
+<ul>
+<li>文章を直すための編集ソフト。無料の「Visual Studio Code」が使いやすいです（Windows・Mac対応）。Macの「テキストエディット」を使う場合は「フォーマット→標準テキストにする」にしてください。Windowsのメモ帳でも直せます。</li>
+<li>確認用のブラウザ（Chrome・Safariなど）。</li>
+<li><b>文字コードは UTF-8 で保存</b>します。Visual Studio Code は画面の右下に「UTF-8」と出ていれば大丈夫です。違う表示のときは、そこをクリックして「エンコード付きで保存」から UTF-8 を選びます。日本語が「???」や文字化けになったら、保存せずに控えへ戻してください。</li>
+</ul></div>
+
+<h2 id="s2">2．文言の直し方</h2>
+<ol class="steps">
+<li><b>index.html を編集ソフトで開きます。</b>（「整理版」フォルダの中にあります。）</li>
+<li><b>番号で探します。</b>編集ソフトの検索（Windows は Ctrl＋F、Mac は command＋F）に「✏️E18」のように入れます。「✏️」が入力しにくいときは「E18 」（番号のあとに空白を入れる）だけでも探せます。</li>
+<li><b>目印のすぐ下の文を、書き換えます。</b>下の見本のように、<mark style="background:#f26923;color:#fff;border-radius:3px;padding:0 2px">色をつけた部分</mark>の「文字」だけを直します。<code>&lt;</code> と <code>&gt;</code> で囲まれた部分（タグ）は、そのままにしてください。
+<div class="code"><span class="cm">&lt;!-- ✏️E18 2P 大きな文｜現状16字→安全18字(限界39字)｜行の数は変えない・行の中で改行したい時は&lt;br&gt;｜「関係ない」の囲みは残す --&gt;</span>
+&lt;p class=&quot;big kara&quot;&gt;&lt;span class=&quot;ln&quot;&gt;<mark>年齢も、役職も、経験も</mark>&lt;span class=&quot;nb&quot;&gt;&lt;span class=&quot;key key--big mk&quot;&gt;<mark>関係ない</mark>&lt;/span&gt;。&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</div>
+<p class="nt2">上の例は、E18（2Pの大きな文）です。「関係ない」の周りの <code>&lt;span class="key key--big mk"&gt;</code> は、文字を黄色いマーカーで強調する部品なので、消さずに残します。</p></li>
+<li><b>保存します。</b>（Ctrl／command＋S）文字コードは UTF-8 のままにします。</li>
+<li><b>ブラウザで確認します。</b><code>index.html</code> をブラウザにドラッグすると表示されます。直したページまでスワイプ（PCはスクロール）して、文が出きること、次へ進むボタン（NEXT）に被らないことを見ます。くわしくは「6．直した後の確認」へ。</li>
+</ol>
+
+<h3>文字数の目安の見方</h3>
+<p>目印と一覧表には、文字数の目安を書いてあります。文字数は、<b>全角の1文字を1字</b>と数えます。「、」「。」「　」も1字、半角の英数字も1字として数えます（半角のほうが幅が狭いので、安全側です）。</p>
+<table class="leg"><tbody>
+<tr><th>表示</th><th>意味</th></tr>
+<tr><td>現状○字→安全△字</td><td>△字までなら、行が増えず、見た目がほとんど変わりません。迷ったらこの数字までにしてください。</td></tr>
+<tr><td>（限界□字）</td><td>その行だけを伸ばして、折り返しで行が増えても、ギリギリ被らなかった字数です。ほかの行も一緒に伸ばすと被ることがあります。</td></tr>
+<tr><td>現状○字のまま</td><td>これ以上は増やせません（余裕がない所です）。</td></tr>
+<tr><td>被る心配なし</td><td>今の文字数＋60字まで伸ばしても被らないことを確認した所です。</td></tr>
+</tbody></table>
+<p class="nt2">この数字は、スマホ（360×640、390×540）とPC（1280×720）の3つの画面の大きさで、実際に表示して測りました。ほかの大きさの画面では少し変わることがあります。画面に出ない設定（タブ名など）の字数は、一般的な目安で、実測ではありません。</p>
+
+<h3>行（ぎょう）と改行について</h3>
+<ul>
+<li>サイトの文章は、<code>&lt;span class="ln"&gt;〜&lt;/span&gt;</code> で<b>1行ごと</b>に区切ってあります。<b>この区切り（行）の数は増やしたり減らしたりしないでください。</b>行が増えると、画面の高さが足りなくなります。</li>
+<li>1つの行の中で、途中で改行したいときだけ、改行したい場所に <code>&lt;br&gt;</code> を入れます。ただし改行すると高さが増えるので、必ず「6．直した後の確認」を行ってください。</li>
+<li>文の中に <code>&amp;</code> を書きたいときは <code>&amp;amp;</code> と書きます。<code>&lt;</code> や <code>&gt;</code> を文字として書くことはできません。</li>
+</ul>
+
+<h2 id="s3">3．画像の差し替え方</h2>
+<p>画像は、<b>同じファイル名・同じ縦横比・同じ形式で、上書き</b>するのがいちばん簡単で安全です。目印の文を書き換える必要はありません。</p>
+<ol class="steps">
+<li><b>差し替えたい画像の番号を探します。</b>このマニュアルの画面の青い番号（例：I13）か、<code>index.html</code> で「🖼I13」を検索します。目印の中に、ファイル名（例：<code>assets/photo/p13.webp</code>）、縦横比、大きさが書いてあります。</li>
+<li><b>新しい写真を、同じ縦横比にします。</b>例として I13 は「縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量72KB」です。縦横比が違う写真を入れると、枠に合わせて<b>中央が自動で切り取られます</b>（被写体は真ん中に入れてください）。</li>
+<li><b>WebP形式にします。</b>無料のブラウザ用ツール「Squoosh」（<code>squoosh.app</code>）が使えます。写真を画面にドラッグし、右側の形式で「WebP」を選び、品質を75〜80くらいにして、「リサイズ」で元と同じ大きさ（幅×高さ）にそろえ、右下のダウンロードを押します。（ツールの画面は変わることがあります。表示が違うときは担当者にご相談ください。）</li>
+<li><b>ファイル名を元と同じにして、上書きします。</b>ダウンロードしたファイルの名前を <code>p13.webp</code> のように元と同じにして、<code>assets/photo</code> フォルダに入れ、「置き換える」を選びます。<b>上書きの前に、控えを取ってあることを確かめてください。</b></li>
+<li><b>ブラウザで強めに再読み込みして確認します。</b>（Windows：Ctrl＋Shift＋R、Mac：command＋Shift＋R）古い写真が残って見えるときは、これで直ります。</li>
+</ol>
+<div class="box ok"><p><b>知っておくと安心なこと</b></p>
+<ul>
+<li>同じ写真が、いくつかのページで使われている場合があります。ファイルを1つ上書きすると、使われているすべての場所が変わります（どこで使われているかは、一覧表と目印の末尾に書いてあります）。</li>
+<li>ページに出る写真は小さいので、元より大きな写真は不要です。目安は「元と同じ大きさ」です。容量が大きすぎると表示が重くなります。元のファイルの容量（表に記載）を超えないようにしてください。</li>
+<li>使っていない写真（p15・p17・p18）が <code>assets/photo</code> に入っています。差し替えに使っても構いません。その場合は、使いたい場所の写真と同じファイル名にして上書きしてください。</li>
+<li>TOPの動画（I20）、動画が始まる前の写真（I21）、ロゴ（I19）、シェア用の画像（I22）は、縦横比と大きさが決まっています。差し替えるときは、表の通りの大きさで作り、同じファイル名で上書きします。動画の作り直しは担当者にご相談ください。</li>
+</ul></div>
+
+<h2 id="s4">4．ページ別の一覧</h2>
+<p>画面の<b style="color:#f26923">オレンジの番号</b>が文言、<b style="color:#0563ae">青い番号</b>が画像です。画面と同じ番号が、その下の表にあります。スマホ表示の画面で、<b>390×664 の大きさ</b>です。</p>
+<section class="pg" id="pg-top"><h3>TOP　<span>はじまり（最初の画面）</span></h3><div class="shots"><img src="img/00_top.jpg" alt="TOPの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E09</b></td><td data-l="場所">ページの題名(画面には出ない・読み上げと検索用)</td><td data-l="今の文言">PELLICULE株式会社児童指導員…</td><td data-l="文字数の目安">現状25字｜画面には出ないので字数の制限なし。ただし長すぎない一文に</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I20</b></td><td data-l="場所">背景動画(最初の画面)</td><td data-l="ファイル"><code>assets/hero.mp4</code></td><td data-l="縦横比・サイズ">動画 MP4・縦長9:16・元の大きさ 1080×1920px・容量2.0MB</td></tr>
+<tr><td data-l="番号"><b class="i">I21</b></td><td data-l="場所">動画が始まる前に出る写真</td><td data-l="ファイル"><code>assets/hero-poster.jpg</code></td><td data-l="縦横比・サイズ">縦長9:16・元の大きさ 1080×1920px・JPG・容量95KB</td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p1"><h3>1P　<span>会社紹介</span></h3><div class="shots"><img src="img/01_p1.jpg" alt="1Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E10</b></td><td data-l="場所">見出し(会社名)</td><td data-l="今の文言">PELLICURE株式会社</td><td data-l="文字数の目安">現状13字→19字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E11</b></td><td data-l="場所">特大の言葉<small class="nt">最後の「？」の飾り(class=&quot;qa&quot; と class=&quot;q2&quot;)は消さない</small></td><td data-l="今の文言">人生は、残したい瞬間の連続？</td><td data-l="文字数の目安">1行め：現状4字→15字まで<br>2行め：現状10字→14字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E12</b></td><td data-l="場所">付箋1</td><td data-l="今の文言">初めてできたこと。</td><td data-l="文字数の目安">現状9字(安全はこのまま・限界28字)</td></tr>
+<tr><td data-l="番号"><b class="e">E13</b></td><td data-l="場所">付箋2</td><td data-l="今の文言">思わず笑ったこと。</td><td data-l="文字数の目安">現状9字→安全11字(限界17字)</td></tr>
+<tr><td data-l="番号"><b class="e">E14</b></td><td data-l="場所">付箋3</td><td data-l="今の文言">誰かと一緒に乗り越えたこと。</td><td data-l="文字数の目安">現状14字→安全20字(限界22字)</td></tr>
+<tr><td data-l="番号"><b class="e">E15</b></td><td data-l="場所">本文1<small class="nt">「幸せの記録」の囲み(class=&quot;key mk&quot;)は残す</small></td><td data-l="今の文言">PELLICULEは、そんな日々の一…</td><td data-l="文字数の目安">1行め：現状25字→28字まで<br>2行め：現状22字→24字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E16</b></td><td data-l="場所">本文2(オレンジ)</td><td data-l="今の文言">まずは大阪を中心に、福祉の現場から。…</td><td data-l="文字数の目安">1行め：現状18字→20字まで<br>2行め：現状28字→36字まで</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I13</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p13.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量72KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが4P・6Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I03</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p03.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×538px(元と同じ)・WebP・容量126KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I14</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p14.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量357KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I16</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p16.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量197KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが5P・7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I10</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p10.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×959px(元と同じ)・WebP・容量152KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I07</b></td><td data-l="場所">写真(カメラのまわりを回る写真)</td><td data-l="ファイル"><code>assets/photo/p07.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×959px(元と同じ)・WebP・容量134KB<small class="nt">この場所の枠は1:1(表示は最大92×92px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが6Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p2"><h3>2P　<span>コンセプト</span></h3><div class="shots"><img src="img/02_p2.jpg" alt="2Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E17</b></td><td data-l="場所">見出し</td><td data-l="今の文言">立場より、アイデア。</td><td data-l="文字数の目安">1行め：現状5字→安全12字(限界14字)<br>2行め：現状5字→安全8字(限界10字)</td></tr>
+<tr><td data-l="番号"><b class="e">E18</b></td><td data-l="場所">大きな文<small class="nt">「関係ない」の囲みは残す</small></td><td data-l="今の文言">年齢も、役職も、経験も関係ない。</td><td data-l="文字数の目安">現状16字→安全18字(限界39字)</td></tr>
+<tr><td data-l="番号"><b class="e">E19</b></td><td data-l="場所">本文1</td><td data-l="今の文言">大切なのは、子どもたちのために「どう…</td><td data-l="文字数の目安">現状30字→安全35字(限界63字)</td></tr>
+<tr><td data-l="番号"><b class="e">E20</b></td><td data-l="場所">本文2</td><td data-l="今の文言">始まったばかりのPELLICULEだ…</td><td data-l="文字数の目安">1行め：現状23字→安全24字(限界47字)<br>2行め：現状13字→安全20字(限界46字)<br>3行め：現状29字→安全32字(限界62字)</td></tr>
+<tr><td data-l="番号"><b class="e">E21</b></td><td data-l="場所">3つの言葉(考えて・動いて・カタチにする)</td><td data-l="今の文言">考えて、動いて、カタチにする。</td><td data-l="文字数の目安">1行め：現状4字→安全18字(限界40字)<br>2行め：現状4字→安全17字(限界39字)<br>3行め：現状7字→安全15字(限界41字)</td></tr>
+<tr><td data-l="番号"><b class="e">E22</b></td><td data-l="場所">結びの一文</td><td data-l="今の文言">それが、PELLICULEのスタイル…</td><td data-l="文字数の目安">現状21字→安全27字(限界60字)</td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p3"><h3>3P　<span>変わった制度</span></h3><div class="shots"><img src="img/03_p3.jpg" alt="3Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E23</b></td><td data-l="場所">特大の問いかけ<small class="nt">先頭の「ん？」(class=&quot;hook&quot;)は変えない。変えるのは class=&quot;ln&quot; の中の文だけ</small></td><td data-l="今の文言">ん？普通の児童指導員と、ちょっと違う…</td><td data-l="文字数の目安">現状17字→18字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E24</b></td><td data-l="場所">本文1</td><td data-l="今の文言">PELLICULEには、「頑張ってい…</td><td data-l="文字数の目安">1行め：現状35字→安全41字(限界45字)<br>2行め：現状31字→安全38字(限界42字)</td></tr>
+<tr><td data-l="番号"><b class="e">E25</b></td><td data-l="場所">評価の説明<small class="nt">「評価4」「部長を目指せる」の囲みは残す</small></td><td data-l="今の文言">日々の行動や成果を評価し、児童発達支…</td><td data-l="文字数の目安">1行め：現状13字→安全20字(限界24字)<br>2行め：現状20字→安全21字(限界25字)<br>3行め：現状18字→安全20字(限界23字)</td></tr>
+<tr><td data-l="番号"><b class="e">E26</b></td><td data-l="場所">本文2</td><td data-l="今の文言">「次は何を目指せばいい？」が分かるか…</td><td data-l="文字数の目安">1行め：現状20字(安全はこのまま・限界24字)<br>2行め：現状22字→24字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E27</b></td><td data-l="場所">結びの一文(青)</td><td data-l="今の文言">ちゃんと評価される環境があります。</td><td data-l="文字数の目安">現状17字→安全18字(限界21字)</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I11</b></td><td data-l="場所">写真(めくれる写真)</td><td data-l="ファイル"><code>assets/photo/p11.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量70KB<small class="nt">この場所の枠は7:4(表示は最大82×47px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I05</b></td><td data-l="場所">写真(めくれる写真)</td><td data-l="ファイル"><code>assets/photo/p05.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 1280×960px(元と同じ)・WebP・容量213KB<small class="nt">この場所の枠は7:4(表示は最大82×47px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I12</b></td><td data-l="場所">写真(めくれる写真)</td><td data-l="ファイル"><code>assets/photo/p12.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量89KB<small class="nt">この場所の枠は7:4(表示は最大82×47px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが4Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I08</b></td><td data-l="場所">写真(めくれる写真)</td><td data-l="ファイル"><code>assets/photo/p08.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×960px(元と同じ)・WebP・容量104KB<small class="nt">この場所の枠は7:4(表示は最大82×47px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I02</b></td><td data-l="場所">写真(めくれる写真)</td><td data-l="ファイル"><code>assets/photo/p02.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×960px(元と同じ)・WebP・容量152KB<small class="nt">この場所の枠は7:4(表示は最大82×47px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p4"><h3>4P　<span>強み１</span></h3><div class="shots"><img src="img/04_p4.jpg" alt="4Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E28</b></td><td data-l="場所">見出し(番号と題名)<small class="nt">1行目は「強み１」の番号、2行目が題名</small></td><td data-l="今の文言">強み１みんなで会社を作っていける環境</td><td data-l="文字数の目安">1行め：現状3字→安全14字(限界29字)<br>2行め：現状15字→安全21字(限界36字)</td></tr>
+<tr><td data-l="番号"><b class="e">E29</b></td><td data-l="場所">ふせん1</td><td data-l="今の文言">「こうしたい」</td><td data-l="文字数の目安">現状7字→安全11字(限界14字)</td></tr>
+<tr><td data-l="番号"><b class="e">E30</b></td><td data-l="場所">ふせん2</td><td data-l="今の文言">「やってみたい」</td><td data-l="文字数の目安">現状8字(安全はこのまま・限界14字)</td></tr>
+<tr><td data-l="番号"><b class="e">E31</b></td><td data-l="場所">本文1</td><td data-l="今の文言">という意見やアイデアは、雇用形態で線…</td><td data-l="文字数の目安">1行め：現状12字→安全20字(限界32字)<br>2行め：現状13字→安全20字(限界33字)</td></tr>
+<tr><td data-l="番号"><b class="e">E32</b></td><td data-l="場所">本文2</td><td data-l="今の文言">年齢も経験も関係なく、面白いアイデア…</td><td data-l="文字数の目安">1行め：現状26字→安全31字(限界46字)<br>2行め：現状20字(安全はこのまま・限界40字)</td></tr>
+<tr><td data-l="番号"><b class="e">E33</b></td><td data-l="場所">大きな文<small class="nt">「新規オープン」の囲みは残す</small></td><td data-l="今の文言">しかも、まだ新規オープン。</td><td data-l="文字数の目安">現状13字→安全19字(限界32字)</td></tr>
+<tr><td data-l="番号"><b class="e">E34</b></td><td data-l="場所">結びの文<small class="nt">文末の波線(class=&quot;doodle d-wave&quot; の svg)は消さない</small></td><td data-l="今の文言">支援も、チームも、これからの事業も完…</td><td data-l="文字数の目安">1行め：現状27字→安全37字(限界47字)<br>2行め：現状27字(安全はこのまま・限界58字)</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I12</b></td><td data-l="場所">写真(掲示板に貼った写真)</td><td data-l="ファイル"><code>assets/photo/p12.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量89KB<small class="nt">この場所の枠は約4:3(表示は最大118×88px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが3Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I13</b></td><td data-l="場所">写真(掲示板に貼った写真)</td><td data-l="ファイル"><code>assets/photo/p13.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量72KB<small class="nt">同じファイルが1P・6Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p5"><h3>5P　<span>強み２</span></h3><div class="shots"><img src="img/05_p5.jpg" alt="5Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E35</b></td><td data-l="場所">見出し(番号と題名)<small class="nt">1行目は「強み２」の番号、2行目が題名</small></td><td data-l="今の文言">強み２自分らしく働ける場所、ちゃんと…</td><td data-l="文字数の目安">1行め：現状3字→安全11字(限界13字)<br>2行め：現状20字→22字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E36</b></td><td data-l="場所">髪型・髪色・ネイル<small class="nt">HAIR / COLOR / NAIL の英字シール(class=&quot;page__label tagx&quot;)は変えない</small></td><td data-l="今の文言">髪型・髪色・ネイルも自由。</td><td data-l="文字数の目安">1行め：現状3字→安全6字(限界14字)<br>2行め：現状3字→安全5字(限界14字)<br>3行め：現状7字→14字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E37</b></td><td data-l="場所">本文1</td><td data-l="今の文言">「こうじゃなきゃ」に縛られず、自分ら…</td><td data-l="文字数の目安">1行め：現状15字→安全20字(限界24字)<br>2行め：現状14字→安全20字(限界24字)</td></tr>
+<tr><td data-l="番号"><b class="e">E38</b></td><td data-l="場所">本文2</td><td data-l="今の文言">子どもたちにとって、「こんな大人にな…</td><td data-l="文字数の目安">1行め：現状10字→安全20字(限界24字)<br>2行め：現状27字→安全32字(限界46字)</td></tr>
+<tr><td data-l="番号"><b class="e">E39</b></td><td data-l="場所">特大の言葉<small class="nt">文末の波線(svg)は消さない</small></td><td data-l="今の文言">かっこよく、自分らしく働く。</td><td data-l="文字数の目安">現状14字→安全17字(限界20字)</td></tr>
+<tr><td data-l="番号"><b class="e">E40</b></td><td data-l="場所">結びの一文</td><td data-l="今の文言">そんな働き方を、PELLICULEで…</td><td data-l="文字数の目安">現状25字→28字まで</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I06</b></td><td data-l="場所">写真</td><td data-l="ファイル"><code>assets/photo/p06.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量81KB<small class="nt">この場所の枠は4:3(表示は最大156×117px)・写真は枠に合わせて中央が自動で切り取られる</small></td></tr>
+<tr><td data-l="番号"><b class="i">I16</b></td><td data-l="場所">写真</td><td data-l="ファイル"><code>assets/photo/p16.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量197KB<small class="nt">同じファイルが1P・7Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p6"><h3>6P　<span>仕事内容</span></h3><div class="shots"><img src="img/06_p6.jpg" alt="6Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E41</b></td><td data-l="場所">見出し(仕事：児童指導員)<small class="nt">1行目は「仕事：」、2行目が職種名</small></td><td data-l="今の文言">仕事：児童指導員</td><td data-l="文字数の目安">1行め：現状3字→21字まで<br>2行め：現状5字→13字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E42</b></td><td data-l="場所">本文1</td><td data-l="今の文言">遊びながら学んだり、友達との関わり方…</td><td data-l="文字数の目安">1行め：現状10字→安全20字(限界30字)<br>2行め：現状14字→安全20字(限界34字)<br>3行め：現状15字→安全19字(限界35字)</td></tr>
+<tr><td data-l="番号"><b class="e">E43</b></td><td data-l="場所">本文2</td><td data-l="今の文言">一人ひとりの成長や個性に合わせて、日…</td><td data-l="文字数の目安">1行め：現状17字→安全20字(限界37字)<br>2行め：現状21字→安全24字(限界41字)<br>3行め：現状23字→安全24字(限界47字)</td></tr>
+<tr><td data-l="番号"><b class="e">E44</b></td><td data-l="場所">3つの言葉(考えて・挑戦して・成長する)<small class="nt">class=&quot;st1&quot; st2&quot; st3&quot; の3つの区切りは残す</small></td><td data-l="今の文言">子どもたちと一緒に考えて、挑戦して、…</td><td data-l="文字数の目安">現状23字(安全はこのまま・限界46字)</td></tr>
+<tr><td data-l="番号"><b class="e">E45</b></td><td data-l="場所">結びの一文</td><td data-l="今の文言">そんな毎日をつくる仕事です。</td><td data-l="文字数の目安">現状14字→安全20字(限界34字)</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I04</b></td><td data-l="場所">写真(白黒で並ぶ3枚)</td><td data-l="ファイル"><code>assets/photo/p04.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量161KB<small class="nt">この場所の枠は5:4(表示は最大167×133px)・写真は枠に合わせて中央が自動で切り取られる</small></td></tr>
+<tr><td data-l="番号"><b class="i">I07</b></td><td data-l="場所">写真(白黒で並ぶ3枚)</td><td data-l="ファイル"><code>assets/photo/p07.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×959px(元と同じ)・WebP・容量134KB<small class="nt">この場所の枠は5:4(表示は最大167×133px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I13</b></td><td data-l="場所">写真(白黒で並ぶ3枚)</td><td data-l="ファイル"><code>assets/photo/p13.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量72KB<small class="nt">この場所の枠は5:4(表示は最大167×133px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1P・4Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-p7"><h3>7P　<span>日常紹介</span></h3><div class="shots"><img src="img/07_p7.jpg" alt="7Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E46</b></td><td data-l="場所">見出し</td><td data-l="今の文言">PELLICUREでの日常をちょこっ…</td><td data-l="文字数の目安">1行め：現状14字→安全16字(限界32字)<br>2行め：現状8字→安全15字(限界26字)</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I03</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p03.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×538px(元と同じ)・WebP・容量126KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I11</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p11.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 720×539px(元と同じ)・WebP・容量70KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが3Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I05</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p05.webp</code></td><td data-l="縦横比・サイズ">縦横比 4:3・推奨 1280×960px(元と同じ)・WebP・容量213KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが3Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I10</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p10.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×959px(元と同じ)・WebP・容量152KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I02</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p02.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×960px(元と同じ)・WebP・容量152KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが3Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I01</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p01.webp</code></td><td data-l="縦横比・サイズ">縦横比 約16:9・推奨 864×471px(元と同じ)・WebP・容量61KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small></td></tr>
+<tr><td data-l="番号"><b class="i">I09</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p09.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量186KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small></td></tr>
+<tr><td data-l="番号"><b class="i">I14</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p14.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量357KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I08</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p08.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 720×960px(元と同じ)・WebP・容量104KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが3Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I16</b></td><td data-l="場所">写真(日常紹介の流れる写真)</td><td data-l="ファイル"><code>assets/photo/p16.webp</code></td><td data-l="縦横比・サイズ">縦横比 3:4・推奨 960×1280px(元と同じ)・WebP・容量197KB<small class="nt">この場所の枠は約9:10(表示は最大268×295px)・写真は枠に合わせて中央が自動で切り取られる</small><small class="nt">同じファイルが1P・5Pでも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+<p class="nt2">7Pの写真は横に流れ続けます。写真は全部で10枚（I01・I02・I03・I05・I08・I09・I10・I11・I14・I16）で、上の表の番号ごとに差し替えます。画面に出ている写真だけ吹き出しをつけています。</p>
+</section>
+<section class="pg" id="pg-p8"><h3>8P　<span>欲しい人物像</span></h3><div class="shots"><img src="img/08_p8.jpg" alt="8Pの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E47</b></td><td data-l="場所">仲間1の見出し<small class="nt">1行目は「欲しい仲間１：」、2行目が題名</small></td><td data-l="今の文言">欲しい仲間１：ガンガン挑戦できる人</td><td data-l="文字数の目安">1行め：現状7字・被る心配なし(+60字まで確認)<br>2行め：現状10字→安全11字(限界13字)</td></tr>
+<tr><td data-l="番号"><b class="e">E48</b></td><td data-l="場所">仲間1の説明</td><td data-l="今の文言">「こうしたい」と思ったら、まず動く。…</td><td data-l="文字数の目安">1行め：現状18字・被る心配なし(+60字まで確認)<br>2行め：現状18字・被る心配なし(+60字まで確認)<br>3行め：現状18字・被る心配なし(+60字まで確認)</td></tr>
+<tr><td data-l="番号"><b class="e">E49</b></td><td data-l="場所">仲間2の見出し<small class="nt">2行目と3行目が題名(2行に分けてある)</small></td><td data-l="今の文言">欲しい仲間２：子どもが好きで、学び続…</td><td data-l="文字数の目安">1行め：現状7字・被る心配なし(+60字まで確認)<br>2行め：現状8字→13字まで<br>3行め：現状8字(安全はこのまま・限界12字)</td></tr>
+<tr><td data-l="番号"><b class="e">E50</b></td><td data-l="場所">仲間2の説明</td><td data-l="今の文言">「子どもが好き」だけで終わらない。も…</td><td data-l="文字数の目安">1行め：現状17字・被る心配なし(+60字まで確認)<br>2行め：現状15字・被る心配なし(+60字まで確認)<br>3行め：現状12字・被る心配なし(+60字まで確認)<br>4行め：現状22字・被る心配なし(+60字まで確認)</td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-company"><h3>会社概要　<span>会社概要</span></h3><div class="shots"><img src="img/09_company.jpg" alt="会社概要の画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E51</b></td><td data-l="場所">会社名</td><td data-l="今の文言">PELLICULE株式会社</td><td data-l="文字数の目安">現状13字・被る心配なし(+60字まで確認)</td></tr>
+<tr><td data-l="番号"><b class="e">E52</b></td><td data-l="場所">代表者名</td><td data-l="今の文言">定岡将也</td><td data-l="文字数の目安">現状4字・被る心配なし(+60字まで確認)</td></tr>
+<tr><td data-l="番号"><b class="e">E53</b></td><td data-l="場所">本社の住所<small class="nt">2行に分けてある(郵便番号と住所／建物名)</small></td><td data-l="今の文言">〒546-0043大阪市東住吉区駒川…</td><td data-l="文字数の目安">1行め：現状25字・被る心配なし(+60字まで確認)<br>2行め：現状12字・被る心配なし(+60字まで確認)</td></tr>
+<tr><td data-l="番号"><b class="e">E54</b></td><td data-l="場所">電話番号</td><td data-l="今の文言">06-6796-7263</td><td data-l="文字数の目安">現状12字・被る心配なし(+60字まで確認)</td></tr>
+</tbody></table></div>
+<h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I19</b></td><td data-l="場所">ロゴ</td><td data-l="ファイル"><code>assets/img/logo.png</code></td><td data-l="縦横比・サイズ">横長約6.8:1・背景が透明なPNG・元の大きさ 3072×454px・容量12KB<small class="nt">同じファイルが共通(PC左帯)・共通(ヘッダー)でも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-requirements"><h3>募集要項　<span>募集要項</span></h3><div class="shots"><img src="img/10_requirements_a.jpg" alt="募集要項の画面（番号つき）" loading="lazy"><img src="img/10_requirements_b.jpg" alt="募集要項の画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E55</b></td><td data-l="場所">タブ(正社員／パート/アルバイト)<small class="nt">2つのボタンの文字だけ。data-t=&quot;1&quot; などは変えない</small></td><td data-l="今の文言"></td><td data-l="文字数の目安">1行め：現状3字のまま<br>2行め：現状9字のまま</td></tr>
+<tr><td data-l="番号"><b class="e">E56</b></td><td data-l="場所">職種</td><td data-l="今の文言">児童指導員</td><td data-l="文字数の目安">現状5字→12字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E57</b></td><td data-l="場所">仕事内容</td><td data-l="今の文言">・障がい福祉サービス・児童福祉法に基…</td><td data-l="文字数の目安">1行め：現状10字→18字まで<br>2行め：現状15字→18字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E58</b></td><td data-l="場所">雇用形態<small class="nt">①②の番号(&lt;i&gt;)は残す</small></td><td data-l="今の文言">正社員パート/アルバイト</td><td data-l="文字数の目安">1行め：現状3字→18字まで<br>2行め：現状9字→19字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E59</b></td><td data-l="場所">給与<small class="nt">金額は class=&quot;req__pay&quot; の中。①②の番号(&lt;i&gt;)は残す</small></td><td data-l="今の文言">月給：26万円〜30万円時給：1,4…</td><td data-l="文字数の目安">1行め：現状12字→17字まで<br>2行め：現状10字→19字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E60</b></td><td data-l="場所">試用期間</td><td data-l="今の文言">6ヶ月（その他条件変更なし）</td><td data-l="文字数の目安">現状14字→19字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E61</b></td><td data-l="場所">勤務地</td><td data-l="今の文言">〒546-0043大阪市東住吉区駒川…</td><td data-l="文字数の目安">現状37字→42字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E62</b></td><td data-l="場所">勤務時間<small class="nt">行(class=&quot;ln&quot;)を増やす時は、隣の行をコピーして文だけ変える</small></td><td data-l="今の文言">変形労働制（◎実働8時間・休憩1時間…</td><td data-l="文字数の目安">1行め：現状19字のまま(増やせない)<br>2行め：現状19字→21字まで<br>3行め：現状17字→22字まで<br>4行め：現状14字→22字まで<br>5行め：現状19字→22字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E63</b></td><td data-l="場所">休日休暇<small class="nt">行(class=&quot;ln&quot;)を増やす時は、隣の行をコピーして文だけ変える</small></td><td data-l="今の文言">週休2日制※2月のみ通常8日休み（2…</td><td data-l="文字数の目安">1行め：現状5字→19字まで<br>2行め：現状21字→25字まで<br>3行め：現状15字→21字まで<br>4行め：現状19字→22字まで<br>5行め：現状17字→20字まで<br>6行め：現状5字→18字まで<br>7行め：現状5字→18字まで<br>8行め：現状5字→18字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E64</b></td><td data-l="場所">福利厚生<small class="nt">t1 / t2 は正社員・パート切り替え用なので変えない</small></td><td data-l="今の文言">◇社会保険完備◇社会保険あり（健康保…</td><td data-l="文字数の目安">1行め：現状7字→18字まで<br>2行め：現状18字のまま(増やせない)<br>3行め：現状8字→19字まで<br>4行め：現状8字→19字まで<br>5行め：現状6字→18字まで<br>6行め：現状9字→18字まで<br>7行め：現状12字→18字まで<br>8行め：現状5字→18字まで</td></tr>
+</tbody></table></div>
+</section>
+<section class="pg" id="pg-entry"><h3>エントリー　<span>エントリー</span></h3><div class="shots"><img src="img/11_entry.jpg" alt="エントリーの画面（番号つき）" loading="lazy"></div>
+<h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E65</b></td><td data-l="場所">入力欄の名前「名前」<small class="nt">(必須)の部分(&lt;b&gt;)は残す</small></td><td data-l="今の文言">名前</td><td data-l="文字数の目安">現状2字→23字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E66</b></td><td data-l="場所">入力欄の名前「メールアドレス」<small class="nt">(必須)の部分は残す</small></td><td data-l="今の文言">メールアドレス</td><td data-l="文字数の目安">現状7字→23字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E67</b></td><td data-l="場所">入力欄の名前「電話番号」<small class="nt">(任意)の部分は残す</small></td><td data-l="今の文言">電話番号</td><td data-l="文字数の目安">現状4字→23字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E68</b></td><td data-l="場所">入力欄の名前「面談ご希望の日時」<small class="nt">(任意)の部分は残す</small></td><td data-l="今の文言">面談ご希望の日時</td><td data-l="文字数の目安">現状8字→23字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E69</b></td><td data-l="場所">入力欄の名前「志望動機・ご質問」<small class="nt">(任意)の部分は残す</small></td><td data-l="今の文言">志望動機・ご質問</td><td data-l="文字数の目安">現状8字→23字まで</td></tr>
+<tr><td data-l="番号"><b class="e">E70</b></td><td data-l="場所">入力欄の名前「当社を知ったきっかけ」と、その下の注意書き<small class="nt">注意書きは class=&quot;entry__hint&quot; の中</small></td><td data-l="今の文言">当社を知ったきっかけ</td><td data-l="文字数の目安">1行め：現状10字→23字まで<br>2行め：現状42字→46字まで</td></tr>
+</tbody></table></div>
+</section>
+<p class="nt2">募集要項は「正社員」「パート/アルバイト」の2つのタブで中身が切り替わります。表の行の中の <code>t1</code> は正社員、<code>t2</code> はパート/アルバイトの行です。</p>
+<section class="pg" id="pg-common"><h3>ページ共通　<span>ヘッダー・PC表示の右側</span></h3><div class="shots"><img src="img/12_pc.jpg" alt="PC表示の画面（番号つき）" loading="lazy"></div><p class="nt2">スマホでは見えない、PCで広い画面にしたときだけ出る右側と、全ページの上に出るヘッダーです。</p><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E07</b></td><td data-l="場所">右上ボタン「募集要項」<small class="nt">svgの絵(&lt;svg&gt;〜&lt;/svg&gt;)は消さない</small></td><td data-l="今の文言">募集要項</td><td data-l="文字数の目安">現状4字のまま</td></tr>
+<tr><td data-l="番号"><b class="e">E08</b></td><td data-l="場所">右上ボタン「エントリー」<small class="nt">svgの絵は消さない</small></td><td data-l="今の文言">エントリー</td><td data-l="文字数の目安">現状5字のまま</td></tr>
+<tr><td data-l="番号"><b class="e">E71</b></td><td data-l="場所">PC表示だけの右側の言葉<small class="nt">改行は &lt;br&gt;</small></td><td data-l="今の文言">立場より、アイデア。</td><td data-l="文字数の目安">現状10字のまま</td></tr>
+<tr><td data-l="番号"><b class="e">E72</b></td><td data-l="場所">PC表示だけのボタン「募集要項」</td><td data-l="今の文言">募集要項</td><td data-l="文字数の目安">現状4字のまま</td></tr>
+<tr><td data-l="番号"><b class="e">E73</b></td><td data-l="場所">PC表示だけのボタン「エントリー」</td><td data-l="今の文言">エントリー</td><td data-l="文字数の目安">現状5字のまま</td></tr>
+</tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I19</b></td><td data-l="場所">ロゴ</td><td data-l="ファイル"><code>assets/img/logo.png</code></td><td data-l="縦横比・サイズ">横長約6.8:1・背景が透明なPNG・元の大きさ 3072×454px・容量12KB<small class="nt">同じファイルが共通(ヘッダー)・会社概要でも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I19</b></td><td data-l="場所">ロゴ</td><td data-l="ファイル"><code>assets/img/logo.png</code></td><td data-l="縦横比・サイズ">横長約6.8:1・背景が透明なPNG・元の大きさ 3072×454px・容量12KB<small class="nt">同じファイルが共通(PC左帯)・会社概要でも使われている(1回の差し替えで全部変わる)</small></td></tr>
+<tr><td data-l="番号"><b class="i">I19</b></td><td data-l="場所">ロゴ</td><td data-l="ファイル"><code>assets/img/logo.png</code></td><td data-l="縦横比・サイズ">横長約6.8:1・背景が透明なPNG・元の大きさ 3072×454px・容量12KB<small class="nt">同じファイルが共通(PC左帯)・共通(ヘッダー)でも使われている(1回の差し替えで全部変わる)</small></td></tr>
+</tbody></table></div></section>
+<section class="pg" id="pg-head"><h3>画面に出ない設定　<span>タブ名・検索結果・シェアした時の表示</span></h3><p class="nt2">ブラウザのタブや検索結果、LINE・SNSでシェアした時に出る文言です。サイトの画面には出ません。社名や公開アドレスが決まったら、ここを直してください。</p><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="e">E01</b></td><td data-l="場所">ブラウザのタブ名・検索結果の見出し<small class="nt">ここを変えたら og:title(E04)も同じ文に</small></td><td data-l="今の文言">PELLICULE株式会社｜児童指導…</td><td data-l="文字数の目安">現状25字｜画面の見た目には影響しない。検索結果で切れにくいのは30字前後まで(一般的な目安・実測ではない)</td></tr>
+<tr><td data-l="番号"><b class="e">E02</b></td><td data-l="場所">検索結果の説明文<small class="nt">ここを変えたら og:description(E05)も同じ文に</small></td><td data-l="今の文言">PELLICULE株式会社採用サイト…</td><td data-l="文字数の目安">現状37字｜画面の見た目には影響しない。検索結果で切れにくいのは120字前後まで(一般的な目安・実測ではない)</td></tr>
+<tr><td data-l="番号"><b class="e">E03</b></td><td data-l="場所">OGP 社名(シェア時のサイト名)<small class="nt">社名が変わったらここも</small></td><td data-l="今の文言">PELLICULE株式会社採用サイト</td><td data-l="文字数の目安">現状19字｜シェア画面の表示。現状の長さまでを目安に(実測ではない)</td></tr>
+<tr><td data-l="番号"><b class="e">E04</b></td><td data-l="場所">OGP タイトル(LINE・SNSでシェアした時の見出し)</td><td data-l="今の文言">PELLICULE株式会社｜児童指導…</td><td data-l="文字数の目安">現状25字｜画面の見た目には影響しない。シェア時に切れにくいのは40字前後まで(一般的な目安・実測ではない)</td></tr>
+<tr><td data-l="番号"><b class="e">E05</b></td><td data-l="場所">OGP 説明文(シェアした時の説明)</td><td data-l="今の文言">PELLICULE株式会社採用サイト…</td><td data-l="文字数の目安">現状37字｜画面の見た目には影響しない。シェア時に切れにくいのは100字前後まで(一般的な目安・実測ではない)</td></tr>
+<tr><td data-l="番号"><b class="e">E06</b></td><td data-l="場所">OGP URL(公開するアドレス)<small class="nt">公開先が決まったら、og:image と twitter:image の https://〜 の頭も同じアドレスに</small></td><td data-l="今の文言">https://pellicule-…</td><td data-l="文字数の目安">https:// から始まる公開アドレス。文字数の制限なし</td></tr>
+<tr><td data-l="番号"><b class="e">E09</b></td><td data-l="場所">ページの題名(画面には出ない・読み上げと検索用)</td><td data-l="今の文言">PELLICULE株式会社児童指導員…</td><td data-l="文字数の目安">現状25字｜画面には出ないので字数の制限なし。ただし長すぎない一文に</td></tr>
+</tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody>
+<tr><td data-l="番号"><b class="i">I22</b></td><td data-l="場所">OGP画像(LINE・SNSでシェアした時の写真)</td><td data-l="ファイル"><code>assets/ogp.jpg</code></td><td data-l="縦横比・サイズ">縦横比 約1.9:1・1200×630px(元と同じ。シェア用画像で一般的な大きさ)・JPG・容量111KB</td></tr>
+</tbody></table></div><p class="nt2">TOPの動画（I20）と、動画が始まる前に出る写真（I21）は、TOPの表にあります。</p></section>
+
+<h2 id="s5">5．やってはいけないこと</h2>
+<div class="box warn">
+<ul>
+<li><b>タグを消さない・変えない。</b><code>&lt;</code> と <code>&gt;</code> で囲まれた部分や、<code>class="…"</code> の中身は、見た目や動きを決める部品です。消したり直したりすると、文字が出なくなったり、レイアウトが崩れたりします。</li>
+<li><b>行（<code>&lt;span class="ln"&gt;</code>）を増やさない・減らさない。</b>改行したいときは <code>&lt;br&gt;</code> です。</li>
+<li><b>飾り（<code>&lt;svg&gt;</code>…）や、<code>class="key"</code>・<code>class="mk"</code> の囲みを消さない。</b>マーカーや波線などの飾りです。</li>
+<li><b>文字数の目安（特に「安全」）を超えない。</b>超えると、次へ進むボタン（NEXT）や、ほかの文に被ります。超えたいときは、担当者にご相談ください。</li>
+<li><b>目印の行（<code>&lt;!--</code> 〜 <code>--&gt;</code>）を消さない。</b>消すと、次に探せなくなります。</li>
+<li><b>目印のない所は触らない。</b>背景に流れる英字、NEXTボタンの行き先の名前、色、余白、アニメーションなどは、担当者の作業です。<code>style.css</code>・<code>tokens.css</code>・<code>script.js</code>・<code>pel.js</code> は開かない・直さないでください。</li>
+<li><b>画像のファイル名や拡張子（.webp）を変えない。</b>縦横比の違う写真や、大きすぎる写真を使わない。</li>
+<li>保存したあと、<b>文字化け（？や□）が出たら、保存し直さず、控えに戻します。</b></li>
+</ul></div>
+
+<h2 id="s6">6．直した後の確認</h2>
+<p>直したページで、次を確認してください。</p>
+<ul class="chk">
+<li>文章が最後まで出る（途中で切れていない）。</li>
+<li>文が画面の右にはみ出していない。</li>
+<li>画面の右下の「NEXT」ボタンに、文や写真が被っていない。</li>
+<li>画面の上の、ロゴとボタンのある帯に被っていない。</li>
+<li>1画面（スワイプ1回分）に収まっている。</li>
+<li>直していない他のページが、変わっていない。</li>
+</ul>
+<h4>スマホの大きさでの見かた（PCのChromeの場合）</h4>
+<ol>
+<li><code>index.html</code> をChromeで開く。</li>
+<li>キーボードの F12（Macは command＋option＋I）を押す。</li>
+<li>出てきた画面の左上の「スマホとタブレットのアイコン」を押す（または Ctrl＋Shift＋M／Mac は command＋Shift＋M）。</li>
+<li>画面の大きさを「360 × 640」「390 × 540」にして、直したページを見る。いちばん小さい画面で収まれば、たいていの画面で大丈夫です。</li>
+<li>最後に、F12の画面を閉じてPCの広い画面（1280 × 720 くらい）でも見る。</li>
+</ol>
+<p class="nt2">実際のスマホで見るときは、担当者に修正後のフォルダを渡してください。</p>
+
+<h2 id="s7">7．困ったら</h2>
+<ul>
+<li><b>表示が崩れた・文字が出ない・文字化けした：</b>保存した作業をやめ、最初に取った控えのフォルダに戻します（崩れたフォルダは削除せず、名前を変えて残しておくと、原因を調べられます）。</li>
+<li><b>どこを直せばよいか分からない：</b>番号（例：E19）と、直したい文を、そのまま担当者に伝えてください。</li>
+<li><b>公開（アップロード）の方法：</b>公開先のサーバーが決まっていないため、まだ手順はありません。直し終わったら、<b>「01_PELLICULE株式会社」フォルダを、担当者に送ってください。</b>公開の手順は、サーバーが決まってからご案内します。</li>
+</ul>
+<footer>PELLICULE株式会社 採用サイト 編集マニュアル（見本・仮版）　作成：2026年10月12日</footer>
+</div>
+</body>
+</html>
