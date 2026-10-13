@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LP制作スキーム改善のご提案</title>
+
+<style>
+  /* 1画面＝1スライドの縦スクロール。補足は（？）で開くダイアログ */
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray: #7a7a76; --gray-t: #efefec;
+    --code: #f3f3f0;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; line-height: 1.6; font-size: clamp(14px, min(1.32vw, 2.4vh), 26px); }
+  .deck { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  .slide { min-height: 100%; height: 100dvh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding-block: 24px 56px; padding-inline: 16px; }
+  .in { width: min(1680px, 100%, 96vh * 1.9); padding-inline: 40px; }
+  @media (max-width: 760px) {
+    .deck { scroll-snap-type: none; }
+    .slide { height: auto; min-height: 100dvh; }
+    .in { padding-inline: 4px; }
+  }
+  .kicker { font-size: .72em; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 8px 0 12px; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.3; text-wrap: balance; }
+  h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font-size: clamp(22px, 2.3vw, 32px); line-height: 1.35; text-wrap: balance; }
+  h2 .n { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .6em; flex: none; }
+  h3 { margin: 0 0 6px; font-size: 1.02em; }
+  p { margin: 0 0 8px; }
+  b, strong { font-weight: 700; }
+  svg.org { display: block; width: 100%; height: auto; max-height: 56vh; font-family: inherit; }
+  a { color: var(--blue); }
+  .lead { color: var(--soft); font-size: 1.05em; }
+  .muted { color: var(--soft); font-size: .86em; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; min-width: 0; }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .g2, .g3 { grid-template-columns: 1fr; } }
+  .tag { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: .74em; font-weight: 700; }
+  .t-blue { background: var(--blue-t); color: var(--blue); } .t-orange { background: var(--orange-t); color: #b4470e; }
+  .t-green { background: var(--green-t); color: var(--green); } .t-gray { background: var(--gray-t); color: var(--soft); }
+  .callout { margin-top: 12px; padding: 14px 18px; border-radius: 10px; background: var(--blue-t); font-weight: 500; }
+  .dark { background: var(--ink); color: #fff; border-radius: 12px; padding: 18px 22px; font-weight: 500; }
+  .dark b { color: #ffb48a; }
+  .big-num { font-size: 1.9em; font-weight: 800; line-height: 1.1; color: var(--green); font-variant-numeric: tabular-nums; }
+  ul { margin: 6px 0 0; padding-left: 1.2em; } li { margin: 3px 0; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line); font-size: .9em; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gray-t); font-size: .92em; }
+  tr:last-child td { border-bottom: 0; }
+  .tw { overflow-x: auto; border-radius: 12px; }
+  .tw table { min-width: 600px; }
+  td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.hl { color: var(--orange); font-weight: 800; }
+
+  /* （？）ボタン */
+  .qs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .q { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--blue); background: var(--paper); color: var(--blue); border-radius: 999px; padding: 5px 14px 5px 6px; font: inherit; font-size: .84em; font-weight: 700; cursor: pointer; }
+  .q::before { content: "？"; display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .9em; }
+  .q:hover { background: var(--blue-t); }
+  .q:focus-visible, .navbtn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+  a.q { text-decoration: none; }
+  a.q::before { content: "→"; }
+
+  /* 補足ダイアログ */
+  dialog { width: min(920px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); border: 0; border-radius: 16px; padding: 0; background: var(--paper); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+  dialog::backdrop { background: rgba(20,20,20,.45); }
+  .dl-head { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .dl-head h3 { margin: 0; font-size: 1.08em; }
+  .dl-close { border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 4px 12px; font: inherit; font-size: .85em; cursor: pointer; color: var(--ink); }
+  .dl-body { padding: 18px 22px 24px; overflow-y: auto; max-height: calc(100dvh - 48px - 62px); }
+  .detail { display: none; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; overflow-x: auto; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 12.5px; line-height: 1.7; margin: 6px 0 10px; }
+  pre .x { color: #9a9a96; text-decoration: line-through; }
+  pre .c { color: #9a9a96; }
+  pre .w { color: var(--orange); font-weight: 700; }
+  pre .ok { color: var(--green); font-weight: 700; }
+
+  /* 使い切り vs 積み上げ */
+  .core { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .core { grid-template-columns: 1fr; } }
+  .core .box { border-radius: 14px; padding: 18px; background: var(--paper); border: 2px solid var(--line); }
+  .core .box.us { border-color: #9dcbb0; }
+  .core .bigw { font-size: 1.5em; font-weight: 800; margin: 2px 0 12px; }
+  .core .them .bigw { color: var(--gray); } .core .us .bigw { color: var(--green); }
+  .runs { display: flex; align-items: center; gap: 6px; }
+  .run { flex: 1 1 0; min-width: 0; border-radius: 8px; padding: 10px 6px; text-align: center; font-size: .82em; font-weight: 700; background: var(--gray-t); }
+  .run .e { display: block; margin-top: 4px; font-size: .9em; }
+  .them .run .e { color: var(--gray); } .us .run .e { color: var(--green); }
+  .runs .ar { color: var(--soft); }
+  .us .run:nth-child(1) { background: #eef7f1; } .us .run:nth-child(3) { background: #d9efe2; } .us .run:nth-child(5) { background: #c3e6d1; }
+  .memo { margin-top: 10px; font-size: .82em; color: var(--soft); text-align: center; }
+
+  /* フロー */
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .cmp { grid-template-columns: 1fr; } }
+  .lane { border-radius: 12px; padding: 14px; min-width: 0; }
+  .lane.them { background: var(--gray-t); } .lane.us { background: var(--green-t); }
+  .lane ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: st; }
+  .lane li { position: relative; background: #fff; border-radius: 8px; padding: 7px 10px 7px 38px; font-size: .88em; margin: 0; }
+  .lane li::before { counter-increment: st; content: counter(st); position: absolute; left: 10px; top: 8px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; background: var(--gray); }
+  .lane.us li::before { background: var(--green); }
+  .lane li.key { outline: 2px solid var(--green); }
+  .lane .note { margin-top: 8px; font-size: .8em; color: var(--soft); }
+
+  /* before/after */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 760px) { .ba { grid-template-columns: 1fr; } }
+  .ba .side { border-radius: 12px; padding: 16px; min-width: 0; }
+  .ba .before { background: var(--gray-t); } .ba .after { background: var(--green-t); }
+  .stack { display: grid; gap: 6px; margin-top: 10px; }
+  .blk { border-radius: 8px; padding: 8px 10px; font-size: .86em; font-weight: 700; background: #fff; border: 1px dashed #bdbdb8; }
+  .after .blk { border-style: solid; border-color: #9dcbb0; }
+  .blk.fixed { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* 画像 */
+  .shot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .shot { grid-template-columns: 1fr; } }
+  .shot img, .dl-body img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+  .shot img { max-height: 52vh; object-fit: contain; }
+  .labels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 6px; text-align: center; font-size: .8em; font-weight: 700; color: var(--soft); }
+  .labels span:last-child { color: var(--green); }
+  .stack-stats { display: grid; gap: 10px; }
+
+  /* 格上げ・段階・ハブ */
+  .levels { display: grid; gap: 8px; }
+  .levels .lv { display: grid; grid-template-columns: 170px 1fr; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: .92em; }
+  .levels .lv.top { background: var(--ink); color: #fff; border-color: var(--ink); }
+  @media (max-width: 760px) { .levels .lv { grid-template-columns: 1fr; } }
+  .ladder { display: grid; gap: 8px; }
+  .ladder .rung { display: grid; grid-template-columns: 170px 1fr 190px; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .92em; }
+  @media (max-width: 760px) { .ladder .rung { grid-template-columns: 1fr; } }
+  .ladder .meter { display: block; margin-top: 6px; height: 10px; border-radius: 999px; background: var(--gray-t); overflow: hidden; }
+  .ladder .meter i { display: block; height: 100%; background: var(--green); border-radius: 999px; }
+  .ladder .rung.r3 { border: 2px solid var(--green); }
+  .hub { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; gap: 10px; align-items: center; }
+  @media (max-width: 760px) { .hub { grid-template-columns: 1fr; } .hub .ar2 { transform: rotate(90deg); } }
+  .hub .ar2 { text-align: center; color: var(--soft); font-size: 1.3em; }
+  .hub .center { background: var(--ink); color: #fff; border-radius: 14px; padding: 16px 18px; }
+  .hub .center h3 { color: #fff; }
+  .hub .center li { font-size: .9em; }
+  .hub .side { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .88em; }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; counter-reset: cy; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .steps div { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 12px 44px; font-size: .9em; }
+  .steps div::before { counter-increment: cy; content: counter(cy); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+  .steps div.lead { border: 2px solid var(--orange); }
+
+
+  .cols { display: grid; gap: 14px; align-items: start; }
+  .c64 { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  .c55 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  @media (max-width: 760px) { .c64, .c55 { grid-template-columns: 1fr; } }
+  .row { display: grid; grid-template-columns: 84px 1fr auto; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+  .row.dark { background: var(--ink); border-color: var(--ink); }
+  .row .tag { justify-self: start; }
+  .flow-list { margin: 6px 0 0; padding-left: 1.4em; } .flow-list li { margin: 4px 0; }
+  .hl-card { border: 2px solid var(--orange); }
+  td.good { color: var(--green); font-weight: 800; }
+  th.us-col, td.us-col { background: var(--green-t); font-weight: 700; }
+  .sw { margin: 8px 0 0; font-size: .88em; background: #fff; border-radius: 8px; padding: 6px 10px; }
+  .sw b { margin-right: 8px; } .sw .plus { color: var(--green); } .sw .minus { color: var(--soft); }
+  ul.tight { margin-top: 4px; } ul.tight li { margin: 1px 0; font-size: .9em; }
+  .card pre { margin: 6px 0; }
+  .shot .tw table, .cols .tw table { min-width: 0; }
+  pre { font-size: .78em; }
+  .did { position: relative; padding-top: 14px; }
+  .did .num { position: absolute; top: 12px; right: 14px; font-size: 1.6em; font-weight: 800; color: var(--blue-t); line-height: 1; }
+  .did h3 { padding-right: 36px; }
+  .did .res { margin: 6px 0 0; font-size: .86em; font-weight: 700; color: var(--blue); }
+  .q.ev { padding: 0; border: 0; background: transparent; margin-left: 6px; vertical-align: middle; gap: 0; }
+  .q.ev::before { width: 1.45em; height: 1.45em; font-size: .78em; }
+  .q.ev:hover::before { background: var(--orange); }
+  .dark .q.ev::before, .row.dark .q.ev::before { background: #fff; color: var(--ink); }
+  .ev-src { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .82em; color: var(--soft); }
+  table.bug td { font-size: .88em; line-height: 1.5; }
+  /* ナビ */
+  .bar { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); width: 0; transition: width .3s; z-index: 5; }
+  .nav { position: fixed; right: 18px; bottom: 16px; display: flex; align-items: center; gap: 8px; z-index: 5; }
+  .navbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 16px; cursor: pointer; }
+  .count { font-size: 13px; font-weight: 700; color: var(--soft); font-variant-numeric: tabular-nums; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  .toc { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); display: grid; gap: 8px; z-index: 5; }
+  .toc a { display: block; width: 10px; height: 10px; border-radius: 50%; background: #cfcfca; position: relative; }
+  .toc a.on { background: var(--blue); transform: scale(1.3); }
+  .toc a span { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 12px; font-weight: 700; background: var(--ink); color: #fff; padding: 2px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+  .toc a:hover span, .toc a:focus-visible span { opacity: 1; }
+  @media (max-width: 760px) { .toc { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .deck { scroll-behavior: auto; } .bar { transition: none; } }
+</style>
+
+<div class="bar" id="bar"></div>
+<nav class="toc" id="toc" aria-label="目次"></nav>
+<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 16</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
+
+<main class="deck" id="deck">
+
+<!-- 1 表紙・結論 -->
+<section class="slide" data-title="結論">
+  <div class="in">
+    <div class="kicker">株式会社SPINOVA 御中 ／ 株式会社HSE ／ 2026年10月</div>
+    <h1>LP制作スキーム改善のご提案</h1>
+    <div class="callout" style="margin-top:12px"><b>本日の位置づけ</b>：先日いただいた課題（CSSの肥大化・スワイプのガクつき）と制作の標準化について、弊社の推測も含めて調査した内容です。改善は段階を踏んで進めるもので、本日は改善の土台をご提案します。実案件でテストしながら改善を重ねることで、全制作者の再現性が上がり、品質を一定に保てる見込みです。<b>本日の主な目的は、ヒアリングとすり合わせです。</b></div>
+    <div class="cols c64" style="margin-top:10px">
+      <div class="grid" style="gap:10px">
+        <div class="row"><span class="tag t-green">良い所</span><span>参考サイトの空気感を数分でそろえる速さ。デザインDNA解析。ヘッダー・フォームの具体的な品質基準</span><button class="q ev" data-q="e-good" aria-label="根拠を見る"></button></div>
+        <div class="row"><span class="tag t-orange">課題</span><span>品質を<b>人の目と判断</b>に頼り、毎回0から作るため、作る人によってばらつきとエラーが出る</span><button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></div>
+        <div class="row dark"><span class="tag t-blue">ご提案</span><span>良い所はそのまま残し、<b>学びを「積み上げる」仕組み</b>（固定の土台・検査の道具・直せる形）を足す</span><button class="q ev" data-q="e-proposal" aria-label="根拠を見る"></button></div>
+        <div class="row"><span class="tag t-green">実証</span><span>同じ素材で3つの作り方を比較し、新しいスキームが雰囲気・CSSの整理とも最も良い結果だった（11画面目）</span><button class="q ev" data-q="e-proof" aria-label="根拠を見る"></button></div>
+      </div>
+      <div class="card">
+        <h3>本日の流れ</h3>
+        <ol class="flow-list">
+          <li>今回行ったこと（2）</li>
+          <li>課題の原因と不具合の記録（4〜8）</li>
+          <li>現行とHSEの手順の強みと弱み（9）</li>
+          <li>新しいスキームと、試した結果（10〜11）</li>
+          <li>制作キットと、導入の形・改善を回す体制（12〜15）</li>
+          <li>ご相談したいこと（16）</li>
+          <li>参考資料：修正チェックリスト（17）</li>
+        </ol>
+        <p class="muted" style="margin-top:10px">矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 今回行ったこと -->
+<section class="slide" data-title="今回行ったこと">
+  <div class="in">
+    <h2><span class="n">2</span>今回の調査・検証の内容</h2>
+    <p class="lead" style="margin-bottom:12px">まず、評価いただいている弊社の制作物について、どの部分が優れているのか、また貴社の現行のスキームとどこに親和性があるのかの分析から始めました。そのうえで、共有いただいたコードと弊社の制作物を使い、以下の6点を行いました。</p>
+    <div class="grid g3">
+      <div class="card did"><span class="num">1</span><h3>実例4サイトのコードを計測</h3><p class="muted">共有いただいた4サイトを同じ方法で測り、直しても画面が変わらない行・色・文言の置き場所・スワイプの作りを比べた</p><p class="res">→ 直しても画面が変わらない行が30〜282件、スワイプは4つとも別実装（5〜8画面）</p></div>
+      <div class="card did"><span class="num">2</span><h3>現行マニュアルを工程ごとに比較</h3><p class="muted">「10月最新版 LP量産マニュアル」を読み、HSEの手順と工程ごとに並べた</p><p class="res">→ 残すべき強みと、変えるべき所を整理（9〜10画面）</p></div>
+      <div class="card did"><span class="num">3</span><h3>弊社のサイトを整理して前後比較</h3><p class="muted">PELLICULE様のサイトのCSSを、見た目を変えずに整理。9サイズ×12ページで見た目が同じことを確認</p><p class="res">→ 直しても画面が変わらない行281件→0件、色の変更は1行に（6画面）</p></div>
+      <div class="card did"><span class="num">4</span><h3>3つの作り方で同じページを試作</h3><p class="muted">INSPIRE様の案件で、同じ素材から現行・HSE従来・新しいスキームの3通りを作って比べた</p><p class="res">→ 新しいスキームが、雰囲気・CSSの整理とも最も良い結果（11画面）</p></div>
+      <div class="card did"><span class="num">5</span><h3>検査の道具を2つ作成</h3><p class="muted">CSSの散らかりを数える道具と、1画面に収まるかを6サイズで測る道具を作り、6サイトで実行</p><p class="res">→ 結果の例（12画面）</p></div>
+      <div class="card did"><span class="num">6</span><h3>編集マニュアルの見本を作成</h3><p class="muted">PELLICULE様のサイトに、文言73か所・画像34か所の目印を付け、文字数の上限を実測して手順書に</p><p class="res">→ 見本へのリンクあり（12画面）</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 使い切りと積み上げ -->
+<section class="slide" data-title="使い切りと積み上げ">
+  <div class="in">
+    <h2><span class="n">3</span>現行マニュアルとご提案の違い</h2>
+    <div class="core">
+      <div class="box them">
+        <span class="tag t-gray">いまのマニュアル</span>
+        <div class="bigw">使い切り</div>
+        <div class="runs"><div class="run">案件1<span class="e">ミスA・B</span></div><span class="ar">→</span><div class="run">案件2<span class="e">ミスA・B</span></div><span class="ar">→</span><div class="run">案件3<span class="e">ミスA・B</span></div></div>
+        <p class="memo">毎回0から作るので、前の失敗が残らず、同じミスが人と案件を変えて繰り返される<button class="q ev" data-q="e-repeat" aria-label="根拠を見る"></button></p>
+      </div>
+      <div class="box us">
+        <span class="tag t-green">ご提案</span>
+        <div class="bigw">積み上げ</div>
+        <div class="runs"><div class="run">案件1<span class="e">ミスA・B → 記録</span></div><span class="ar">→</span><div class="run">案件2<span class="e">ミスA・Bは発生しない</span></div><span class="ar">→</span><div class="run">案件3<span class="e">既知のミスは発生しない</span></div></div>
+        <p class="memo">失敗の原因と対処を、土台と道具に反映する。一度起きたミスは、次から誰が作っても起きない<button class="q ev" data-q="e-stack" aria-label="根拠を見る"></button></p>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card"><span class="tag t-gray">いま、学びが溜まる場所</span><h3 style="margin-top:8px">プロンプトの長文</h3><p class="muted">失敗のたびに注意書きを足す。ヘッダーのボタン2つの余白だけで数千字。長いほどAIは読み落とし、効くかどうかがAI次第になる</p></div>
+      <div class="card"><span class="tag t-green">ご提案の、学びの置き場所</span><h3 style="margin-top:8px">土台のコード・検査の道具・ルール文書</h3><p class="muted">ミスの原因と対処を、コードと道具に反映する。読み落としが起きないので、人やAIが変わっても同じ結果になる</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 課題と原因 -->
+<section class="slide" data-title="課題と原因">
+  <div class="in">
+    <h2><span class="n">4</span>3つの課題と主な原因</h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-orange">課題1</span><h3 style="margin-top:8px">文言・色を自分で直せない</h3><p class="muted">文言や色を変えたくても、どこを触ればいいか分からず、修正依頼になる</p></div>
+      <div class="card"><span class="tag t-orange">課題2</span><h3 style="margin-top:8px">スワイプの不具合</h3><p class="muted">スワイプの不具合が、サイトごとに違う形で出る</p></div>
+      <div class="card"><span class="tag t-orange">課題3</span><h3 style="margin-top:8px">品質のばらつき</h3><p class="muted">作る人やAIによって、品質が変わる</p></div>
+    </div>
+    <div class="dark" style="margin-top:14px">原因：学びが<b>「プロンプトの長文」</b>にしか残らず、毎回ちがうコードに0から当てている。そのため、結果が人とAIの解釈次第になる。<button class="q ev" data-q="e-cause" aria-label="根拠を見る"></button></div>
+    <h3 style="margin-top:18px">品質がぶれる3つの要因</h3>
+    <div class="grid g3">
+      <div class="card"><b>1　指示する人</b><p class="muted">同じことを頼んでも、言葉の選び方や、どこまで書くかが人によって違う</p></div>
+      <div class="card"><b>2　AIのモデル・版</b><p class="muted">同じプロンプトでも解釈が変わる。同じモデルでも出力は毎回揺れる</p></div>
+      <div class="card hl-card"><b>3　出発点のコード（いちばん大きい）</b><p class="muted">複製から始めるので土台が毎回ちがう。1と2はAIで量産する以上残るので、3を固定するのがいちばん効く</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 実例 -->
+<section class="slide" data-title="実例4サイト">
+  <div class="in">
+    <h2><span class="n">5</span>実例4サイトの調査結果</h2>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>ASAHI RISE CARE様</th><th>甲府システム様</th><th>光伸テクニカル様</th><th>東海メンテナンス様</th></tr></thead>
+      <tbody>
+        <tr><td><b>直しても画面が変わらない行</b></td><td class="n">30件</td><td class="n">105件</td><td class="n hl">282件</td><td class="n">56件</td></tr>
+        <tr><td><b>文言の置き場所</b></td><td>HTMLに直接</td><td>HTMLに直接</td><td>JSONから生成</td><td>プログラムの中</td></tr>
+        <tr><td><b>メイン色の変更</b></td><td colspan="4">5〜20か所。変数があっても直書きが残り、SVG画像にも焼き込まれている</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><h3>「直しても画面が変わらない行」の例（甲府システム様）</h3>
+<pre><span class="x">.beginner-content { padding: 32px 18px 36px; }</span>  <span class="c">120行目</span>
+<span class="x">.beginner-content { padding: 18px 18px 22px; }</span>  <span class="c">184行目</span>
+<span class="w">.beginner-content { padding: 0; }</span>              <span class="c">357行目 ← 有効</span></pre>
+        <p class="muted">後から書いた行が優先されるので、前の行は上書きされて使われていない。そこを直しても画面は変わらない</p></div>
+      <div class="card"><h3>色が1か所で変わらない例（甲府システム様）</h3>
+<pre>--yellow: var(--base);  <span class="c">← 名前は黄・青・緑なのに</span>
+--blue:   var(--base);  <span class="c">   中身はすべて同じ赤</span>
+<span class="w">background: #EA2833 …;</span>  <span class="c">← 変数があるのに直書き</span>
+<span class="w">&lt;rect fill="#EA2833" /&gt;</span>  <span class="c">← SVG画像にも</span></pre>
+        <p class="muted">メイン色の変更に計11か所（SVG画像4ファイルを含む）</p></div>
+    </div>
+    <div class="qs"><button class="q" data-q="d-text">文言の置き場所がばらばらだと何が困る？</button><button class="q" data-q="d-measure">どうやって測った？（6サイトの計測表）</button></div>
+  </div>
+</section>
+
+<!-- 5 量と散らかり -->
+<section class="slide" data-title="量と散らかり">
+  <div class="in">
+    <h2><span class="n">6</span>CSSの量と散らかり（弊社サイトでの検証）</h2>
+        <div class="grid g2">
+      <div class="card"><span class="tag t-gray">量（豊かさ）</span><p style="margin-top:6px"><b>行数・ファイルの大きさ。</b><span class="muted">ページ数・動き・要件で決まる。質の高い動きを作れば当然増える。悪ではない</span></p></div>
+      <div class="card"><span class="tag t-orange">散らかり</span><p style="margin-top:6px"><b>直すときの迷いやすさ。</b><span class="muted">直しても画面が変わらない行・試作の残り・色の直書き。1つ直すとき何か所を見るかで測る</span></p></div>
+    </div>
+    <div class="cols c55" style="margin-top:12px">
+        <div class="tw"><table>
+          <thead><tr><th>PELLICULE様のサイト（HSE制作）</th><th>整理前</th><th>整理後</th></tr></thead>
+          <tbody>
+            <tr><td>直しても画面が変わらない行</td><td class="n">281件</td><td class="n good">0件</td></tr>
+            <tr><td>メイン色を変えるときに直す場所</td><td class="n">30か所</td><td class="n good">1行</td></tr>
+            <tr><td>CSSの行数（量）</td><td class="n">1,512行</td><td class="n">979行</td></tr>
+          </tbody>
+        </table></div>
+      <div class="card"><h3>整理で何を変えたか（メインの色）</h3>
+<pre><span class="c">/* 整理前：変数＋直書き9か所＋SVG 6か所＋JS 2か所 */</span>
+<span class="w">rgb(5 99 174 / 0.35);  &lt;path fill="#0563ae" /&gt;</span>
+
+<span class="c">/* 整理後：この1行で全部が連動 */</span>
+<span class="ok">--blue-rgb: 5 99 174;</span>
+rgb(var(--blue-rgb) / 0.35);  fill:var(--color-blue)</pre>
+      </div>
+    </div>
+    <div class="callout">弊社のサイトも、修正のたびに末尾へ書き足した結果、同様に散らかっていました。原因は作り手ではなく、修正の進め方にあります。</div>
+    <div class="qs"><button class="q" data-q="d-same">見た目は本当に変わっていない？</button><button class="q" data-q="d-pel">ほかに何を変えた？</button><button class="q" data-q="d-time">整理にはどれくらいかかる？</button></div>
+  </div>
+</section>
+
+<!-- 6 スワイプ -->
+<section class="slide" data-title="スワイプ">
+  <div class="in">
+    <h2><span class="n">7</span>スワイプの不具合の原因</h2>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>ASAHI RISE CARE様</th><th>甲府システム様</th><th>光伸テクニカル様</th><th>東海メンテナンス様</th><th class="us-col">HSEのサイト</th></tr></thead>
+      <tbody>
+        <tr><td><b>動かし方</b></td><td>JS 0.48秒</td><td>JS 0.42秒</td><td>JS 0.36秒</td><td>JS 0.42秒</td><td class="us-col">ブラウザ標準（ホイールのみJS）</td></tr>
+        <tr><td><b>次の操作の受付</b></td><td>完了か1.8秒</td><td>完了＋0.9秒</td><td>停止位置の実測</td><td>完了か1.2秒</td><td class="us-col">0.95秒の固定</td></tr>
+        <tr><td><b>1画面への収め方</b></td><td>JSで文字を縮小</td><td>JSで全体を縮小</td><td>JSで3系統の縮小</td><td>CSSで固定</td><td class="us-col">CSSで段階的に</td></tr>
+        <tr><td><b>位置の補正</b></td><td>多い</td><td>13か所</td><td>多い</td><td>多い</td><td class="us-col">なし</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card"><b>1　操作の判定が経験則</b><p class="muted">慣性で2ページ進む・次の操作が無視される誤判定が起き得る</p></div>
+      <div class="card"><b>2　位置の補正が多い</b><p class="muted">アドレスバーの伸縮などのたびに補正が走り、ずれや跳ねになる</p></div>
+      <div class="card"><b>3　縮小の計算が連鎖</b><p class="muted">縮小 → 高さが変わる → スワイプ側が再計算、の繰り返し</p></div>
+    </div>
+    <div class="callout"><b>元請け様の調査（10月13日）</b>：JSとCSSのスワイプが二重に効くケースがあり、CSSのみで正常に動いた。WordPressのプラグインで組み込んだLPに多い。<button class="q ev" data-q="e-double" aria-label="根拠を見る"></button></div>
+    <div class="dark" style="margin-top:8px">対策：動きは<b>CSSのスナップに一本化</b>し、JSは位置を動かさない（PCのホイールを1ページずつ送る補助のみ）。この1つの実装を土台に固定し、全案件で使います。<button class="q ev" data-q="e-double" aria-label="根拠を見る"></button></div>
+    <p class="muted" style="margin-top:6px">スワイプは毎回AIが書き直しているため、不具合もサイトごとに異なります<button class="q ev" data-q="e-swipe" aria-label="根拠を見る"></button>。HSEのサイトにも「トラックパッドの慣性が長いと2ページ進む可能性」が残ります。どれも iPhone Safari・トラックパッドの実機での検証はこれからです。</p>
+  </div>
+</section>
+
+<!-- 8 不具合の記録 -->
+<section class="slide" data-title="不具合の記録">
+  <div class="in">
+    <h2><span class="n">8</span>実例サイトでの不具合の記録</h2>
+    <div class="tw"><table class="bug">
+      <thead><tr><th style="width:17%">サイト</th><th style="width:38%">スワイプの不具合（制作時の記録）</th><th style="width:22%">CSS</th><th>記録上の状態</th></tr></thead>
+      <tbody>
+        <tr><td><b>甲府システム様</b></td><td>募集要項の最下部で指を戻すとエントリーへ移動／iPhone系の初回表示でヘッダーが528pxに拡大し位置が崩れる／移動中に二重に動く</td><td>未使用の削除（816ファイル、セレクター151件）</td><td>修正済み。ただし「実機での最終確認が必要」</td></tr>
+        <tr><td><b>光伸テクニカル様</b></td><td>慣性の直後に逆方向へ操作すると動かない／長い文の中から戻ると複数画面さかのぼる／移動が終わっても操作を受け付けない</td><td>未使用の削除（セレクター2,380件）。!important 30件</td><td>修正済み。ただし「実機のかくつきそのものは未再現」</td></tr>
+        <tr><td><b>東海メンテナンス様</b></td><td>ボタンの上で縦スワイプが動かない／慣性直後の反転を無視／フォームから戻ると複数画面さかのぼる／動画から1画面目で80px跳ねる</td><td>未使用の削除（セレクター1,457件、約55MB）</td><td>修正済み。ただし一部の症状は再現できず</td></tr>
+        <tr><td><b>ASAHI RISE CARE様</b></td><td>記録なし（コード内にSafari向けの対策のみ）</td><td>CSSを14ファイルに分割。修正ごとに版番号を付けた跡</td><td>記録がなく判断できない</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cols c55" style="margin-top:12px">
+      <div class="card"><span class="tag t-orange">トライアル案件でのご報告</span>
+        <p style="margin-top:8px">スマホで、<b>下方向は正常だが、上方向はスワイプではなく通常のスクロールになる</b>。制作者の環境・別のMac miniでは再現せず、修正版で解消。</p></div>
+      <div class="dark">共通点：いずれも<b>制作後に、録画やスマホでの確認で見つかった不具合</b>で、制作者の環境では再現しないものも含まれます。どのサイトも、iPhone Safari・トラックパッドの実機では確認されていません。</div>
+    </div>
+    <div class="qs"><button class="q" data-q="e-bugsrc">記録の出典と読み方</button></div>
+  </div>
+</section>
+
+<!-- 7 強みと弱み -->
+<section class="slide" data-title="強みと弱み">
+  <div class="in">
+    <h2><span class="n">9</span>現行の手順とHSEの手順の比較</h2>
+    <div class="cmp">
+      <div class="lane them">
+        <h3>現行の手順</h3>
+        <ol>
+          <li>参考サイトを丸ごと複製</li>
+          <li>デザインDNAを解析</li>
+          <li>プロンプトで機能を重ねる</li>
+          <li>目視で微修正・照合して完成</li>
+        </ol>
+        <p class="sw"><b class="plus">強み</b>空気感が数分でそろう。DNA解析。ヘッダー・フォームの具体的な基準<button class="q ev" data-q="e-good" aria-label="根拠を見る"></button></p>
+        <p class="sw"><b class="minus">弱み</b>人の目と判断に頼る。毎回0から作る。CSSが散らかる<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p>
+      </div>
+      <div class="lane us">
+        <h3>HSEの手順</h3>
+        <ol>
+          <li>原稿を「確定・解釈・未定」に整理</li>
+          <li>参考サイトを画面で分析（コードは持ち込まない）</li>
+          <li class="key">固定の土台から作る。AIは中身と差分だけ</li>
+          <li class="key">機械で検査（文言・収まり・はみ出し）→ 確認 → 公開</li>
+        </ol>
+        <p class="sw"><b class="plus">強み</b>正確さ（文言を機械で照合）・安定（同じスワイプ部品）・直しやすさ（色の変更が1行）<button class="q ev" data-q="d-basis" aria-label="根拠を見る"></button></p>
+        <p class="sw"><b class="minus">弱み</b>参考サイトの空気感が抜けやすい。初稿で指摘を受け、作り直したことがある<button class="q ev" data-q="e-hseweak" aria-label="根拠を見る"></button></p>
+      </div>
+    </div>
+    <div class="callout">両方の強みを組み合わせた手順を、次の画面でご提案します。</div>
+    <div class="qs"><button class="q" data-q="d-basis">HSEの手順で品質が安定する理由</button><button class="q" data-q="d-keep">現行の手順から残したいもの</button></div>
+  </div>
+</section>
+
+<!-- 8 新しいスキーム -->
+<section class="slide" data-title="新しいスキーム">
+  <div class="in">
+    <h2><span class="n">10</span>新しい制作スキーム（案）</h2>
+    <div class="tw"><table>
+      <thead><tr><th style="width:10%">工程</th><th style="width:24%">現行から残す</th><th style="width:24%">HSEから入れる</th><th>新しいやり方</th></tr></thead>
+      <tbody>
+        <tr><td><b>要件</b></td><td>―</td><td>確定・解釈・未定の整理</td><td>原稿を書き出し、読み落としを先につぶす</td></tr>
+        <tr><td><b>参考</b></td><td>複製・デザインDNA解析</td><td>素材を持ち込まない</td><td>複製は分析専用の場所だけ。色・文字・動きの実測値を取り出す</td></tr>
+        <tr><td><b>土台</b></td><td>―</td><td>固定のスワイプ・骨格</td><td>土台に、実測値を流し込む</td></tr>
+        <tr><td><b>構成</b></td><td>元サイトの語彙だけで表現</td><td>―</td><td>初稿は参考に忠実に。独自の演出は2稿目から</td></tr>
+        <tr><td><b>修正</b></td><td>音声入力の微修正</td><td>元の場所を直す・検査</td><td>修正のたびに、散らかりを数値で確認</td></tr>
+        <tr><td><b>納品</b></td><td>ヘッダー等の基準・目視確認</td><td>文言照合・収まり検査・整理</td><td>全部通ったら納品。編集の目印を付けて渡す</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><h3>参考サイトの複製は、分析用として残す</h3><p class="muted">空気感を速くそろえる点は、現行の手順のほうが優れていました。複製は分析専用の場所でだけ行い、見た目を決めている数値を取り出します。</p></div>
+      <div class="card"><h3>コードと素材は制作物に持ち込まない</h3><p class="muted">取り出すのは数値だけなので、散らかりは土台に入らず、参考サイトの写真やロゴが制作データに残る心配もなくなります。</p></div>
+    </div>
+    <div class="qs"><button class="q" data-q="d-rights">素材とデザインの権利について</button></div>
+  </div>
+</section>
+
+<!-- 9 3つの作り方 -->
+<section class="slide" data-title="3つの作り方">
+  <div class="in">
+    <h2><span class="n">11</span>3つの作り方の比較検証（INSPIRE様の案件）</h2>
+    <div class="shot">
+      <div>
+        <img src="img/3案比較_1ページ目.jpg" alt="同じ素材で作った3つの版の1ページ目。左が現行の手順、中がHSEの従来の手順、右が新しいスキーム">
+        <div class="labels"><span>現行の手順（複製）</span><span>HSEの従来の手順</span><span>新しいスキーム</span></div>
+      </div>
+      <div class="grid" style="gap:8px">
+        <div class="tw"><table>
+          <thead><tr><th></th><th>現行</th><th>HSE従来</th><th class="us-col">新方式</th></tr></thead>
+          <tbody>
+            <tr><td>雰囲気の近さ</td><td class="n">基準</td><td class="n">0.16〜0.87</td><td class="n us-col">0.86〜0.96</td></tr>
+            <tr><td>直しても画面が変わらない行</td><td class="n">37件</td><td class="n">361件</td><td class="n us-col">0件</td></tr>
+            <tr><td>色の直書き</td><td class="n">102件</td><td class="n">200件</td><td class="n us-col">0件</td></tr>
+            <tr><td>5サイズの収まり</td><td>はみ出しあり</td><td>OK</td><td class="us-col">OK</td></tr>
+            <tr><td>他社の素材</td><td>あり</td><td>なし</td><td class="us-col">なし</td></tr>
+          </tbody>
+        </table></div>
+        <div class="card"><h3>参考サイトから取り出した数値</h3>
+          <ul class="tight">
+            <li>色の配分：白84%・濃紺6%・オレンジ1%</li>
+            <li>大きな英字は本文の約6倍、行間0.9</li>
+            <li>本文15px・字間0.03em・行間1.75〜2.0</li>
+            <li>線・影・角丸は使わない</li>
+            <li>動き：下から48px・0.6秒・0.12秒刻み</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:6px">INSPIRE様の案件・最初の3ページで比較。雰囲気の近さは、現行の版との色の重なり（1が同じ）。実機での確認はこれからです。</p>
+    <div class="qs" style="margin-top:6px"><button class="q" data-q="d-3pages">2・3ページ目も見る</button></div>
+  </div>
+</section>
+
+<!-- 10 制作キット -->
+<section class="slide" data-title="制作キット">
+  <div class="in">
+    <h2><span class="n">12</span>制作キットの構成</h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-blue">土台キット</span><p class="muted" style="margin-top:8px">スワイプ・骨格・ヘッダー・フォームを固定。AIが触るのは中身とページ固有の見た目だけ</p></div>
+      <div class="card"><span class="tag t-blue">検査の道具</span><p class="muted" style="margin-top:8px">文言の照合・1画面の収まり・散らかりを数値で判定。全部通ったら納品</p></div>
+      <div class="card"><span class="tag t-blue">直せる形</span><p class="muted" style="margin-top:8px">色は設定ファイルの1か所。文言と写真には番号と文字数の上限。編集マニュアル付き</p></div>
+    </div>
+    <div class="cols c55" style="margin-top:12px">
+      <div>
+        <h3>修正で得た知見の反映先（3段階）</h3>
+        <div class="levels">
+          <div class="lv"><b>1　文章のルール</b><span class="muted">「句読点を行頭に置かない」と書く → 読み落とすと守られない</span></div>
+          <div class="lv"><b>2　検査の道具</b><span class="muted">行頭の句読点を自動で見つける → 納品前に止まる</span></div>
+          <div class="lv top"><b>3　土台のコード</b><span>行頭に送らない処理を土台に入れる → 発生しなくなる</span></div>
+        </div>
+      </div>
+      <div class="card"><h3>検査の道具の結果の例</h3>
+<pre>■ CSS散らかりチェック
+  直しても画面が変わらない行：281  <span class="w">⚠ 増えました</span>
+  .shot__stage の height：581行 → 712行
+    → 726行 → 728行（最後が有効）
+■ 1画面の収まり（6サイズ）
+  p1  390x540  <span class="w">⚠ NEXTまで3.8px</span>
+  判定：<span class="w">要確認</span></pre>
+        <p class="muted">行数（量）は警告しない。散らかりが増えたときだけ止まる</p>
+      </div>
+    </div>
+    <div class="qs"><button class="q" data-q="d-kit">キットのファイル一覧（仮）</button><button class="q" data-q="d-ba">いまとご提案の作り方の違い</button><button class="q" data-q="d-manual">マニュアルへの反映案</button><a class="q" href="https://claude.ai/artifact/MwhfrxUYvCEBmvVScW626F" target="_blank" rel="noopener">見本：編集マニュアル（PELLICULE様のサイト）</a></div>
+  </div>
+</section>
+
+<!-- 11 効果と進め方 -->
+<section class="slide" data-title="効果と進め方">
+  <div class="in">
+    <h2><span class="n">13</span>期待できる効果と進め方</h2>
+    <div class="tw"><table>
+      <thead><tr><th style="width:20%">項目</th><th style="width:38%">いま</th><th>導入後</th></tr></thead>
+      <tbody>
+        <tr><td><b>色・文言の修正</b></td><td>どこを触るか分からず、依頼になる</td><td>番号と文字数の目安を見て、自分で直せる</td></tr>
+        <tr><td><b>スワイプ</b></td><td>案件ごとに実装し、不具合も案件ごと</td><td>一度の実装で、全案件が同じ動き</td></tr>
+        <tr><td><b>品質の確認</b></td><td>目視とAIの「確認しました」</td><td>数値で合否が決まる</td></tr>
+        <tr><td><b>同じミス</b></td><td>担当者と案件を変えて繰り返す</td><td>キットに反映した後は、全員の制作で発生しない</td></tr>
+        <tr><td><b>新しいメンバー</b></td><td>勘と試行回数に左右される</td><td>参加した時点から、同じ手順と基準で作業できる</td></tr>
+      </tbody>
+    </table></div>
+    <div class="steps" style="margin-top:14px">
+      <div>マニュアルを、AIが読む短いルール文書に整理</div>
+      <div class="lead">土台キットと検査の道具を、1案件で試験導入（WordPressへの組み込みと、元請け様の環境での確認まで）</div>
+      <div>制作メンバー2〜3名で試用し、つまずきを反映</div>
+      <div>報告とSlack・制作履歴から不具合を集め、管理者がスキームを更新して共有し続ける<button class="q" data-q="d-loop">流れ</button></div>
+    </div>
+    <div class="callout">まず1案件で試験導入し、制作時間・修正回数・散らかり・収まりを計測したうえで、対象を広げます。弊社はWordPressへの導入実績がまだないため、実案件で組み込みまで行い、組み込み時に起きる不具合の原因を特定します。</div>
+  </div>
+</section>
+
+<!-- 12 導入する場合 -->
+<section class="slide" data-title="導入する場合">
+  <div class="in">
+    <h2><span class="n">14</span>導入時の構成と、AI環境ごとの対応範囲</h2>
+    <div class="hub">
+      <div class="side"><b>メンバー（Codex）</b><br>キットのフォルダで作業。AGENTS.md を自動で読む</div>
+      <div class="ar2">⇄</div>
+      <div class="center">
+        <h3>制作キット（1つのフォルダ）</h3>
+        <ul>
+          <li>ルール文書：手順・落とし穴・禁止事項（現行マニュアルの良い所も含む）</li>
+          <li>土台：スワイプ・骨格・色の変数</li>
+          <li>検査の道具：文言・収まり・散らかり</li>
+          <li>見本：合格した制作物と編集マニュアル</li>
+        </ul>
+      </div>
+      <div class="ar2">⇄</div>
+      <div class="side"><b>メンバー（Claude Code）</b><br>同じフォルダで作業。CLAUDE.md（同じ内容）を自動で読む</div>
+    </div>
+    <h3 style="margin-top:14px">使えるAIの環境ごとにできること</h3>
+    <div class="ladder">
+      <div class="rung"><div><b>段階1</b><div class="muted">ChatGPT・Gemini のみ</div></div><div class="muted">土台に中身を流し込み、見た目を少し足す。確認はチェックリストと目視</div><div><span class="muted">課題1・2は解消</span><span class="meter"><i style="width:55%"></i></span></div></div>
+      <div class="rung"><div><b>段階2</b><div class="muted">Claude（チャット）</div></div><div class="muted">段階1に加え、要件整理と参考サイトの分析を対話で行う</div><div><span class="muted">初稿の方向ずれが減る</span><span class="meter"><i style="width:75%"></i></span></div></div>
+      <div class="rung r3"><div><b>段階3</b><div class="muted">Claude Code・Codex</div></div><div class="muted">段階2に加え、画面を実測しながら直し、検査を通して公開まで</div><div><span class="muted">HSEと同じ品質</span><span class="meter"><i style="width:95%"></i></span></div></div>
+    </div>
+    <div class="qs"><button class="q" data-q="d-kit">キットのファイル一覧（仮）</button><button class="q" data-q="d-loop">学びを集める流れ</button></div>
+  </div>
+</section>
+
+<!-- 15 改善を回す体制 -->
+<section class="slide" data-title="改善を回す体制">
+  <div class="in">
+    <h2><span class="n">15</span>スキームの改善を回す体制</h2>
+    <p class="lead" style="margin-bottom:10px">スキームは一度で完成するものではないため、制作者の声を集めて改善し続ける役割を置きます。</p>
+    <svg class="org" viewBox="0 0 1200 400" role="img" aria-label="品質責任者の下にスキーム管理責任者と制作者が並ぶ体制図。制作者から疑問・要望を吸い上げ、管理責任者が品質責任者に報告・判断を受け、改善したキットを制作者に配布する流れ">
+      <defs>
+        <marker id="ah-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--blue)"/></marker>
+        <marker id="ah-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--green)"/></marker>
+        <marker id="ah-o" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--orange)"/></marker>
+      </defs>
+      <!-- 指揮系統（細い線） -->
+      <path d="M600 96V140M240 140H960M240 140V188M960 140V188" fill="none" stroke="#bdbdb8" stroke-width="2"/>
+      <!-- 品質責任者 -->
+      <rect x="420" y="10" width="360" height="86" rx="12" fill="var(--ink)"/>
+      <text x="600" y="48" text-anchor="middle" fill="#fff" font-size="25" font-weight="700">品質責任者（統括）</text>
+      <text x="600" y="78" text-anchor="middle" fill="#fff" font-size="17" opacity=".85">品質の基準と、変更の最終判断</text>
+      <!-- 品質責任者 ⇄ 管理責任者 -->
+      <path d="M90 188V30H414" fill="none" stroke="var(--orange)" stroke-width="3" marker-end="url(#ah-o)"/>
+      <path d="M414 76H160V182" fill="none" stroke="var(--orange)" stroke-width="3" marker-end="url(#ah-o)"/>
+      <text x="252" y="21" text-anchor="middle" font-size="18" font-weight="700" fill="var(--ink)">② 改善案を報告</text>
+      <text x="287" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="var(--ink)">③ 判断・承認</text>
+      <!-- スキーム管理責任者 -->
+      <rect x="30" y="190" width="380" height="160" rx="12" fill="var(--paper)" stroke="var(--orange)" stroke-width="3"/>
+      <text x="220" y="232" text-anchor="middle" font-size="25" font-weight="700" fill="var(--ink)">スキーム管理責任者</text>
+      <text x="220" y="268" text-anchor="middle" font-size="17" fill="var(--soft)">1人に決める</text>
+      <text x="220" y="300" text-anchor="middle" font-size="18" fill="var(--ink)">要望の吸い上げ・原因の特定</text>
+      <text x="220" y="328" text-anchor="middle" font-size="18" fill="var(--ink)">キット（ルール・道具・土台）の更新</text>
+      <!-- 制作者 -->
+      <rect x="790" y="190" width="380" height="160" rx="12" fill="var(--paper)" stroke="#bdbdb8" stroke-width="2"/>
+      <text x="980" y="232" text-anchor="middle" font-size="25" font-weight="700" fill="var(--ink)">制作者</text>
+      <g font-size="16" font-weight="700" text-anchor="middle" fill="var(--soft)">
+        <rect x="812" y="252" width="78" height="34" rx="17" fill="var(--gray-t)"/><text x="851" y="275">制作者A</text>
+        <rect x="898" y="252" width="78" height="34" rx="17" fill="var(--gray-t)"/><text x="937" y="275">制作者B</text>
+        <rect x="984" y="252" width="78" height="34" rx="17" fill="var(--gray-t)"/><text x="1023" y="275">制作者C</text>
+        <rect x="1070" y="252" width="78" height="34" rx="17" fill="var(--blue-t)"/><text x="1109" y="275" fill="var(--blue)">弊社</text>
+      </g>
+      <text x="980" y="328" text-anchor="middle" font-size="18" fill="var(--ink)">キットで制作し、気づきを報告</text>
+      <!-- 管理責任者 ⇄ 制作者 -->
+      <path d="M784 222H418" fill="none" stroke="var(--blue)" stroke-width="3" marker-end="url(#ah-b)"/>
+      <text x="600" y="206" text-anchor="middle" font-size="18" font-weight="700" fill="var(--blue)">① 疑問・要望・エラーを吸い上げ</text>
+      <text x="600" y="248" text-anchor="middle" font-size="15" fill="var(--soft)">本人からの報告＋Slack・制作履歴から</text>
+      <path d="M418 300H784" fill="none" stroke="var(--green)" stroke-width="3" marker-end="url(#ah-g)"/>
+      <text x="600" y="286" text-anchor="middle" font-size="18" font-weight="700" fill="var(--green)">④ 改善したキットを配布</text>
+      <text x="600" y="326" text-anchor="middle" font-size="15" fill="var(--soft)">お知らせではなく、キットの更新として</text>
+      <text x="600" y="388" text-anchor="middle" font-size="16" fill="var(--soft)">①〜④をくり返し、一度起きたミスを次から起きないようにする</text>
+    </svg>
+    <div class="callout">一度で完璧なスキームはできません。管理責任者を1人置き、制作者の疑問や要望を吸い上げて、都度キットに反映して全員へ展開します。反映する人を1人に絞ることで、ルール同士の食い違いも防げます。<button class="q" data-q="d-loop" style="margin-left:8px">4段階の流れ</button></div>
+  </div>
+</section>
+
+<!-- 13 ご相談 -->
+<section class="slide" data-title="ご相談したいこと">
+  <div class="in">
+    <h2><span class="n">16</span>ご相談事項</h2>
+    <div class="cols c55">
+      <div class="grid" style="gap:10px">
+        <div class="card"><b>1</b>　よく変更される場所（何を・誰が・どれくらいの頻度で直したいか）</div>
+        <div class="card"><b>2</b>　納品済みサイトのコードのご共有（土台キットの設計の参考にします）</div>
+        <div class="card"><b>3</b>　試験導入する案件の選定と、期間のすり合わせ</div>
+        <div class="card"><b>4</b>　取り組みの範囲・成果物・条件の取り決め</div>
+        <div class="card"><b>5</b>　制作に使うAIサービスと、情報の取り扱いのルールの確認</div>
+      </div>
+      <div class="dark" style="align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:10px">
+        <span style="font-size:.85em;opacity:.8">本日ご判断いただきたいこと</span>
+        <span style="font-size:1.3em;font-weight:700">1案件での試験導入の可否</span>
+        <span style="font-size:.85em;opacity:.8;font-weight:500">実施の場合は、対象案件と期間をご相談させてください。</span>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px">株式会社HSE　／　数値はすべて、共有いただいたコードと弊社の制作物を同じ方法で測ったものです。iPhone Safari とトラックパッドの実機での確認はこれからです。</p>
+  </div>
+</section>
+
+<!-- 16 参考資料：修正チェックリスト -->
+<section class="slide" data-title="参考資料：チェックリスト">
+  <div class="in">
+    <h2><span class="n">17</span>参考資料：修正チェックリスト（草案）</h2>
+    <p class="lead" style="margin-bottom:12px">品質チェックのチャンネルで過去1か月（9月13日〜10月12日）に出された修正依頼を整理し、提出前に確認する36項目にまとめました。</p>
+    <div class="cols c55">
+      <div class="tw"><table>
+        <thead><tr><th>くり返し出ている指摘</th><th>回数（目安）</th></tr></thead>
+        <tbody>
+          <tr><td>1回の操作で、1セクションだけ進むか</td><td class="n">約11回</td></tr>
+          <tr><td>枠の内側・リスト・セクションの上下の余白</td><td class="n">約8回</td></tr>
+          <tr><td>ヘッダーのボタンの内側の余白</td><td class="n">約7回</td></tr>
+          <tr><td>PC全体の背景が単調すぎないか</td><td class="n">約7回</td></tr>
+          <tr><td>同じ型のレイアウトが続いていないか</td><td class="n">約6回</td></tr>
+          <tr><td>最小の文字が13px以上か</td><td class="n">6回</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid" style="gap:10px">
+        <div class="card"><h3>使い方</h3><p class="muted">提出前に上から確認し、チェックを入れていきます。くり返し出ている項目から確認すると、手戻りが減ります。</p></div>
+        <div class="card"><h3>検査の道具との関係</h3><p class="muted">最小の文字サイズ・見切れ・重なり・入力欄のはみ出しなど8項目は、検査の道具に組み込めば自動で判定できる見込みです。</p></div>
+        <a class="q" href="https://claude.ai/artifact/H3NEgWQiavGtxETVNHKZhx" target="_blank" rel="noopener" style="justify-self:start">修正チェックリスト（草案）を開く</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 補足の中身 -->
+<div class="detail" id="d-prompt" data-title="なぜ長いプロンプトだと効かないの？">
+  <ul>
+    <li><b>長い指示ほど、AIは読み落とします。</b>失敗のたびに注意書きを足す運用だと、ヘッダーのボタン2つの余白だけで数千字の指示になります。</li>
+    <li><b>毎回ちがうコードに当てるので、効き方がばらつきます。</b>同じプロンプトでも、出発点のコードが違えば結果が変わります。</li>
+    <li><b>解析結果（デザインDNA）が会話の中にしか残りません。</b>次の作業や次の担当者に引き継がれません。</li>
+  </ul>
+  <p class="muted" style="margin-top:10px">学んでいないのではなく、学びの置き場所の問題です。</p>
+</div>
+
+<div class="detail" id="d-unstable" data-title="品質がぶれる3つの要因">
+  <div class="grid g3">
+    <div class="card"><h3>1　指示する人</h3><p class="muted">同じことを頼んでも、言葉の選び方や、どこまで書くかが人によって違う</p></div>
+    <div class="card"><h3>2　AIのモデル・版</h3><p class="muted">同じプロンプトでも解釈が変わる。同じモデルでも出力は毎回揺れる</p></div>
+    <div class="card" style="border:2px solid var(--orange)"><h3>3　出発点のコード（いちばん大きい）</h3><p class="muted">参考サイトの複製から始めるので、土台が毎回ちがう。実例4サイトのスワイプが全部別物だったのは主にこのため</p></div>
+  </div>
+  <p style="margin-top:12px">1と2はAIで量産する以上残ります。だから、3の出発点を固定するのがいちばん効きます。</p>
+</div>
+
+<div class="detail" id="d-rewrite" data-title="「直しても画面が変わらない行」とは">
+  <p>CSSは後に書いた指定が優先されます。前の行を直しても画面は変わらず、直す人は最後まで読んで効いている行を探すことになります。</p>
+  <h3 style="margin-top:12px">例：甲府システム様（カードの内側余白）</h3>
+<pre><span class="c">/* 120行目 */</span>
+<span class="x">.beginner-content { padding: 32px 18px 36px; }</span>
+<span class="c">/* 184行目 */</span>
+<span class="x">.beginner-content { padding: 18px 18px 22px; }</span>
+<span class="c">/* 357行目 */</span>
+<span class="w">.beginner-content { padding: 0; }</span>   <span class="c">← これだけが効いている</span></pre>
+  <p class="muted">3回書き換えて、最後は0に戻しています。カード側は別の行で改めて余白を付けています。</p>
+</div>
+
+<div class="detail" id="d-color" data-title="色が1か所で変わらない例">
+  <h3>甲府システム様</h3>
+<pre>:root {
+  --base: #EA2833;
+  --yellow: var(--base);   <span class="c">← 名前は黄・青・緑なのに</span>
+  --blue:   var(--base);   <span class="c">   中身はすべて同じ赤</span>
+  --green:  var(--base);
+}
+<span class="c">/* 変数があるのに直書き */</span>
+<span class="w">background: #EA2833 url(…svg);</span>
+<span class="c">/* SVG画像の中にも */</span>
+<span class="w">&lt;rect fill="#EA2833" /&gt;</span></pre>
+  <p class="muted">メイン色を変えるには、変数1か所に加えて、CSSの直書き3か所、SVG画像4ファイル（計11か所）を直す必要があります。</p>
+</div>
+
+<div class="detail" id="d-text" data-title="文言の置き場所がばらばらだと何が困る？">
+  <div class="tw"><table>
+    <thead><tr><th>サイト</th><th>置き場所</th><th>直すときの壁</th></tr></thead>
+    <tbody>
+      <tr><td>A・B</td><td>HTMLに直接</td><td>同じ文言が何度も出る（社名16回など）</td></tr>
+      <tr><td>B</td><td>HTML＋控えのJSON</td><td>JSONを直しても画面に反映されない（二重管理）</td></tr>
+      <tr><td>C</td><td>JSON → プログラムで生成</td><td>作り直さないと反映されない。HTMLを直すと次の生成で消える</td></tr>
+      <tr><td>D</td><td>プログラムのコードの中</td><td>プログラムを直す必要がある</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:10px">ご提案では、文言はHTMLに置いたまま、触ってよい所に番号と文字数の上限を付けます（別ファイルに移すと、作り直しや二重管理が必要になるため）。</p>
+</div>
+
+<div class="detail" id="d-measure" data-title="どうやって測った？（6サイトの計測表）">
+  <p>検査の道具（check_css.py）で、各サイトで実際に読み込まれるCSSだけを、同じ方法で数えました。「直しても画面が変わらない行」は、同じ画面条件の中で、同じ部品の同じ項目が2回目以降に出てくる数です。</p>
+  <div class="tw"><table>
+    <thead><tr><th>サイト</th><th>CSS</th><th>行数</th><th>直しても画面が変わらない行</th><th>@media</th><th>!important</th><th>直書きの色（CSS／HTML／JS）</th></tr></thead>
+    <tbody>
+      <tr><td>ASAHI RISE CARE様</td><td>14本</td><td class="n">583</td><td class="n">30</td><td class="n">9</td><td class="n">0</td><td class="n">53／0／0</td></tr>
+      <tr><td>甲府システム様</td><td>1本</td><td class="n">1,205</td><td class="n">105</td><td class="n">36</td><td class="n">3</td><td class="n">42／4／0</td></tr>
+      <tr><td>光伸テクニカル様</td><td>1本</td><td class="n">1,617</td><td class="n">282</td><td class="n">1</td><td class="n">15</td><td class="n">23／0／0</td></tr>
+      <tr><td>東海メンテナンス様</td><td>1本</td><td class="n">7,568</td><td class="n">56</td><td class="n">48</td><td class="n">5</td><td class="n">91／0／0</td></tr>
+      <tr><td>PELLICULE 整理前</td><td>2本</td><td class="n">1,512</td><td class="n">281</td><td class="n">60</td><td class="n">48</td><td class="n">165／65／10</td></tr>
+      <tr><td><b>PELLICULE 整理後</b></td><td>2本</td><td class="n">979</td><td class="n"><b>0</b></td><td class="n">32</td><td class="n">19</td><td class="n"><b>0／0／0</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:10px">光伸テクニカル様はビルド後の1本を数えています。東海メンテナンス様の行数のうち約6,100行はフォントの定義です。行数は量の目安で、良し悪しの判断には使っていません。</p>
+</div>
+
+<div class="detail" id="d-pel" data-title="整理で何を変えた？">
+  <h3>1ページ目の写真の幅</h3>
+<pre><span class="c">/* 整理前：7つのまとまりに8か所 */</span>
+<span class="x">.orb__c { width: 6.4em; }</span>         <span class="c">/* 581行目 */</span>
+<span class="w">.orb__c { width: 9em; }</span>           <span class="c">/* 660行目 修正指示の追記 */</span>
+<span class="c">/* 711・716・726・752行目にも */</span>
+
+<span class="c">/* 整理後：1ページ目の節（297〜384行）の中だけ */</span>
+<span class="ok">.orb__c { … }</span>
+@media (max-height: 740px) { … }
+@media (max-height: 600px) { … }</pre>
+  <h3 style="margin-top:12px">メインの色</h3>
+<pre><span class="c">/* 整理前：変数＋半透明の直書き9か所＋SVG 6か所＋JS 2か所 */</span>
+<span class="w">rgb(5 99 174 / 0.35);  &lt;path fill="#0563ae" /&gt;</span>
+
+<span class="c">/* 整理後：1行で全部が連動 */</span>
+<span class="ok">--blue-rgb: 5 99 174;</span>
+rgb(var(--blue-rgb) / 0.35);  &lt;path style="fill:var(--color-blue)" /&gt;</pre>
+  <p class="muted">ほかに、使っていない試作の指定を削除し、日付順の追記をページ順に並べ替え、冒頭に目次を付けました。</p>
+</div>
+
+<div class="detail" id="d-same" data-title="見た目は本当に変わっていない？">
+  <ul>
+    <li>整理前と整理後で、全ページのすべての要素の見た目の値（計算後のスタイル）を、9つの画面サイズ×12ページで比べ、見た目に影響する差は0件でした。</li>
+    <li>操作した状態（タブの切り替え、入力漏れ、ホバーなど）と、動きを減らす設定でも比べています。</li>
+    <li>画面に出る文字（2,677字）も、整理前後で一致しています。</li>
+  </ul>
+  <p class="muted" style="margin-top:8px">確認はChromeで行いました。iPhone Safari の実機はこれからです。</p>
+</div>
+
+<div class="detail" id="d-time" data-title="整理にはどれくらいかかる？">
+  <p>今回は、19回分の追記を畳み込み、見た目が変わらないことを全数で確かめるまで、約2時間かかりました。</p>
+  <p>積み上がってから片付けるのは手間がかかります。そのため、日頃は「末尾に足さず、効いている行を直す」「修正のたびに検査の道具で散らかりの増加を確かめる」の2つで積み上げないようにし、整理は納品前などの節目だけにすることをおすすめします。</p>
+</div>
+
+<div class="detail" id="d-swipe" data-title="HSEのサイトのスクロールの作りと比べると？">
+  <div class="tw"><table>
+    <thead><tr><th></th><th>甲府システム様</th><th>PELLICULE様のサイト（HSE）</th></tr></thead>
+    <tbody>
+      <tr><td>動かし方</td><td>JSで位置を書き換えて動かす（0.42秒）</td><td>ブラウザ標準のスナップ機能</td></tr>
+      <tr><td>位置を補正する処理</td><td>13か所（画面サイズ・アドレスバー・フォント読み込みなど）</td><td>補正なし</td></tr>
+      <tr><td>1画面に収める方法</td><td>JSで全体を縮小</td><td>CSSのみ（画面の高さに合わせて段階的に詰める）</td></tr>
+      <tr><td>注意点</td><td>補正と縮小が重なり、移動中や停止直後に跳ねやすい</td><td>トラックパッドの慣性が長いと2ページ進む可能性がある</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:10px">どちらも、iPhone Safari とトラックパッドの実機ではまだ確かめていません。土台キットに入れる前に、実機で検証します。</p>
+</div>
+
+<div class="detail" id="d-flow" data-title="2つの手順の流れ">
+  <div class="cmp">
+    <div class="lane them">
+      <h3>現行の手順</h3>
+      <ol>
+        <li>参考サイトを丸ごと複製（Claude Code）</li>
+        <li>デザインDNAを解析（Codex）</li>
+        <li>プロンプトで機能を重ねる（スワイプ化・ヘッダー・フォーム・動き）</li>
+        <li>目視で微修正（人）</li>
+        <li>原稿と目視で照合して完成（人）</li>
+      </ol>
+      <p class="note">土台＝参考サイトのコード（毎回ちがう）／品質の物差し＝人の目</p>
+    </div>
+    <div class="lane us">
+      <h3>HSEの手順</h3>
+      <ol>
+        <li>原稿を「確定・解釈・未定」に整理</li>
+        <li>参考サイトを画面で分析（コードは持ち込まない）</li>
+        <li class="key">固定の土台から作る。AIは中身とページ固有の見た目だけ</li>
+        <li class="key">機械で検査（文言の照合・収まり・はみ出し）</li>
+        <li>確認用URLで確認 → 修正 → 公開</li>
+        <li>落とし穴を記録し、次の案件へ</li>
+      </ol>
+      <p class="note">土台＝毎回同じ検証済みの部品／品質の物差し＝数値</p>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d-basis" data-title="HSEの手順で品質が安定する理由">
+  <div class="tw"><table>
+    <thead><tr><th>起きやすいこと</th><th>HSEのやり方</th><th>裏付け</th></tr></thead>
+    <tbody>
+      <tr><td>文言の取りこぼし</td><td>原稿と画面の文字を、機械で1字ずつ照合</td><td>12ページ全文の一致を機械で確認</td></tr>
+      <tr><td>収まり・はみ出し</td><td>6つの画面サイズで、収まりとはみ出しを数値で検査</td><td>全ページで、ボタンとの隙間まで実測して納品</td></tr>
+      <tr><td>スワイプのぶれ</td><td>同じスワイプの部品を、案件をまたいで使い回す</td><td>4案件で同じ部品</td></tr>
+      <tr><td>直しにくさ</td><td>色は変数1か所。元の場所を直し、節目に整理</td><td>整理後はメイン色の変更が1行、直しても画面が変わらない行が0件</td></tr>
+      <tr><td>原稿の読み落とし</td><td>原稿を「確定・解釈・未定」に分けてから着手</td><td>方向の手戻りが続いた反省から導入</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:10px">トライアル2件でOKをいただき、本契約に至りました。強みは見た目のセンスより、間違いが起きにくい仕組みの側にあります。</p>
+</div>
+
+<div class="detail" id="d-keep" data-title="現行の手順から残したいもの">
+  <div class="grid g2">
+    <div class="card"><h3>空気感が速くそろう</h3><p class="muted">参考サイトから、色・角丸・影・動きの周期まで実測値で取れる</p></div>
+    <div class="card"><h3>デザインDNA解析</h3><p class="muted">「情報 → 表現」の変換ルールまで出す。HSEの分析より情報量が多い</p></div>
+    <div class="card"><h3>具体的な品質基準</h3><p class="muted">ヘッダー13px・間8px、送信ボタンは「送信する」など。そのまま検査項目にできる</p></div>
+    <div class="card"><h3>仕上げの経験則</h3><p class="muted">垢抜けない時の4つの対処、背景が寂しくないかの確認、WordPress化の手順</p></div>
+  </div>
+  <p style="margin-top:12px">残すのは「何を作るか」を決める知恵、変えるのは「どう作るか」の部分です。</p>
+</div>
+
+<div class="detail" id="d-clone" data-title="なぜ複製をやめないの？">
+  <p>参考サイトの空気感を短時間でそろえる点は、現行の手順のほうが優れていました。HSEの手順は参考サイトを「見て」組み直すため、色・角丸・影・動きの周期といった細かな値が落ちやすく、初稿で作り直したこともあります。</p>
+  <p>そこで、複製は<b>分析専用の場所でだけ</b>行い、細かな値を実測して取り出します。取り出すのは数値だけで、コードと素材は納品物に持ち込みません。これで、空気感をそろえたまま、散らかりと権利の心配をなくします。</p>
+</div>
+
+<div class="detail" id="d-rights" data-title="素材とデザインの権利について">
+  <p>現行の手順では、参考サイトの写真・ロゴ・イラストなどの画像も一度ダウンロードします。納品前に差し替える運用でも、制作途中のデータに他社の素材が残ります。</p>
+  <p>ご提案では、参考サイトは分析だけに使い、コードと素材は持ち込みません。借りるのは、見せ方の数値とルール（デザインDNA）だけです。</p>
+  <p class="muted">権利の判断は専門家への確認をおすすめします。本提案は、そもそも複製物を納品物に持ち込まない形にすることで、判断が要らない状態を目指します。</p>
+</div>
+
+<div class="detail" id="d-3pages" data-title="同じ素材で3つの作り方を比べた画像（1〜3ページ目）">
+  <img src="img/3案比較_1-3ページ目.jpg" alt="3つの作り方の1〜3ページ目を並べた比較画像">
+  <p class="muted" style="margin-top:10px">左：現行の手順（複製）／中：HSEの従来の手順／右：新しいスキーム。画面の大きさは390×664。</p>
+</div>
+
+<div class="detail" id="d-dna" data-title="参考サイトから何を取り出した？">
+  <p>分析専用の複製から、見た目を決めている数値だけを取り出し、HSEの土台に流し込みました。効いたのは次の5つです。</p>
+  <ul>
+    <li><b>色の配分</b>：白が約84%、濃紺が約6%、オレンジは約1%。濃い面はネイビーのグラデーション</li>
+    <li><b>大きな英字</b>：本文の約6倍の大きさ、字間を少し詰め、行間0.9</li>
+    <li><b>本文</b>：細めのゴシック、15px、字間0.03em、行間1.75〜2.0</li>
+    <li><b>線・影・角丸を使わない</b>：ボタンだけ完全な丸みと弱い影</li>
+    <li><b>旗と手書きの声</b>：右端を矢印の形に切った帯に手書き書体、傾きは-2〜-5°。動きは下から48px・0.6秒・0.12秒刻み</li>
+  </ul>
+</div>
+
+<div class="detail" id="d-ba" data-title="いまとご提案の作り方の違い">
+  <div class="ba">
+    <div class="side before">
+      <h3>いま：LPごとに全部を作り直す</h3>
+      <div class="stack">
+        <div class="blk">スワイプの仕組み … 毎回AIが生成</div>
+        <div class="blk">土台のCSS（骨格・文字・余白）… 毎回AIが生成</div>
+        <div class="blk">ページごとの見た目 … 毎回AIが生成</div>
+        <div class="blk">中身（文言・写真）</div>
+      </div>
+      <p class="muted" style="margin-top:10px">生成のたびに書き方が揺れ、上書きが積み重なる。スワイプの細部が毎回抜け落ちる</p>
+    </div>
+    <div class="side after">
+      <h3>ご提案：固定の土台＋AIは中身だけ</h3>
+      <div class="stack">
+        <div class="blk fixed">スワイプの仕組み … 検証済みの固定部品</div>
+        <div class="blk fixed">土台のCSS（色の変数・文字の比率・余白）… 固定</div>
+        <div class="blk">ページごとの見た目 … 実測値に沿って少しだけ足す</div>
+        <div class="blk">中身（文言・写真）… AIが流し込み、機械で照合</div>
+      </div>
+      <p class="muted" style="margin-top:10px">AIが触る範囲が狭いので、散らからず、スワイプも毎回同じ動きになる</p>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d-tools" data-title="検査の道具の結果の例">
+  <h3>散らかりの検査（check_css.py）</h3>
+<pre>■ CSS散らかりチェック
+  直しても画面が変わらない行：281　<span class="w">⚠ 増えました（基準 0 → 281）</span>
+  直書き色：240（CSS 165／HTML 65／JS 10）　<span class="w">⚠ 増えました</span>
+
+■ 直しても画面が変わらない行（後ろに書いたものが有効）
+  ・.shot__stage の height：style.css:581 → 712行 → 726行 → 728行（最後が有効）
+  判定：<span class="w">要確認</span></pre>
+  <h3 style="margin-top:12px">1画面の収まりの検査（check_fit.mjs）</h3>
+<pre>ページ   360x640   390x540         390x664   1280x720
+p1       OK        <span class="w">⚠ 隙間3.8px</span>    OK        OK
+p2       OK        OK              OK        OK
+判定：<span class="w">要確認</span>（NEXTボタンまでの隙間が狭い）</pre>
+  <p class="muted">行数（量）は警告しません。散らかりが増えたときだけ止まります。全ページ×6サイズの検査は1サイト30〜70秒です。</p>
+</div>
+
+<div class="detail" id="d-manual" data-title="マニュアルへの反映案">
+  <div class="tw"><table>
+    <thead><tr><th>内容</th><th>タイミング</th><th>現行マニュアル</th><th>反映案</th></tr></thead>
+    <tbody>
+      <tr><td>末尾に足さず、効いている行を直す</td><td>修正のたび</td><td>ヘッダーの節にのみ「原因の指定だけ直す」の記載あり</td><td>全工程の共通ルールにする</td></tr>
+      <tr><td>検査の道具で散らかりの増加を確かめる</td><td>修正のたび</td><td>なし（目視の確認）</td><td>数字で判定する</td></tr>
+      <tr><td>見た目を変えずにまとめて整理</td><td>納品前</td><td>工程11は未使用の削除のみ</td><td>上書きの統合と数値の確認を加え、納品前にもう1回行う</td></tr>
+      <tr><td>色は変数1か所に</td><td>カラーリング変更時</td><td>スプシの色をコピーして指示</td><td>変数の名前は役割で付け、SVGや画像に色を焼き込まない</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:10px">各工程にそのまま貼れる文面案もご用意しています。</p>
+</div>
+
+<div class="detail" id="d-ladder" data-title="使えるAIの環境ごとにできること">
+  <div class="ladder">
+    <div class="rung"><div><b>段階1</b><div class="muted">ChatGPT・Gemini のみ</div></div><div class="muted">土台キットに中身を流し込み、ページ固有の見た目を少し足す。確認はチェックリストと目視</div><div><span class="muted">課題1・2は解消</span><span class="meter"><i style="width:55%"></i></span></div></div>
+    <div class="rung"><div><b>段階2</b><div class="muted">Claude（チャット）</div></div><div class="muted">段階1に加え、要件整理と参考サイトの分析を対話で行う</div><div><span class="muted">初稿の方向ずれが減る</span><span class="meter"><i style="width:75%"></i></span></div></div>
+    <div class="rung r3"><div><b>段階3</b><div class="muted">Claude Code・Codex</div></div><div class="muted">段階2に加え、画面を実測しながら直し、検査の道具を通して公開まで</div><div><span class="muted">HSEと同じ品質</span><span class="meter"><i style="width:95%"></i></span></div></div>
+  </div>
+</div>
+
+<div class="detail" id="d-kit" data-title="制作キットのファイル一覧（仮）">
+  <p>1つのフォルダにまとめ、各制作者のパソコンに置いて使います。中身は試験導入で確定させます。</p>
+<pre>spinova-lp-kit/
+├─ AGENTS.md            <span class="c">Codex が自動で読むルール文書（手順・禁止事項・落とし穴）</span>
+├─ CLAUDE.md            <span class="c">Claude Code 用（AGENTS.md と同じ内容）</span>
+├─ README.md            <span class="c">人が読む使い方（始め方・更新の受け取り方）</span>
+├─ CHANGELOG.md         <span class="c">キットの変更履歴（管理責任者が更新）</span>
+├─ base/                <span class="c">土台（固定。案件では原則触らない）</span>
+│   ├─ index.html       <span class="c">骨格：ヘッダー・ページ・フォームの型</span>
+│   ├─ tokens.css       <span class="c">色・文字・余白の変数（案件ごとにここを変える）</span>
+│   ├─ base.css         <span class="c">骨格・ページ送り・文字の段階</span>
+│   └─ swipe.js         <span class="c">スワイプ（CSSのスナップ＋ホイールの補助）</span>
+├─ tools/               <span class="c">検査の道具</span>
+│   ├─ dump_sheet.py    <span class="c">ヒアリングシートの書き出し</span>
+│   ├─ check_verbatim.py <span class="c">原稿と画面の文言の照合</span>
+│   ├─ check_fit.mjs    <span class="c">1画面の収まり・はみ出し（複数サイズ）</span>
+│   ├─ check_css.py     <span class="c">散らかり（直しても画面が変わらない行・色の直書き）</span>
+│   └─ run_all.sh       <span class="c">まとめて実行し、合否を出す</span>
+├─ templates/           <span class="c">案件ごとの記入用ひな形</span>
+│   ├─ 要件整理.md       <span class="c">確定・解釈・未定の整理</span>
+│   ├─ DNA.md           <span class="c">参考サイトから取り出す数値の記入表</span>
+│   ├─ 編集マニュアル.md  <span class="c">納品時に渡す、直せる場所の一覧</span>
+│   └─ 提出チェック.md    <span class="c">修正チェックリスト（17画面目）</span>
+├─ examples/            <span class="c">見本：合格した制作物と編集マニュアル</span>
+└─ projects/            <span class="c">案件フォルダ（ここで1案件ずつ作る）</span></pre>
+  <p class="muted">更新はキット全体を差し替える形で配ります（変更点は CHANGELOG.md に記録）。各ファイルの名前と分け方は仮です。</p>
+</div>
+
+<div class="detail" id="d-loop" data-title="学びを集める流れ（スキームの継続改善）">
+  <div class="steps">
+    <div><b>集める</b>：弊社を含むすべての制作者が、固有のエラー（特にスクロールなど繰り返すもの）をその都度報告。報告がないものも、Slackやプロジェクトの履歴から定期的に吸い上げる</div>
+    <div><b>原因を特定する</b>：同じ症状をまとめ、コードと実機で原因を確かめる</div>
+    <div class="lead"><b>スキームを変更する</b>：管理者が、ルール文書・検査の道具・土台のどこに反映するかを決めて更新する</div>
+    <div><b>共有する</b>：更新したキットを全制作者に配り、変更点を伝える。以後、そのミスは誰が作っても起きない</div>
+  </div>
+  <p class="muted" style="margin-top:12px">反映する人を絞ることで、ルール同士の食い違いを防ぎ、学びを全員の共通認識にします。共有はお知らせだけで終わらせず、キット（道具・土台）の更新として配ることで、読み落としによる再発を防ぎます。</p>
+  <p class="ev-src">実績：品質チェックのチャンネル1か月分（9月13日〜10月12日）の修正依頼から、36項目のチェックリストを作成しました（17画面目）。</p>
+</div>
+
+<div class="detail" id="e-double" data-title="根拠：JSとCSSのスワイプの二重の制御">
+  <ul>
+    <li><b>東海メンテナンス様</b>：CSSに「セクション移動はJSだけが制御し、ブラウザのスナップと競合させない」という注記とともに、CSSのスナップを止める指定があります。</li>
+    <li><b>ASAHI RISE CARE様</b>：スワイプの枠でCSSのスナップを止めています。</li>
+    <li><b>光伸テクニカル様</b>：CSSのスナップを有効にしたうえで、JSが動き始めたときだけ止める作りです。JSが動かない・遅れて読み込まれると、両方が効く状態になります。</li>
+    <li><b>甲府システム様</b>：共有いただいたファイルにはCSSのスナップの指定がなく、JSのみで制御しています。</li>
+  </ul>
+  <h3 style="margin-top:12px">CSSのスナップに一本化した作りでの確認（弊社のINSPIRE様のサイト）</h3>
+  <ul>
+    <li>CSSのスナップを主にし、JSはPCのホイールで次のスナップ位置へ送るだけの作りです（位置の補正・縮小のJSはなし）。</li>
+    <li>Chromeで、大きなホイール1回・慣性が長く続く操作・素早い連打・スマホ相当のタッチ（上下・速度違い）のいずれも、1回の操作で1ページだけ進みました（10月13日）。</li>
+    <li>CSSだけにすると、PCのホイールやトラックパッドの慣性で複数ページ進みやすく、修正依頼で最も多い「1回の操作で1セクションだけ進むか」（約11回）を守りにくくなります。そのため、ホイールの補助だけは残す案にしています。</li>
+  </ul>
+  <p class="ev-src">出典：元請け様の調査結果（10月13日のSlack）、共有いただいた実例4サイトのコード、弊社サイトの自動操作での確認。iPhone Safari・トラックパッドの実機と、WordPressに組み込んだ状態での確認はこれからです。</p>
+</div>
+
+
+<div class="detail" id="e-good" data-title="根拠：現行の手順の良い所">
+  <p>現行マニュアルの手順どおりに、INSPIRE様の案件で1本作成して確かめました。</p>
+  <ul>
+    <li><b>空気感の速さ</b>：参考サイトの複製・レスポンシブ化・デザインDNA解析までが、約7分で完了しました。弊社の手順で半日かけてもそろわなかった空気感が、この時点でそろいました。</li>
+    <li><b>デザインDNA解析</b>：複製しているため、色・角丸・影・動きの周期といったCSSの実測値まで取れます。また「情報 → 表現」の変換ルールまで書き出す点は、弊社の分析より情報量が多いものでした。</li>
+    <li><b>具体的な品質基準</b>：ヘッダーの文字13px・ボタン間8px、送信ボタンは「送信する」など、数値で書かれており、そのまま検査項目にできます。実際に作成した版でも、この基準を数値で満たせました。</li>
+  </ul>
+  <p class="ev-src">出典：現行マニュアルどおりに作成した検証版の作業記録（工程ごとの時刻は実測。時間はAIの作業時間）</p>
+</div>
+
+<div class="detail" id="e-issue" data-title="根拠：人の目と判断に頼り、ばらつきとエラーが出る">
+  <h3>1　品質の確認が、人の目とAIの自己申告になっている</h3>
+  <ul>
+    <li>現行マニュアルの最終チェック（10項目）は、「スワイプの挙動が安定しているか」「背景が寂しすぎないか」など、人が目で見て判断する項目です。</li>
+    <li>原稿との照合は「スプレッドシートの内容を再度コピペして、順番・漏れを確認」で、AIの目視に任されています。機械での照合工程はありません。</li>
+    <li>微修正は、音声入力で言語化してAIに伝える方式です。</li>
+  </ul>
+  <h3 style="margin-top:12px">2　毎回0から作っている</h3>
+  <ul><li>工程1で毎回、参考サイトのコードを丸ごと複製して始めます。土台のコードが案件ごとに変わります。</li></ul>
+  <h3 style="margin-top:12px">3　実際に、ばらつきとエラーが出ている</h3>
+  <ul>
+    <li>実例4サイトのスワイプは、すべて別の実装でした（移動時間0.36〜0.48秒、次の操作の受付条件・1画面への収め方もすべて異なる）。</li>
+    <li>直しても画面が変わらない行が、4サイトで30〜282件ありました。</li>
+    <li>各サイトの記録に、スクロール不具合の調査・修正が残っています（例：光伸テクニカル様「修正前は8回のタッチで位置の書き換え24回」、東海メンテナンス様「動画から1画面目への移動で80px跳ねた」）。</li>
+    <li>同じ記録に「iPhone Safari・トラックパッドの実機は未検証」と繰り返し書かれていました。</li>
+  </ul>
+  <p class="ev-src">出典：現行マニュアル（10月最新版）、共有いただいた実例4サイトのコードと記録（検査の道具で計測）</p>
+</div>
+
+<div class="detail" id="e-proposal" data-title="根拠：積み上げる仕組みで改善できると考える理由">
+  <ul>
+    <li><b>固定の土台</b>：弊社は同じスワイプの部品を4案件で使い回しており、実例サイトのように案件ごとに作りが変わることがありません（7画面）。</li>
+    <li><b>検査の道具</b>：散らかりと1画面の収まりを数値で測る道具を作り、6サイトで実行しました。散らかりが増えた時点で、数字で止められます（12画面）。</li>
+    <li><b>直せる形</b>：弊社のサイトを見た目を変えずに整理し、直しても画面が変わらない行281件を0件に、メイン色の変更を30か所から1行にしました（6画面）。</li>
+    <li><b>新しいスキーム</b>：同じ素材で3つの作り方を比較し、新しいスキームが最も良い結果でした（11画面）。</li>
+  </ul>
+  <p class="ev-src">いずれも1〜2件での検証です。複数案件での効果は、試験導入で計測します。</p>
+</div>
+
+<div class="detail" id="e-proof" data-title="根拠：3つの作り方の比較結果">
+  <div class="tw"><table>
+    <thead><tr><th></th><th>現行の手順</th><th>HSEの従来の手順</th><th class="us-col">新しいスキーム</th></tr></thead>
+    <tbody>
+      <tr><td>参考サイト版との色の重なり（1ページ目／2／3）</td><td class="n">基準</td><td class="n">0.87／0.16／0.83</td><td class="n us-col">0.96／0.86／0.86</td></tr>
+      <tr><td>直しても画面が変わらない行</td><td class="n">37件</td><td class="n">361件</td><td class="n us-col">0件</td></tr>
+      <tr><td>直書きの色</td><td class="n">102件</td><td class="n">200件</td><td class="n us-col">0件</td></tr>
+      <tr><td>5つの画面サイズでの収まり</td><td>一部の画面ではみ出し</td><td>すべて収まる</td><td class="us-col">すべて収まる</td></tr>
+      <tr><td>原稿との文言の一致</td><td>一致</td><td>一致</td><td class="us-col">一致</td></tr>
+      <tr><td>参考サイトの素材・コード</td><td>含む</td><td>含まない</td><td class="us-col">含まない</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ev-src">対象：INSPIRE様の案件の動画＋最初の3ページ。色の重なりは画面の色の分布の重なり（1が同じ）。社内での見た目の評価も、新しいスキームが最も良い結果でした。実機での確認はこれからです。</p>
+</div>
+
+<div class="detail" id="e-repeat" data-title="根拠：同じミスが繰り返される">
+  <ul>
+    <li>実例4サイトでは、スワイプの不具合をサイトごとに調査・修正した記録が残っています。修正内容はそのサイトの中だけにあり、次のサイトの作りには反映されていませんでした（4サイトとも別の実装）。</li>
+    <li>現行マニュアルでは、失敗の対策がプロンプトの注意書きとして追記されています。例として、ヘッダーのボタン2つの余白だけで数千字の指示になっています。長い指示はAIが読み落とすため、同じミスが再び起き得ます。</li>
+  </ul>
+  <p class="ev-src">出典：実例4サイトのコードと記録、現行マニュアル（10月最新版）</p>
+</div>
+
+<div class="detail" id="e-stack" data-title="根拠：一度起きたミスが、次から起きなくなる">
+  <p>弊社の制作で実際に起きたミスと、その後の扱いの例です。</p>
+  <div class="tw"><table>
+    <thead><tr><th>起きたこと</th><th>反映した先</th><th>次の案件から</th></tr></thead>
+    <tbody>
+      <tr><td>句読点が行の先頭に来る</td><td>検査の道具で検出 → 土台に、行頭に送らない処理を追加</td><td>最初から組み込み済みの状態で制作</td></tr>
+      <tr><td>スマホが古いファイルを表示し続ける</td><td>公開手順に、ファイル名に版番号を付ける処理を追加</td><td>最初から組み込み済みの状態で制作</td></tr>
+      <tr><td>原稿シートの欄外メモの見落とし</td><td>シートの書き出しの道具に、欄外・文字色・埋め込み画像の読み取りを追加</td><td>最初から組み込み済みの状態で制作</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ev-src">弊社の4案件（トライアル2件・本案件2件）での記録です。</p>
+</div>
+
+<div class="detail" id="e-cause" data-title="根拠：学びがプロンプトの長文にしか残っていない">
+  <ul>
+    <li>現行マニュアルのヘッダーの節は、過去の修正指示がそのまま追記された形で、ボタン2つの余白だけで数千字あります（「現在のロゴが小さく見えるため」など、個別の修正の経緯が残っている）。</li>
+    <li>スワイプの仕様は長い仕様プロンプトとして渡し、毎回AIが実装します。実例4サイトの実装がすべて異なっていたのは、このためと考えています。</li>
+  </ul>
+  <p class="ev-src">出典：現行マニュアル（10月最新版）、実例4サイトのコード</p>
+</div>
+
+<div class="detail" id="e-swipe" data-title="根拠：スワイプの不具合がサイトごとに異なる">
+  <ul>
+    <li>4サイトとも、スワイプのコードは使い回しではなく別々に書かれていました。共通していたのは「慣性の終わりを数値の増減で見分ける」という考え方だけです。</li>
+    <li>位置を書き換える処理の数は、甲府システム様で13か所。画面サイズの変化・アドレスバーの伸縮・フォントの読み込み完了などで、それぞれ個別に位置を補正しています。</li>
+    <li>各サイトの記録に、別々の不具合の調査が残っています（光伸テクニカル様：8回のタッチで位置の書き換え24回、東海メンテナンス様：動画から1画面目への移動で80px跳ねた）。</li>
+  </ul>
+  <p class="ev-src">原因の3つはコードからの見立てです。iPhone Safari・トラックパッドの実機での再現はこれから行います。</p>
+</div>
+
+<div class="detail" id="e-hseweak" data-title="根拠：HSEの手順の弱み">
+  <ul>
+    <li>INSPIRE様の初稿で、社内レビューにおいて「参考サイトの躍動感・爽やかさが活かせていない」と指摘を受け、作り直しました。</li>
+    <li>別の案件でも、独自の演出を足した案より、参考サイトを踏襲した案のほうが評価されました。</li>
+    <li>原因は、参考サイトを画面で見て組み直すため、色・角丸・影・動きの周期といった細かな値が落ちることと考えています。新しいスキームでは、この値を実測で取り出して補います（10〜11画面）。</li>
+  </ul>
+  <p class="ev-src">出典：弊社の制作記録</p>
+</div>
+
+<div class="detail" id="e-bugsrc" data-title="出典：不具合の記録">
+  <ul>
+    <li>4サイトの記録は、共有いただいたサイトのフォルダ内の制作記録（不具合の調査・修正のメモ）から抜き出しました。エンドユーザーからの報告ではなく、制作側が再現して直した記録です。</li>
+    <li>甲府システム様・光伸テクニカル様の記録には「録画は添付されていない」とあり、録画付きのご連絡を受けて修正した経緯と読み取れます。</li>
+    <li>「修正済み」は記録上の表記です。報告された症状の一部は「再現できていない」と書かれたまま修正済みになっています。</li>
+    <li>トライアル案件の事例は、Slackでのご報告（スマホの上方向のみ、通常のスクロールになる。制作者の環境・Mac miniでは再現せず、修正版で解消）です。</li>
+    <li>CSSについては、どのサイトにも「直しても反映されない」といった個別の事故の記録はなく、未使用の大量削除として記録されています。</li>
+  </ul>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dl-head"><h3 id="dlg-title"></h3><button class="dl-close" id="dlg-close">閉じる（Esc）</button></div>
+  <div class="dl-body" id="dlg-body"></div>
+</dialog>
+
+<script>
+(function () {
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var count = document.getElementById('count');
+  var bar = document.getElementById('bar');
+  var toc = document.getElementById('toc');
+  var dlg = document.getElementById('dlg');
+  var cur = 0;
+  // 発表者用の台本（別ウィンドウ）とページを連動させる。台本が無ければ何もしない
+  var chan = null; try { chan = new BroadcastChannel('spinova-teian'); } catch (e) {}
+  var sent = -1;
+  function tell(m) {
+    m.app = 'teian'; m.from = 'deck';
+    try { if (chan) chan.postMessage(m); } catch (e) {}
+    try { if (window.opener && window.opener !== window) window.opener.postMessage(m, '*'); } catch (e) {}
+  }
+  function hear(m) {
+    if (!m || m.app !== 'teian' || m.from !== 'daihon') return;
+    if (m.type === 'go') { if (dlg.open) dlg.close(); go(m.i); }
+    else if (m.type === 'hello') { sent = -1; tell({ type: 'slide', i: cur, n: slides.length }); }
+  }
+  if (chan) chan.onmessage = function (e) { hear(e.data); };
+  window.addEventListener('message', function (e) { hear(e.data); });
+
+  slides.forEach(function (s, i) {
+    s.id = 'p' + (i + 1);
+    var a = document.createElement('a');
+    a.href = '#p' + (i + 1);
+    a.setAttribute('aria-label', (i + 1) + ' ' + s.dataset.title);
+    a.innerHTML = '<span>' + (i + 1) + '　' + s.dataset.title + '</span>';
+    a.addEventListener('click', function (e) { e.preventDefault(); go(i); });
+    toc.appendChild(a);
+  });
+  var dots = toc.querySelectorAll('a');
+
+  function mark(i) {
+    cur = i;
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+    if (sent !== i) { sent = i; tell({ type: 'slide', i: i, n: slides.length }); }
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    mark(i);
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) mark(slides.indexOf(e.target)); });
+  }, { root: deck, threshold: 0.55 });
+  slides.forEach(function (s) { io.observe(s); });
+
+  document.getElementById('prev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (dlg.open) return;
+    if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].indexOf(e.key) >= 0) { e.preventDefault(); go(cur + (e.shiftKey && e.key === ' ' ? -1 : 1)); }
+    else if (['ArrowUp', 'ArrowLeft', 'PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  });
+
+  document.querySelectorAll('button.q').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = document.getElementById(b.dataset.q);
+      if (!d) return;
+      document.getElementById('dlg-title').textContent = d.dataset.title;
+      document.getElementById('dlg-body').innerHTML = d.innerHTML;
+      dlg.showModal();
+      tell({ type: 'detail', title: d.dataset.title });
+    });
+  });
+  document.getElementById('dlg-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('close', function () { tell({ type: 'detail', title: '' }); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  var h = location.hash.match(/^#p(\d+)$/);
+  if (h) go(parseInt(h[1], 10) - 1); else mark(0);
+})();
+</script>
