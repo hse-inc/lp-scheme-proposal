@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>制作スキームの検証レポート</title>
+
+<style>
+  /* 1画面＝1スライドの縦スクロール。補足は（？）で開くダイアログ */
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray: #7a7a76; --gray-t: #efefec;
+    --code: #f3f3f0;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; line-height: 1.6; font-size: clamp(14px, min(1.32vw, 2.4vh), 26px); }
+  .deck { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  .slide { min-height: 100%; height: 100dvh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding-block: 24px 56px; padding-inline: 16px; }
+  .in { width: min(1680px, 100%, 96vh * 1.9); padding-inline: 40px; }
+  @media (max-width: 760px) {
+    .deck { scroll-snap-type: none; }
+    .slide { height: auto; min-height: 100dvh; }
+    .in { padding-inline: 4px; }
+  }
+  .kicker { font-size: .72em; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 8px 0 12px; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.3; text-wrap: balance; }
+  h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font-size: clamp(22px, 2.3vw, 32px); line-height: 1.35; text-wrap: balance; }
+  h2 .n { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .6em; flex: none; }
+  h3 { margin: 0 0 6px; font-size: 1.02em; }
+  p { margin: 0 0 8px; }
+  b, strong { font-weight: 700; }
+  svg.org { display: block; width: 100%; height: auto; max-height: 56vh; font-family: inherit; }
+  a { color: var(--blue); }
+  .lead { color: var(--soft); font-size: 1.05em; }
+  .muted { color: var(--soft); font-size: .86em; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; min-width: 0; }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .g2, .g3 { grid-template-columns: 1fr; } }
+  .tag { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: .74em; font-weight: 700; }
+  .t-blue { background: var(--blue-t); color: var(--blue); } .t-orange { background: var(--orange-t); color: #b4470e; }
+  .t-green { background: var(--green-t); color: var(--green); } .t-gray { background: var(--gray-t); color: var(--soft); }
+  .callout { margin-top: 12px; padding: 14px 18px; border-radius: 10px; background: var(--blue-t); font-weight: 500; }
+  .dark { background: var(--ink); color: #fff; border-radius: 12px; padding: 18px 22px; font-weight: 500; }
+  .dark b { color: #ffb48a; }
+  .big-num { font-size: 1.9em; font-weight: 800; line-height: 1.1; color: var(--green); font-variant-numeric: tabular-nums; }
+  ul { margin: 6px 0 0; padding-left: 1.2em; } li { margin: 3px 0; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line); font-size: .9em; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gray-t); font-size: .92em; }
+  tr:last-child td { border-bottom: 0; }
+  .tw { overflow-x: auto; border-radius: 12px; }
+  .tw table { min-width: 600px; }
+  td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.hl { color: var(--orange); font-weight: 800; }
+
+  /* （？）ボタン */
+  .qs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .q { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--blue); background: var(--paper); color: var(--blue); border-radius: 999px; padding: 5px 14px 5px 6px; font: inherit; font-size: .84em; font-weight: 700; cursor: pointer; }
+  .q::before { content: "？"; display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .9em; }
+  .q:hover { background: var(--blue-t); }
+  .q:focus-visible, .navbtn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+  a.q { text-decoration: none; }
+  a.q::before { content: "→"; }
+
+  /* 補足ダイアログ */
+  dialog { width: min(920px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); border: 0; border-radius: 16px; padding: 0; background: var(--paper); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+  dialog::backdrop { background: rgba(20,20,20,.45); }
+  .dl-head { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .dl-head h3 { margin: 0; font-size: 1.08em; }
+  .dl-close { border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 4px 12px; font: inherit; font-size: .85em; cursor: pointer; color: var(--ink); }
+  .dl-body { padding: 18px 22px 24px; overflow-y: auto; max-height: calc(100dvh - 48px - 62px); }
+  .detail { display: none; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; overflow-x: auto; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 12.5px; line-height: 1.7; margin: 6px 0 10px; }
+  pre .x { color: #9a9a96; text-decoration: line-through; }
+  pre .c { color: #9a9a96; }
+  pre .w { color: var(--orange); font-weight: 700; }
+  pre .ok { color: var(--green); font-weight: 700; }
+
+  /* 使い切り vs 積み上げ */
+  .core { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .core { grid-template-columns: 1fr; } }
+  .core .box { border-radius: 14px; padding: 18px; background: var(--paper); border: 2px solid var(--line); }
+  .core .box.us { border-color: #9dcbb0; }
+  .core .bigw { font-size: 1.5em; font-weight: 800; margin: 2px 0 12px; }
+  .core .them .bigw { color: var(--gray); } .core .us .bigw { color: var(--green); }
+  .runs { display: flex; align-items: center; gap: 6px; }
+  .run { flex: 1 1 0; min-width: 0; border-radius: 8px; padding: 10px 6px; text-align: center; font-size: .82em; font-weight: 700; background: var(--gray-t); }
+  .run .e { display: block; margin-top: 4px; font-size: .9em; }
+  .them .run .e { color: var(--gray); } .us .run .e { color: var(--green); }
+  .runs .ar { color: var(--soft); }
+  .us .run:nth-child(1) { background: #eef7f1; } .us .run:nth-child(3) { background: #d9efe2; } .us .run:nth-child(5) { background: #c3e6d1; }
+  .memo { margin-top: 10px; font-size: .82em; color: var(--soft); text-align: center; }
+
+  /* フロー */
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .cmp { grid-template-columns: 1fr; } }
+  .lane { border-radius: 12px; padding: 14px; min-width: 0; }
+  .lane.them { background: var(--gray-t); } .lane.us { background: var(--green-t); }
+  .lane ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: st; }
+  .lane li { position: relative; background: #fff; border-radius: 8px; padding: 7px 10px 7px 38px; font-size: .88em; margin: 0; }
+  .lane li::before { counter-increment: st; content: counter(st); position: absolute; left: 10px; top: 8px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; background: var(--gray); }
+  .lane.us li::before { background: var(--green); }
+  .lane li.key { outline: 2px solid var(--green); }
+  .lane .note { margin-top: 8px; font-size: .8em; color: var(--soft); }
+
+  /* before/after */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 760px) { .ba { grid-template-columns: 1fr; } }
+  .ba .side { border-radius: 12px; padding: 16px; min-width: 0; }
+  .ba .before { background: var(--gray-t); } .ba .after { background: var(--green-t); }
+  .stack { display: grid; gap: 6px; margin-top: 10px; }
+  .blk { border-radius: 8px; padding: 8px 10px; font-size: .86em; font-weight: 700; background: #fff; border: 1px dashed #bdbdb8; }
+  .after .blk { border-style: solid; border-color: #9dcbb0; }
+  .blk.fixed { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* 画像 */
+  .shot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .shot { grid-template-columns: 1fr; } }
+  .shot img, .dl-body img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+  .shot img { max-height: 52vh; object-fit: contain; }
+  .labels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 6px; text-align: center; font-size: .8em; font-weight: 700; color: var(--soft); }
+  .labels span:last-child { color: var(--green); }
+  .stack-stats { display: grid; gap: 10px; }
+
+  /* 格上げ・段階・ハブ */
+  .levels { display: grid; gap: 8px; }
+  .levels .lv { display: grid; grid-template-columns: 170px 1fr; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: .92em; }
+  .levels .lv.top { background: var(--ink); color: #fff; border-color: var(--ink); }
+  @media (max-width: 760px) { .levels .lv { grid-template-columns: 1fr; } }
+  .ladder { display: grid; gap: 8px; }
+  .ladder .rung { display: grid; grid-template-columns: 170px 1fr 190px; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .92em; }
+  @media (max-width: 760px) { .ladder .rung { grid-template-columns: 1fr; } }
+  .ladder .meter { display: block; margin-top: 6px; height: 10px; border-radius: 999px; background: var(--gray-t); overflow: hidden; }
+  .ladder .meter i { display: block; height: 100%; background: var(--green); border-radius: 999px; }
+  .ladder .rung.r3 { border: 2px solid var(--green); }
+  .hub { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; gap: 10px; align-items: center; }
+  @media (max-width: 760px) { .hub { grid-template-columns: 1fr; } .hub .ar2 { transform: rotate(90deg); } }
+  .hub .ar2 { text-align: center; color: var(--soft); font-size: 1.3em; }
+  .hub .center { background: var(--ink); color: #fff; border-radius: 14px; padding: 16px 18px; }
+  .hub .center h3 { color: #fff; }
+  .hub .center li { font-size: .9em; }
+  .hub .side { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .88em; }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; counter-reset: cy; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .steps div { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 12px 44px; font-size: .9em; }
+  .steps div::before { counter-increment: cy; content: counter(cy); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+  .steps div.lead { border: 2px solid var(--orange); }
+
+
+  .cols { display: grid; gap: 14px; align-items: start; }
+  .c64 { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  .c55 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  @media (max-width: 760px) { .c64, .c55 { grid-template-columns: 1fr; } }
+  .row { display: grid; grid-template-columns: 84px 1fr auto; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+  .row.dark { background: var(--ink); border-color: var(--ink); }
+  .row .tag { justify-self: start; }
+  .flow-list { margin: 6px 0 0; padding-left: 1.4em; } .flow-list li { margin: 4px 0; }
+  .hl-card { border: 2px solid var(--orange); }
+  td.good { color: var(--green); font-weight: 800; }
+  th.us-col, td.us-col { background: var(--green-t); font-weight: 700; }
+  .sw { margin: 8px 0 0; font-size: .88em; background: #fff; border-radius: 8px; padding: 6px 10px; }
+  .sw b { margin-right: 8px; } .sw .plus { color: var(--green); } .sw .minus { color: var(--soft); }
+  ul.tight { margin-top: 4px; } ul.tight li { margin: 1px 0; font-size: .9em; }
+  .card pre { margin: 6px 0; }
+  .shot .tw table, .cols .tw table { min-width: 0; }
+  pre { font-size: .78em; }
+  .did { position: relative; padding-top: 14px; }
+  .did .num { position: absolute; top: 12px; right: 14px; font-size: 1.6em; font-weight: 800; color: var(--blue-t); line-height: 1; }
+  .did h3 { padding-right: 36px; }
+  .did .res { margin: 6px 0 0; font-size: .86em; font-weight: 700; color: var(--blue); }
+  .q.ev { padding: 0; border: 0; background: transparent; margin-left: 6px; vertical-align: middle; gap: 0; }
+  .q.ev::before { width: 1.45em; height: 1.45em; font-size: .78em; }
+  .q.ev:hover::before { background: var(--orange); }
+  .dark .q.ev::before, .row.dark .q.ev::before { background: #fff; color: var(--ink); }
+  .ev-src { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .82em; color: var(--soft); }
+  table.bug td { font-size: .88em; line-height: 1.5; }
+  /* ナビ */
+  .bar { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); width: 0; transition: width .3s; z-index: 5; }
+  .nav { position: fixed; right: 18px; bottom: 16px; display: flex; align-items: center; gap: 8px; z-index: 5; }
+  .navbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 16px; cursor: pointer; }
+  .count { font-size: 13px; font-weight: 700; color: var(--soft); font-variant-numeric: tabular-nums; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  .toc { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); display: grid; gap: 8px; z-index: 5; }
+  .toc a { display: block; width: 10px; height: 10px; border-radius: 50%; background: #cfcfca; position: relative; }
+  .toc a.on { background: var(--blue); transform: scale(1.3); }
+  .toc a span { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 12px; font-weight: 700; background: var(--ink); color: #fff; padding: 2px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+  .toc a:hover span, .toc a:focus-visible span { opacity: 1; }
+  @media (max-width: 760px) { .toc { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .deck { scroll-behavior: auto; } .bar { transition: none; } }
+
+  /* ここから検証レポート用の追加（提案サイトの部品を土台に、足りない形だけ） */
+  .kpi .big-num { margin: 8px 0 4px; }
+  .kpi.warn .big-num { color: var(--orange); }
+  .tw.tight td, .tw.tight th { padding: 6px 10px; }
+  td.c, th.c { text-align: center; }
+  td.bad { color: var(--orange); font-weight: 800; }
+  td.na { color: var(--gray); }
+  tr.ref td { background: #fafaf8; color: var(--soft); }
+  .bars { display: grid; gap: 8px; }
+  .bars .b { display: grid; grid-template-columns: 9.5em 1fr 6.5em; gap: 10px; align-items: center; font-size: .88em; }
+  .bars .b i { display: block; height: 14px; border-radius: 999px; background: var(--green); }
+  .bars .b.old i { background: #bdbdb8; }
+  .bars .b span:last-child { font-weight: 800; font-variant-numeric: tabular-nums; }
+  @media (max-width: 760px) { .bars .b { grid-template-columns: 7em 1fr 5.5em; } }
+  .k-tool { background: var(--green-t); color: var(--green); }
+  .k-doc { background: var(--blue-t); color: var(--blue); }
+  .k-man { background: var(--orange-t); color: #b4470e; }
+  .flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  @media (max-width: 760px) { .flow { grid-template-columns: 1fr 1fr; } }
+  .flow .st { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: .84em; min-width: 0; }
+  .flow .st b { display: block; font-size: .82em; color: var(--blue); }
+  .flow .st.key { border: 2px solid var(--orange); }
+  .flow .st.tool { background: var(--green-t); border-color: #9dcbb0; }
+  .phase { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; font-size: .8em; color: var(--soft); }
+  .phase span::before { content: ""; display: inline-block; width: .8em; height: .8em; border-radius: 3px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--line); background: var(--paper); }
+  .phase .p-tool::before { background: var(--green-t); border-color: #9dcbb0; }
+  .phase .p-key::before { border: 2px solid var(--orange); }
+  .gate { display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; }
+  @media (max-width: 760px) { .gate { grid-template-columns: 1fr; } .gate .ar2 { transform: rotate(90deg); } }
+  .gate .ar2 { align-self: center; text-align: center; color: var(--soft); font-size: 1.3em; }
+  .gate .g { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .88em; min-width: 0; }
+  .gate .g.door { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .gate .g.door h3 { color: #fff; }
+  .gate .g ul { margin-top: 4px; } .gate .g li { margin: 2px 0; }
+  .ver { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; }
+  @media (max-width: 760px) { .ver { grid-template-columns: 1fr; } }
+  .ver .v { display: grid; grid-template-columns: 3.4em 1fr; gap: 8px; align-items: baseline; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; font-size: .84em; }
+  .ver .v b:first-child { color: var(--blue); font-variant-numeric: tabular-nums; }
+  .ver .v .tag { margin-left: 4px; font-size: .78em; }
+  .src li { font-size: .82em; }
+  .quote { font-size: .9em; border-left: 3px solid var(--green); padding-left: 10px; margin: 6px 0; }
+</style>
+
+<div class="bar" id="bar"></div>
+<nav class="toc" id="toc" aria-label="目次"></nav>
+<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 13</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
+
+<main class="deck" id="deck">
+
+<!-- 1 結論 -->
+<section class="slide" data-title="結論">
+  <div class="in">
+    <div class="kicker">株式会社SPINOVA 御中 ／ 株式会社HSE ／ 2026年10月</div>
+    <h1>新しい制作スキームの検証レポートと、現在のスキーム</h1>
+    <div class="callout" style="margin-top:8px"><b>本資料の位置づけ</b>：前回ご提案した制作スキームを、10月16日〜18日に実案件3本（メタメディア様・FUKURU様・鈴興建設様）で試した結果と、検証を受けて更新した現在のスキームのご報告です。</div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card kpi"><span class="tag t-green">速さ</span><div class="big-num">33〜43分</div><p class="muted">初稿までの作業時間（確認待ちを除く）。弊社の旧キットで作った案件（約2時間〜2時間25分）の約3分の1以下<button class="q ev" data-q="e-speed" aria-label="根拠を見る"></button></p></div>
+      <div class="card kpi"><span class="tag t-green">品質</span><div class="big-num">全検査 合格</div><p class="muted">3本とも、文言照合・CSSの散らかり6項目0件・1画面の収まりで不合格0。CSSは389〜446行で、実例4サイト（583〜7,568行）より少ない<button class="q ev" data-q="e-quality" aria-label="根拠を見る"></button></p></div>
+      <div class="card kpi warn"><span class="tag t-orange">課題</span><div class="big-num">往復 3〜12回</div><p class="muted">社内の修正の往復は案件で差が大きい。主因は参考サイトと仕様書の読み落とし。決まりが3日で14版に増え、ほかの制作者での再現は未検証<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3>本資料の流れ</h3>
+      <p class="muted" style="margin:0">検証した3本（2）→ スキームの完成度（3）→ アウトプットの完成度（4）→ 再現性（5）→ 良かった点・改善点（6〜7）→ 現在のスキーム（8〜11）→ 次の改善とご相談事項（12）→ 参考：数字の出典（13）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 検証した3本 -->
+<section class="slide" data-title="検証した3本">
+  <div class="in">
+    <h2><span class="n">2</span>検証した3本の案件</h2>
+    <div class="tw"><table>
+      <thead><tr><th style="width:15%">案件</th><th style="width:11%">キットの版</th><th style="width:40%">進め方</th><th>確認用URL</th></tr></thead>
+      <tbody>
+        <tr><td><b>メタメディア様</b></td><td class="n">v1.1</td><td>動画＋3ページで確認 → 全10ページ・3案</td><td><a href="https://metamedia-recruit.pages.dev/" target="_blank" rel="noopener">metamedia-recruit.pages.dev</a></td></tr>
+        <tr><td><b>FUKURU様</b></td><td class="n">v1.3〜1.5</td><td>途中確認なし・全ページ・1案。シートの指定により、通常スクロール型＋画像の1枚目</td><td><a href="https://hse-inc.github.io/fukuru-lp/" target="_blank" rel="noopener">hse-inc.github.io/fukuru-lp</a></td></tr>
+        <tr><td><b>鈴興建設様</b></td><td class="n">v1.9</td><td>途中確認なし・全ページ・1案 → のちに3案を作り、案Aを採用</td><td><a href="https://hse-inc.github.io/suzukou-lp/" target="_blank" rel="noopener">hse-inc.github.io/suzukou-lp</a></td></tr>
+        <tr class="ref"><td>比較：たくみ様</td><td class="n">v0.3（旧キット）</td><td>途中確認あり・動画＋3ページ → 全ページ・3案</td><td><a href="https://takumi-recruit.pages.dev/" target="_blank" rel="noopener">takumi-recruit.pages.dev</a></td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><h3>検証の条件</h3><p class="muted">3本とも、ヒアリングシートと参考サイトから、キットの手順どおりに制作しました。案件ごとに出た学びはキットに戻し、次の案件は新しい版で作っています（版が案件ごとに違うのはこのためです）。</p></div>
+      <div class="card"><h3>比べる相手</h3><p class="muted">時間は、弊社の旧キット（v0.3）で作ったたくみ様の案件と比べます。現行マニュアルの制作時間は実測が無いため<b>時間は未計測</b>とし、CSSの量・散らかり・不具合の記録で比べます（4画面）。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 スキームとしての完成度 -->
+<section class="slide" data-title="スキームの完成度">
+  <div class="in">
+    <h2><span class="n">3</span>スキームとしての完成度（速さ・修正前の品質・工数）</h2>
+    <div class="cols c55">
+      <div class="grid" style="gap:12px">
+        <div class="card"><h3>初稿までの作業時間（確認待ちを除く）</h3>
+          <div class="bars" style="margin-top:8px">
+            <div class="b old"><span>たくみ様（v0.3）</span><i style="width:100%"></i><span>約120〜145分</span></div>
+            <div class="b"><span>メタメディア様</span><i style="width:30%"></i><span>43分</span></div>
+            <div class="b"><span>FUKURU様</span><i style="width:23%"></i><span>33分</span></div>
+            <div class="b"><span>鈴興建設様</span><i style="width:30%"></i><span>43分</span></div>
+          </div>
+          <p class="muted" style="margin-top:8px">メタメディア様は3案まで、FUKURU様・鈴興建設様は1案の時間です。ページ数・案の数が違うため、目安としてご覧ください。</p>
+        </div>
+        <div class="card"><h3>減らせた工数</h3>
+          <ul class="tight">
+            <li>初稿まで：約2時間〜2時間25分 → 33〜43分（<b>約7割減</b>）</li>
+            <li>社内の往復：約18回 → 3〜12回</li>
+            <li>文言照合・収まり・散らかりの確認：目視から道具へ（1コマンドで合否。手で確認していた時間は未計測）</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="tw tight"><table>
+          <thead><tr><th>案件</th><th>社内の往復</th><th>主な種類</th><th>先方からの修正</th></tr></thead>
+          <tbody>
+            <tr class="ref"><td>たくみ様</td><td class="n">約18回</td><td>参考サイトの読み落とし・写真の明るさ・余白・動きの速さ</td><td>2往復・3点＋1点</td></tr>
+            <tr><td><b>メタメディア様</b></td><td class="n">約12回</td><td>参考サイトの読み落とし・動きの強さ・速さ・余白</td><td>3点</td></tr>
+            <tr><td><b>FUKURU様</b></td><td class="n good">3回</td><td>1枚目の見せ方・写真の選び方</td><td class="na">未提出</td></tr>
+            <tr><td><b>鈴興建設様</b></td><td class="n">6〜8回<br><span class="muted">（概数）</span></td><td>仕様書（ヒアリングシート）の読み落とし・参考サイトの読み落とし・余白・バランス・動きの強さ</td><td class="na">返事待ち</td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted" style="margin-top:6px">社内の往復＝初稿を弊社の責任者が確認してから、直して戻すまでの回数。種類は制作記録とキットの更新履歴から分類しました。</p>
+        <div class="qs"><button class="q" data-q="d-client">先方からの修正と評価</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 アウトプットとしての完成度 -->
+<section class="slide" data-title="アウトプットの完成度">
+  <div class="in">
+    <h2><span class="n">4</span>アウトプットとしての完成度（検査の実測と実例サイトとの比較）</h2>
+    <div class="cols c55">
+      <div>
+        <div class="tw tight"><table>
+          <thead><tr><th>検査（10月18日に測り直し）</th><th class="c">メタメディア様</th><th class="c">FUKURU様</th><th class="c">鈴興建設様</th></tr></thead>
+          <tbody>
+            <tr><td>全検査</td><td class="c good">合格</td><td class="c good">合格</td><td class="c good">合格</td></tr>
+            <tr><td>文言照合（シートと一言一句）</td><td class="c good">一致</td><td class="c good">一致</td><td class="c good">一致</td></tr>
+            <tr><td>CSSの散らかり6項目</td><td class="c good">すべて0</td><td class="c good">すべて0</td><td class="c good">すべて0</td></tr>
+            <tr><td>1画面の収まり（不合格／ページ×画面サイズ）</td><td class="c n">0／66通り</td><td class="c n">0／77通り</td><td class="c n">0／70通り</td></tr>
+            <tr><td>上下の余白（上＝下）</td><td class="c good">全ページ</td><td class="c na">対象外</td><td class="c good">全ページ</td></tr>
+            <tr><td>ページ送り</td><td class="c good">合格</td><td class="c na">対象外</td><td class="c good">合格</td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted" style="margin-top:6px">FUKURU様は通常スクロール型のため、上下の余白とページ送りは検査の対象外です。</p>
+        <div class="qs"><button class="q" data-q="d-checks">各検査で何を見ている？</button></div>
+      </div>
+      <div>
+        <div class="tw tight"><table>
+          <thead><tr><th></th><th>実例4サイト<br><span class="muted">（現行マニュアル）</span></th><th class="us-col">検証3本</th></tr></thead>
+          <tbody>
+            <tr><td><b>CSSの行数</b></td><td class="n">583〜7,568行</td><td class="n us-col">389〜446行</td></tr>
+            <tr><td><b>直しても画面が変わらない行</b></td><td class="n">30〜282件</td><td class="n us-col">0件</td></tr>
+            <tr><td><b>!important</b></td><td class="n">0〜15件</td><td class="n us-col">0件</td></tr>
+            <tr><td><b>CSSの色の直書き</b></td><td class="n">23〜91件</td><td class="n us-col">0件</td></tr>
+            <tr><td><b>スワイプの不具合の記録</b></td><td>3〜4件（3サイト）<br><span class="muted">1サイトは記録なし</span></td><td class="us-col">ページ送りの検査に合格<br><span class="muted">iPhone実機は未確認</span></td></tr>
+            <tr><td><b>制作時間</b></td><td class="na">未計測</td><td class="n us-col">33〜43分</td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted" style="margin-top:6px">実例4サイトの数字は前回のご提案（5〜8画面）で測ったものです。実例は納品までの修正を経たサイト、検証3本は初稿〜修正の途中のため、同じ条件の比較ではありません。</p>
+        <div class="qs"><button class="q" data-q="d-sites">サイトごとの数字</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 再現性 -->
+<section class="slide" data-title="他の制作者による再現性">
+  <div class="in">
+    <h2><span class="n">5</span>他の制作者による再現性</h2>
+    <div class="cols c64">
+      <div class="tw tight"><table>
+        <thead><tr><th style="width:30%">工程</th><th style="width:16%">担保</th><th>中身</th></tr></thead>
+        <tbody>
+          <tr><td>案件作成・シートの書き出し</td><td><span class="tag k-tool">道具で担保</span></td><td>1コマンドで複製と書き出し</td></tr>
+          <tr><td>文言・散らかり・収まり・余白・ページ送り</td><td><span class="tag k-tool">道具で担保</span></td><td>不合格なら先へ進めない</td></tr>
+          <tr><td>公開・公開後の照合・OGP画像</td><td><span class="tag k-tool">道具で担保</span></td><td>合格しないと公開できない（10画面）</td></tr>
+          <tr><td>進め方の選択・要件整理・照合表</td><td><span class="tag k-doc">手順書で担保</span></td><td>道具は要件整理の中身を読まない</td></tr>
+          <tr><td>提出チェック・共有文面・修正記録</td><td><span class="tag k-doc">手順書で担保</span></td><td>書かなくても先へ進める</td></tr>
+          <tr><td><b>参考サイトの分析</b></td><td><span class="tag k-man">人の判断に頼る</span></td><td>記録と並べ比べは道具。読み取るのは人</td></tr>
+          <tr><td><b>初稿の発想・写真・動きの強弱</b></td><td><span class="tag k-man">人の判断に頼る</span></td><td>往復の多くはここで起きている</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid" style="gap:10px">
+        <div class="card"><span class="tag t-green">使いやすい点</span><ul class="tight"><li>検査は1コマンドで、合否が数字で出る</li><li>公開も1コマンド。検査を飛ばせない</li><li>ひな形と部品集があり、白紙から始めない</li></ul></div>
+        <div class="card"><span class="tag t-orange">混乱しうる点</span><ul class="tight"><li>決まりの量：作業ルールが257行</li><li>版の変化が速い：3日で14版。案件の途中で版が変わる</li><li>前提：macOS・Google Chrome・Node.js・Python</li><li>検査の一部（ページ送り）は端末の負荷で結果がぶれる</li></ul></div>
+        <div class="dark" style="font-size:.9em">3本とも弊社の同じ担当が制作しました。<b>ほかの制作者・ほかのAIでの再現は、まだ検証していません。</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 良かった点 -->
+<section class="slide" data-title="良かった点">
+  <div class="in">
+    <h2><span class="n">6</span>良かった点</h2>
+    <div class="grid g3">
+      <div class="card did"><span class="num">1</span><h3>初稿までが速い</h3><p class="muted">分析・実装・検査まで33〜43分。土台と部品があり、AIが書くのは中身と案件固有の見た目だけ</p></div>
+      <div class="card did"><span class="num">2</span><h3>機械で測れる品質は、初稿から合格</h3><p class="muted">文言の一言一句・散らかり0・1画面の収まり・上下の余白を、出す前に道具で確かめている</p></div>
+      <div class="card did"><span class="num">3</span><h3>シートの指定で型を切り替えられる</h3><p class="muted">FUKURU様の「スクロール形式」「動画ではなく画像」の指定に、土台と検査ごと切り替えて対応（v1.5）</p></div>
+      <div class="card did"><span class="num">4</span><h3>学びが次の案件に効く</h3><p class="muted">往復は約12回 → 3回に減った。ただし案件の難しさ・担当の慣れも同時に変わっており、キットの効果だけとは言い切れない（推測）</p></div>
+      <div class="card did"><span class="num">5</span><h3>公開の事故が止まる</h3><p class="muted">不合格のまま・空のファイル・参照切れでは公開できない。公開後は全ファイルを照合</p></div>
+      <div class="card did"><span class="num">6</span><h3>直しやすいCSS</h3><p class="muted">CSSは400行前後、色は変数の1か所。直しても画面が変わらない行は0件</p></div>
+    </div>
+    <div class="callout">旧キットの案件（たくみ様）では、初稿に「参考サイトも踏襲されていて、すごくいい感じ。修正点なし」、全ページに「安定していてかなりクオリティ高い」との評価をいただきました。<button class="q" data-q="d-client" style="margin-left:8px">先方からの修正と評価</button></div>
+  </div>
+</section>
+
+<!-- 7 改善点 -->
+<section class="slide" data-title="改善点">
+  <div class="in">
+    <h2><span class="n">7</span>改善点（優先順）</h2>
+    <div class="tw tight"><table>
+      <thead><tr><th style="width:4%">#</th><th style="width:30%">課題</th><th style="width:46%">対策</th><th>状態</th></tr></thead>
+      <tbody>
+        <tr><td class="n"><b>1</b></td><td><b>参考サイト・仕様書の読み落とし</b><br><span class="muted">往復が3〜12回と差が出る主因</span></td><td>仕様書の全セル・全補足の照合表（✓△✕）、参考の全セクションの型の表と割り当て表。次は、照合表が空なら検査で止める</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.3・v1.14</span></td></tr>
+        <tr><td class="n"><b>2</b></td><td><b>決まりが多く、変化が速い</b><br><span class="muted">257行・3日で14版</span></td><td>最初に読む要点版を作る。案件の開始時に版を固定し、途中で変えない</td><td><span class="tag t-gray">案</span></td></tr>
+        <tr><td class="n"><b>3</b></td><td><b>修正の記録が残っていない</b><br><span class="muted">修正記録は3本とも未作成。修正の時間が無い案件も</span></td><td>修正の台帳（指摘・種類・直し方・時間）を道具で付ける</td><td><span class="tag t-blue">v2で予定</span></td></tr>
+        <tr><td class="n"><b>4</b></td><td><b>見た目の質は人の判断</b></td><td>見た目の数値検査（写真の明るさ・動きの速さなど）、トーンの型で3案を自動化</td><td><span class="tag t-blue">v2で予定</span></td></tr>
+        <tr><td class="n"><b>5</b></td><td><b>iPhone実機・Safariが未確認</b></td><td>Safariの検査を追加。実機の確認手順を決める</td><td><span class="tag t-blue">v2で予定</span></td></tr>
+        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（12画面）</span></td></tr>
+        <tr><td class="n"><b>7</b></td><td><b>検査のぶれ・動作環境</b><br><span class="muted">ページ送りの検査が負荷でぶれる／macOS・Chrome前提</span></td><td>ぶれたときの再実行の決まり。Windowsでの利用はご相談</td><td><span class="tag t-gray">案</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 8 全体の流れ -->
+<section class="slide" data-title="いまのスキームの流れ">
+  <div class="in">
+    <h2><span class="n">8</span>いまのスキームの全体の流れ（手順0〜9.5）</h2>
+    <div class="phase"><span class="p-tool">道具で進める・止める工程</span><span class="p-key">品質を左右する重要な工程</span></div>
+    <div class="flow">
+      <div class="st key"><b>0</b>進め方を選ぶ（途中確認・初稿の範囲・案の数）</div>
+      <div class="st tool"><b>1</b>案件を作る</div>
+      <div class="st tool"><b>2</b>シートを書き出す</div>
+      <div class="st key"><b>3</b>要件整理（シートの照合表 ✓△✕）</div>
+      <div class="st key"><b>4</b>参考サイトの分析（型の表・割り当て表）</div>
+      <div class="st"><b>5</b>土台に流し込む（部品集を使ってよい）</div>
+      <div class="st key"><b>6</b>初稿（1案または3案）</div>
+      <div class="st"><b>6.5</b>参考と並べ比べ</div>
+      <div class="st tool"><b>6.8</b>OGP画像</div>
+      <div class="st tool"><b>7</b>検査（すべて合格まで）</div>
+      <div class="st"><b>8</b>提出チェック</div>
+      <div class="st tool"><b>8.5</b>公開（承認のあと）</div>
+      <div class="st"><b>8.8</b>共有文面</div>
+      <div class="st"><b>9</b>修正版（版ごとにURL）</div>
+      <div class="st"><b>9.5</b>修正記録 → キットへ</div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><h3>複製は分析の場所だけ</h3><p class="muted">参考サイトの複製・記録は分析用のフォルダの中だけで行い、取り出すのは数値・型・時間割だけ。コードと素材は制作物に持ち込みません（前回のご提案のとおり）。</p></div>
+      <div class="dark" style="font-size:.92em">手順9.5で残した学びは、作業ルール・道具・土台のいずれかに足し、<b>次の案件から全員の制作に効く</b>形にします（11画面）。</div>
+    </div>
+    <div class="qs"><a class="q" href="../takumi-manual/" target="_blank" rel="noopener">見本：編集マニュアル（動きの仕様つき）</a></div>
+  </div>
+</section>
+
+<!-- 9 キットの構成 -->
+<section class="slide" data-title="制作キットの構成">
+  <div class="in">
+    <h2><span class="n">9</span>制作キットの構成</h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-blue">tools/　道具（18本）</span>
+        <ul class="tight" style="margin-top:8px">
+          <li><b>準備</b>：new_project・dump_sheet</li>
+          <li><b>分析</b>：refcap（参考の記録）・compare（並べ比べ）</li>
+          <li><b>制作</b>：new_draft（3案）・preview（比較動画）・make_ogp・rec・fvmovie</li>
+          <li><b>検査</b>：check_verbatim・check_css・check_fit・check_vbal・arrivetest・run_all（まとめて実行）</li>
+          <li><b>公開</b>：publish・pub_site</li>
+          <li><b>記録</b>：worklog（作業時間を実時刻で）</li>
+        </ul></div>
+      <div class="card"><span class="tag t-blue">templates/　ひな形</span>
+        <ul class="tight" style="margin-top:8px">
+          <li>要件整理.md：進め方・確定／解釈／未定・照合表</li>
+          <li>DNA.md：参考サイトの数値・型の表・割り当て表</li>
+          <li>kit.conf：型の切り替え・画面サイズ・公開先</li>
+          <li>提出チェック.md：道具／目視／実機を分けて記入</li>
+          <li>編集マニュアル.md・共有文面.md</li>
+        </ul></div>
+      <div class="card"><span class="tag t-blue">templates/parts/　部品集</span>
+        <ul class="tight" style="margin-top:8px">
+          <li>見出しの型</li>
+          <li>1行ずつの帯の本文</li>
+          <li>写真の帯（継ぎ目なく流れる）</li>
+          <li>縦の流れ図・輪の図・3つの道</li>
+          <li>番号カード・締めの4型</li>
+        </ul>
+        <p class="muted" style="margin-top:6px">参考サイトの型の表に合うものだけを使う</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><span class="tag t-green">base/　土台</span><p class="muted" style="margin-top:6px">ページ送り（CSSのスナップ＋PCのホイールの補助）・骨格・色と余白の変数。案件では直さず、見た目は案件のCSSに書く</p></div>
+      <div class="card"><span class="tag t-green">AGENTS.md　作業ルール</span><p class="muted" style="margin-top:6px">手順0〜9.5と、案件で得た決まり（分析・1枚目・写真・見出し・動き・収まり・デザインの原則・フォーム・公開）。AIの種類を問わず同じ文書を読む</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 品質を止める仕組み -->
+<section class="slide" data-title="品質を止める仕組み">
+  <div class="in">
+    <h2><span class="n">10</span>品質を止める仕組み（公開の門と公開後の照合）</h2>
+    <div class="gate">
+      <div class="g"><h3>検査（run_all）</h3><ul class="tight"><li>構成（動画・OGP・読み込みの版）</li><li>文言照合（シートと一言一句）</li><li>CSSの散らかり6項目</li><li>1画面の収まり・最小文字13px</li><li>上下の余白（上＝下）</li><li>ページ送り</li></ul></div>
+      <div class="ar2">→</div>
+      <div class="g door"><h3>公開の門</h3><p style="font-size:.92em">終了コードと「判定：すべて合格」の<b>両方</b>がそろったときだけ先へ進む。1つでも不合格なら公開できない</p></div>
+      <div class="ar2">→</div>
+      <div class="g"><h3>公開用の複製</h3><p class="muted">別の場所に複製し、コメントと使っていない素材を除く。空のファイル・参照切れで停止。シートや分析の資料は入らない</p></div>
+      <div class="ar2">→</div>
+      <div class="g"><h3>公開後の照合</h3><p class="muted">公開側の全ファイルを手元とハッシュで照合。OGP画像が正しく返るかも確認</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card"><h3>散らかり6項目</h3><p class="muted">効いていない書き直し・未使用のclass・直書きの色・!important・両方向に効く出現の待ち・帯の中の改行。どれも1件で不合格</p></div>
+      <div class="card"><h3>人の承認は残す</h3><p class="muted">実際の公開は、道具の合格に加えて弊社の責任者の承認を取ってから行います。修正版は版ごとにURLを分け、前の版を残します。</p></div>
+    </div>
+    <p class="muted" style="margin-top:8px">道具で止まるのは「測れること」です。見た目の良し悪しと、iPhone実機・Safariでの動きは、道具では確かめていません（7画面）。</p>
+  </div>
+</section>
+
+<!-- 11 学びの積み上げ -->
+<section class="slide" data-title="学びの積み上げ">
+  <div class="in">
+    <h2><span class="n">11</span>学びの積み上げ（v1.1 → v1.14）</h2>
+    <div class="cols c64">
+      <div class="ver">
+        <div class="v"><b>v1.1</b><span>起点（10月16日）。v1.14は10月18日</span></div>
+        <div class="v"><b>v1.2</b><span>ページ送りの慣性の修正と検査<span class="tag k-tool">道具・土台</span></span></div>
+        <div class="v"><b>v1.3</b><span>参考の全セクションの型の表と割り当て表<span class="tag k-doc">手順</span></span></div>
+        <div class="v"><b>v1.4</b><span>出現の待ち・帯の改行を検査で止める／部品集／手順0（進め方を選ぶ）<span class="tag k-tool">道具</span></span></div>
+        <div class="v"><b>v1.5</b><span>通常スクロール型・画像の1枚目への切り替え（シートの要望が最優先）<span class="tag k-tool">土台・検査</span></span></div>
+        <div class="v"><b>v1.7</b><span>共有文面の型<span class="tag k-doc">ひな形</span></span></div>
+        <div class="v"><b>v1.8</b><span>作業ルールを話題別に再編／確認用URLへの公開にも門<span class="tag k-tool">道具</span></span></div>
+        <div class="v"><b>v1.10</b><span>初稿の案の数を最初に聞く<span class="tag k-doc">手順</span></span></div>
+        <div class="v"><b>v1.11</b><span>検査の引数の誤りで止める<span class="tag k-tool">道具</span></span></div>
+        <div class="v"><b>v1.12</b><span>上下の余白の検査<span class="tag k-tool">道具・土台</span></span></div>
+        <div class="v"><b>v1.13</b><span>デザインの4原則を絶対条件に<span class="tag k-doc">手順・土台</span></span></div>
+        <div class="v"><b>v1.14</b><span>仕様書の照合表・長いページの最下部で必ず止める<span class="tag k-doc">手順・土台</span></span></div>
+      </div>
+      <div class="grid" style="gap:10px">
+        <div class="card"><h3>案件ごとに足した決まり（作業ルールの行数）</h3>
+          <div class="bars" style="margin-top:8px">
+            <div class="b"><span>メタメディア様</span><i style="width:94%"></i><span>約17行</span></div>
+            <div class="b"><span>FUKURU様</span><i style="width:78%"></i><span>約14行</span></div>
+            <div class="b"><span>鈴興建設様</span><i style="width:100%"></i><span>約18行</span></div>
+          </div>
+          <p class="muted" style="margin-top:8px">10月16日以降に、案件の指摘から足した行の概数です。</p>
+        </div>
+        <div class="card"><h3>反映先の考え方</h3><p class="muted">前回のご提案のとおり、文章のルール → 検査の道具 → 土台のコードの順に強くなります。3日で足した学びのうち、道具か土台に入ったものは、次の案件から誰が作っても起きにくくなります（ほかの制作者での確認はこれからです）。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 次の改善とご相談 -->
+<section class="slide" data-title="次の改善とご相談">
+  <div class="in">
+    <h2><span class="n">12</span>次の改善とご相談事項</h2>
+    <div class="cols c55">
+      <div class="card"><span class="tag t-blue">次の改善（v2の予定）</span>
+        <ol class="flow-list">
+          <li><b>見た目の数値検査</b>：写真の明るさ・動きの速さなど、いま人が見ている点を数値に</li>
+          <li><b>Safariの検査</b>：iPhoneに近い条件での確認</li>
+          <li><b>画像生成の手順</b>：写真・イラストの作り方と確認点</li>
+          <li><b>トーンの型</b>：3案を変数の組で自動で作る</li>
+          <li><b>修正の台帳</b>：指摘の種類・回数・時間を残し、次の改善の材料に</li>
+        </ol>
+        <p class="muted" style="margin-top:8px">あわせて、作業ルールの要点版を作り、ほかの制作者が最初に読む量を減らします。</p>
+      </div>
+      <div class="grid" style="gap:10px">
+        <div class="card"><b>1</b>　メタメディア様・FUKURU様・鈴興建設様の初稿へのご評価（先方の目での品質を確かめたい）</div>
+        <div class="card"><b>2</b>　ほかの制作者による試用（担当者・案件・期間）</div>
+        <div class="card"><b>3</b>　制作者の環境（macOS・Google Chrome が使えるか）</div>
+        <div class="card"><b>4</b>　iPhone実機での確認の分担</div>
+        <div class="dark" style="font-size:.92em">ほかの制作者が同じキットで作ったときに、<b>時間と往復の回数が同じ水準になるか</b>を、次の検証の中心にしたいと考えています。</div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:12px">株式会社HSE　／　数値は弊社の制作記録と検査の道具の実測です。iPhone実機・Safariでの確認はこれからです。</p>
+  </div>
+</section>
+
+<!-- 13 参考：出典 -->
+<section class="slide" data-title="参考：数字の出典">
+  <div class="in">
+    <h2><span class="n">13</span>参考：検証の数字の出典</h2>
+    <div class="tw tight"><table>
+      <thead><tr><th style="width:26%">数字</th><th>出典・測り方</th></tr></thead>
+      <tbody class="src">
+        <tr><td>初稿までの作業時間</td><td>案件の作業記録（記録の道具で実時刻を記入）。確認待ちの時間は除く。たくみ様は記録が3通りあり、幅で記載</td></tr>
+        <tr><td>社内の往復・種類</td><td>制作記録・引き継ぎの記録・キットの更新履歴から数えた概数（会話の全記録ではない）</td></tr>
+        <tr><td>検査の結果</td><td>10月18日に、キットの検査（run_all）を3本すべてで実行し直した結果</td></tr>
+        <tr><td>CSS・JSの行数</td><td>各案件の style.css＋tokens.css、site.js の行数（土台の base.css・swipe.js は含まない）</td></tr>
+        <tr><td>実例4サイトの数字</td><td>前回のご提案（5〜8画面）。共有いただいたコードを同じ道具で測ったもの、および各サイトの制作記録</td></tr>
+        <tr><td>キットの版・決まりの行数</td><td>キットの更新履歴（CHANGELOG）と作業ルール（AGENTS.md・257行）</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted" style="margin-top:8px">未確認の事項：iPhone実機・Safariでの動き／ほかの制作者による再現／現行マニュアルでの制作時間／検証3本への先方のご評価（一部）。</p>
+  </div>
+</section>
+
+</main>
+
+<!-- 補足の中身 -->
+<div class="detail" id="e-speed" data-title="根拠：初稿までの作業時間">
+  <ul>
+    <li>メタメディア様 43分（3案まで）、FUKURU様 33分、鈴興建設様 43分（1案）。いずれも作業記録の実時刻で、確認待ちの時間は除いています。</li>
+    <li>比較のたくみ様（旧キット v0.3）は約2時間〜2時間25分です。</li>
+    <li>修正にかかった時間は、記録が残っていない案件があるため比べていません。</li>
+  </ul>
+  <p class="ev-src">現行マニュアルでの制作時間は実測が無く、比べていません。</p>
+</div>
+
+<div class="detail" id="e-quality" data-title="根拠：検査の結果とCSSの量">
+  <ul>
+    <li>10月18日に3本すべてで検査を実行し直し、すべて合格でした（4画面）。</li>
+    <li>CSSの行数（style.css＋tokens.css）：メタメディア様 400行、FUKURU様 446行、鈴興建設様 389行。</li>
+    <li>実例4サイトのCSSの行数：583〜7,568行（東海メンテナンス様の約6,100行はフォントの定義）。</li>
+  </ul>
+  <p class="ev-src">行数は量の目安で、良し悪しの判断には使っていません。</p>
+</div>
+
+<div class="detail" id="e-issue" data-title="根拠：課題">
+  <ul>
+    <li>社内の往復：メタメディア様 約12回、FUKURU様 3回、鈴興建設様 6〜8回（概数）。</li>
+    <li>主な種類は、参考サイトの読み落とし・仕様書（ヒアリングシート）の読み落とし・余白とバランス・動きの強さと速さ・写真の明るさと選び方です。</li>
+    <li>キットは10月16日のv1.1から10月18日のv1.14まで、3日で14版。作業ルールは257行です。</li>
+    <li>3本とも同じ担当が制作しており、ほかの制作者での再現は検証していません。</li>
+  </ul>
+</div>
+
+<div class="detail" id="d-client" data-title="先方からの修正と評価">
+  <h3>たくみ様（旧キット v0.3）</h3>
+  <ul>
+    <li>初稿：「参考サイトも踏襲されていて、すごくいい感じ。修正点なし」</li>
+    <li>全ページ：「テイストOK、安定していてかなりクオリティ高い」（寺嶋様）</li>
+    <li>修正：2往復・3点＋1点</li>
+  </ul>
+  <h3 style="margin-top:12px">メタメディア様（10月18日・3点）</h3>
+  <ul>
+    <li>PCで、上下の余白が中央に詰まる</li>
+    <li>特徴①の吹き出しの枠線に、AIで作った印象がある</li>
+    <li>特徴①〜③の背景を黒で統一し、1枚目に斜めのあしらいを入れる</li>
+  </ul>
+  <p class="muted">上下の余白は、検査の道具（v1.12）と土台の変更で、以後の案件では止まるようにしました。</p>
+  <h3 style="margin-top:12px">FUKURU様・鈴興建設様</h3>
+  <p class="muted">FUKURU様は未提出（共有の文面は下書き）。鈴興建設様は共有済みで、お返事待ちです。</p>
+</div>
+
+<div class="detail" id="d-checks" data-title="各検査で何を見ている？">
+  <ul>
+    <li><b>文言照合</b>：画面に出る文字が、シートの「【新】セクションの流れ」と一言一句同じか。</li>
+    <li><b>CSSの散らかり6項目</b>：効いていない書き直し・未使用のclass・直書きの色・!important・両方向に効く出現の待ち（途中で戻ると半透明で止まる）・帯の中の改行（行末に四角が出る）。</li>
+    <li><b>1画面の収まり</b>：全ページを複数の画面サイズで開き、はみ出し・重なり・13px未満の文字・行頭の句読点が無いか。</li>
+    <li><b>上下の余白</b>：1画面のページで、中身の上と下の空きの差が2px以内か。</li>
+    <li><b>ページ送り</b>：強いスワイプ1回で1ページだけ進むか、慣性の途中で逆方向に戻せるか、長いページに着いたとき先頭から表示されるか。</li>
+  </ul>
+  <p class="ev-src">確認はmacOSのGoogle Chromeで行っています。ページ送りの検査は端末の負荷で結果がぶれることがあり、iPhone実機・Safariは未確認です。</p>
+</div>
+
+<div class="detail" id="d-sites" data-title="サイトごとの数字">
+  <div class="tw"><table>
+    <thead><tr><th>サイト</th><th>CSSの行数</th><th>直しても画面が変わらない行</th><th>!important</th><th>色の直書き（CSS）</th><th>スワイプの不具合の記録</th></tr></thead>
+    <tbody>
+      <tr><td>ASAHI RISE CARE様</td><td class="n">583</td><td class="n">30</td><td class="n">0</td><td class="n">53</td><td>記録なし</td></tr>
+      <tr><td>甲府システム様</td><td class="n">1,205</td><td class="n">105</td><td class="n">3</td><td class="n">42</td><td class="n">3件</td></tr>
+      <tr><td>光伸テクニカル様</td><td class="n">1,617</td><td class="n">282</td><td class="n">15</td><td class="n">23</td><td class="n">3件</td></tr>
+      <tr><td>東海メンテナンス様</td><td class="n">7,568</td><td class="n">56</td><td class="n">5</td><td class="n">91</td><td class="n">4件</td></tr>
+      <tr><td class="us-col">メタメディア様</td><td class="n us-col">400</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="us-col">検査に合格</td></tr>
+      <tr><td class="us-col">FUKURU様</td><td class="n us-col">446</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="us-col">対象外（通常スクロール）</td></tr>
+      <tr><td class="us-col">鈴興建設様</td><td class="n us-col">389</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="n us-col">0</td><td class="us-col">検査に合格</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ev-src">実例4サイトは前回のご提案の計測表と不具合の記録（症状の数）から。検証3本のJSの行数（site.js）は、メタメディア様127行・FUKURU様84行・鈴興建設様42行（比較：たくみ様125行）。</p>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dl-head"><h3 id="dlg-title"></h3><button class="dl-close" id="dlg-close">閉じる（Esc）</button></div>
+  <div class="dl-body" id="dlg-body"></div>
+</dialog>
+
+<script>
+(function () {
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var count = document.getElementById('count');
+  var bar = document.getElementById('bar');
+  var toc = document.getElementById('toc');
+  var dlg = document.getElementById('dlg');
+  var cur = 0;
+  // 発表者用の台本（別ウィンドウ）とページを連動させる。台本が無ければ何もしない
+  var chan = null; try { chan = new BroadcastChannel('spinova-report'); } catch (e) {}
+  var sent = -1;
+  function tell(m) {
+    m.app = 'teian'; m.from = 'deck';
+    try { if (chan) chan.postMessage(m); } catch (e) {}
+    try { if (window.opener && window.opener !== window) window.opener.postMessage(m, '*'); } catch (e) {}
+  }
+  function hear(m) {
+    if (!m || m.app !== 'teian' || m.from !== 'daihon') return;
+    if (m.type === 'go') { if (dlg.open) dlg.close(); go(m.i); }
+    else if (m.type === 'hello') { sent = -1; tell({ type: 'slide', i: cur, n: slides.length }); }
+  }
+  if (chan) chan.onmessage = function (e) { hear(e.data); };
+  window.addEventListener('message', function (e) { hear(e.data); });
+
+  slides.forEach(function (s, i) {
+    s.id = 'p' + (i + 1);
+    var a = document.createElement('a');
+    a.href = '#p' + (i + 1);
+    a.setAttribute('aria-label', (i + 1) + ' ' + s.dataset.title);
+    a.innerHTML = '<span>' + (i + 1) + '　' + s.dataset.title + '</span>';
+    a.addEventListener('click', function (e) { e.preventDefault(); go(i); });
+    toc.appendChild(a);
+  });
+  var dots = toc.querySelectorAll('a');
+
+  function mark(i) {
+    cur = i;
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+    if (sent !== i) { sent = i; tell({ type: 'slide', i: i, n: slides.length }); }
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    mark(i);
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) mark(slides.indexOf(e.target)); });
+  }, { root: deck, threshold: 0.55 });
+  slides.forEach(function (s) { io.observe(s); });
+
+  document.getElementById('prev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (dlg.open) return;
+    if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].indexOf(e.key) >= 0) { e.preventDefault(); go(cur + (e.shiftKey && e.key === ' ' ? -1 : 1)); }
+    else if (['ArrowUp', 'ArrowLeft', 'PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  });
+
+  document.querySelectorAll('button.q').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = document.getElementById(b.dataset.q);
+      if (!d) return;
+      document.getElementById('dlg-title').textContent = d.dataset.title;
+      document.getElementById('dlg-body').innerHTML = d.innerHTML;
+      dlg.showModal();
+      tell({ type: 'detail', title: d.dataset.title });
+    });
+  });
+  document.getElementById('dlg-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('close', function () { tell({ type: 'detail', title: '' }); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  var h = location.hash.match(/^#p(\d+)$/);
+  if (h) go(parseInt(h[1], 10) - 1); else mark(0);
+})();
+</script>
