@@ -239,7 +239,7 @@
 
 <div class="bar" id="bar"></div>
 <nav class="toc" id="toc" aria-label="目次"></nav>
-<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 13</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
+<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 15</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
 
 <main class="deck" id="deck">
 
@@ -256,7 +256,7 @@
     </div>
     <div class="card" style="margin-top:12px">
       <h3>本資料の流れ</h3>
-      <p class="muted" style="margin:0">検証した3本（2）→ スキームの完成度（3）→ アウトプットの完成度（4）→ 再現性（5）→ 良かった点・改善点（6〜7）→ 現在のスキーム（8〜11）→ 次の改善とご相談事項（12）→ 参考：数字の出典（13）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      <p class="muted" style="margin:0">検証した3本（2）→ スキームの完成度（3）→ アウトプットの完成度（4）→ 再現性（5）→ 良かった点・改善点（6〜7）→ 現在のスキーム（8〜11）→ 流出・複製への対策（12〜13）→ 次の改善とご相談事項（14）→ 参考：数字の出典（15）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
     </div>
   </div>
 </section>
@@ -414,7 +414,7 @@
         <tr><td class="n"><b>3</b></td><td><b>修正の記録が残っていない</b><br><span class="muted">修正記録は3本とも未作成。修正の時間が無い案件も</span></td><td>修正の台帳（指摘・種類・直し方・時間）を道具で付ける</td><td><span class="tag t-blue">v2で予定</span></td></tr>
         <tr><td class="n"><b>4</b></td><td><b>見た目の質は人の判断</b></td><td>見た目の数値検査（写真の明るさ・動きの速さなど）、トーンの型で3案を自動化</td><td><span class="tag t-blue">v2で予定</span></td></tr>
         <tr><td class="n"><b>5</b></td><td><b>iPhone実機・Safariが未確認</b></td><td>Safariの検査を追加。実機の確認手順を決める</td><td><span class="tag t-blue">v2で予定</span></td></tr>
-        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（12画面）</span></td></tr>
+        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（14画面）</span></td></tr>
         <tr><td class="n"><b>7</b></td><td><b>検査のぶれ・動作環境</b><br><span class="muted">ページ送りの検査が負荷でぶれる／macOS・Chrome前提</span></td><td>ぶれたときの再実行の決まり。Windowsでの利用はご相談</td><td><span class="tag t-gray">案</span></td></tr>
       </tbody>
     </table></div>
@@ -545,10 +545,46 @@
   </div>
 </section>
 
-<!-- 12 次の改善とご相談 -->
+<!-- 12 流出・複製のリスク -->
+<section class="slide" data-title="流出・複製のリスク">
+  <div class="in">
+    <h2><span class="n">12</span>スキームの流出・複製のリスク（どこから流れるか）</h2>
+    <div class="tw tight"><table>
+      <thead><tr><th style="width:30%">流れ方</th><th style="width:22%">起きやすさ</th><th style="width:24%">流れたときの影響</th><th>主な守り方</th></tr></thead>
+      <tbody>
+        <tr><td><b>納品物（サイト・編集マニュアル）をもとに、エンドクライアントが似たページを作る</b></td><td>高い<br><span class="muted">公開したサイトのソースは誰でも見られます</span></td><td>小〜中<br><span class="muted">見た目は似せられても、毎回同じ品質で作る仕組みは残りません</span></td><td>編集マニュアルは「文言・画像の差し替え」と「動きの数値」までにし、作り方は書かない</td></tr>
+        <tr><td><b>キットを受け取った制作者が、外へ持ち出す・流用する</b></td><td>中<br><span class="muted">チームの制作者にキットを渡すため</span></td><td><b>大</b><br><span class="muted">道具・決まり・部品が一式で流れ、スキームそのものが再現されうる</span></td><td>契約／渡す範囲を分ける／検査と公開を弊社側で回す（次の画面）</td></tr>
+        <tr><td><b>共有した資料（本資料・提案資料）から、手順の流れが知られる</b></td><td>低〜中<br><span class="muted">URLを知っている方だけが見られます（検索には載せていません）</span></td><td>小<br><span class="muted">手順の流れまでで、決まりの全文や道具の中身は載せていません</span></td><td>URLは関係者にだけお送りする</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout" style="margin-top:12px">マニュアルからスキームそのものが複製される可能性は低いと考えています。いちばん大きいのは、<b>キットを受け取った制作者からの流出</b>です。どの対策でも完全には防げないため、「流れにくくする」と「流れても困らない」を重ねて守ります。</div>
+  </div>
+</section>
+
+<!-- 13 流出・複製への対策 -->
+<section class="slide" data-title="流出・複製への対策">
+  <div class="in">
+    <h2><span class="n">13</span>流出・複製への対策（ご提案）</h2>
+    <div class="cols c55">
+      <div class="grid" style="gap:10px">
+        <div class="card"><span class="tag t-green">おすすめ 1</span> <b>契約で守る</b><p class="muted">キットを渡す制作者と、利用許諾・再配布の禁止・秘密保持・契約終了時の削除を取り交わします。あわせて、キットの権利の扱いを弊社と貴社の間でも決めておきます。すぐに始められ、抑止になります。</p></div>
+        <div class="card"><span class="tag t-green">おすすめ 2</span> <b>渡す範囲を分ける</b><p class="muted">制作者に渡すのは「土台・ひな形・検査の実行」まで。参考サイトの分析の手順の全文、案件ごとに積み上げた決まり、部品集の元は弊社で持ちます。流れても、毎回同じ品質で作る仕組みは揃いません。</p></div>
+        <div class="card"><span class="tag t-green">おすすめ 3</span> <b>検査と公開を弊社側で回す</b><p class="muted">制作者は制作に専念し、品質の検査と公開は弊社側の仕組みを通します。品質を守る道具が制作者の手元に残らず、いちばん強い守りになります。仕組みづくりが必要なため、段階的に移します。</p></div>
+      </div>
+      <div class="grid" style="gap:10px">
+        <div class="card"><span class="tag t-gray">補助</span> <b>版に目印を入れる</b><p class="muted">制作者ごとに識別できる目印を入れ、流れたときに元をたどれるようにします（防ぐのではなく抑止）。</p></div>
+        <div class="card"><span class="tag t-gray">補助</span> <b>更新し続ける価値で守る</b><p class="muted">キットは案件ごとに更新しています（10月16日〜18日で14版）。持ち出されたものは、その時点で古い版になります。</p></div>
+        <div class="card"><span class="tag t-gray">補助</span> <b>納品物の範囲を決める</b><p class="muted">編集マニュアルは運用（文言・画像・動きの数値）だけにします。範囲は案件ごとにご相談ください。</p></div>
+        <div class="dark" style="font-size:.92em">守りを固めすぎると、制作者が自分で回せなくなります。<b>渡す範囲は、ほかの制作者による試用の結果を見て一緒に決めたい</b>と考えています。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 次の改善とご相談 -->
 <section class="slide" data-title="次の改善とご相談">
   <div class="in">
-    <h2><span class="n">12</span>次の改善とご相談事項</h2>
+    <h2><span class="n">14</span>次の改善とご相談事項</h2>
     <div class="cols c55">
       <div class="card"><span class="tag t-blue">次の改善（v2の予定）</span>
         <ol class="flow-list">
@@ -565,6 +601,7 @@
         <div class="card"><b>2</b>　ほかの制作者による試用（担当者・案件・期間）</div>
         <div class="card"><b>3</b>　制作者の環境（macOS・Google Chrome が使えるか）</div>
         <div class="card"><b>4</b>　iPhone実機での確認の分担</div>
+        <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。12〜13画面）</div>
         <div class="dark" style="font-size:.92em">ほかの制作者が同じキットで作ったときに、<b>時間と往復の回数が同じ水準になるか</b>を、次の検証の中心にしたいと考えています。</div>
       </div>
     </div>
@@ -572,10 +609,10 @@
   </div>
 </section>
 
-<!-- 13 参考：出典 -->
+<!-- 15 参考：出典 -->
 <section class="slide" data-title="参考：数字の出典">
   <div class="in">
-    <h2><span class="n">13</span>参考：検証の数字の出典</h2>
+    <h2><span class="n">15</span>参考：検証の数字の出典</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:26%">数字</th><th>出典・測り方</th></tr></thead>
       <tbody class="src">
