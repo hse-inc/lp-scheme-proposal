@@ -249,11 +249,23 @@
   .cl-kpi .card .big-num { font-size: 1.6em; margin: 4px 0 2px; }
   .cl-kpi .card.doc .big-num { color: var(--blue); }
   .cl-kpi .card.todo .big-num { color: var(--orange); }
+  /* 初稿と提出時の比較（スマホの画面） */
+  .pairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 760px) { .pairs { grid-template-columns: 1fr; } }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .pair figure, .cmp4 figure { margin: 0; text-align: center; min-width: 0; }
+  .pair img { display: block; width: auto; max-width: 100%; height: auto; max-height: 50vh; margin: 0 auto; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  .pair figcaption, .cmp4 figcaption { margin-top: 4px; font-size: .74em; font-weight: 700; color: var(--soft); }
+  .pair .after figcaption, .cmp4 .after figcaption { color: var(--green); }
+  .same { margin-top: 6px; font-size: 1.25em; font-weight: 800; color: var(--green); line-height: 1.2; }
+  .cmp4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 8px 0; }
+  @media (max-width: 760px) { .cmp4 { grid-template-columns: 1fr 1fr; } }
+  .dl-body .cmp4 img { border-radius: 8px; }
 </style>
 
 <div class="bar" id="bar"></div>
 <nav class="toc" id="toc" aria-label="目次"></nav>
-<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 17</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
+<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 22</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
 
 <main class="deck" id="deck">
 
@@ -266,12 +278,12 @@
     <div class="grid g3" style="margin-top:12px">
       <div class="card kpi"><span class="tag t-green">速さ</span><div class="big-num">33〜72分</div><p class="muted">初稿までの作業時間（確認待ちを除く）。弊社の旧キットで作った案件（約2時間〜2時間25分）の約2〜6割<button class="q ev" data-q="e-speed" aria-label="根拠を見る"></button></p></div>
       <div class="card kpi"><span class="tag t-green">品質</span><div class="big-num">全検査 合格</div><p class="muted">5本とも、文言照合・CSSの散らかり6項目0件・1画面の収まりで不合格0。CSSは389〜446行で、実例4サイト（583〜7,568行）より少ない<button class="q ev" data-q="e-quality" aria-label="根拠を見る"></button></p></div>
-      <div class="card kpi warn"><span class="tag t-orange">課題</span><div class="big-num">往復 3〜12回</div><p class="muted">社内の修正の往復は案件で差が大きい。主因は参考サイトと仕様書の読み落とし。決まりが5日で18版に増え、ほかの制作者での再現は未検証<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p></div>
+      <div class="card kpi warn"><span class="tag t-orange">課題</span><div class="big-num">往復 1〜4回</div><p class="muted">社内の確認のまとまりで数えた修正の回数（旧キットは3回）。案件で差がある。主因は参考サイトと仕様書の読み落とし。決まりが5日で18版に増え、ほかの制作者での再現は未検証<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p></div>
     </div>
-    <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>。提出の前に全項目を確かめます。うち3件は道具・土台で止め、16件は手順で確かめ、残る10件は決まり・検査にしていきます（5〜6画面）。</div>
+    <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>。提出の前に全項目を確かめます。うち3件は道具・土台で止め、16件は手順で確かめ、残る10件は決まり・検査にしていきます（8〜9画面）。</div>
     <div class="card" style="margin-top:12px">
       <h3>本資料の流れ</h3>
-      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ アウトプットの完成度（4）→ ご指摘の再発防止チェックリスト（5〜6）→ 再現性（7）→ 良かった点・改善点（8〜9）→ 現在のスキーム（10〜13）→ 流出・複製への対策（14〜15）→ 次の改善とご相談事項（16）→ 参考：数字の出典（17）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 初稿の質と、初稿・提出時の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 再現性（10）→ 良かった点・改善点（11〜12）→ 初稿をさらに速くする方法（13）→ 現在のスキーム（14〜17）→ 流出・複製への対策（18〜19）→ ほかの制作者が再現するために（20）→ 次の改善とご相談事項（21）→ 参考：数字の出典（22）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
     </div>
   </div>
 </section>
@@ -281,19 +293,19 @@
   <div class="in">
     <h2><span class="n">2</span>検証した5本の案件</h2>
     <div class="tw"><table>
-      <thead><tr><th style="width:15%">案件</th><th style="width:11%">キットの版</th><th style="width:40%">進め方</th><th>確認用URL</th></tr></thead>
+      <thead><tr><th style="width:15%">案件</th><th style="width:11%">キットの版</th><th style="width:40%">進め方</th><th>提出したURL（最終）・修正回数</th></tr></thead>
       <tbody>
-        <tr><td><b>メタメディア様</b></td><td class="n">v1.1</td><td>動画＋3ページで確認 → 全10ページ・3案</td><td><a href="https://metamedia-recruit.pages.dev/" target="_blank" rel="noopener">metamedia-recruit.pages.dev</a></td></tr>
-        <tr><td><b>FUKURU様</b></td><td class="n">v1.3〜1.5</td><td>途中確認なし・全ページ・1案。シートの指定により、通常スクロール型＋画像の1枚目</td><td><a href="https://hse-inc.github.io/fukuru-lp/" target="_blank" rel="noopener">hse-inc.github.io/fukuru-lp</a></td></tr>
-        <tr><td><b>鈴興建設様</b></td><td class="n">v1.9</td><td>途中確認なし・全ページ・1案 → のちに3案を作り、案Aを採用</td><td><a href="https://hse-inc.github.io/suzukou-lp/" target="_blank" rel="noopener">hse-inc.github.io/suzukou-lp</a></td></tr>
-        <tr><td><b>アステップ様</b></td><td class="n">v1.14<br><span class="muted">修正時 v1.15</span></td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v2.astep-recruit.pages.dev/" target="_blank" rel="noopener">v2.astep-recruit.pages.dev</a></td></tr>
-        <tr><td><b>groxi様</b></td><td class="n">v1.14</td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v2.groxi-recruit.pages.dev/" target="_blank" rel="noopener">v2.groxi-recruit.pages.dev</a></td></tr>
-        <tr class="ref"><td>比較：たくみ様</td><td class="n">v0.3（旧キット）</td><td>途中確認あり・動画＋3ページ → 全ページ・3案</td><td><a href="https://takumi-recruit.pages.dev/" target="_blank" rel="noopener">takumi-recruit.pages.dev</a></td></tr>
+        <tr><td><b>メタメディア様</b></td><td class="n">v1.1</td><td>動画＋3ページで確認 → 全10ページ・3案</td><td><a href="https://v3.metamedia-recruit.pages.dev/" target="_blank" rel="noopener">v3.metamedia-recruit.pages.dev</a><br><span class="muted">修正2回</span></td></tr>
+        <tr><td><b>FUKURU様</b></td><td class="n">v1.3〜1.5</td><td>途中確認なし・全ページ・1案。シートの指定により、通常スクロール型＋画像の1枚目</td><td><a href="https://v1.fukuru-recruit.pages.dev/" target="_blank" rel="noopener">v1.fukuru-recruit.pages.dev</a><br><span class="muted">初稿修正なし</span></td></tr>
+        <tr><td><b>鈴興建設様</b></td><td class="n">v1.9</td><td>途中確認なし・全ページ・1案 → のちに3案を作り、案Aを採用</td><td><a href="https://v1.suzukou-recruit.pages.dev/" target="_blank" rel="noopener">v1.suzukou-recruit.pages.dev</a><br><span class="muted">初稿修正なし</span></td></tr>
+        <tr><td><b>アステップ様</b></td><td class="n">v1.14<br><span class="muted">修正時 v1.15</span></td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v2.astep-recruit.pages.dev/" target="_blank" rel="noopener">v2.astep-recruit.pages.dev</a><br><span class="muted">修正1回</span></td></tr>
+        <tr><td><b>groxi様</b></td><td class="n">v1.14</td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v1.groxi-recruit.pages.dev/" target="_blank" rel="noopener">v1.groxi-recruit.pages.dev</a><br><span class="muted">修正対応中</span></td></tr>
+        <tr class="ref"><td>比較：たくみ様</td><td class="n">v0.3（旧キット）</td><td>途中確認あり・動画＋3ページ → 全ページ・3案</td><td><a href="https://v3.takumi-recruit.pages.dev/" target="_blank" rel="noopener">v3.takumi-recruit.pages.dev</a><br><span class="muted">修正2回</span></td></tr>
       </tbody>
     </table></div>
     <div class="grid g2" style="margin-top:12px">
       <div class="card"><h3>検証の条件</h3><p class="muted">5本とも、ヒアリングシートと参考サイトから、キットの手順どおりに制作しました。案件ごとに出た学びはキットに戻し、次の案件は新しい版で作っています（版が案件ごとに違うのはこのためです）。</p></div>
-      <div class="card"><h3>比べる相手</h3><p class="muted">時間は、弊社の旧キット（v0.3）で作ったたくみ様の案件と比べます。現行マニュアルの制作時間は実測が無いため<b>時間は未計測</b>とし、CSSの量・散らかり・不具合の記録で比べます（4画面）。</p></div>
+      <div class="card"><h3>比べる相手</h3><p class="muted">時間は、弊社の旧キット（v0.3）で作ったたくみ様の案件と比べます。現行マニュアルの制作時間は実測が無いため<b>時間は未計測</b>とし、CSSの量・散らかり・不具合の記録で比べます（7画面）。</p></div>
     </div>
   </div>
 </section>
@@ -318,34 +330,137 @@
         <div class="card"><h3>減らせた工数</h3>
           <ul class="tight">
             <li>初稿まで：約2時間〜2時間25分 → 33〜72分（<b>約4〜8割減</b>）</li>
-            <li>社内の往復：約18回 → 3〜12回（直近2本は約4回）</li>
+            <li>社内の確認：旧キット3回 → 1〜4回（まとめて確認した場合の回数・概数）</li>
             <li>文言照合・収まり・散らかりの確認：目視から道具へ（1コマンドで合否。手で確認していた時間は未計測）</li>
           </ul>
         </div>
       </div>
       <div>
         <div class="tw tight"><table>
-          <thead><tr><th>案件</th><th>社内の往復</th><th>主な種類</th><th>貴社からの修正</th></tr></thead>
+          <thead><tr><th>案件</th><th>社内の確認</th><th>主な種類</th><th>貴社からの修正回数</th></tr></thead>
           <tbody>
-            <tr class="ref"><td>たくみ様</td><td class="n">約18回</td><td>参考サイトの読み落とし・写真の明るさ・余白・動きの速さ</td><td>2往復・3点＋1点</td></tr>
-            <tr><td><b>メタメディア様</b></td><td class="n">約12回</td><td>参考サイトの読み落とし・動きの強さ・速さ・余白</td><td>2回・4点</td></tr>
-            <tr><td><b>FUKURU様</b></td><td class="n good">3回</td><td>1枚目の見せ方・写真の選び方</td><td class="na">未提出</td></tr>
-            <tr><td><b>鈴興建設様</b></td><td class="n">6〜8回<br><span class="muted">（概数）</span></td><td>仕様書（ヒアリングシート）の読み落とし・参考サイトの読み落とし・余白・バランス・動きの強さ</td><td class="na">返事待ち</td></tr>
-            <tr><td><b>アステップ様</b></td><td class="n">約4回<br><span class="muted">（概数）</span></td><td>動きと賑やかさ・携帯での改行・余白・イラストの収まり</td><td>2回・7点<br><span class="muted">初稿の提出後に4点</span></td></tr>
-            <tr><td><b>groxi様</b></td><td class="n">約4回<br><span class="muted">（概数）</span></td><td>参考サイトの読み落とし（奥行き・動き・見出しの表現）・余白と行間・色の指定</td><td>1回・2点</td></tr>
+            <tr class="ref"><td>たくみ様</td><td class="n">3回</td><td>参考サイトの読み落とし・写真の明るさ・余白・動きの速さ</td><td>修正2回</td></tr>
+            <tr><td><b>メタメディア様</b></td><td class="n">4回</td><td>参考サイトの読み落とし・動きの強さ・速さ・余白</td><td>修正2回</td></tr>
+            <tr><td><b>FUKURU様</b></td><td class="n good">1回</td><td>1枚目の見せ方・写真の選び方</td><td class="good">初稿修正なし</td></tr>
+            <tr><td><b>鈴興建設様</b></td><td class="n">2回</td><td>仕様書（ヒアリングシート）の読み落とし・参考サイトの読み落とし・余白・バランス・動きの強さ</td><td class="good">初稿修正なし</td></tr>
+            <tr><td><b>アステップ様</b></td><td class="n good">1回</td><td>動きと賑やかさ・携帯での改行・余白・イラストの収まり</td><td>修正1回<br><span class="muted">提出後に4点（対応中）</span></td></tr>
+            <tr><td><b>groxi様</b></td><td class="n">2回</td><td>参考サイトの読み落とし（奥行き・動き・見出しの表現）・余白と行間・色の指定</td><td>修正対応中</td></tr>
           </tbody>
         </table></div>
-        <p class="muted" style="margin-top:6px">社内の往復＝初稿を弊社の責任者が確認してから、直して戻すまでの回数。種類は制作記録とキットの更新履歴から分類しました。</p>
+        <p class="muted" style="margin-top:6px">社内の確認＝初稿を弊社の責任者が確認した「まとまり」の回数（数時間あいたら別の回。細かく分けて送った指示は1回にまとめて数えた概数）。種類は制作記録とキットの更新履歴から分類しました。</p>
         <div class="qs"><button class="q" data-q="d-client">貴社からの修正とご評価</button></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 4 アウトプットとしての完成度 -->
+<!-- 4 初稿の質 -->
+<section class="slide" data-title="初稿の質">
+  <div class="in">
+    <h2><span class="n">4</span>時間をかける分、初稿の質を高くしています</h2>
+    <div class="cols c55">
+      <div class="grid" style="gap:12px">
+        <div class="grid g3" style="gap:10px">
+          <div class="card kpi"><span class="tag t-green">初稿修正なし</span><div class="big-num">2／5本</div><p class="muted">FUKURU様・鈴興建設様は、初稿をそのままご提出いただきました</p></div>
+          <div class="card kpi"><span class="tag t-green">裏側の不具合</span><div class="big-num">0件</div><p class="muted">5本とも、ページ送り・1画面の収まり・CSSの散らかりの検査で0件にしてから提出（7画面。FUKURU様のページ送りは対象外）</p></div>
+          <div class="card kpi"><span class="tag t-gray">初稿まで</span><div class="big-num" style="color:var(--ink)">33〜72分</div><p class="muted">最短ではなく、下の準備に時間を使っています（3画面）</p></div>
+        </div>
+        <div class="card"><h3>初稿の前にしていること</h3>
+          <ul class="tight">
+            <li><b>参考サイトのいいとこ取り</b>：参考サイトの全セクションを「型の表」にし、どのページにどの型を使うかの「割り当て表」を、初稿の前に作ります</li>
+            <li><b>仕様書の読み落としを防ぐ</b>：ヒアリングシートの全セル・全補足を照合表（✓△✕）にしてから作ります</li>
+            <li><b>裏側のコードの不具合を残さない</b>：強いスワイプでの行き過ぎ・途中から表示されるページ・はみ出し・効いていないCSSを、道具で0件にしてから出します</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="tw tight"><table>
+          <thead><tr><th style="width:24%">案件</th><th style="width:24%">貴社からの修正</th><th>貴社のトップディレクター様のご評価（抜粋）</th></tr></thead>
+          <tbody>
+            <tr><td><b>FUKURU様</b></td><td class="good">初稿修正なし</td><td><div class="quote">「流石のクオリティで修正点はない」</div></td></tr>
+            <tr><td><b>鈴興建設様</b></td><td class="good">初稿修正なし</td><td><div class="quote">「細かい要望まで汲み取っていただき完璧に」</div></td></tr>
+            <tr><td><b>アステップ様</b></td><td>修正1回</td><td><div class="quote">「全体的にデザイン感は問題ない」</div></td></tr>
+            <tr><td><b>メタメディア様</b></td><td>修正2回</td><td><div class="quote">「参考サイト踏襲されていていい感じ」</div></td></tr>
+            <tr><td><b>groxi様</b></td><td>修正対応中</td><td><div class="quote">「全体的にデザイン感は問題ない」</div></td></tr>
+            <tr class="ref"><td>比較：たくみ様<br><span class="muted">旧キット</span></td><td>修正2回</td><td><div class="quote">「参考サイトも踏襲されていて、すごくいい感じ」</div></td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted" style="margin-top:6px">ご評価は Slack でいただいた言葉からの抜粋です。修正の中身は（？）をご覧ください。</p>
+        <div class="qs"><button class="q" data-q="d-client">貴社からの修正とご評価</button></div>
+      </div>
+    </div>
+    <div class="dark" style="margin-top:12px;font-size:.92em">速さだけを追わず、<b>分析と検査に時間を使い、修正の往復を減らす</b>ほうを選んでいます。ただし、アステップ様では検査が見ていない種類（文字と絵の重なり・配色など）で、初稿の提出後にご指摘をいただきました（8画面）。</div>
+  </div>
+</section>
+
+<!-- 5 初稿と提出の比較（修正をいただいた案件） -->
+<section class="slide" data-title="初稿と提出の比較①">
+  <div class="in">
+    <h2><span class="n">5</span>初稿と提出時の比較①　修正をいただいた案件（スマホ 390×844）</h2>
+    <div class="pairs">
+      <div class="card"><h3>たくみ様 <span class="tag t-gray">旧キット・修正2回</span></h3>
+        <div class="pair">
+          <figure><img src="img/compare/takumi_v1_p1.jpg" alt="たくみ様 初稿の2ページ目" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
+          <figure class="after"><img src="img/compare/takumi_v3_p1.jpg" alt="たくみ様 提出時の2ページ目" loading="lazy" width="780" height="1688"><figcaption>提出（v3）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">2ページ目：「若者の逆襲」の札と「#01」の間を広げました。全ページの初稿（v2）からは、ほかにフォームの補足文の削除とプルダウン化</p>
+      </div>
+      <div class="card"><h3>メタメディア様 <span class="tag t-gray">修正2回</span></h3>
+        <div class="pair">
+          <figure><img src="img/compare/meta_v1_p3.jpg" alt="メタメディア様 初稿の特徴①" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
+          <figure class="after"><img src="img/compare/meta_v3_p3.jpg" alt="メタメディア様 提出時の特徴①" loading="lazy" width="780" height="1688"><figcaption>提出（v3）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">特徴①：吹き出しを枠線から塗りに。特徴①〜③の背景を黒でそろえ、1枚目の斜めのあしらいを続けました</p>
+      </div>
+      <div class="card"><h3>アステップ様 <span class="tag t-gray">修正1回</span></h3>
+        <div class="pair">
+          <figure><img src="img/compare/astep_v1_company.jpg" alt="アステップ様 初稿の会社概要" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
+          <figure class="after"><img src="img/compare/astep_v2_company.jpg" alt="アステップ様 提出時の会社概要" loading="lazy" width="780" height="1688"><figcaption>提出（v2）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">会社概要：値の左端をそろえました。初稿は、お送りした時点の控えのファイルから撮っています</p>
+      </div>
+    </div>
+    <div class="qs"><button class="q" data-q="d-compare">1枚目の次のページ・ほかの修正ページも並べて見る</button></div>
+  </div>
+</section>
+
+<!-- 6 初稿と提出の比較（初稿のまま提出） -->
+<section class="slide" data-title="初稿と提出の比較②">
+  <div class="in">
+    <h2><span class="n">6</span>初稿と提出時の比較②　初稿のまま提出いただいた案件（スマホ 390×844）</h2>
+    <div class="pairs">
+      <div class="card"><h3>FUKURU様 <span class="tag t-green">初稿修正なし</span></h3>
+        <div class="same">初稿のまま提出</div>
+        <div class="pair">
+          <figure class="after"><img src="img/compare/fukuru_v1_p1.jpg" alt="FUKURU様 1枚目の次のセクション" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
+          <figure class="after"><img src="img/compare/fukuru_v1_p2.jpg" alt="FUKURU様 3つ目のセクション" loading="lazy" width="780" height="1688"><figcaption>その次（v1）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">シートの指定どおり、通常スクロール型＋画像の1枚目</p>
+      </div>
+      <div class="card"><h3>鈴興建設様 <span class="tag t-green">初稿修正なし</span></h3>
+        <div class="same">初稿のまま提出</div>
+        <div class="pair">
+          <figure class="after"><img src="img/compare/suzukou_v1_p1.jpg" alt="鈴興建設様 2ページ目" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
+          <figure class="after"><img src="img/compare/suzukou_v1_p2.jpg" alt="鈴興建設様 3ページ目" loading="lazy" width="780" height="1688"><figcaption>その次（v1）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">縦スワイプ型・全ページ1案</p>
+      </div>
+      <div class="card"><h3>groxi様 <span class="tag t-orange">修正対応中</span></h3>
+        <div class="same" style="color:var(--soft)">初稿（ご提出時の版は対応中）</div>
+        <div class="pair">
+          <figure><img src="img/compare/groxi_v1_p1.jpg" alt="groxi様 2ページ目" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
+          <figure><img src="img/compare/groxi_v1_p3.jpg" alt="groxi様 4ページ目" loading="lazy" width="780" height="1688"><figcaption>修正をいただいたページ（v1）</figcaption></figure>
+        </div>
+        <p class="muted" style="margin:6px 0 0">スマホで強調の文が途中で改行される点（2ページ目ほか）と、PCでカードを横に送れない点を直しています</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 アウトプットとしての完成度 -->
 <section class="slide" data-title="アウトプットの完成度">
   <div class="in">
-    <h2><span class="n">4</span>アウトプットとしての完成度（検査の実測と実例サイトとの比較）</h2>
+    <h2><span class="n">7</span>アウトプットとしての完成度（検査の実測と実例サイトとの比較）</h2>
     <div class="cols c55">
       <div>
         <div class="tw tight"><table class="wide5">
@@ -359,7 +474,7 @@
             <tr><td>ページ送り</td><td class="c good">合格</td><td class="c na">対象外</td><td class="c good">合格</td><td class="c good">合格</td><td class="c good">合格</td></tr>
           </tbody>
         </table></div>
-        <p class="muted" style="margin-top:6px">FUKURU様は通常スクロール型のため、上下の余白とページ送りは検査の対象外です。なお、アステップ様では検査がすべて合格のまま、文字とイラストの重なり・配色の見やすさ・枠からのはみ出しのご指摘をいただきました。いまの検査が見ていない種類のため、道具にしていきます（9画面）。</p>
+        <p class="muted" style="margin-top:6px">FUKURU様は通常スクロール型のため、上下の余白とページ送りは検査の対象外です。なお、アステップ様では検査がすべて合格のまま、文字とイラストの重なり・配色の見やすさ・枠からのはみ出しのご指摘をいただきました。いまの検査が見ていない種類のため、道具にしていきます（12画面）。</p>
         <div class="qs"><button class="q" data-q="d-checks">各検査で何を見ている？</button></div>
       </div>
       <div>
@@ -381,10 +496,10 @@
   </div>
 </section>
 
-<!-- 5 修正のご依頼が出ない形を目指して -->
+<!-- 8 修正のご依頼が出ない形を目指して -->
 <section class="slide" data-title="ご指摘の再発防止">
   <div class="in">
-    <h2><span class="n">5</span>修正のご依頼が出ない形を目指して（ご指摘の再発防止チェックリスト）</h2>
+    <h2><span class="n">8</span>修正のご依頼が出ない形を目指して（ご指摘の再発防止チェックリスト）</h2>
     <p class="lead" style="margin-bottom:10px">これまで貴社（エンドクライアント様からのご依頼を含む）からいただいたご指摘を<b>すべて</b>、二度と起こさないためのチェックリストにしました。キットの一部として、どの制作者も提出の前に全項目を確かめます（キット v1.18）。</p>
     <div class="cl-kpi">
       <div class="card kpi"><span class="tag t-gray">ご指摘</span><div class="big-num" style="color:var(--ink)">29件</div><p class="muted">INSPIRE様〜groxi様の7案件。社内の確認で出た指摘は含みません</p></div>
@@ -408,17 +523,17 @@
       </table></div>
       <div class="grid" style="gap:10px">
         <div class="card"><h3>運用の決まり</h3><ul class="tight"><li>ご指摘をいただいたら、まずチェックリストに1行足す</li><li>防ぎ方は「作業ルール → 検査の道具 → 土台」の順に強くする</li><li>提出の前に全項目を確かめる（作業ルールの手順8・提出チェックの冒頭に明記）</li></ul></div>
-        <div class="card hl-card"><h3>正直にお伝えしたいこと</h3><p class="muted" style="margin:0">①②の番号ときっかけの補足文は、同じご指摘を2回いただいてから決まりにしました。また、アステップ様の初稿の提出後にいただいた4件（文字とイラストの重なり・配色の見やすさ・ロゴのはみ出し・語の重複）は、<b>検査がすべて合格のまま</b>起きたものです。いまの検査が見ていない種類のため、道具にしていきます（9画面）。</p></div>
+        <div class="card hl-card"><h3>正直にお伝えしたいこと</h3><p class="muted" style="margin:0">①②の番号ときっかけの補足文は、同じご指摘を2回いただいてから決まりにしました。また、アステップ様の初稿の提出後にいただいた4件（文字とイラストの重なり・配色の見やすさ・ロゴのはみ出し・語の重複）は、<b>検査がすべて合格のまま</b>起きたものです。いまの検査が見ていない種類のため、道具にしていきます（12画面）。</p></div>
       </div>
     </div>
     <div class="qs"><button class="q" data-q="d-cl-how">防ぎ方の詳細（全29件）</button></div>
   </div>
 </section>
 
-<!-- 6 チェックリストの全項目 -->
+<!-- 9 チェックリストの全項目 -->
 <section class="slide" data-title="チェックリストの全項目">
   <div class="in">
-    <h2><span class="n">6</span>チェックリストの全項目（29件）</h2>
+    <h2><span class="n">9</span>チェックリストの全項目（29件）</h2>
     <div class="cols c55">
       <div class="tw tight"><table class="cl"><thead><tr><th style="width:2em">#</th><th>ご指摘（要旨）</th><th>最初の案件</th><th>状態</th></tr></thead><tbody>
 <tr class="grp"><td colspan="4">レイアウト・余白</td></tr>
@@ -466,17 +581,17 @@
   </div>
 </section>
 
-<!-- 7 再現性 -->
+<!-- 10 再現性 -->
 <section class="slide" data-title="他の制作者による再現性">
   <div class="in">
-    <h2><span class="n">7</span>他の制作者による再現性</h2>
+    <h2><span class="n">10</span>他の制作者による再現性</h2>
     <div class="cols c64">
       <div class="tw tight"><table>
         <thead><tr><th style="width:30%">工程</th><th style="width:16%">担保</th><th>中身</th></tr></thead>
         <tbody>
           <tr><td>案件作成・シートの書き出し</td><td><span class="tag k-tool">道具で担保</span></td><td>1コマンドで複製と書き出し</td></tr>
           <tr><td>文言・散らかり・収まり・余白・ページ送り</td><td><span class="tag k-tool">道具で担保</span></td><td>不合格なら先へ進めない</td></tr>
-          <tr><td>公開・公開後の照合・OGP画像</td><td><span class="tag k-tool">道具で担保</span></td><td>合格しないと公開できない（12画面）</td></tr>
+          <tr><td>公開・公開後の照合・OGP画像</td><td><span class="tag k-tool">道具で担保</span></td><td>合格しないと公開できない（16画面）</td></tr>
           <tr><td>進め方の選択・要件整理・照合表</td><td><span class="tag k-doc">手順書で担保</span></td><td>道具は要件整理の中身を読まない</td></tr>
           <tr><td>提出チェック・共有文面・修正記録</td><td><span class="tag k-doc">手順書で担保</span></td><td>書かなくても先へ進める</td></tr>
           <tr><td><b>参考サイトの分析</b></td><td><span class="tag k-man">人の判断に頼る</span></td><td>記録と並べ比べは道具。読み取るのは人</td></tr>
@@ -492,15 +607,15 @@
   </div>
 </section>
 
-<!-- 8 良かった点 -->
+<!-- 11 良かった点 -->
 <section class="slide" data-title="良かった点">
   <div class="in">
-    <h2><span class="n">8</span>良かった点</h2>
+    <h2><span class="n">11</span>良かった点</h2>
     <div class="grid g3">
       <div class="card did"><span class="num">1</span><h3>初稿までが速い</h3><p class="muted">分析・実装・検査まで33〜72分。土台と部品があり、AIが書くのは中身と案件固有の見た目だけ</p></div>
       <div class="card did"><span class="num">2</span><h3>機械で測れる品質は、初稿から合格</h3><p class="muted">文言の一言一句・散らかり0・1画面の収まり・上下の余白を、出す前に道具で確かめている</p></div>
       <div class="card did"><span class="num">3</span><h3>シートの指定で型を切り替えられる</h3><p class="muted">FUKURU様の「スクロール形式」「動画ではなく画像」の指定に、土台と検査ごと切り替えて対応（v1.5）</p></div>
-      <div class="card did"><span class="num">4</span><h3>学びが次の案件に効く</h3><p class="muted">往復は約12回から、直近2本は約4回に減った。ただし案件の難しさ・担当の慣れも同時に変わっており、キットの効果だけとは言い切れない（推測）</p></div>
+      <div class="card did"><span class="num">4</span><h3>学びが次の案件に効く</h3><p class="muted">社内の確認は、メタメディア様の4回から、直近の3本は1〜2回に減った。ただし案件の難しさ・担当の慣れも同時に変わっており、キットの効果だけとは言い切れない（推測）</p></div>
       <div class="card did"><span class="num">5</span><h3>公開の事故が止まる</h3><p class="muted">不合格のまま・空のファイル・参照切れでは公開できない。公開後は全ファイルを照合</p></div>
       <div class="card did"><span class="num">6</span><h3>直しやすいCSS</h3><p class="muted">CSSは400行前後、色は変数の1か所。直しても画面が変わらない行は0件</p></div>
     </div>
@@ -508,29 +623,50 @@
   </div>
 </section>
 
-<!-- 9 改善点 -->
+<!-- 12 改善点 -->
 <section class="slide" data-title="改善点">
   <div class="in">
-    <h2><span class="n">9</span>改善点（優先順）</h2>
+    <h2><span class="n">12</span>改善点（優先順）</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:4%">#</th><th style="width:30%">課題</th><th style="width:46%">対策</th><th>状態</th></tr></thead>
       <tbody>
-        <tr><td class="n"><b>1</b></td><td><b>参考サイト・仕様書の読み落とし</b><br><span class="muted">往復が3〜12回と差が出る主因</span></td><td>仕様書の全セル・全補足の照合表（✓△✕）、参考の全セクションの型の表と割り当て表。次は、照合表が空なら検査で止める</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.3・v1.14</span></td></tr>
+        <tr><td class="n"><b>1</b></td><td><b>参考サイト・仕様書の読み落とし</b><br><span class="muted">確認の回数（1〜4回）に差が出る主因</span></td><td>仕様書の全セル・全補足の照合表（✓△✕）、参考の全セクションの型の表と割り当て表。次は、照合表が空なら検査で止める</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.3・v1.14</span></td></tr>
         <tr><td class="n"><b>2</b></td><td><b>決まりが多く、変化が速い</b><br><span class="muted">264行・5日で18版</span></td><td>最初に読む要点版を作る。案件の開始時に版を固定し、途中で変えない</td><td><span class="tag t-gray">案</span></td></tr>
-        <tr><td class="n"><b>3</b></td><td><b>同じご指摘の再発・修正の記録</b><br><span class="muted">同じご指摘を2回いただいた例がある。修正の時間は未記録の案件も</span></td><td>いただいたご指摘29件を再発防止のチェックリストにし、提出前に全項目を確認（5〜6画面）。修正記録はアステップ様から作成。修正の時間の台帳は道具で付ける</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.18</span></td></tr>
+        <tr><td class="n"><b>3</b></td><td><b>同じご指摘の再発・修正の記録</b><br><span class="muted">同じご指摘を2回いただいた例がある。修正の時間は未記録の案件も</span></td><td>いただいたご指摘29件を再発防止のチェックリストにし、提出前に全項目を確認（8〜9画面）。修正記録はアステップ様から作成。修正の時間の台帳は道具で付ける</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.18</span></td></tr>
         <tr><td class="n"><b>4</b></td><td><b>検査が見ていない種類がある</b><br><span class="muted">文字と絵・写真の重なり、配色の見やすさ、枠からのはみ出し、同じ語の重なり（アステップ様で4件）。見た目の質も人の判断</span></td><td>重なり・コントラスト・はみ出し・語の重複の検査を作る。それまでは全ページをスマホの2つの画面サイズで1枚ずつ確認。あわせて写真の明るさ・動きの速さの数値検査</td><td><span class="tag t-blue">道具化を進める</span></td></tr>
         <tr><td class="n"><b>5</b></td><td><b>iPhone実機・Safariが未確認</b></td><td>Safariの検査を追加。実機の確認手順を決める</td><td><span class="tag t-blue">v2で予定</span></td></tr>
-        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（16画面）</span></td></tr>
+        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（20〜21画面）</span></td></tr>
         <tr><td class="n"><b>7</b></td><td><b>検査のぶれ・動作環境</b><br><span class="muted">ページ送りの検査が負荷でぶれる／macOS・Chrome前提</span></td><td>ぶれたときの再実行の決まり。Windowsでの利用はご相談</td><td><span class="tag t-gray">案</span></td></tr>
       </tbody>
     </table></div>
   </div>
 </section>
 
-<!-- 10 全体の流れ -->
+<!-- 13 初稿をさらに速くする方法 -->
+<section class="slide" data-title="初稿をさらに速く">
+  <div class="in">
+    <h2><span class="n">13</span>初稿をさらに速くする方法（質を落とさずに時間を減らす）</h2>
+    <div class="tw tight"><table>
+      <thead><tr><th style="width:4%">#</th><th style="width:30%">案</th><th style="width:26%">見込み<span class="muted">（すべて推測）</span></th><th>弱点・注意</th></tr></thead>
+      <tbody>
+        <tr><td class="n"><b>1</b></td><td><b>参考サイトの分析の記録を自動でまとめる</b><br><span class="muted">記録の道具（refcap）はすでにある。読み取りの要点（色・余白・動きの時間・セクションの型）を半自動で表にする</span></td><td>分析の時間を約1〜2割減らせる見込み</td><td>読み取りの判断は人に残る。自動の要点が誤ると、かえって読み落としを生む → 人が必ず確かめる</td></tr>
+        <tr><td class="n"><b>2</b></td><td><b>トーンの型で3案を自動で作る</b><br><span class="muted">色・書体・線・動きの変数の組を選ぶだけで、案B・Cを作る</span></td><td>3案の案件で、2案分の手作りの時間を減らせる見込み</td><td>過去の調査では、3案の差は変数だけではほとんど出なかった。部品の切り替えも要り、案の個性が弱くなるおそれ</td></tr>
+        <tr><td class="n"><b>3</b></td><td><b>検査を同時に流し、合格済みの中身は検査し直さない</b><br><span class="muted">いまは公開1回で約2〜5分の検査</span></td><td>修正の往復ごとに数分ずつ減らせる見込み</td><td>変わった所の見分けを誤ると不具合を見逃す → 公開前の最後の1回は全部を検査する</td></tr>
+        <tr><td class="n"><b>4</b></td><td><b>Slack の案件スレッドから案件の準備まで自動で進める</b><br><span class="muted">シート・素材・仕様の取り込みを、新規案件の通知から始める</span></td><td>準備の手間（数分〜十数分）を減らせる見込み</td><td>Slack Connect の添付は連携で取れないことがある（10月20日に確認）。取れないものは人が入れる</td></tr>
+        <tr><td class="n"><b>5</b></td><td><b>ページの型の部品を増やす（部品集）</b><br><span class="muted">よく使う型を部品にし、白紙から書く量を減らす</span></td><td>型の合うページの実装を短くできる見込み</td><td>部品に寄せすぎると参考サイトの踏襲が弱まり、似た見た目になる → 型の表に合うものだけを使う決まりは続ける</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="dark" style="font-size:.92em">どれも<b>質を落とさずに時間を減らす</b>方向です。参考サイトの分析や仕様書の照合を飛ばすなど、<b>質を下げる短縮はしません</b>（4画面）。</div>
+      <div class="card"><h3>見込みの扱い</h3><p class="muted" style="margin:0">いまの作業記録は工程ごとの時間が粗いため、見込みはすべて推測です。入れたあとに作業記録で実測し、時間と修正の回数の両方でご報告します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 全体の流れ -->
 <section class="slide" data-title="いまのスキームの流れ">
   <div class="in">
-    <h2><span class="n">10</span>いまのスキームの全体の流れ（手順0〜9.5）</h2>
+    <h2><span class="n">14</span>いまのスキームの全体の流れ（手順0〜9.5）</h2>
     <div class="phase"><span class="p-tool">道具で進める・止める工程</span><span class="p-key">品質を左右する重要な工程</span></div>
     <div class="flow">
       <div class="st key"><b>0</b>進め方を選ぶ（途中確認・初稿の範囲・案の数）</div>
@@ -551,16 +687,16 @@
     </div>
     <div class="grid g2" style="margin-top:12px">
       <div class="card"><h3>複製は分析の場所だけ</h3><p class="muted">参考サイトの複製・記録は分析用のフォルダの中だけで行い、取り出すのは数値・型・時間割だけ。コードと素材は制作物に持ち込みません（前回のご提案のとおり）。</p></div>
-      <div class="dark" style="font-size:.92em">手順9.5で残した学びは、作業ルール・道具・土台のいずれかに足し、<b>次の案件から全員の制作に効く</b>形にします（13画面）。</div>
+      <div class="dark" style="font-size:.92em">手順9.5で残した学びは、作業ルール・道具・土台のいずれかに足し、<b>次の案件から全員の制作に効く</b>形にします（17画面）。</div>
     </div>
     <div class="qs"><a class="q" href="../takumi-manual/" target="_blank" rel="noopener">見本：編集マニュアル（動きの仕様つき）</a></div>
   </div>
 </section>
 
-<!-- 11 キットの構成 -->
+<!-- 15 キットの構成 -->
 <section class="slide" data-title="制作キットの構成">
   <div class="in">
-    <h2><span class="n">11</span>制作キットの構成</h2>
+    <h2><span class="n">15</span>制作キットの構成</h2>
     <div class="grid g3">
       <div class="card"><span class="tag t-blue">tools/　道具（18本）</span>
         <ul class="tight" style="margin-top:8px">
@@ -593,13 +729,14 @@
       <div class="card"><span class="tag t-green">base/　土台</span><p class="muted" style="margin-top:6px">ページ送り（CSSのスナップ＋PCのホイールの補助）・骨格・色と余白の変数。案件では直さず、見た目は案件のCSSに書く</p></div>
       <div class="card"><span class="tag t-green">AGENTS.md　作業ルール</span><p class="muted" style="margin-top:6px">手順0〜9.5と、案件で得た決まり（分析・1枚目・写真・見出し・動き・収まり・デザインの原則・フォーム・公開）。AIの種類を問わず同じ文書を読む</p></div>
     </div>
+    <div class="callout" style="margin-top:12px"><b>Slack との連携</b>：案件のスレッド（新規案件の通知）を AI に渡すだけで、AI がヒアリングシート・素材のフォルダ・仕様を読み取り、案件の準備（シートの書き出し・素材の取り込み・要件整理）まで進めます。初稿ができたら、Slack での初稿確認のご連絡（URLと、シートの指定に合わせて変えた点）も AI が作ります。<span class="muted">現在は、ご連絡は下書きまで作り、弊社の責任者が確認して送っています。承認の後に自動で送る形にもできます。</span></div>
   </div>
 </section>
 
-<!-- 12 品質を止める仕組み -->
+<!-- 16 品質を止める仕組み -->
 <section class="slide" data-title="品質を止める仕組み">
   <div class="in">
-    <h2><span class="n">12</span>品質を止める仕組み（公開の門と公開後の照合）</h2>
+    <h2><span class="n">16</span>品質を止める仕組み（公開の門と公開後の照合）</h2>
     <div class="gate">
       <div class="g"><h3>検査（run_all）</h3><ul class="tight"><li>構成（動画・OGP・読み込みの版）</li><li>文言照合（シートと一言一句）</li><li>CSSの散らかり6項目</li><li>1画面の収まり・最小文字13px</li><li>上下の余白（上＝下）</li><li>ページ送り</li></ul></div>
       <div class="ar2">→</div>
@@ -613,14 +750,14 @@
       <div class="card"><h3>散らかり6項目</h3><p class="muted">効いていない書き直し・未使用のclass・直書きの色・!important・両方向に効く出現の待ち・帯の中の改行。どれも1件で不合格</p></div>
       <div class="card"><h3>人の承認は残す</h3><p class="muted">実際の公開は、道具の合格に加えて弊社の責任者の承認を取ってから行います。修正版は版ごとにURLを分け、前の版を残します。</p></div>
     </div>
-    <p class="muted" style="margin-top:8px">道具で止まるのは「測れること」です。見た目の良し悪しと、iPhone実機・Safariでの動きは、道具では確かめていません（9画面）。</p>
+    <p class="muted" style="margin-top:8px">道具で止まるのは「測れること」です。見た目の良し悪しと、iPhone実機・Safariでの動きは、道具では確かめていません（12画面）。</p>
   </div>
 </section>
 
-<!-- 13 学びの積み上げ -->
+<!-- 17 学びの積み上げ -->
 <section class="slide" data-title="学びの積み上げ">
   <div class="in">
-    <h2><span class="n">13</span>学びの積み上げ（v1.1 → v1.18）</h2>
+    <h2><span class="n">17</span>学びの積み上げ（v1.1 → v1.18）</h2>
     <div class="cols c64">
       <div class="ver">
         <div class="v"><b>v1.1</b><span>起点（10月16日）。v1.18は10月20日</span></div>
@@ -649,7 +786,7 @@
             <div class="b"><span>アステップ様</span><i style="width:22%"></i><span>約4行</span></div>
             <div class="b"><span>groxi様</span><i style="width:22%"></i><span>約4行</span></div>
           </div>
-          <p class="muted" style="margin-top:8px">10月16日以降に、案件の指摘から足した行の概数です。アステップ様は提出チェックにも3項目を足しました。両案件でいただいたご指摘は、チェックリスト（5〜6画面）に入れています。</p>
+          <p class="muted" style="margin-top:8px">10月16日以降に、案件の指摘から足した行の概数です。アステップ様は提出チェックにも3項目を足しました。両案件でいただいたご指摘は、チェックリスト（8〜9画面）に入れています。</p>
         </div>
         <div class="card"><h3>反映先の考え方</h3><p class="muted">前回のご提案のとおり、文章のルール → 検査の道具 → 土台のコードの順に強くなります。5日で足した学びのうち、道具か土台に入ったものは、次の案件から誰が作っても起きにくくなります（ほかの制作者での確認はこれからです）。</p></div>
       </div>
@@ -657,10 +794,10 @@
   </div>
 </section>
 
-<!-- 14 流出・複製のリスク -->
+<!-- 18 流出・複製のリスク -->
 <section class="slide" data-title="流出・複製のリスク">
   <div class="in">
-    <h2><span class="n">14</span>スキームの流出・複製のリスク（どこから流れるか）</h2>
+    <h2><span class="n">18</span>スキームの流出・複製のリスク（どこから流れるか）</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:30%">流れ方</th><th style="width:22%">起きやすさ</th><th style="width:24%">流れたときの影響</th><th>主な守り方</th></tr></thead>
       <tbody>
@@ -673,10 +810,10 @@
   </div>
 </section>
 
-<!-- 15 流出・複製への対策 -->
+<!-- 19 流出・複製への対策 -->
 <section class="slide" data-title="流出・複製への対策">
   <div class="in">
-    <h2><span class="n">15</span>流出・複製への対策（ご提案）</h2>
+    <h2><span class="n">19</span>流出・複製への対策（ご提案）</h2>
     <div class="cols c55">
       <div class="grid" style="gap:10px">
         <div class="card"><span class="tag t-green">おすすめ 1</span> <b>契約で守る</b><p class="muted">キットを渡す制作者と、利用許諾・再配布の禁止・秘密保持・契約終了時の削除を取り交わします。あわせて、キットの権利の扱いを弊社と貴社の間でも決めておきます。すぐに始められ、抑止になります。</p></div>
@@ -693,19 +830,67 @@
   </div>
 </section>
 
-<!-- 16 次の改善とご相談 -->
+<!-- 20 ほかの制作者が再現するために -->
+<section class="slide" data-title="ほかの制作者が再現するために">
+  <div class="in">
+    <h2><span class="n">20</span>ほかの制作者が同じスキームを再現するために</h2>
+    <p class="lead muted" style="margin:0 0 12px">弊社以外の制作者が、同じ手順・同じ検査で作るための流れと、お渡しするものです。AI は Claude（Claude Code）でも Codex でも、同じ作業ルールを読んで動きます。</p>
+    <div class="cols c55">
+      <div class="grid" style="gap:10px">
+        <div class="card"><span class="tag t-blue">流れ</span>
+          <ol class="flow-list">
+            <li><b>準備（初回だけ）</b>：環境を入れる → キットを受け取る（版を固定）→ 公開用のアカウントにログイン → 見本の案件で検査を1回流して合格を確かめる</li>
+            <li><b>案件ごと</b>：案件を作る（1コマンド）→ ヒアリングシート・素材を入れる → AI に「作業ルールの手順0から始めて」と指示 → 進め方を選ぶ → 要件整理・分析・初稿 → 検査がすべて合格</li>
+            <li><b>提出の前</b>：全ページの一覧画像を責任者が確認し、最終チェックに承認を記入 → 公開（承認後）→ 共有文面で提出</li>
+            <li><b>修正</b>：版ごとのURLで出し直す。いただいたご指摘はチェックリストに1行足し、弊社にも共有（キットに反映）</li>
+          </ol>
+        </div>
+        <div class="card"><span class="tag t-gray">AI の設定</span>
+          <ul>
+            <li><b>Claude Code</b>：キットのフォルダで起動。<code>CLAUDE.md</code>（作業ルール）を自動で読む。ファイルの編集とコマンドの実行を許可する。公開・送信は毎回人が承認</li>
+            <li><b>Codex</b>：同じフォルダで起動。<code>AGENTS.md</code>（CLAUDE.md と同じ内容）を自動で読む。許可の考え方は同じ</li>
+            <li>どちらも、品質は文書ではなく検査の道具で止まるため、AI の種類で結果が変わりにくい作りです（ほかの制作者・ほかの AI での確認はこれから）</li>
+            <li>画像生成は ChatGPT または Gemini（ブラウザで操作）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid" style="gap:10px">
+        <div class="tw tight"><table>
+          <thead><tr><th style="width:30%">お渡しするもの</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td><b>制作キット</b></td><td>土台・検査と公開の道具・ひな形・部品集・作業ルール（AGENTS.md／CLAUDE.md）・更新履歴。版を固定してお渡し（例：v1.19）</td></tr>
+            <tr><td><b>チェックリスト</b></td><td>ご指摘の再発防止チェックリスト・トップディレクターの確認項目（最終チェック）・提出チェック</td></tr>
+            <tr><td><b>見本の案件</b></td><td>完成した案件1本（シート・分析・制作物・検査の記録）。最初の練習と、検査が正しく動くかの確認に使う</td></tr>
+            <tr><td><b>案件の資料</b></td><td>ヒアリングシート・参考サイトのURL・ロゴや写真などの素材（いまと同じ）</td></tr>
+          </tbody>
+        </table></div>
+        <div class="tw tight"><table>
+          <thead><tr><th style="width:30%">制作者の環境</th><th>必要なもの</th></tr></thead>
+          <tbody>
+            <tr><td><b>パソコン</b></td><td>macOS（Windows はご相談）</td></tr>
+            <tr><td><b>ソフト</b></td><td>Google Chrome・Node.js・Python 3（openpyxl・Pillow）・ffmpeg・git。Safari の検査を使うなら Safari の自動操作の許可</td></tr>
+            <tr><td><b>アカウント</b></td><td>Claude（Claude Code）または ChatGPT（Codex）・画像生成の AI・公開先（Cloudflare Pages）・確認用URL（GitHub、任意）</td></tr>
+          </tbody>
+        </table></div>
+        <div class="dark" style="font-size:.9em">お渡しの範囲と契約は、18〜19画面の対策（契約・渡す範囲を分ける・検査と公開を弊社側で回す）と合わせて決めます。<b>まずは1名・1案件で試用し、時間と往復の回数を比べたい</b>と考えています。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 次の改善とご相談 -->
 <section class="slide" data-title="次の改善とご相談">
   <div class="in">
-    <h2><span class="n">16</span>次の改善とご相談事項</h2>
+    <h2><span class="n">21</span>次の改善とご相談事項</h2>
     <div class="cols c55">
       <div class="card"><span class="tag t-blue">次の改善（v2の予定）</span>
         <ol class="flow-list">
           <li><b>検査の盲点を道具に</b>：文字と絵・写真の重なり、配色のコントラスト、枠からのはみ出し、同じ語の重なり（アステップ様のご指摘から）</li>
-          <li><b>チェックリストの残り</b>：「これから」の10件を決まり・検査へ（5〜6画面）</li>
+          <li><b>チェックリストの残り</b>：「これから」の10件を決まり・検査へ（8〜9画面）</li>
           <li><b>見た目の数値検査</b>：写真の明るさ・動きの速さなど、いま人が見ている点を数値に</li>
           <li><b>Safariの検査</b>：iPhoneに近い条件での確認</li>
           <li><b>画像生成の手順</b>：写真・イラストの作り方と確認点</li>
-          <li><b>トーンの型</b>：3案を変数の組で自動で作る</li>
+          <li><b>トーンの型</b>：3案を変数の組で自動で作る（13画面）</li>
           <li><b>修正の台帳</b>：指摘の種類・回数・時間を残し、次の改善の材料に</li>
         </ol>
         <p class="muted" style="margin-top:8px">あわせて、作業ルールの要点版を作り、ほかの制作者が最初に読む量を減らします。</p>
@@ -715,7 +900,7 @@
         <div class="card"><b>2</b>　ほかの制作者による試用（担当者・案件・期間）</div>
         <div class="card"><b>3</b>　制作者の環境（macOS・Google Chrome が使えるか）</div>
         <div class="card"><b>4</b>　iPhone実機での確認の分担</div>
-        <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。14〜15画面）</div>
+        <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。18〜19画面）</div>
         <div class="dark" style="font-size:.92em">ほかの制作者が同じキットで作ったときに、<b>時間と往復の回数が同じ水準になるか</b>を、次の検証の中心にしたいと考えています。</div>
       </div>
     </div>
@@ -723,15 +908,15 @@
   </div>
 </section>
 
-<!-- 17 参考：出典 -->
+<!-- 22 参考：出典 -->
 <section class="slide" data-title="参考：数字の出典">
   <div class="in">
-    <h2><span class="n">17</span>参考：検証の数字の出典</h2>
+    <h2><span class="n">22</span>参考：検証の数字の出典</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:26%">数字</th><th>出典・測り方</th></tr></thead>
       <tbody class="src">
         <tr><td>初稿までの作業時間</td><td>案件の作業記録（記録の道具で実時刻を記入）。確認待ちの時間は除く。たくみ様は記録が3通りあり、幅で記載</td></tr>
-        <tr><td>社内の往復・種類</td><td>制作記録・引き継ぎの記録・キットの更新履歴から数えた概数（会話の全記録ではない）</td></tr>
+        <tr><td>社内の確認・種類</td><td>作業記録の時刻から、確認のまとまり（数時間あいたら別の回）を数えた概数。メタメディア様・鈴興建設様の一部は日単位。種類は制作記録とキットの更新履歴から分類</td></tr>
         <tr><td>検査の結果</td><td>メタメディア様・FUKURU様・鈴興建設様は10月18日に検査（run_all）を実行し直した結果。アステップ様・groxi様は10月20日の提出時（公開の門）の検査の結果</td></tr>
         <tr><td>ご指摘のチェックリスト</td><td>各案件の修正記録・制作記録・引き継ぎの記録・公開用の作業コピーの履歴から、貴社（エンドクライアント様を含む）のご指摘だけを数えたもの。社内の確認で出た指摘は除く</td></tr>
         <tr><td>CSS・JSの行数</td><td>各案件の style.css＋tokens.css、site.js の行数（土台の base.css・swipe.js は含まない）</td></tr>
@@ -757,7 +942,7 @@
 
 <div class="detail" id="e-quality" data-title="根拠：検査の結果とCSSの量">
   <ul>
-    <li>10月18日に3本で検査を実行し直し、すべて合格でした。アステップ様・groxi様は10月20日の提出時の検査ですべて合格です（4画面）。</li>
+    <li>10月18日に3本で検査を実行し直し、すべて合格でした。アステップ様・groxi様は10月20日の提出時の検査ですべて合格です（7画面）。</li>
     <li>CSSの行数（style.css＋tokens.css）：メタメディア様 400行、FUKURU様 446行、鈴興建設様 389行、アステップ様 396行、groxi様 417行。</li>
     <li>実例4サイトのCSSの行数：583〜7,568行（東海メンテナンス様の約6,100行はフォントの定義）。</li>
   </ul>
@@ -766,7 +951,7 @@
 
 <div class="detail" id="e-issue" data-title="根拠：課題">
   <ul>
-    <li>社内の往復：メタメディア様 約12回、FUKURU様 3回、鈴興建設様 6〜8回、アステップ様・groxi様 各約4回（概数）。</li>
+    <li>社内の確認（まとまりの回数）：たくみ様3回、メタメディア様4回、FUKURU様1回、鈴興建設様2回、アステップ様1回、groxi様2回（概数）。</li>
     <li>主な種類は、参考サイトの読み落とし・仕様書（ヒアリングシート）の読み落とし・余白とバランス・動きの強さと速さ・写真の明るさと選び方です。</li>
     <li>キットは10月16日のv1.1から10月20日のv1.18まで、5日で18版。作業ルールは264行です。</li>
     <li>5本とも同じ担当が制作しており、ほかの制作者での再現は検証していません。</li>
@@ -778,7 +963,7 @@
   <ul>
     <li>初稿：「参考サイトも踏襲されていて、すごくいい感じ。修正点なし」</li>
     <li>全ページ：「テイストOK、安定していてかなりクオリティ高い」（寺嶋様）</li>
-    <li>修正：2往復・3点＋1点</li>
+    <li>修正2回（v3で提出）</li>
   </ul>
   <h3 style="margin-top:12px">メタメディア様（10月18日・19日・4点）</h3>
   <ul>
@@ -797,8 +982,8 @@
     <li>PCで横に並んだカードを送れるように／スマホで強調の文が途中で改行される</li>
   </ul>
   <h3 style="margin-top:12px">FUKURU様・鈴興建設様</h3>
-  <p class="muted">FUKURU様は未提出（共有の文面は下書き）。鈴興建設様は共有済みで、お返事待ちです。</p>
-  <p class="muted">いただいたご指摘は、過去の案件の分も含めてすべて再発防止のチェックリストに入れています（5〜6画面）。</p>
+  <p class="muted">FUKURU様・鈴興建設様は、初稿への修正なしでご提出いただきました（v1）。</p>
+  <p class="muted">いただいたご指摘は、過去の案件の分も含めてすべて再発防止のチェックリストに入れています（8〜9画面）。</p>
 </div>
 
 <div class="detail" id="d-cl-how" data-title="ご指摘の再発防止：各項目の防ぎ方（全29件）">
@@ -870,6 +1055,29 @@
     </tbody>
   </table></div>
   <p class="ev-src">実例4サイトは前回のご提案の計測表と不具合の記録（症状の数）から。検証5本のJSの行数（site.js）は、メタメディア様127行・FUKURU様84行・鈴興建設様42行・アステップ様82行・groxi様78行（比較：たくみ様125行）。</p>
+</div>
+
+<div class="detail" id="d-compare" data-title="初稿と提出時の比較（スマホ 390×844）">
+  <h3>1枚目（動画・画像）の次のページ</h3>
+  <div class="cmp4">
+    <figure><img src="img/compare/takumi_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 初稿（v1）</figcaption></figure>
+    <figure class="after"><img src="img/compare/takumi_v3_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 提出（v3）</figcaption></figure>
+    <figure><img src="img/compare/meta_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 初稿（v1）</figcaption></figure>
+    <figure class="after"><img src="img/compare/meta_v3_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 提出（v3）</figcaption></figure>
+    <figure><img src="img/compare/astep_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 初稿（v1）</figcaption></figure>
+    <figure class="after"><img src="img/compare/astep_v2_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 提出（v2）</figcaption></figure>
+    <figure class="after"><img src="img/compare/fukuru_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>FUKURU様（初稿のまま）</figcaption></figure>
+    <figure class="after"><img src="img/compare/suzukou_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>鈴興建設様（初稿のまま）</figcaption></figure>
+  </div>
+  <p class="muted">たくみ様は「若者の逆襲」の札と「#01」の間を広げました（5画面）。メタメディア様・アステップ様は、スマホの見た目はほぼ同じです（メタメディア様の上下の余白の修正は PC での表示）。</p>
+  <h3 style="margin-top:14px">修正をいただいたページ（本編に載せていない分）</h3>
+  <div class="cmp4">
+    <figure><img src="img/compare/takumi_v2_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 全ページの初稿（v2）</figcaption></figure>
+    <figure class="after"><img src="img/compare/takumi_v3_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 提出（v3）</figcaption></figure>
+    <figure><img src="img/compare/meta_v1_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 初稿（v1）</figcaption></figure>
+    <figure class="after"><img src="img/compare/meta_v3_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 提出（v3）</figcaption></figure>
+  </div>
+  <p class="ev-src">撮影は Google Chrome（ヘッドレス）・390×844。出現の動きが終わってから撮っています。アステップ様の初稿の版（v1 の URL）は社内の修正後の内容で上書きしたため、初稿はお送りした時点の控えのファイルから撮りました。アステップ様の「携帯で見出しが文節の途中で折れる」点は iPhone での表示のため、この撮影では違いが出ません。groxi様は修正対応中のため、提出時の版はまだありません。</p>
 </div>
 
 <dialog id="dlg" aria-labelledby="dlg-title">
