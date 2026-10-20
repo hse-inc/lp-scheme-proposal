@@ -249,14 +249,16 @@
   .cl-kpi .card .big-num { font-size: 1.6em; margin: 4px 0 2px; }
   .cl-kpi .card.doc .big-num { color: var(--blue); }
   .cl-kpi .card.todo .big-num { color: var(--orange); }
-  /* 初稿と提出時の比較（スマホの画面） */
+  /* AI の初稿・弊社の修正後・貴社の修正後の比較（スマホの画面） */
   .pairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
   @media (max-width: 760px) { .pairs { grid-template-columns: 1fr; } }
   .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .pair.tri { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .pair figure, .cmp4 figure { margin: 0; text-align: center; min-width: 0; }
   .pair img { display: block; width: auto; max-width: 100%; height: auto; max-height: 50vh; margin: 0 auto; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
   .pair figcaption, .cmp4 figcaption { margin-top: 4px; font-size: .74em; font-weight: 700; color: var(--soft); }
   .pair .after figcaption, .cmp4 .after figcaption { color: var(--green); }
+  .pair .client figcaption, .cmp4 .client figcaption { color: var(--blue); }
   .same { margin-top: 6px; font-size: 1.25em; font-weight: 800; color: var(--green); line-height: 1.2; }
   .cmp4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 8px 0; }
   @media (max-width: 760px) { .cmp4 { grid-template-columns: 1fr 1fr; } }
@@ -288,7 +290,7 @@
     <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>（8件は道具・土台で止め、16件は手順で確かめ、残る5件は決まりにしていきます）。さらに<b>貴社のディレクターが初稿で確認している8項目（ディレクターチェック項目）を最終の門にし、通らなければ公開できない形</b>にしました（キット v2.0。8〜11画面）。</div>
     <div class="card" style="margin-top:12px">
       <h3>本資料の流れ</h3>
-      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 初稿の質と、初稿・提出時の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 最終の門と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜19）→ 流出・複製への対策（20〜21）→ ほかの制作者が再現するために（22）→ 次の改善とご相談事項（23）→ 参考：数字の出典（24）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 提出版の質と、AI の初稿・弊社の確認後の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 最終の門と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜19）→ 流出・複製への対策（20〜21）→ ほかの制作者が再現するために（22）→ 次の改善とご相談事項（23）→ 参考：数字の出典（24）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
     </div>
   </div>
 </section>
@@ -301,8 +303,8 @@
       <thead><tr><th style="width:15%">案件</th><th style="width:11%">キットの版</th><th style="width:40%">進め方</th><th>提出したURL（最終）・修正回数</th></tr></thead>
       <tbody>
         <tr><td><b>メタメディア様</b></td><td class="n">v1.1</td><td>動画＋3ページで確認 → 全10ページ・3案</td><td><a href="https://v3.metamedia-recruit.pages.dev/" target="_blank" rel="noopener">v3.metamedia-recruit.pages.dev</a><br><span class="muted">修正2回</span></td></tr>
-        <tr><td><b>FUKURU様</b></td><td class="n">v1.3〜1.5</td><td>途中確認なし・全ページ・1案。シートの指定により、通常スクロール型＋画像の1枚目</td><td><a href="https://v1.fukuru-recruit.pages.dev/" target="_blank" rel="noopener">v1.fukuru-recruit.pages.dev</a><br><span class="muted">初稿修正なし</span></td></tr>
-        <tr><td><b>鈴興建設様</b></td><td class="n">v1.9</td><td>途中確認なし・全ページ・1案 → のちに3案を作り、案Aを採用</td><td><a href="https://v1.suzukou-recruit.pages.dev/" target="_blank" rel="noopener">v1.suzukou-recruit.pages.dev</a><br><span class="muted">初稿修正なし</span></td></tr>
+        <tr><td><b>FUKURU様</b></td><td class="n">v1.3〜1.5</td><td>途中確認なし・全ページ・1案。シートの指定により、通常スクロール型＋画像の1枚目</td><td><a href="https://v1.fukuru-recruit.pages.dev/" target="_blank" rel="noopener">v1.fukuru-recruit.pages.dev</a><br><span class="muted">貴社からの修正なし</span></td></tr>
+        <tr><td><b>鈴興建設様</b></td><td class="n">v1.9</td><td>途中確認なし・全ページ・1案 → のちに3案を作り、案Aを採用</td><td><a href="https://v1.suzukou-recruit.pages.dev/" target="_blank" rel="noopener">v1.suzukou-recruit.pages.dev</a><br><span class="muted">貴社からの修正なし</span></td></tr>
         <tr><td><b>アステップ様</b></td><td class="n">v1.14<br><span class="muted">修正時 v1.15</span></td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v2.astep-recruit.pages.dev/" target="_blank" rel="noopener">v2.astep-recruit.pages.dev</a><br><span class="muted">修正1回</span></td></tr>
         <tr><td><b>groxi様</b></td><td class="n">v1.14</td><td>途中確認なし・全ページ・1案。確認用URLで社内の修正のあと、版ごとのURLで提出</td><td><a href="https://v1.groxi-recruit.pages.dev/" target="_blank" rel="noopener">v1.groxi-recruit.pages.dev</a><br><span class="muted">修正対応中</span></td></tr>
         <tr class="ref"><td>比較：たくみ様</td><td class="n">v0.3（旧キット）</td><td>途中確認あり・動画＋3ページ → 全ページ・3案</td><td><a href="https://v3.takumi-recruit.pages.dev/" target="_blank" rel="noopener">v3.takumi-recruit.pages.dev</a><br><span class="muted">修正2回</span></td></tr>
@@ -346,8 +348,8 @@
           <tbody>
             <tr class="ref"><td>たくみ様</td><td class="n">3回</td><td>参考サイトの読み落とし・写真の明るさ・余白・動きの速さ</td><td>修正2回</td></tr>
             <tr><td><b>メタメディア様</b></td><td class="n">4回</td><td>参考サイトの読み落とし・動きの強さ・速さ・余白</td><td>修正2回</td></tr>
-            <tr><td><b>FUKURU様</b></td><td class="n good">1回</td><td>1枚目の見せ方・写真の選び方</td><td class="good">初稿修正なし</td></tr>
-            <tr><td><b>鈴興建設様</b></td><td class="n">2回</td><td>仕様書（ヒアリングシート）の読み落とし・参考サイトの読み落とし・余白・バランス・動きの強さ</td><td class="good">初稿修正なし</td></tr>
+            <tr><td><b>FUKURU様</b></td><td class="n good">1回</td><td>1枚目の見せ方・写真の選び方</td><td class="good">貴社からの修正なし</td></tr>
+            <tr><td><b>鈴興建設様</b></td><td class="n">2回</td><td>仕様書（ヒアリングシート）の読み落とし・参考サイトの読み落とし・余白・バランス・動きの強さ</td><td class="good">貴社からの修正なし</td></tr>
             <tr><td><b>アステップ様</b></td><td class="n good">1回</td><td>動きと賑やかさ・携帯での改行・余白・イラストの収まり</td><td>修正1回<br><span class="muted">提出後に4点（対応中）</span></td></tr>
             <tr><td><b>groxi様</b></td><td class="n">2回</td><td>参考サイトの読み落とし（奥行き・動き・見出しの表現）・余白と行間・色の指定</td><td>修正対応中</td></tr>
           </tbody>
@@ -360,17 +362,18 @@
 </section>
 
 <!-- 4 初稿の質 -->
-<section class="slide" data-title="初稿の質">
+<section class="slide" data-title="提出版の質">
   <div class="in">
-    <h2><span class="n">4</span>時間をかける分、初稿の質を高くしています</h2>
+    <h2><span class="n">4</span>時間をかける分、貴社への提出版の質を高くしています</h2>
+    <p class="muted" style="margin:-4px 0 10px">流れ：<b>AI の初稿</b>（社内のみ）→ <b>弊社の責任者の確認と修正</b> → <b>貴社へのご提出（v1）</b>。この画面の「修正」は、ご提出後に貴社からいただいたものです</p>
     <div class="cols c55">
       <div class="grid" style="gap:12px">
         <div class="grid g3" style="gap:10px">
-          <div class="card kpi"><span class="tag t-green">初稿修正なし</span><div class="big-num">2／5本</div><p class="muted">FUKURU様・鈴興建設様は、初稿をそのままご提出いただきました</p></div>
+          <div class="card kpi"><span class="tag t-green">貴社からの修正なし</span><div class="big-num">2／5本</div><p class="muted">FUKURU様・鈴興建設様は、ご提出した版（v1）のまま修正なしでした</p></div>
           <div class="card kpi"><span class="tag t-green">裏側の不具合</span><div class="big-num">0件</div><p class="muted">5本とも、ページ送り・1画面の収まり・CSSの散らかりの検査で0件にしてから提出（7画面。FUKURU様のページ送りは対象外）</p></div>
-          <div class="card kpi"><span class="tag t-gray">初稿まで</span><div class="big-num" style="color:var(--ink)">33〜72分</div><p class="muted">最短ではなく、下の準備に時間を使っています（3画面）</p></div>
+          <div class="card kpi"><span class="tag t-gray">AI の初稿まで</span><div class="big-num" style="color:var(--ink)">33〜72分</div><p class="muted">最短ではなく、下の準備に時間を使っています（3画面）</p></div>
         </div>
-        <div class="card"><h3>初稿の前にしていること</h3>
+        <div class="card"><h3>AI の初稿の前にしていること</h3>
           <ul class="tight">
             <li><b>参考サイトのいいとこ取り</b>：参考サイトの全セクションを「型の表」にし、どのページにどの型を使うかの「割り当て表」を、初稿の前に作ります</li>
             <li><b>仕様書の読み落としを防ぐ</b>：ヒアリングシートの全セル・全補足を照合表（✓△✕）にしてから作ります</li>
@@ -382,8 +385,8 @@
         <div class="tw tight"><table>
           <thead><tr><th style="width:24%">案件</th><th style="width:24%">貴社からの修正</th><th>貴社ディレクターのご評価（抜粋）</th></tr></thead>
           <tbody>
-            <tr><td><b>FUKURU様</b></td><td class="good">初稿修正なし</td><td><div class="quote">「流石のクオリティで修正点はない」</div></td></tr>
-            <tr><td><b>鈴興建設様</b></td><td class="good">初稿修正なし</td><td><div class="quote">「細かい要望まで汲み取っていただき完璧に」</div></td></tr>
+            <tr><td><b>FUKURU様</b></td><td class="good">修正なし</td><td><div class="quote">「流石のクオリティで修正点はない」</div></td></tr>
+            <tr><td><b>鈴興建設様</b></td><td class="good">修正なし</td><td><div class="quote">「細かい要望まで汲み取っていただき完璧に」</div></td></tr>
             <tr><td><b>アステップ様</b></td><td>修正1回</td><td><div class="quote">「全体的にデザイン感は問題ない」</div></td></tr>
             <tr><td><b>メタメディア様</b></td><td>修正2回</td><td><div class="quote">「参考サイト踏襲されていていい感じ」</div></td></tr>
             <tr><td><b>groxi様</b></td><td>修正対応中</td><td><div class="quote">「全体的にデザイン感は問題ない」</div></td></tr>
@@ -394,71 +397,74 @@
         <div class="qs"><button class="q" data-q="d-client">貴社からの修正とご評価</button></div>
       </div>
     </div>
-    <div class="dark" style="margin-top:12px;font-size:.92em">速さだけを追わず、<b>分析と検査に時間を使い、修正の往復を減らす</b>ほうを選んでいます。ただし、アステップ様では当時の検査が見ていなかった種類（文字と絵の重なり・配色など）で、初稿の提出後にご指摘をいただきました。いまは検査に加えています（10〜11画面）。</div>
+    <div class="dark" style="margin-top:12px;font-size:.92em">速さだけを追わず、<b>分析と検査に時間を使い、修正の往復を減らす</b>ほうを選んでいます。ただし、アステップ様では当時の検査が見ていなかった種類（文字と絵の重なり・配色など）で、ご提出後にご指摘をいただきました。いまは検査に加えています（10〜11画面）。</div>
   </div>
 </section>
 
-<!-- 5 初稿と提出の比較（修正をいただいた案件） -->
-<section class="slide" data-title="初稿と提出の比較①">
+<!-- 5 AI の初稿と、弊社の確認後の比較（貴社から修正をいただいた案件） -->
+<section class="slide" data-title="AI の初稿との比較①">
   <div class="in">
-    <h2><span class="n">5</span>初稿と提出時の比較①　修正をいただいた案件（スマホ 390×844）</h2>
+    <h2><span class="n">5</span>AI の初稿と、弊社の確認後の比較①　貴社から修正をいただいた案件（スマホ 390×844）</h2>
+    <p class="muted" style="margin:-4px 0 8px">左から <b>AI の初稿</b>（社内のみ）→ <b style="color:var(--green)">弊社の責任者の修正後</b>（貴社へのご提出版 v1）→ <b style="color:var(--blue)">貴社の修正後</b>（Slack で最後にお送りした版）</p>
     <div class="pairs">
       <div class="card"><h3>たくみ様 <span class="tag t-gray">旧キット・修正2回</span></h3>
-        <div class="pair">
-          <figure><img src="img/compare/takumi_v1_p1.jpg" alt="たくみ様 初稿の2ページ目" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
-          <figure class="after"><img src="img/compare/takumi_v3_p1.jpg" alt="たくみ様 提出時の2ページ目" loading="lazy" width="780" height="1688"><figcaption>提出（v3）</figcaption></figure>
+        <div class="pair tri">
+          <figure><img src="img/compare/takumi_ai_p1.jpg" alt="たくみ様 AI の初稿の2ページ目" loading="lazy" width="780" height="1688"><figcaption>AI の初稿</figcaption></figure>
+          <figure class="after"><img src="img/compare/takumi_r_p1.jpg" alt="たくみ様 弊社の修正後の2ページ目" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
+          <figure class="client"><img src="img/compare/takumi_cl_p1.jpg" alt="たくみ様 貴社の修正後の2ページ目" loading="lazy" width="780" height="1688"><figcaption>貴社の修正後（v3）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">2ページ目：「若者の逆襲」の札と「#01」の間を広げました。全ページの初稿（v2）からは、ほかにフォームの補足文の削除とプルダウン化</p>
+        <p class="muted" style="margin:6px 0 0">2ページ目。弊社：参考サイトの要素の取り込み（文字の質感・写真の出方・白線の枠）・強調の表現・写真と見出しの配置／貴社：札と番号の間</p>
       </div>
       <div class="card"><h3>メタメディア様 <span class="tag t-gray">修正2回</span></h3>
-        <div class="pair">
-          <figure><img src="img/compare/meta_v1_p3.jpg" alt="メタメディア様 初稿の特徴①" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
-          <figure class="after"><img src="img/compare/meta_v3_p3.jpg" alt="メタメディア様 提出時の特徴①" loading="lazy" width="780" height="1688"><figcaption>提出（v3）</figcaption></figure>
+        <div class="pair tri">
+          <figure><img src="img/compare/meta_ai_p3.jpg" alt="メタメディア様 AI の初稿の特徴①" loading="lazy" width="780" height="1688"><figcaption>AI の初稿（案A）</figcaption></figure>
+          <figure class="after"><img src="img/compare/meta_r_p3.jpg" alt="メタメディア様 弊社の修正後の特徴①" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
+          <figure class="client"><img src="img/compare/meta_cl_p3.jpg" alt="メタメディア様 貴社の修正後の特徴①" loading="lazy" width="780" height="1688"><figcaption>貴社の修正後（v3）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">特徴①：吹き出しを枠線から塗りに。特徴①〜③の背景を黒でそろえ、1枚目の斜めのあしらいを続けました</p>
+        <p class="muted" style="margin:6px 0 0">特徴①。弊社：3案からページごとに組み合わせ・背景の明暗・参考サイトの要素の取り込み（放射の線・写真の帯）・本文の太さ／貴社：吹き出しを塗りに・背景を黒でそろえる</p>
       </div>
       <div class="card"><h3>アステップ様 <span class="tag t-gray">修正1回</span></h3>
-        <div class="pair">
-          <figure><img src="img/compare/astep_v1_company.jpg" alt="アステップ様 初稿の会社概要" loading="lazy" width="780" height="1688"><figcaption>初稿（v1）</figcaption></figure>
-          <figure class="after"><img src="img/compare/astep_v2_company.jpg" alt="アステップ様 提出時の会社概要" loading="lazy" width="780" height="1688"><figcaption>提出（v2）</figcaption></figure>
+        <div class="pair tri">
+          <figure><img src="img/compare/astep_ai_company.jpg" alt="アステップ様 AI の初稿の会社概要" loading="lazy" width="780" height="1688"><figcaption>AI の初稿</figcaption></figure>
+          <figure class="after"><img src="img/compare/astep_r_company.jpg" alt="アステップ様 弊社の修正後の会社概要" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
+          <figure class="client"><img src="img/compare/astep_cl_company.jpg" alt="アステップ様 貴社の修正後の会社概要" loading="lazy" width="780" height="1688"><figcaption>貴社の修正後（v2）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">会社概要：値の左端をそろえました。初稿は、お送りした時点の控えのファイルから撮っています</p>
+        <p class="muted" style="margin:6px 0 0">会社概要。弊社：賑やかさと動き（キャラクターのイラスト・常時の動き）・見出しの組み方・余白と改行／貴社：値の左端をそろえる</p>
       </div>
     </div>
-    <div class="qs"><button class="q" data-q="d-compare">1枚目の次のページ・ほかの修正ページも並べて見る</button></div>
+    <div class="qs"><button class="q" data-q="d-compare">もう1ページずつ並べて見る・撮影の出どころ</button></div>
   </div>
 </section>
 
-<!-- 6 初稿と提出の比較（初稿のまま提出） -->
-<section class="slide" data-title="初稿と提出の比較②">
+<!-- 6 AI の初稿と、弊社の確認後の比較（貴社からの修正なし・対応中） -->
+<section class="slide" data-title="AI の初稿との比較②">
   <div class="in">
-    <h2><span class="n">6</span>初稿と提出時の比較②　初稿のまま提出いただいた案件（スマホ 390×844）</h2>
+    <h2><span class="n">6</span>AI の初稿と、弊社の確認後の比較②　貴社からの修正がなかった案件・対応中の案件（スマホ 390×844）</h2>
+    <p class="muted" style="margin:-4px 0 8px">左が <b>AI の初稿</b>（社内のみ）、右が <b style="color:var(--green)">弊社の責任者の修正後</b>（貴社へのご提出版 v1）</p>
     <div class="pairs">
-      <div class="card"><h3>FUKURU様 <span class="tag t-green">初稿修正なし</span></h3>
-        <div class="same">初稿のまま提出</div>
+      <div class="card"><h3>FUKURU様 <span class="tag t-green">貴社からの修正なし</span></h3>
         <div class="pair">
-          <figure class="after"><img src="img/compare/fukuru_v1_p1.jpg" alt="FUKURU様 1枚目の次のセクション" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
-          <figure class="after"><img src="img/compare/fukuru_v1_p2.jpg" alt="FUKURU様 3つ目のセクション" loading="lazy" width="780" height="1688"><figcaption>その次（v1）</figcaption></figure>
+          <figure><img src="img/compare/fukuru_ai_p2.jpg" alt="FUKURU様 AI の初稿の3つ目のセクション" loading="lazy" width="780" height="1688"><figcaption>AI の初稿</figcaption></figure>
+          <figure class="after"><img src="img/compare/fukuru_r_p2.jpg" alt="FUKURU様 弊社の修正後の3つ目のセクション" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">シートの指定どおり、通常スクロール型＋画像の1枚目</p>
+        <p class="muted" style="margin:6px 0 0">3つ目のセクション。弊社：1枚目と見出しの作り直し・参考サイトの動きの取り込み（流れる英字・写真の帯）・イラストの追加</p>
       </div>
-      <div class="card"><h3>鈴興建設様 <span class="tag t-green">初稿修正なし</span></h3>
-        <div class="same">初稿のまま提出</div>
+      <div class="card"><h3>鈴興建設様 <span class="tag t-green">貴社からの修正なし</span></h3>
         <div class="pair">
-          <figure class="after"><img src="img/compare/suzukou_v1_p1.jpg" alt="鈴興建設様 2ページ目" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
-          <figure class="after"><img src="img/compare/suzukou_v1_p2.jpg" alt="鈴興建設様 3ページ目" loading="lazy" width="780" height="1688"><figcaption>その次（v1）</figcaption></figure>
+          <figure><img src="img/compare/suzukou_ai_p2.jpg" alt="鈴興建設様 AI の初稿の3ページ目" loading="lazy" width="780" height="1688"><figcaption>AI の初稿</figcaption></figure>
+          <figure class="after"><img src="img/compare/suzukou_r_p2.jpg" alt="鈴興建設様 弊社の修正後の3ページ目" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">縦スワイプ型・全ページ1案</p>
+        <p class="muted" style="margin:6px 0 0">3ページ目。弊社：仕様書の配色の読み直し（濃いネイビーの面）・参考サイトに近い写真とイラストの置き方・強調の表現・動き</p>
       </div>
       <div class="card"><h3>groxi様 <span class="tag t-orange">修正対応中</span></h3>
-        <div class="same" style="color:var(--soft)">初稿（ご提出時の版は対応中）</div>
         <div class="pair">
-          <figure><img src="img/compare/groxi_v1_p1.jpg" alt="groxi様 2ページ目" loading="lazy" width="780" height="1688"><figcaption>1枚目の次（v1）</figcaption></figure>
-          <figure><img src="img/compare/groxi_v1_p3.jpg" alt="groxi様 4ページ目" loading="lazy" width="780" height="1688"><figcaption>修正をいただいたページ（v1）</figcaption></figure>
+          <figure><img src="img/compare/groxi_ai_p1.jpg" alt="groxi様 AI の初稿の2ページ目" loading="lazy" width="780" height="1688"><figcaption>AI の初稿</figcaption></figure>
+          <figure class="after"><img src="img/compare/groxi_r_p1.jpg" alt="groxi様 弊社の修正後の2ページ目" loading="lazy" width="780" height="1688"><figcaption>弊社の修正後（v1）</figcaption></figure>
         </div>
-        <p class="muted" style="margin:6px 0 0">スマホで強調の文が途中で改行される点（2ページ目ほか）と、PCでカードを横に送れない点を直しています</p>
+        <p class="muted" style="margin:6px 0 0">2ページ目。弊社：奥行きの背景と動き・見出しの書体と表現・配置（Z型）・余白と行間。貴社の修正（PC のカード送り・強調の文の改行）は対応中</p>
       </div>
     </div>
+    <div class="qs"><button class="q" data-q="d-compare">もう1ページずつ並べて見る・撮影の出どころ</button></div>
   </div>
 </section>
 
@@ -1147,27 +1153,43 @@
   <p class="ev-src">実例4サイトは前回のご提案の計測表と不具合の記録（症状の数）から。検証5本のJSの行数（site.js）は、メタメディア様127行・FUKURU様84行・鈴興建設様42行・アステップ様82行・groxi様78行（比較：たくみ様125行）。</p>
 </div>
 
-<div class="detail" id="d-compare" data-title="初稿と提出時の比較（スマホ 390×844）">
-  <h3>1枚目（動画・画像）の次のページ</h3>
+<div class="detail" id="d-compare" data-title="AI の初稿と、弊社の確認後の比較（スマホ 390×844）">
+  <h3>もう1ページずつ（左から AI の初稿 → 弊社の修正後 →（あれば）貴社の修正後）</h3>
   <div class="cmp4">
-    <figure><img src="img/compare/takumi_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 初稿（v1）</figcaption></figure>
-    <figure class="after"><img src="img/compare/takumi_v3_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 提出（v3）</figcaption></figure>
-    <figure><img src="img/compare/meta_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 初稿（v1）</figcaption></figure>
-    <figure class="after"><img src="img/compare/meta_v3_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 提出（v3）</figcaption></figure>
-    <figure><img src="img/compare/astep_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 初稿（v1）</figcaption></figure>
-    <figure class="after"><img src="img/compare/astep_v2_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 提出（v2）</figcaption></figure>
-    <figure class="after"><img src="img/compare/fukuru_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>FUKURU様（初稿のまま）</figcaption></figure>
-    <figure class="after"><img src="img/compare/suzukou_v1_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>鈴興建設様（初稿のまま）</figcaption></figure>
+    <figure><img src="img/compare/takumi_ai_p3.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 仕事内容 AI の初稿</figcaption></figure>
+    <figure class="after"><img src="img/compare/takumi_r_p3.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 仕事内容 弊社の修正後（v1）</figcaption></figure>
+    <figure><img src="img/compare/astep_ai_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 2ページ目 AI の初稿</figcaption></figure>
+    <figure class="after"><img src="img/compare/astep_r_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>アステップ様 2ページ目 弊社の修正後（v1）</figcaption></figure>
   </div>
-  <p class="muted">たくみ様は「若者の逆襲」の札と「#01」の間を広げました（5画面）。メタメディア様・アステップ様は、スマホの見た目はほぼ同じです（メタメディア様の上下の余白の修正は PC での表示）。</p>
-  <h3 style="margin-top:14px">修正をいただいたページ（本編に載せていない分）</h3>
   <div class="cmp4">
-    <figure><img src="img/compare/takumi_v2_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 全ページの初稿（v2）</figcaption></figure>
-    <figure class="after"><img src="img/compare/takumi_v3_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 提出（v3）</figcaption></figure>
-    <figure><img src="img/compare/meta_v1_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 初稿（v1）</figcaption></figure>
-    <figure class="after"><img src="img/compare/meta_v3_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 提出（v3）</figcaption></figure>
+    <figure><img src="img/compare/meta_ai_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 2ページ目 AI の初稿（案A）</figcaption></figure>
+    <figure class="after"><img src="img/compare/meta_r_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 2ページ目 弊社の修正後（v1）</figcaption></figure>
+    <figure class="client"><img src="img/compare/meta_cl_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 2ページ目 貴社の修正後（v3）</figcaption></figure>
   </div>
-  <p class="ev-src">撮影は Google Chrome（ヘッドレス）・390×844。出現の動きが終わってから撮っています。アステップ様の初稿の版（v1 の URL）は社内の修正後の内容で上書きしたため、初稿はお送りした時点の控えのファイルから撮りました。アステップ様の「携帯で見出しが文節の途中で折れる」点は iPhone での表示のため、この撮影では違いが出ません。groxi様は修正対応中のため、提出時の版はまだありません。</p>
+  <div class="cmp4">
+    <figure><img src="img/compare/fukuru_ai_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>FUKURU様 2つ目のセクション AI の初稿</figcaption></figure>
+    <figure class="after"><img src="img/compare/fukuru_r_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>FUKURU様 2つ目のセクション 弊社の修正後（v1）</figcaption></figure>
+    <figure><img src="img/compare/suzukou_ai_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>鈴興建設様 2ページ目 AI の初稿</figcaption></figure>
+    <figure class="after"><img src="img/compare/suzukou_r_p1.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>鈴興建設様 2ページ目 弊社の修正後（v1）</figcaption></figure>
+  </div>
+  <div class="cmp4">
+    <figure><img src="img/compare/groxi_ai_p6.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>groxi様 仕事内容 AI の初稿</figcaption></figure>
+    <figure class="after"><img src="img/compare/groxi_r_p6.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>groxi様 仕事内容 弊社の修正後（v1）</figcaption></figure>
+  </div>
+  <h3 style="margin-top:14px">貴社からの修正をいただいたページ（ご提出版 → 貴社の修正後）</h3>
+  <div class="cmp4">
+    <figure class="after"><img src="img/compare/takumi_v2_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 全ページのご提出版（v2）</figcaption></figure>
+    <figure class="client"><img src="img/compare/takumi_v3_entry_2.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>たくみ様 エントリー 貴社の修正後（v3）</figcaption></figure>
+    <figure class="after"><img src="img/compare/meta_v1_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 ご提出版（v1）</figcaption></figure>
+    <figure class="client"><img src="img/compare/meta_v3_p7.jpg" alt="" loading="lazy" width="780" height="1688"><figcaption>メタメディア様 求める人物像 貴社の修正後（v3）</figcaption></figure>
+  </div>
+  <h3 style="margin-top:14px">撮影の出どころ</h3>
+  <ul class="tight">
+    <li><b>AI の初稿</b>：社内の確認用URLへの最初の公開を、公開の記録から取り出して撮影（たくみ様 10月14日・メタメディア様 10月16日・FUKURU様 10月17日・鈴興建設様 10月17日・groxi様 10月20日）。メタメディア様は3案を作り、最初に社内の比較動画で見せた案A（10月16日）。アステップ様は確認用URLを作る前に版のURL（v1）へ最初に出した版（10月19日）。たくみ様は最初の公開のファイルが空だったため、9分後に入れ直した版</li>
+    <li><b>弊社の修正後</b>：貴社へ最初にお送りした版のURL（v1。たくみ様は動画＋3ページの v1、全ページは v2）。アステップ様の v1 はその後に貴社のご指摘で上書きしたため、上書きの直前の版を公開の記録から撮影</li>
+    <li><b>貴社の修正後</b>：Slack で最後にお送りした版（たくみ様 v3・メタメディア様 v3・アステップ様 v2）。メタメディア様の上下の余白の修正は PC での表示、アステップ様の「携帯で見出しが文節の途中で折れる」点は iPhone での表示のため、この撮影では違いが出ません</li>
+  </ul>
+  <p class="ev-src">撮影は Google Chrome（ヘッドレス）・390×844。各ページの出現の動きが終わってから撮っています。AI の初稿の時点では全ページがそろっていない案件があります（たくみ様・メタメディア様は動画＋3ページ）。</p>
 </div>
 
 <div class="detail" id="d-gate" data-title="最終チェック：承認欄の中身と、運用の決まり">
