@@ -224,6 +224,7 @@
     <section class="sec" id="need">
       <h2><span class="n">3</span>必要なもの</h2>
       <p class="concl"><b>結論：</b>Mac 1台と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
+      <div class="warn"><b>AI は「AI エージェント」を使ってください。</b>Claude なら <b>Claude Code</b>、ChatGPT なら <b>Codex</b> です。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
       <div class="tw wide"><table>
         <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
         <tbody>
@@ -308,6 +309,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <section class="sec" id="steps">
       <h2><span class="n">5</span>案件ごとの流れ：初稿を出すまで</h2>
       <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「進め方を選ぶ」「出来上がりを見て直してほしい所を伝える」「OK を出す」「先方に送る」の5つだけです。作る・調べる・検査する・公開するのは AI です。</p>
+      <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えたり、決まりが混ざったりします。修正もその案件のチャットで続けます。</div>
       <h3>最初の一言（コピーして AI に送る）</h3>
       <div class="cmd say"><pre>新しい案件を始めてください。
 担当案件：〔Slack に来た担当案件の URL を貼る〕
@@ -392,11 +394,11 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- 7 -->
     <section class="sec" id="revise">
       <h2><span class="n">7</span>先方から修正が来たら</h2>
-      <p class="concl"><b>結論：</b>先方の指摘をまとめて AI に渡し、直った画面を見て「OK、公開に進んで」と言うだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
-      <div class="step"><div class="sh"><span class="no">1</span><span class="st">先方の指摘を、まとめて AI に渡す</span></div><div class="full" style="padding-top:12px">
-        <p>先方の指摘を全部まとめて、スクリーンショットがあれば一緒に貼ります。</p>
+      <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言うだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">修正の Slack メッセージの URL を、その案件のチャットに貼る</span></div><div class="full" style="padding-top:12px">
+        <p><b>その案件を進めているチャット</b>に、修正内容が書かれた Slack メッセージの URL を貼るだけです。AI が指摘と添付の画像を読み取って直します。</p>
         <div class="cmd say"><pre>先方から修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
-〔指摘を貼る〕</pre><button class="copy" type="button">コピー</button></div>
+〔修正内容の Slack メッセージの URL を貼る〕</pre><button class="copy" type="button">コピー</button></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">2</span><span class="st">AI が直して、自動でチェックする（待つ）</span></div><div class="full" style="padding-top:12px">
         <p>AI は直した所だけをチェックするので、全体をやり直すより早く終わります。</p>
