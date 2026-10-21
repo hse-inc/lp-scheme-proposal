@@ -296,7 +296,7 @@
     <div class="dark" style="margin-top:10px"><b>まず結論：そもそもの課題としていた「CSS の散らかり」と「スクロール（スワイプ）の不具合」は、根本から解決できたと言ってよい状態です。</b><br><span style="font-size:.9em">散らかり：毎回同じ土台から作り、5本ともCSSの散らかり6項目が0件／スクロール：ページ送りを CSS のスナップに一本化し、慣性・マウスホイールの1刻み・指のスワイプを毎回検査（5本とも合格）。iPhone 実機の触り心地は、公開の前に人が触って確かめます。</span></div>
     <div class="callout" style="margin-top:8px"><b>本資料の位置づけ</b>：前回ご提案した制作スキームを、10月16日〜20日に実案件5本（メタメディア様・FUKURU様・鈴興建設様・アステップ様・groxi様）で試した結果と、検証を受けて更新した現在のスキームのご報告です。</div>
     <div class="grid g3" style="margin-top:12px">
-      <div class="card kpi"><span class="tag t-green">速さ</span><div class="big-num">33〜72分</div><p class="muted">初稿までの作業時間（確認待ちを除く）。弊社の旧キットで作った案件（約2時間〜2時間25分）の約2〜6割<button class="q ev" data-q="e-speed" aria-label="根拠を見る"></button></p></div>
+      <div class="card kpi"><span class="tag t-green">速さ</span><div class="big-num">33〜72分</div><p class="muted">AI の初稿（社内確認の前）までの作業時間（確認待ちを除く）。弊社の旧キットで作った案件（約2時間〜2時間25分）の約2〜6割<button class="q ev" data-q="e-speed" aria-label="根拠を見る"></button></p></div>
       <div class="card kpi"><span class="tag t-green">品質</span><div class="big-num">全検査 合格</div><p class="muted">5本とも、文言照合・CSSの散らかり6項目0件・1画面の収まりで不合格0。CSSは389〜446行で、実例4サイト（583〜7,568行）より少ない<button class="q ev" data-q="e-quality" aria-label="根拠を見る"></button></p></div>
       <div class="card kpi warn"><span class="tag t-orange">課題</span><div class="big-num">往復 1〜4回</div><p class="muted">社内の確認のまとまりで数えた修正の回数（旧キットは3回）。案件で差がある。主因は参考サイトと仕様書の読み落とし。決まりが5日で20版に増え、ほかの制作者での再現は未検証<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p></div>
     </div>
@@ -336,7 +336,7 @@
     <h2><span class="n">3</span>スキームとしての完成度（速さ・修正前の品質・工数）</h2>
     <div class="cols c55">
       <div class="grid" style="gap:12px">
-        <div class="card"><h3>初稿までの作業時間（確認待ちを除く）</h3>
+        <div class="card"><h3>AI の初稿（社内確認の前）までの作業時間（確認待ちを除く）</h3>
           <div class="bars" style="margin-top:8px">
             <div class="b old"><span>たくみ様（v0.3）</span><i style="width:100%"></i><span>約120〜145分</span></div>
             <div class="b"><span>メタメディア様</span><i style="width:30%"></i><span>43分</span></div>
@@ -1043,7 +1043,7 @@
     <div class="tw tight"><table>
       <thead><tr><th style="width:26%">数字</th><th>出典・測り方</th></tr></thead>
       <tbody class="src">
-        <tr><td>初稿までの作業時間</td><td>案件の作業記録（記録の道具で実時刻を記入）。確認待ちの時間は除く。たくみ様は記録が3通りあり、幅で記載</td></tr>
+        <tr><td>AI の初稿（社内確認の前）までの作業時間</td><td>案件の作業記録（記録の道具で実時刻を記入）。確認待ちの時間は除く。たくみ様は記録が3通りあり、幅で記載</td></tr>
         <tr><td>社内の確認・種類</td><td>作業記録の時刻から、確認のまとまり（数時間あいたら別の回）を数えた概数。メタメディア様・鈴興建設様の一部は日単位。種類は制作記録とキットの更新履歴から分類</td></tr>
         <tr><td>検査の結果</td><td>メタメディア様・FUKURU様・鈴興建設様は10月18日に検査（run_all）を実行し直した結果。アステップ様・groxi様は10月20日の提出時（公開の門）の検査の結果</td></tr>
         <tr><td>v2.0 の検査での洗い直し</td><td>10月20日時点の各案件の制作物の写しに、v2.0 の検査（重なり・はみ出し・コントラスト・寄りなど）を流した結果。✕ はページ×画面サイズの件数。コントラストは4サイズ、ほかは各案件の画面サイズ＋iPhone の Safari の2サイズ。検査の時間は公開1回あたりの概算</td></tr>
@@ -1060,7 +1060,7 @@
 </main>
 
 <!-- 補足の中身 -->
-<div class="detail" id="e-speed" data-title="根拠：初稿までの作業時間">
+<div class="detail" id="e-speed" data-title="根拠：AI の初稿（社内確認の前）までの作業時間">
   <ul>
     <li>メタメディア様 43分（3案まで）、FUKURU様 33分、鈴興建設様 43分、アステップ様 72分、groxi様 70分（1案）。いずれも作業記録の実時刻で、確認待ちの時間は除いています。</li>
     <li>比較のたくみ様（旧キット v0.3）は約2時間〜2時間25分です。</li>
