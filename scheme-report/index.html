@@ -293,16 +293,17 @@
   <div class="in">
     <div class="kicker">株式会社SPINOVA 御中 ／ 株式会社HSE ／ 2026年10月</div>
     <h1>新しい制作スキームの検証レポートと、現在のスキーム</h1>
+    <div class="dark" style="margin-top:10px"><b>まず結論：そもそもの課題としていた「CSS の散らかり」と「スクロール（スワイプ）の不具合」は、根本から解決できたと言ってよい状態です。</b><br><span style="font-size:.9em">散らかり：毎回同じ土台から作り、5本ともCSSの散らかり6項目が0件／スクロール：ページ送りを CSS のスナップに一本化し、慣性・マウスホイールの1刻み・指のスワイプを毎回検査（5本とも合格）。iPhone 実機の触り心地は、公開の前に人が触って確かめます。</span></div>
     <div class="callout" style="margin-top:8px"><b>本資料の位置づけ</b>：前回ご提案した制作スキームを、10月16日〜20日に実案件5本（メタメディア様・FUKURU様・鈴興建設様・アステップ様・groxi様）で試した結果と、検証を受けて更新した現在のスキームのご報告です。</div>
     <div class="grid g3" style="margin-top:12px">
       <div class="card kpi"><span class="tag t-green">速さ</span><div class="big-num">33〜72分</div><p class="muted">初稿までの作業時間（確認待ちを除く）。弊社の旧キットで作った案件（約2時間〜2時間25分）の約2〜6割<button class="q ev" data-q="e-speed" aria-label="根拠を見る"></button></p></div>
       <div class="card kpi"><span class="tag t-green">品質</span><div class="big-num">全検査 合格</div><p class="muted">5本とも、文言照合・CSSの散らかり6項目0件・1画面の収まりで不合格0。CSSは389〜446行で、実例4サイト（583〜7,568行）より少ない<button class="q ev" data-q="e-quality" aria-label="根拠を見る"></button></p></div>
       <div class="card kpi warn"><span class="tag t-orange">課題</span><div class="big-num">往復 1〜4回</div><p class="muted">社内の確認のまとまりで数えた修正の回数（旧キットは3回）。案件で差がある。主因は参考サイトと仕様書の読み落とし。決まりが5日で20版に増え、ほかの制作者での再現は未検証<button class="q ev" data-q="e-issue" aria-label="根拠を見る"></button></p></div>
     </div>
-    <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>（8件は道具・土台で止め、16件は手順で確かめ、残る5件は決まりにしていきます）。さらに<b>貴社のディレクターが初稿で確認している8項目（ディレクターチェック項目）を最終の門にし、通らなければ公開できない形</b>にしました（キット v2.0。8〜11画面）。</div>
+    <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>（8件は道具・土台で止め、16件は手順で確かめ、残る5件は決まりにしていきます）。さらに、ご指摘と<b>貴社のディレクターが確認している8項目を、全案件に共通する10原則に統合し、AI が提出の前に全項目を回す形</b>にしました（8〜11画面）。</div>
     <div class="card" style="margin-top:12px">
       <h3>本資料の流れ</h3>
-      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 提出版の質と、AI の初稿・弊社の確認後の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 最終の門と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜20）→ 流出・複製への対策（21〜22）→ ほかの制作者が再現するために（23）→ 次の改善とご相談事項（24）→ 参考：数字の出典（25）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 提出版の質と、AI の初稿・弊社の確認後の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 提出前のチェック（10原則）と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜20）→ 流出・複製への対策（21〜22）→ ほかの制作者が再現するために（23）→ 次の改善とご相談事項（24）→ 参考：数字の出典（25）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
     </div>
   </div>
 </section>
@@ -605,22 +606,26 @@
 </section>
 
 <!-- 10 最終の門 -->
-<section class="slide" data-title="最終の門：8項目">
+<section class="slide" data-title="提出前のチェック：10原則">
   <div class="in">
-    <h2><span class="n">10</span>最終の門：ディレクターチェック項目（8項目）</h2>
-    <p class="lead" style="margin-bottom:10px">貴社のディレクターが初稿で確認している8項目（ディレクターチェック項目）を、そのまま公開の前の「最終チェック」にしました（キット v2.0）。道具で測れるものは検査で、測れないものは弊社の責任者の承認で止め、<b>どちらかが欠けると公開できません</b>。</p>
+    <h2><span class="n">10</span>提出前に AI が回すチェック（全案件に共通の10原則）</h2>
+    <p class="lead" style="margin-bottom:10px">いただいたご指摘を案件ごとに足していくと、確かめる項目が積み重なり、修正のたびに時間がかかります。そこで、ご指摘29件と、貴社のディレクターが確認している8項目を、<b>全案件に共通するデザインと実装の原則</b>に統合しました。AI が提出の前に全項目を回し、測れるものは道具で、測れないものは弊社の責任者の承認で止めます。</p>
     <div class="cols c64">
       <div class="tw tight"><table class="gate8">
-        <thead><tr><th style="width:2em">#</th><th style="width:32%">確認項目</th><th class="c" style="width:6.4em">段</th><th>どう止めるか</th></tr></thead>
+        <thead><tr><th style="width:2em">#</th><th>原則（中身）</th><th class="c" style="width:6.4em">段</th><th class="c" style="width:5.2em">旧8項目</th></tr></thead>
         <tbody>
-          <tr><td class="n">1</td><td>スワイプ型かスクロール型か</td><td class="c"><span class="tag k-tool">A</span></td><td>シートの「スワイプ形式の希望」と、作りの設定を照合</td></tr>
-          <tr><td class="n">2</td><td>参考サイトとテイストが離れていないか</td><td class="c"><span class="tag k-doc">B・C</span></td><td>参考との並べ比べを一覧画像に入れ、責任者が見て承認</td></tr>
-          <tr><td class="n">3</td><td>ヘッダーのロゴ・ボタン2つの移動</td><td class="c"><span class="tag k-tool">A</span></td><td>スマホはタップ、PC はクリックで実際に押し、着く先を確かめる</td></tr>
-          <tr><td class="n">4</td><td>スワイプの挙動（トラックパッド・マウス・携帯）</td><td class="c"><span class="tag k-tool">A</span>＋<span class="tag k-man">C</span></td><td>慣性・マウスホイールの1刻み・指のスワイプを再現。実機の触り心地は人が触って承認</td></tr>
-          <tr><td class="n">5</td><td>字が小さすぎないか</td><td class="c"><span class="tag k-tool">A</span></td><td>全サイズで最小 13px（iPhone の Safari の見える範囲 375×553・430×740 も）</td></tr>
-          <tr><td class="n">6</td><td>真ん中にぎゅっと寄っていないか</td><td class="c"><span class="tag k-tool">A</span></td><td>縦長の画面で、中身が使える高さの6割以上</td></tr>
-          <tr><td class="n">7</td><td>簡素なセクションになっていないか</td><td class="c"><span class="tag k-tool">A⚠</span>＋<span class="tag k-doc">B</span></td><td>写真・図・飾りの無いページを警告 → 一覧画像で責任者が判断して承認</td></tr>
-          <tr><td class="n">8</td><td>最低限の視認性（被り・読みにくい配色）</td><td class="c"><span class="tag k-tool">A</span></td><td>文字×画像の重なり／コントラスト（本文 4.5:1・大きい文字 3:1。WCAG AA）／枠からのはみ出し・切れ</td></tr>
+          <tr><td colspan="4" class="muted"><b>デザインの原則</b></td></tr>
+          <tr><td class="n">1</td><td><b>参考サイトのテイストに寄せる</b><br><span class="muted">型（構成・図・締め・動き・余白）は参考に忠実に、中身は案件の業種に置き換える</span></td><td class="c"><span class="tag k-doc">B・C</span></td><td class="c muted">2</td></tr>
+          <tr><td class="n">2</td><td><b>余白は詰めすぎず、均等に</b><br><span class="muted">要素の間を詰めすぎない／上下左右の余白は均等に／項目名と値などの縦の線をそろえる／中身を真ん中に寄せすぎない</span></td><td class="c"><span class="tag k-tool">A＋B</span></td><td class="c muted">6</td></tr>
+          <tr><td class="n">3</td><td><b>文字を被せない・はみ出させない</b><br><span class="muted">文字を画像・飾りに重ねない／枠や丸からはみ出させない／背景と十分な差（本文 4.5:1・大きい文字 3:1）</span></td><td class="c"><span class="tag k-tool">A</span></td><td class="c muted">8</td></tr>
+          <tr><td class="n">4</td><td><b>文字は小さすぎず、意味で折る</b><br><span class="muted">最小 13px／文節の途中で折らない／強調の句と短い要点は1行で</span></td><td class="c"><span class="tag k-tool">A＋B</span></td><td class="c muted">5</td></tr>
+          <tr><td class="n">5</td><td><b>同じ役割はそろえ、最後まで続ける</b><br><span class="muted">同じ役割の札・見出しは同じ体裁／背景のあしらいを後半のページまで続ける／簡素なページを作らない</span></td><td class="c"><span class="tag k-tool">A⚠＋B</span></td><td class="c muted">7</td></tr>
+          <tr><td class="n">6</td><td><b>画像を破綻させない</b><br><span class="muted">人物は日本人／指の数・形を原寸で確かめる／装飾の線・矢印は指定どおりの形</span></td><td class="c"><span class="tag k-doc">B・C</span></td><td class="c muted">－</td></tr>
+          <tr><td class="n">7</td><td><b>動きは速く</b><br><span class="muted">動き出しは 0.3秒以内、1ページは 2秒以内に出そろう</span></td><td class="c"><span class="tag k-doc">B</span></td><td class="c muted">－</td></tr>
+          <tr><td colspan="4" class="muted"><b>実装の原則</b></td></tr>
+          <tr><td class="n">8</td><td><b>型と操作が PC・スマホで動く</b><br><span class="muted">シートの型（スワイプ／スクロール）／ヘッダーのロゴ・ボタン2つの移動／スワイプ・横送り（トラックパッド・マウス・携帯）</span></td><td class="c"><span class="tag k-tool">A＋C</span></td><td class="c muted">1・3・4</td></tr>
+          <tr><td class="n">9</td><td><b>文言とシートを守る</b><br><span class="muted">一言一句の照合／画面に出さない番号・補足文／欄外のメモ／文言の変更依頼は記録して例外に</span></td><td class="c"><span class="tag k-tool">A＋B</span></td><td class="c muted">－</td></tr>
+          <tr><td class="n">10</td><td><b>公開の形をそろえる</b><br><span class="muted">修正のたびに版ごとの URL（前の版を残す）／OGP 画像／1枚目の仮動画</span></td><td class="c"><span class="tag k-tool">A</span></td><td class="c muted">－</td></tr>
         </tbody>
       </table></div>
       <div class="grid" style="gap:10px">
@@ -628,11 +633,11 @@
           <thead><tr><th style="width:3.2em" class="c">段</th><th>誰が判定するか</th></tr></thead>
           <tbody>
             <tr><td class="c"><span class="tag k-tool">A</span></td><td><b>道具で判定・AI が直す</b><br><span class="muted">不合格なら公開できない</span></td></tr>
-            <tr><td class="c"><span class="tag k-doc">B</span></td><td><b>AI が見て直し、人が一覧画像で承認</b><br><span class="muted">語の重複・改行・そろえ・簡素さ・チェックリスト29件</span></td></tr>
+            <tr><td class="c"><span class="tag k-doc">B</span></td><td><b>AI が見て直し、人が一覧画像で承認</b><br><span class="muted">改行・そろえ・簡素さ・画像・動き</span></td></tr>
             <tr><td class="c"><span class="tag k-man">C</span></td><td><b>人だけが判断</b><br><span class="muted">見た目の質・参考らしさ・実機の触り心地・提出の判断</span></td></tr>
           </tbody>
         </table></div>
-        <div class="card"><h3>承認の決まり</h3><ul class="tight"><li>全ページの一覧画像（360・390・PC）を弊社の責任者が見て、最終チェックに名前と日付を書く</li><li>AI は承認欄を書けない決まり（AI の「OK」は承認ではない）</li><li>B で漏れた指摘は、まず A に移せないかを考える</li></ul></div>
+        <div class="card"><h3>運用の決まり</h3><ul class="tight"><li>新しいご指摘は、新しい項目を足す前に、10原則のどれに当たるかを決めて、その原則の例として足す</li><li>全ページの一覧画像（360・390・PC）を弊社の責任者が見て、最終チェックに名前と日付を書く。AI は承認欄を書けない</li><li>B で漏れた指摘は、まず A（道具）に移せないかを考える</li></ul></div>
       </div>
     </div>
     <div class="dark" style="margin-top:12px;font-size:.92em">貴社のディレクターの目視を前提にせず、<b>弊社の段階でゼロにしてから出します</b>。</div>
