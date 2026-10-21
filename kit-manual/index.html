@@ -186,7 +186,7 @@
     <!-- 1 -->
     <section class="sec" id="about">
       <h2><span class="n">1</span>このページについて</h2>
-      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code または Codex）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
+      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code を推奨）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">33〜72分</div><p class="muted">弊社の担当が作った5本の実測（確認待ちの時間を除く）。初めての方は、これより長くかかる見込みです（ほかの制作者での実測はまだありません）。全ページの検査は1回あたり約7分です。</p></div>
@@ -234,7 +234,7 @@
           <tr><td>ソフト</td><td>ffmpeg</td><td>動画の書き出し・仮の動画を作る</td></tr>
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
-          <tr><td>アカウント</td><td>Claude（Claude Code）または ChatGPT（Codex）</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます</td></tr>
+          <tr><td>アカウント</td><td><b>Claude（Claude Code）を推奨</b>。ChatGPT（Codex）も可</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます</td></tr>
           <tr><td>アカウント</td><td>画像生成の AI（ChatGPT または Gemini）</td><td>写真・イラストを作る（ブラウザで操作）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます</td></tr>
@@ -257,6 +257,7 @@
         <li>
           <h3>Claude のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
           <p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit</code> フォルダを選びます。ターミナルは使いません。</p>
+          <p><b>AI は Claude Code を推奨します。</b></p>
           <p class="muted">AI はフォルダの中の作業ルール（<code>CLAUDE.md</code>）を自動で読みます。Codex を使う場合も、同じフォルダを開けば作業ルール（<code>AGENTS.md</code>。中身は同じ）を読みます。</p>
         </li>
         <li>
