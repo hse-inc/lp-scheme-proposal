@@ -200,7 +200,7 @@ var D = {"meta": ["対象: <b>検証レポート（全25画面・キット v2.0 
   function fmt(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
   function pace() {
     var plan = planStart[cur] * 60000, now = el(), d = now - plan, p = $('pace');
-    p.textContent = '予定 ' + fmt(plan) + '／全体 ' + total + '分' + (now > 0 ? (d > 60000 ? '　' + fmt(d) + ' 押し' : d < -60000 ? '　' + fmt(-d) + ' 巻き' : '　予定どおり') : '');
+    p.textContent = '予定 ' + fmt(plan) + '／全体 ' + (Math.round(total * 10) / 10) + '分' + (now > 0 ? (d > 60000 ? '　' + fmt(d) + ' 押し' : d < -60000 ? '　' + fmt(-d) + ' 巻き' : '　予定どおり') : '');
     p.className = 'pace' + (now > 0 ? (d > 60000 ? ' late' : ' ok') : '');
   }
   setInterval(function () { $('clock').textContent = fmt(el()); pace(); }, 500);
