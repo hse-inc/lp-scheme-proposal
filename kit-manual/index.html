@@ -375,12 +375,15 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <div class="step key"><div class="sh"><span class="no">7.5</span><span class="st">あなたが確かめて、直してほしい所を AI に伝える（いちばん大事）</span></div><div class="cols">
         <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が出した一覧画像と画面を、<b>携帯と PC の両方で</b>見る</li><li>10原則（<a href="#check">6章</a>）に当てて、気になる所を探す</li><li><b>直してほしい所を、まとめて1回で</b>チャットに書く（下の例文）</li><li>直った画面を見て、まだあれば同じようにもう1回。無ければ「OK」</li></ul></div>
         <div class="col ai"><span class="lb">AI がすること</span><ul><li>検査に合格したら、一覧画像（全ページ・3サイズ）と、画面を開く URL を渡す</li><li>伝えられた所を<b>全部まとめて</b>直し、直したページだけ検査する</li><li>直す前と後を並べて見せる</li></ul></div>
-        <div class="col chk"><span class="lb">伝え方のコツ</span><ul><li>「何ページ目の・どこを・どうしたいか」を1件ずつ書く</li><li>見た目の話はスクリーンショットを添えると早い</li><li>思いついたたびに1件ずつ送らない。<b>まとめて送る</b>ほど早く終わる</li></ul></div>
+        <div class="col chk"><span class="lb">伝え方のコツ</span><ul><li>「何ページ目の・どこを・どうしたいか」を1件ずつ書く</li><li>見た目の話はスクリーンショットを添えると早い</li><li>思いついたたびに1件ずつ送らない。<b>まとめて送る</b>ほど早く終わる</li><li><b>音声入力（文字起こし）がおすすめ</b>：画面を見ながら気づいた所を話して、そのまま送ればよい（Mac は fn キーを2回押すと音声入力）</li></ul></div>
       </div>
         <div class="cmd say" style="margin:10px 16px 16px"><pre>直してほしい所です。まとめて直して、直したページだけ検査してから、前と後を見せてください。
 1. 3ページ目：見出しと写真が近すぎる。間をもう少し空けたい
 2. 5ページ目：スマホで「〇〇」が途中で改行される。1行にしたい
 3. 全体：ボタンの色が薄い。もう少し濃く</pre><button class="copy" type="button">コピー</button></div>
+        <div class="warn" style="margin:0 16px 10px"><b>参考サイトと雰囲気がずれているときは、細かい直しを重ねない。</b>色や余白を1つずつ直しても近づきません。AI に「参考サイトをもっと深く分析し直して、初稿を作り直して」と伝えてください（下の例文）。分析（手順4）からやり直すほうが早く、仕上がりもよくなります。</div>
+        <div class="cmd say" style="margin:0 16px 16px"><pre>参考サイトと雰囲気がずれています。細かい直しではなく、参考サイトをもっと深く分析し直してください（全画面の動きのコマ・画像の文字の質感・余白の実測・後半のセクションの型まで）。分析を DNA.md に書き直してから、初稿を作り直して、参考と並べて見せてください。
+ずれていると感じる所：〔例：全体が地味／写真が小さい／動きが少ない〕</pre><button class="copy" type="button">コピー</button></div>
       </div>
 
       <div class="step key"><div class="sh"><span class="no">8</span><span class="st">提出の前（10原則・一覧画像）</span></div><div class="cols">
