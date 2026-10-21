@@ -637,7 +637,7 @@
             <tr><td class="c"><span class="tag k-man">C</span></td><td><b>人だけが判断</b><br><span class="muted">見た目の質・参考らしさ・実機の触り心地・提出の判断</span></td></tr>
           </tbody>
         </table></div>
-        <div class="card"><h3>運用の決まり</h3><ul class="tight"><li>新しいご指摘は、新しい項目を足す前に、10原則のどれに当たるかを決めて、その原則の例として足す</li><li>全ページの一覧画像（360・390・PC）を弊社の責任者が見て、最終チェックに名前と日付を書く。AI は承認欄を書けない</li><li>B で漏れた指摘は、まず A（道具）に移せないかを考える</li></ul></div>
+        <div class="card"><h3>運用の決まり</h3><ul class="tight"><li>新しいご指摘は、新しい項目を足す前に、10原則のどれに当たるかを決めて、その原則の例として足す</li><li>制作者が画面を見て直してほしい所をまとめて伝え、よければチャットで「OK、公開に進んで」と伝える。その一言を受けて AI が承認欄を記入する（了承が無いまま AI が書くことはない）</li><li>B で漏れた指摘は、まず A（道具）に移せないかを考える</li></ul></div>
       </div>
     </div>
     <div class="dark" style="margin-top:12px;font-size:.92em">貴社のディレクターの目視を前提にせず、<b>弊社の段階でゼロにしてから出します</b>。</div>
@@ -781,8 +781,8 @@
       <div class="st"><b>6.5</b>参考と並べ比べ</div>
       <div class="st tool"><b>6.8</b>OGP画像</div>
       <div class="st tool"><b>7</b>検査（すべて合格まで）</div>
-      <div class="st key"><b>8</b>提出チェック・一覧画像で責任者が承認</div>
-      <div class="st tool"><b>8.5</b>公開（承認のあと）</div>
+      <div class="st key"><b>7.5〜8</b>制作者が画面を見て修正をまとめて伝える → 提出チェック</div>
+      <div class="st tool"><b>8.5</b>公開（「OK、公開に進んで」の一言で）</div>
       <div class="st"><b>8.8</b>共有文面</div>
       <div class="st"><b>9</b>修正版（版ごとにURL）</div>
       <div class="st"><b>9.5</b>修正記録 → キットへ</div>
@@ -866,7 +866,7 @@
     </div>
     <div class="grid g2" style="margin-top:14px">
       <div class="card"><h3>散らかり6項目</h3><p class="muted">効いていない書き直し・未使用のclass・直書きの色・!important・両方向に効く出現の待ち・帯の中の改行。どれも1件で不合格</p></div>
-      <div class="card"><h3>人の承認は門の中に</h3><p class="muted">全ページの一覧画像を弊社の責任者が見て、最終チェックに名前と日付を書きます。AI は承認欄を書けない決まりです。修正版は版ごとにURLを分け、前の版を残します。</p></div>
+      <div class="card"><h3>人の承認は門の中に</h3><p class="muted">制作者が全ページの画面を見て、直してほしい所をまとめて伝え、よければチャットで「OK、公開に進んで」と伝えます。その一言を受けて AI が承認欄を記入し、了承が無いまま公開することはありません。修正版は版ごとにURLを分け、前の版を残します。</p></div>
     </div>
     <p class="muted" style="margin-top:8px">道具で止まるのは「測れること」です。見た目の質・参考らしさ・実機の触り心地は人が見て承認します。Safari での実測と iPhone 実機の確認はまだです（14画面）。</p>
   </div>
@@ -875,7 +875,7 @@
 <!-- 20 学びの積み上げ -->
 <section class="slide" data-title="学びの積み上げ">
   <div class="in">
-    <h2><span class="n">20</span>学びの積み上げ（v1.1 → v2.4）</h2>
+    <h2><span class="n">20</span>学びの積み上げ（v1.1 → v2.6）</h2>
     <div class="cols c64">
       <div class="ver">
         <div class="v"><b>v1.1</b><span>起点（10月16日）。v2.0は10月20日</span></div>
@@ -899,6 +899,8 @@
         <div class="v"><b>v2.2</b><span>修正では直したセクションだけ検査（基準は初稿の合格時）<span class="tag k-tool">道具</span></span></div>
         <div class="v"><b>v2.3</b><span>WordPress 化を貴社マニュアルのとおりの手順に<span class="tag k-doc">手順</span></span></div>
         <div class="v"><b>v2.4</b><span>過去のご指摘29件をカテゴリにまとめ、8項目も統合して、全案件に共通の10原則に<span class="tag k-doc">手順</span></span></div>
+        <div class="v"><b>v2.5</b><span>ほかの制作者向けに配布の形へ（ソフトの点検・作業記録を自動でまとめる）<span class="tag k-tool">道具</span></span></div>
+        <div class="v"><b>v2.6</b><span>制作者の確認と修正の伝え方を手順に。「OK、公開に進んで」の一言で公開へ<span class="tag k-doc">手順・道具</span></span></div>
       </div>
       <div class="grid" style="gap:10px">
         <div class="card"><h3>案件ごとに足した決まり（作業ルールの行数）</h3>
@@ -957,23 +959,24 @@
 <section class="slide" data-title="ほかの制作者が再現するために">
   <div class="in">
     <h2><span class="n">23</span>ほかの制作者が同じスキームを再現するために</h2>
-    <p class="lead muted" style="margin:0 0 12px">弊社以外の制作者が、同じ手順・同じ検査で作るための流れと、お渡しするものです。AI は Claude（Claude Code）でも Codex でも、同じ作業ルールを読んで動きます。</p>
+    <p class="lead muted" style="margin:0 0 12px">弊社以外の制作者が、同じ手順・同じ検査で作るための流れと、お渡しするものです。AI は Claude Code を推奨します。使い方は、制作者向けの使い方ページにまとめました。</p>
     <div class="cols c55">
       <div class="grid" style="gap:10px">
         <div class="card"><span class="tag t-blue">流れ</span>
           <ol class="flow-list">
-            <li><b>準備（初回だけ）</b>：環境を入れる → キットを受け取る（版を固定）→ 公開用のアカウントにログイン → 見本の案件で検査を1回流して合格を確かめる</li>
-            <li><b>案件ごと</b>：Slack に来た担当案件の URL を AI に貼る（シート・素材の取り込みと案件の作成は AI が行う）→ AI に「作業ルールの手順0から始めて」と指示 → 進め方を選ぶ → 要件整理・分析・初稿 → 検査がすべて合格</li>
-            <li><b>提出の前</b>：全ページの一覧画像を責任者が確認し、最終チェックに承認を記入 → 公開（承認後）→ 共有文面で提出</li>
+            <li><b>準備（初回だけ）</b>：キットの ZIP を受け取って置く → Claude のアプリでキットのフォルダを開く → AI に「初回の準備をして」と頼む（ソフトの点検・取り付け、公開先へのログインまで AI が進める）</li>
+            <li><b>案件ごと</b>：Slack に来た担当案件の URL を AI に貼る（シート・素材の取り込みと案件の作成は AI が行う）→ 進め方を選ぶ → AI が要件整理・分析・初稿・検査まで進める</li>
+            <li><b>確認と修正（いちばん大事）</b>：制作者が携帯と PC で画面を見て、直してほしい所をまとめて1回で伝える（音声入力がおすすめ）。参考サイトと雰囲気がずれていれば、細かい直しではなく分析からやり直させる</li>
+            <li><b>公開と提出</b>：チャットで「OK、公開に進んで」と伝えるだけで、AI が承認欄の記入・公開まで行う → 共有文面で提出</li>
             <li><b>修正</b>：版ごとのURLで出し直す。いただいたご指摘は10原則のどれかに当てて例に足す</li>
             <li><b>記録と改善</b>：先方に出すたび（初稿・修正版・完了）に、公開の道具が作業記録（キットの版・検査の結果・時間・指摘・PC とブラウザ）を自動でまとめ、制作者が Slack に貼って弊社へ送る（顧客の素材は含めない）。困ったときはその場で。弊社は同じ案件を弊社の PC で動かし、<b>制作者の PC の問題か、キットの問題か</b>を切り分け、キットの問題なら道具で止めるように直して新しい版を配る（まとめる道具はこれから作ります）</li>
           </ol>
         </div>
         <div class="card"><span class="tag t-gray">AI の設定</span>
           <ul>
-            <li><b>Claude Code</b>：キットのフォルダで起動。<code>CLAUDE.md</code>（作業ルール）を自動で読む。ファイルの編集とコマンドの実行を許可する。公開・送信は毎回人が承認</li>
+            <li><b>Claude Code（推奨）</b>：Claude のアプリの「Code」でキットのフォルダを開く。<code>CLAUDE.md</code>（作業ルール）を自動で読む。ファイルの編集とコマンドの実行を許可する。公開・送信は毎回人が承認</li>
             <li><b>Codex</b>：同じフォルダで起動。<code>AGENTS.md</code>（CLAUDE.md と同じ内容）を自動で読む。許可の考え方は同じ</li>
-            <li>どちらも、品質は文書ではなく検査の道具で止まるため、AI の種類で結果が変わりにくい作りです（ほかの制作者・ほかの AI での確認はこれから）</li>
+            <li>品質は文書ではなく検査の道具で止まるため、AI の種類で結果が変わりにくい作りです</li>
             <li>画像生成は ChatGPT または Gemini（ブラウザで操作）</li>
           </ul>
         </div>
@@ -982,18 +985,18 @@
         <div class="tw tight"><table>
           <thead><tr><th style="width:30%">お渡しするもの</th><th>中身</th></tr></thead>
           <tbody>
-            <tr><td><b>制作キット</b></td><td>土台・検査と公開の道具・ひな形・部品集・作業ルール（AGENTS.md／CLAUDE.md）・更新履歴。版を固定してお渡し（例：v2.4）</td></tr>
+            <tr><td><b>制作キット</b></td><td>土台・検査と公開の道具・ひな形・部品集・作業ルール（AGENTS.md／CLAUDE.md）・更新履歴。版を固定してお渡し（例：v2.6.2）</td></tr>
+            <tr><td><b>使い方ページ</b></td><td>制作者向けの手順書（初回の準備・案件ごとの流れ・10原則・修正・困ったとき）。キットのダウンロードもここから</td></tr>
             <tr><td><b>チェックリスト</b></td><td>全案件に共通の10原則（ご指摘29件とディレクターチェック項目8項目を統合）・最終チェック・提出チェック</td></tr>
-            <tr><td><b>見本の案件</b></td><td>完成した案件1本（シート・分析・制作物・検査の記録）。最初の練習と、検査が正しく動くかの確認に使う</td></tr>
-            <tr><td><b>案件の資料</b></td><td>ヒアリングシート・参考サイトのURL・ロゴや写真などの素材（いまと同じ）</td></tr>
+                        <tr><td><b>案件の資料</b></td><td>ヒアリングシート・参考サイトのURL・ロゴや写真などの素材（いまと同じ）</td></tr>
           </tbody>
         </table></div>
         <div class="tw tight"><table>
           <thead><tr><th style="width:30%">制作者の環境</th><th>必要なもの</th></tr></thead>
           <tbody>
             <tr><td><b>パソコン</b></td><td>macOS（Windows はご相談）</td></tr>
-            <tr><td><b>ソフト</b></td><td>Google Chrome・Node.js・Python 3（openpyxl・Pillow）・ffmpeg・git。Safari の検査を使うなら Safari の自動操作の許可</td></tr>
-            <tr><td><b>アカウント</b></td><td>Claude（Claude Code）または ChatGPT（Codex）・画像生成の AI・公開先（Cloudflare Pages）・確認用URL（GitHub、任意）</td></tr>
+            <tr><td><b>ソフト</b></td><td>Google Chrome・Node.js・Python 3（openpyxl・Pillow）・ffmpeg・git（足りないものは AI が点検して入れる）</td></tr>
+            <tr><td><b>アカウント</b></td><td>Claude（Claude Code を推奨）・画像生成の AI・公開先（Cloudflare Pages）・確認用URL（GitHub、任意）</td></tr>
           </tbody>
         </table></div>
         <div class="dark" style="font-size:.9em">お渡しの範囲と契約は、21〜22画面の対策（契約・渡す範囲を分ける・検査と公開を弊社側で回す）と合わせて決めます。<b>まずは1名・1案件で試用し、時間と往復の回数を比べたい</b>と考えています。</div>
@@ -1234,7 +1237,7 @@
 </div>
 
 <div class="detail" id="d-gate" data-title="最終チェック：承認欄の中身と、運用の決まり">
-  <h3>承認欄（弊社の責任者が名前と日付を書く。AI は書けない）</h3>
+  <h3>承認欄（制作者の「OK、公開に進んで」の一言を受けて AI が記入）</h3>
   <ul>
     <li>項目2 参考サイトとのテイスト（並べ比べの画像を見た）</li>
     <li>項目4 実機の触り心地（iPhone の Safari・PC のトラックパッドとマウス）</li>
