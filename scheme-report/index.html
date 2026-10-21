@@ -268,11 +268,21 @@
   table.gate8 .tag { padding: 0 7px; }
   table.gate8 td.c { white-space: nowrap; }
   table.cl .dan { margin-left: 4px; color: var(--soft); }
+  /* AI 上で実際に出る画面（再現した図・押すと拡大） */
+  .aiv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; max-width: calc((100dvh - 290px) * 1.6 + 14px); margin: 0 auto; }
+  .q.zoom { display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; width: 100%; padding: 0; gap: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--ink); text-align: left; overflow: hidden; font-weight: 500; }
+  .q.zoom::before { content: none; }
+  .q.zoom:hover { background: var(--paper); border-color: var(--blue); }
+  .q.zoom img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-bottom: 1px solid var(--line); }
+  .q.zoom .cap { display: block; padding: 5px 10px 6px; font-size: .78em; line-height: 1.45; }
+  .q.zoom .cap b { color: var(--blue); margin-right: 6px; }
+  .q.zoom .cap small { display: block; font-size: .86em; color: var(--soft); }
+  @media (max-width: 760px) { .aiv { gap: 8px; } .q.zoom .cap { padding: 4px 6px 5px; font-size: .7em; } }
 </style>
 
 <div class="bar" id="bar"></div>
 <nav class="toc" id="toc" aria-label="目次"></nav>
-<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 24</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
+<div class="nav"><button class="navbtn" id="prev" aria-label="前へ">↑</button><span class="count" id="count">1 / 25</span><button class="navbtn" id="next" aria-label="次へ">↓</button></div>
 
 <main class="deck" id="deck">
 
@@ -290,7 +300,7 @@
     <div class="dark" style="margin-top:12px;font-size:.92em">修正のご依頼が出ない形を目指し、<b>これまで貴社からいただいたご指摘29件を、すべて再発防止のチェックリストにしました</b>（8件は道具・土台で止め、16件は手順で確かめ、残る5件は決まりにしていきます）。さらに<b>貴社のディレクターが初稿で確認している8項目（ディレクターチェック項目）を最終の門にし、通らなければ公開できない形</b>にしました（キット v2.0。8〜11画面）。</div>
     <div class="card" style="margin-top:12px">
       <h3>本資料の流れ</h3>
-      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 提出版の質と、AI の初稿・弊社の確認後の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 最終の門と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜19）→ 流出・複製への対策（20〜21）→ ほかの制作者が再現するために（22）→ 次の改善とご相談事項（23）→ 参考：数字の出典（24）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
+      <p class="muted" style="margin:0">検証した5本（2）→ スキームの完成度（3）→ 提出版の質と、AI の初稿・弊社の確認後の比較（4〜6）→ アウトプットの完成度（7）→ ご指摘の再発防止チェックリスト（8〜9）→ 最終の門と、新しい検査での洗い直し（10〜11）→ 再現性（12）→ 良かった点・改善点（13〜14）→ 初稿をさらに速くする方法（15）→ 現在のスキーム（16〜20）→ 流出・複製への対策（21〜22）→ ほかの制作者が再現するために（23）→ 次の改善とご相談事項（24）→ 参考：数字の出典（25）。矢印キー・スペースで進みます。（？）を押すと補足が開きます。</p>
     </div>
   </div>
 </section>
@@ -673,7 +683,7 @@
         <tbody>
           <tr><td>案件作成・シートの書き出し</td><td><span class="tag k-tool">道具で担保</span></td><td>1コマンドで複製と書き出し</td></tr>
           <tr><td>文言・散らかり・収まり・余白・ページ送り・重なり・コントラスト・はみ出し</td><td><span class="tag k-tool">道具で担保</span></td><td>不合格なら先へ進めない</td></tr>
-          <tr><td>公開・公開後の照合・OGP画像</td><td><span class="tag k-tool">道具で担保</span></td><td>合格しないと公開できない（18画面）</td></tr>
+          <tr><td>公開・公開後の照合・OGP画像</td><td><span class="tag k-tool">道具で担保</span></td><td>合格しないと公開できない（19画面）</td></tr>
           <tr><td>進め方の選択・要件整理・照合表</td><td><span class="tag k-doc">手順書で担保</span></td><td>道具は要件整理の中身を読まない</td></tr>
           <tr><td>最終チェックの承認（B・C）</td><td><span class="tag k-doc">人の承認で担保</span></td><td>承認欄が空なら公開できない（10画面）</td></tr>
           <tr><td>提出チェック・共有文面・修正記録</td><td><span class="tag k-doc">手順書で担保</span></td><td>書かなくても先へ進める</td></tr>
@@ -718,7 +728,7 @@
         <tr><td class="n"><b>3</b></td><td><b>同じご指摘の再発・修正の記録</b><br><span class="muted">同じご指摘を2回いただいた例がある。修正の時間は未記録の案件も</span></td><td>いただいたご指摘29件を再発防止のチェックリストにし、提出前に全項目を確認（8〜9画面）。うち8件は道具・土台で止め、未対応は5件。修正の時間の台帳は道具で付ける</td><td><span class="tag t-green">一部済み</span><br><span class="muted">v1.18・v2.0</span></td></tr>
         <tr><td class="n"><b>4</b></td><td><b>見た目の大前提が検査の外にあった</b><br><span class="muted">文字と絵・写真の重なり、配色の見やすさ、枠からのはみ出し、同じ語の重なり（アステップ様で4件）</span></td><td>重なり・コントラスト・はみ出し・語の重複（警告）などを検査にし、ディレクターチェック項目（8項目）を最終の門に（10画面）。これまでの5本で出た ✕ を順に直す（11画面）。写真の明るさ・動きの速さの数値検査はこれから</td><td><span class="tag t-green">v2.0 で済み</span><br><span class="muted">5本の直しは対応中</span></td></tr>
         <tr><td class="n"><b>5</b></td><td><b>iPhone実機・Safariが未確認</b></td><td>Safari で重なり・はみ出しを測る道具を追加（有効化待ちで未実測）。実機の触り心地は最終チェックで人が触って承認</td><td><span class="tag t-blue">一部済み</span><br><span class="muted">v2.0</span></td></tr>
-        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（22〜23画面）</span></td></tr>
+        <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（23〜24画面）</span></td></tr>
         <tr><td class="n"><b>7</b></td><td><b>検査のぶれ・動作環境</b><br><span class="muted">ページ送りの検査が負荷でぶれる／macOS・Chrome前提</span></td><td>ぶれたときの再実行の決まり。Windowsでの利用はご相談</td><td><span class="tag t-gray">案</span></td></tr>
       </tbody>
     </table></div>
@@ -770,16 +780,30 @@
     </div>
     <div class="grid g2" style="margin-top:12px">
       <div class="card"><h3>複製は分析の場所だけ</h3><p class="muted">参考サイトの複製・記録は分析用のフォルダの中だけで行い、取り出すのは数値・型・時間割だけ。コードと素材は制作物に持ち込みません（前回のご提案のとおり）。</p></div>
-      <div class="dark" style="font-size:.92em">手順9.5で残した学びは、作業ルール・道具・土台のいずれかに足し、<b>次の案件から全員の制作に効く</b>形にします（19画面）。</div>
+      <div class="dark" style="font-size:.92em">手順9.5で残した学びは、作業ルール・道具・土台のいずれかに足し、<b>次の案件から全員の制作に効く</b>形にします（20画面）。</div>
     </div>
     <div class="qs"><a class="q" href="../takumi-manual/" target="_blank" rel="noopener">見本：編集マニュアル（動きの仕様つき）</a></div>
   </div>
 </section>
 
-<!-- 17 キットの構成 -->
+<!-- 17 AI 上で実際に出る画面 -->
+<section class="slide" data-title="AI 上で実際に出る画面">
+  <div class="in">
+    <h2><span class="n">17</span>AI 上で実際に出る画面（手順0・4・7・8.5）</h2>
+    <p class="muted" style="margin:-4px 0 8px">16画面の流れのうち4つの工程で、AI（Claude Code のアプリ）に出る画面です。<b>実際の画面を再現した図で、中身は実際の出力</b>です。押すと拡大します。</p>
+    <div class="aiv">
+      <button class="q zoom" data-q="z-step0" aria-label="手順0 進め方の選択カードを拡大"><img src="img/aiscreen/step0_choice.jpg" alt="手順0 進め方の選択カード（再現図）" width="1920" height="1200"><span class="cap"><b>手順0</b>進め方の選択カード：途中確認・範囲・案の数<small>実際の画面を再現した図（内容は実際の出力）</small></span></button>
+      <button class="q zoom" data-q="z-step4" aria-label="手順4 分析の結果を拡大"><img src="img/aiscreen/step4_dna.jpg" alt="手順4 参考サイトの分析の結果（再現図）" width="1920" height="1200"><span class="cap"><b>手順4</b>分析の結果：型の表・割り当て表・実測値<small>実際の画面を再現した図（内容は実際の出力）</small></span></button>
+      <button class="q zoom" data-q="z-step7" aria-label="手順7 検査のまとめを拡大"><img src="img/aiscreen/step7_check.jpg" alt="手順7 検査のまとめ（再現図）" width="1920" height="1200"><span class="cap"><b>手順7</b>検査のまとめ：項目ごとの合否<small>実際の画面を再現した図（内容は実際の出力）</small></span></button>
+      <button class="q zoom" data-q="z-step85" aria-label="手順8.5 公開の門を拡大"><img src="img/aiscreen/step85_gate.jpg" alt="手順8.5 公開の門（再現図）" width="1920" height="1200"><span class="cap"><b>手順8.5</b>公開の門：検査の範囲・承認欄が空なら止まる<small>実際の画面を再現した図（内容は実際の出力）</small></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- 18 キットの構成 -->
 <section class="slide" data-title="制作キットの構成">
   <div class="in">
-    <h2><span class="n">17</span>制作キットの構成</h2>
+    <h2><span class="n">18</span>制作キットの構成</h2>
     <div class="grid g3">
       <div class="card"><span class="tag t-blue">tools/　道具（26本）</span>
         <ul class="tight" style="margin-top:8px">
@@ -818,10 +842,10 @@
   </div>
 </section>
 
-<!-- 18 品質を止める仕組み -->
+<!-- 19 品質を止める仕組み -->
 <section class="slide" data-title="品質を止める仕組み">
   <div class="in">
-    <h2><span class="n">18</span>品質を止める仕組み（公開の門と公開後の照合）</h2>
+    <h2><span class="n">19</span>品質を止める仕組み（公開の門と公開後の照合）</h2>
     <div class="gate">
       <div class="g"><h3>検査（run_all）</h3><ul class="tight"><li>構成（動画・OGP・読み込みの版）</li><li>文言照合（シートと一言一句）</li><li>CSSの散らかり6項目</li><li>1画面の収まり・最小文字13px</li><li>上下の余白・中央の寄り</li><li>ページ送り・ヘッダーの移動</li><li>重なり・コントラスト・はみ出し（v2.0）</li></ul></div>
       <div class="ar2">→</div>
@@ -839,10 +863,10 @@
   </div>
 </section>
 
-<!-- 19 学びの積み上げ -->
+<!-- 20 学びの積み上げ -->
 <section class="slide" data-title="学びの積み上げ">
   <div class="in">
-    <h2><span class="n">19</span>学びの積み上げ（v1.1 → v2.0）</h2>
+    <h2><span class="n">20</span>学びの積み上げ（v1.1 → v2.0）</h2>
     <div class="cols c64">
       <div class="ver">
         <div class="v"><b>v1.1</b><span>起点（10月16日）。v2.0は10月20日</span></div>
@@ -881,10 +905,10 @@
   </div>
 </section>
 
-<!-- 20 流出・複製のリスク -->
+<!-- 21 流出・複製のリスク -->
 <section class="slide" data-title="流出・複製のリスク">
   <div class="in">
-    <h2><span class="n">20</span>スキームの流出・複製のリスク（どこから流れるか）</h2>
+    <h2><span class="n">21</span>スキームの流出・複製のリスク（どこから流れるか）</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:30%">流れ方</th><th style="width:22%">起きやすさ</th><th style="width:24%">流れたときの影響</th><th>主な守り方</th></tr></thead>
       <tbody>
@@ -897,10 +921,10 @@
   </div>
 </section>
 
-<!-- 21 流出・複製への対策 -->
+<!-- 22 流出・複製への対策 -->
 <section class="slide" data-title="流出・複製への対策">
   <div class="in">
-    <h2><span class="n">21</span>流出・複製への対策（ご提案）</h2>
+    <h2><span class="n">22</span>流出・複製への対策（ご提案）</h2>
     <div class="cols c55">
       <div class="grid" style="gap:10px">
         <div class="card"><span class="tag t-green">おすすめ 1</span> <b>契約で守る</b><p class="muted">キットを渡す制作者と、利用許諾・再配布の禁止・秘密保持・契約終了時の削除を取り交わします。あわせて、キットの権利の扱いを弊社と貴社の間でも決めておきます。すぐに始められ、抑止になります。</p></div>
@@ -917,10 +941,10 @@
   </div>
 </section>
 
-<!-- 22 ほかの制作者が再現するために -->
+<!-- 23 ほかの制作者が再現するために -->
 <section class="slide" data-title="ほかの制作者が再現するために">
   <div class="in">
-    <h2><span class="n">22</span>ほかの制作者が同じスキームを再現するために</h2>
+    <h2><span class="n">23</span>ほかの制作者が同じスキームを再現するために</h2>
     <p class="lead muted" style="margin:0 0 12px">弊社以外の制作者が、同じ手順・同じ検査で作るための流れと、お渡しするものです。AI は Claude（Claude Code）でも Codex でも、同じ作業ルールを読んで動きます。</p>
     <div class="cols c55">
       <div class="grid" style="gap:10px">
@@ -959,16 +983,16 @@
             <tr><td><b>アカウント</b></td><td>Claude（Claude Code）または ChatGPT（Codex）・画像生成の AI・公開先（Cloudflare Pages）・確認用URL（GitHub、任意）</td></tr>
           </tbody>
         </table></div>
-        <div class="dark" style="font-size:.9em">お渡しの範囲と契約は、20〜21画面の対策（契約・渡す範囲を分ける・検査と公開を弊社側で回す）と合わせて決めます。<b>まずは1名・1案件で試用し、時間と往復の回数を比べたい</b>と考えています。</div>
+        <div class="dark" style="font-size:.9em">お渡しの範囲と契約は、21〜22画面の対策（契約・渡す範囲を分ける・検査と公開を弊社側で回す）と合わせて決めます。<b>まずは1名・1案件で試用し、時間と往復の回数を比べたい</b>と考えています。</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 23 次の改善とご相談 -->
+<!-- 24 次の改善とご相談 -->
 <section class="slide" data-title="次の改善とご相談">
   <div class="in">
-    <h2><span class="n">23</span>次の改善とご相談事項</h2>
+    <h2><span class="n">24</span>次の改善とご相談事項</h2>
     <div class="cols c55">
       <div class="card"><span class="tag t-blue">次の改善（v2.0 の後）</span>
         <ol class="flow-list">
@@ -987,7 +1011,7 @@
         <div class="card"><b>2</b>　ほかの制作者による試用（担当者・案件・期間）</div>
         <div class="card"><b>3</b>　制作者の環境（macOS・Google Chrome が使えるか）</div>
         <div class="card"><b>4</b>　iPhone実機での確認の分担</div>
-        <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。20〜21画面）</div>
+        <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。21〜22画面）</div>
         <div class="dark" style="font-size:.92em">ほかの制作者が同じキットで作ったときに、<b>時間と往復の回数が同じ水準になるか</b>を、次の検証の中心にしたいと考えています。</div>
       </div>
     </div>
@@ -995,10 +1019,10 @@
   </div>
 </section>
 
-<!-- 24 参考：出典 -->
+<!-- 25 参考：出典 -->
 <section class="slide" data-title="参考：数字の出典">
   <div class="in">
-    <h2><span class="n">24</span>参考：検証の数字の出典</h2>
+    <h2><span class="n">25</span>参考：検証の数字の出典</h2>
     <div class="tw tight"><table>
       <thead><tr><th style="width:26%">数字</th><th>出典・測り方</th></tr></thead>
       <tbody class="src">
@@ -1226,6 +1250,23 @@
     <li>承認まで通して公開する流れ：5本とも A が不合格のため、実案件ではまだ通していません</li>
   </ul>
   <p class="ev-src">5本の初稿は、当時の検査にすべて合格したうえでご提出したものです。新しい基準で出た ✕ は、順に直しています。</p>
+</div>
+
+<div class="detail" id="z-step0" data-title="手順0 進め方の選択カード（groxi様・10月20日）">
+  <img src="img/aiscreen/step0_choice.jpg" alt="手順0 進め方の選択カード（再現図）" loading="lazy" width="1920" height="1200">
+  <p class="ev-src">実際の画面を再現した図です。質問・選択肢・説明・「おすすめ」は、AI が実際に出した選択カードの内容です（このときの4問のうち、進め方の2問）。選ぶのは弊社の責任者で、AI は決めません。</p>
+</div>
+<div class="detail" id="z-step4" data-title="手順4 参考サイトの分析の結果（アステップ様・10月19日）">
+  <img src="img/aiscreen/step4_dna.jpg" alt="手順4 参考サイトの分析の結果（再現図）" loading="lazy" width="1920" height="1200">
+  <p class="ev-src">実際の画面を再現した図です。表と数値は、案件の分析の記録（DNA.md）からの抜粋です。参考サイトから持ち込むのは数値と型だけで、コードと素材は持ち込みません。</p>
+</div>
+<div class="detail" id="z-step7" data-title="手順7 検査のまとめ（アステップ様）">
+  <img src="img/aiscreen/step7_check.jpg" alt="手順7 検査のまとめ（再現図）" loading="lazy" width="1920" height="1200">
+  <p class="ev-src">実際の画面を再現した図です。検査のまとめは、アステップ様の案件の写し（10月21日の状態）で検査の道具（run_all.sh・全サイズ・全ページ）を実際に流した出力です（約8分）。この時点では重なり1件（p2・390×540・動く飾り）とページ送り1件が ✕ で、✕ が残る限り公開の門で止まります。各検査の詳しい出力は省いています。</p>
+</div>
+<div class="detail" id="z-step85" data-title="手順8.5 公開の門（--dry-run・アステップ様）">
+  <img src="img/aiscreen/step85_gate.jpg" alt="手順8.5 公開の門（再現図）" loading="lazy" width="1920" height="1200">
+  <p class="ev-src">実際の画面を再現した図です。アステップ様の案件の写しで、公開の門（publish.sh）を公開しない確認（--dry-run）で実際に流した出力です。門の働きが分かるように、写しで「1ページ（p6）だけを直した」状態を作り、最終チェックの承認欄を空にして実行しました。変わったセクションだけを検査し、承認欄が空のままでは本番の公開は止まります。</p>
 </div>
 
 <dialog id="dlg" aria-labelledby="dlg-title">
