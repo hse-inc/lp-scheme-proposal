@@ -17,14 +17,16 @@
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; line-height: 1.6; font-size: clamp(14px, min(1.32vw, 2.4vh), 26px); }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; line-height: 1.6; font-size: clamp(14px, min(1.25vw, 2.2vh), 26px); }
   .deck { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-  .slide { min-height: 100%; height: 100dvh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding-block: 24px 56px; padding-inline: 16px; }
+  .slide { min-height: 100%; height: 100dvh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding-block: 20px 52px; padding-inline: 16px; }
   .in { width: min(1680px, 100%, 96vh * 1.9); padding-inline: 40px; }
   @media (max-width: 760px) {
-    .deck { scroll-snap-type: none; }
-    .slide { height: auto; min-height: 100dvh; }
+    /* スマホも1画面＝1スライド。収まらない中身は（？）の補足へ移す（下の M の表） */
+    .slide { height: 100dvh; min-height: 0; padding-block: 14px 58px; }
     .in { padding-inline: 4px; }
+    .slide .tw table { min-width: 0; }
+    .slide.over { height: auto; min-height: 100dvh; }
   }
   .kicker { font-size: .72em; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
   h1 { margin: 8px 0 12px; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.3; text-wrap: balance; }
@@ -730,6 +732,7 @@
         <tr><td class="n"><b>5</b></td><td><b>iPhone実機・Safariが未確認</b></td><td>Safari で重なり・はみ出しを測る道具を追加（有効化待ちで未実測）。実機の触り心地は最終チェックで人が触って承認</td><td><span class="tag t-blue">一部済み</span><br><span class="muted">v2.0</span></td></tr>
         <tr><td class="n"><b>6</b></td><td><b>ほかの制作者での再現が未検証</b></td><td>終わった案件を別の担当が作り、時間・往復を比べる</td><td><span class="tag t-gray">案（23〜24画面）</span></td></tr>
         <tr><td class="n"><b>7</b></td><td><b>検査のぶれ・動作環境</b><br><span class="muted">ページ送りの検査が負荷でぶれる／macOS・Chrome前提</span></td><td>ぶれたときの再実行の決まり。Windowsでの利用はご相談</td><td><span class="tag t-gray">案</span></td></tr>
+        <tr><td class="n"><b>8</b></td><td><b>修正依頼と「一言一句」のルールの矛盾</b><br><span class="muted">掲載文言は「依頼書（ヒアリングシート）の文言を一言一句そのまま」がルールで、機械の照合で止めています。一方で、修正の段階では「この文言を直してほしい・消してほしい」という依頼が来ます</span></td><td>いまは依頼のたびに照合の例外として記録していますが、どちらを正とするか、誰がいつ決めるかの決まりがありません。依頼が重なるほど、シートと画面の食い違いが増えていきます</td><td><span class="tag t-gray">ご相談（24画面）</span></td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1012,6 +1015,7 @@
         <div class="card"><b>3</b>　制作者の環境（macOS・Google Chrome が使えるか）</div>
         <div class="card"><b>4</b>　iPhone実機での確認の分担</div>
         <div class="card"><b>5</b>　キットの渡し方と契約（流出・複製への対策。21〜22画面）</div>
+        <div class="card"><b>6</b>　修正依頼と「一言一句」のルール：文言が変わる修正依頼は、①シート側を直していただき、照合の元を更新する／②修正依頼を正とし、照合表に「依頼日・依頼者・変更前→後」を残す、のどちらにするか（14画面）</div>
         <div class="dark" style="font-size:.92em">ほかの制作者が同じキットで作ったときに、<b>時間と往復の回数が同じ水準になるか</b>を、次の検証の中心にしたいと考えています。</div>
       </div>
     </div>
@@ -1337,19 +1341,48 @@
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
   });
 
-  document.querySelectorAll('button.q').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var d = document.getElementById(b.dataset.q);
-      if (!d) return;
-      document.getElementById('dlg-title').textContent = d.dataset.title;
-      document.getElementById('dlg-body').innerHTML = d.innerHTML;
-      dlg.showModal();
-      tell({ type: 'detail', title: d.dataset.title });
-    });
+  function openDetail(title, html) {
+    document.getElementById('dlg-title').textContent = title;
+    document.getElementById('dlg-body').innerHTML = html;
+    document.getElementById('dlg-body').scrollTop = 0;
+    if (!dlg.open) dlg.showModal();
+    tell({ type: 'detail', title: title });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('button.q'); if (!b) return;
+    var d = b.dataset.q && document.getElementById(b.dataset.q);
+    if (!d) return;
+    openDetail(d.dataset.title, d.innerHTML);
   });
   document.getElementById('dlg-close').addEventListener('click', function () { dlg.close(); });
   dlg.addEventListener('close', function () { tell({ type: 'detail', title: '' }); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  // 1画面に収める共通の処理：.in の中身が画面に収まらないときだけ zoom で縮める（下限 0.6）。下限でも収まらない画面は .over（高さを中身に合わせる）
+  var ZMIN = 0.6;
+  function fit() {
+    slides.forEach(function (s) {
+      var inn = s.querySelector('.in');
+      inn.style.zoom = ''; s.classList.remove('over');
+      var cs = getComputedStyle(s);
+      var avail = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      var z = 1;
+      for (var k = 0; k < 6; k++) {
+        var h = inn.getBoundingClientRect().height;
+        if (h <= avail + 0.5) break;
+        z = Math.max(ZMIN, z * avail / h * 0.995);
+        inn.style.zoom = z;
+        if (z === ZMIN) break;
+      }
+      s.dataset.zoom = z.toFixed(2);
+      if (inn.getBoundingClientRect().height > avail + 0.5) s.classList.add('over');
+    });
+  }
+  fit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('load', fit);
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { fit(); go(cur); }, 150); });
+  var it; document.addEventListener('load', function (e) { if (e.target.tagName === 'IMG') { clearTimeout(it); it = setTimeout(fit, 100); } }, true);   // 遅れて読み込む画像で高さが変わったら測り直す
 
   var h = location.hash.match(/^#p(\d+)$/);
   if (h) go(parseInt(h[1], 10) - 1); else mark(0);
