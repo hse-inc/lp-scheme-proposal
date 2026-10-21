@@ -366,7 +366,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col chk"><span class="lb">確かめること</span><ul><li>URL が仮のままだと検査で不合格になる</li></ul></div>
       </div></div>
 
-      <div class="step key"><div class="sh"><span class="no">7</span><span class="st">検査（すべて合格まで）</span></div><div class="cols">
+      <div class="step key"><div class="sh"><span class="no">7</span><span class="st">検査（すべて合格まで）</span></div><p class="muted" style="margin:10px 16px 0">この検査は、10原則のうち<b>道具で自動で測れる部分（A）</b>だけを調べます（重なり・色の見やすさ・はみ出し・13px・上下の余白・スワイプ・文言の照合など）。参考サイトらしさ・画像・動き・改行など、人の目が要る部分は、次の 7.5（あなた）と 8（AI）で見ます。</p><div class="cols">
         <div class="col you"><span class="lb">あなたがすること</span><ul><li>最後に「判定：すべて合格」と出たかを見る</li></ul></div>
         <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/run_all.sh projects/&lt;案件名&gt;</code> で検査し、✕ を直して合格まで繰り返す</li><li>作業中は <code>--quick</code>（2サイズだけ）で確かめる</li></ul></div>
         <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>全ページの検査は1回あたり約7分。小さな直しのたびに全部を回さない</li><li>「Safari 未検査」は不合格ではないが、未確認として残る</li></ul></div>
