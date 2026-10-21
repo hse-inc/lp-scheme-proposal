@@ -129,6 +129,7 @@
   .step > .sh .st { font-weight: 800; font-size: 1.05em; line-height: 1.5; }
   .step.key > .sh { background: var(--orange-t); } .step.key > .sh .no { color: var(--orange-d); }
   .step .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step .cols.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step .col { padding: 12px 16px; min-width: 0; font-size: .94em; }
   .step .col + .col { border-left: 1px solid var(--line); }
   .step .col .lb { display: block; font-size: .8em; font-weight: 800; letter-spacing: .06em; margin-bottom: 4px; }
@@ -136,7 +137,7 @@
   .step .col ul { margin: 0; padding-left: 1.1em; }
   .step .full { padding: 0 16px 14px; }
   @media (max-width: 760px) {
-    .step .cols { grid-template-columns: minmax(0, 1fr); }
+    .step .cols, .step .cols.c2 { grid-template-columns: minmax(0, 1fr); }
     .step .col + .col { border-left: 0; border-top: 1px solid var(--line); }
   }
 
@@ -167,9 +168,9 @@
       <li><a href="#download">ダウンロード</a></li>
       <li><a href="#need">必要なもの</a></li>
       <li><a href="#setup">初回だけの準備</a></li>
-      <li><a href="#steps">案件ごとの手順（初稿まで）</a></li>
+      <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
       <li><a href="#check">提出前のチェック（10原則）</a></li>
-      <li><a href="#revise">修正が来たら</a></li>
+      <li><a href="#revise">先方から修正が来たら</a></li>
       <li><a href="#trouble">困ったとき・記録の送り方</a></li>
       <li><a href="#rules">守ること</a></li>
     </ol>
@@ -185,7 +186,7 @@
     <!-- 1 -->
     <section class="sec" id="about">
       <h2><span class="n">1</span>このページについて</h2>
-      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code または Codex）でキットのフォルダを開いて「手順0から始めて」と伝えれば、AI が作業ルールに沿って採用LPを作ります。<b>品質は検査の道具が止める</b>ので、あなたの仕事は「選ぶ・見る・承認する・送る」が中心です。</p>
+      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code または Codex）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">33〜72分</div><p class="muted">弊社の担当が作った5本の実測（確認待ちの時間を除く）。初めての方は、これより長くかかる見込みです（ほかの制作者での実測はまだありません）。全ページの検査は1回あたり約7分です。</p></div>
@@ -210,11 +211,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           キットをダウンロード（Google Drive）
         </a>
-        <div class="meta">ファイル：<b>spinova-lp-kit_v2.6.1.zip</b><br>版：<b>v2.6.1</b> ／ 日付：<b>2026-10-21</b><br>中身：土台・検査と公開の道具・ひな形・部品集・作業ルール</div>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v2.6.1_pw.zip</b>（パスワード付き）<br>版：<b>v2.6.1</b> ／ 日付：<b>2026-10-21</b><br>中身：土台・検査と公開の道具・ひな形・部品集・作業ルール</div>
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
       <ul class="muted">
-        <li>ダウンロードした ZIP は、ダブルクリックで解凍（<span class="gloss">ZIP を開いてフォルダに戻すこと</span>）できます。</li>
+        <li><b>開き方</b>：① ダウンロードした <code>spinova-lp-kit_v2.6.1_pw.zip</code> をダブルクリック → ② パスワードを入力（パスワードは担当者から別に届きます）→ ③ 出てきた <code>spinova-lp-kit_v2.6.1.zip</code> をもう一度ダブルクリック → <code>spinova-lp-kit</code> フォルダができます。</li><li>二重の ZIP になっているのは、Google Drive が中の道具（プログラム）を危ないものと見間違えて止めないようにするためです。</li>
         <li>新しい版が出たら、このページの版と日付が変わります。案件の途中では版を変えないでください（案件を作ったときの版が <code>kit.conf</code> に残ります）。</li>
       </ul>
     </section>
@@ -304,106 +305,50 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 5 -->
     <section class="sec" id="steps">
-      <h2><span class="n">5</span>案件ごとの手順：初稿を出すまで</h2>
-      <p class="concl"><b>結論：</b>Slack に来た担当案件の URL を AI に貼り、「手順0から始めて」と伝えます。あとは AI が手順0〜8.8を進め、あなたは<b>選ぶ・見る・承認する・送る</b>を受け持ちます。</p>
-      <h3>AI への最初の一言（例）</h3>
-      <div class="cmd say"><pre>作業ルール（AGENTS.md／CLAUDE.md）を読んで、新しい案件を手順0から始めてください。
-担当案件：〔Slack の担当案件の URL を貼る〕
-進め方の選択・公開・先方への送信・最終チェックの承認欄は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
-      <p class="muted">以下の各手順は、<span class="tag t-orange">あなたがすること</span> <span class="tag t-blue">AI がすること</span> <span class="tag t-green">確かめること・つまずきやすい点</span> の3つに分けています。「手順」の番号はキットの作業ルール（2章）と同じです。</p>
+      <h2><span class="n">5</span>案件ごとの流れ：初稿を出すまで</h2>
+      <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「進め方を選ぶ」「出来上がりを見て直してほしい所を伝える」「OK を出す」「先方に送る」の5つだけです。作る・調べる・検査する・公開するのは AI です。</p>
+      <h3>最初の一言（コピーして AI に送る）</h3>
+      <div class="cmd say"><pre>新しい案件を始めてください。
+担当案件：〔Slack に来た担当案件の URL を貼る〕
+進め方の選択・公開・先方への送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
 
-      <div class="step"><div class="sh"><span class="no">0</span><span class="st">進め方を選ぶ（最初に必ず）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が出す3つの問いに、選択肢から答える：①最初の数ページで一度確認するか ②初稿を全ページで出すか、最初の数ページだけか ③初稿の案を3案にするか、1案か</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>3つを選択式で聞く（AI は決めない）</li><li>選んだ内容と日付を <code>要件整理.md</code> に書く</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>AI が問いを飛ばして勝手に決めていないか（過去に3案を飛ばした例あり）</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を渡す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」に、Slack に来た担当案件の URL を入れて送る</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>ヒアリングシートと素材を取り込み、案件の準備をする</li></ul></div>
       </div></div>
-
-      <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を作る</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>なし（「最初の一言」で貼った Slack の URL を、AI がそのまま使います）</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>シート・素材を取り込み、<code>tools/new_project.sh</code> で <code>projects/&lt;案件名&gt;/</code> を作る（土台とひな形が複製される）</li></ul></div>
-        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>AI が Slack を読めない設定のときは、シートと素材をあなたがダウンロードし、置いた場所を AI に伝える（Slack から取り込む専用の道具はまだありません）</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">進め方を選ぶ</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が出す3つの質問に、選んで答える（途中で一度見るか／最初から全ページか／案は1つか3つか）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>質問を出し、選ばれたとおりに進める</li></ul></div>
       </div></div>
-
-      <div class="step"><div class="sh"><span class="no">2</span><span class="st">シートを書き出す</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>特になし</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/dump_sheet.py</code> でヒアリングシートを文字に書き出す</li><li><code>kit.conf</code>（<span class="gloss">案件の設定のファイル</span>）の原稿の場所と照合するセクションをシートに合わせる</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>見出しの無い列（欄外のメモ）まで書き出されているか</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">3</span><span class="st">AI が初稿を作る（待つ）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>基本は待つだけ。AI から質問が来たら答える</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>ヒアリングシートの要件を整理する</li><li>参考サイトをくわしく分析する（色・文字・余白・動き）</li><li>その分析をもとに初稿のデザインを作る</li></ul></div>
       </div></div>
-
-      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">要件整理（シートの照合表）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が「未定」として出した点を、選択肢から決める</li><li>開かれたシートと参考サイトのタブを見ておく</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>要件整理.md</code> を確定／解釈／未定に分けて埋める</li><li>シートの全セル・全補足を1行ずつ抜き出した照合表（✓△✕）を作る</li><li>シートと参考サイトをブラウザのタブで開く</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>照合表に ✕ が残っていないか（配色の役割・雰囲気の文の読み落としが多い）</li><li>シートに「スクロール形式」「画像で」などの指定があれば、それが最優先</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">4</span><span class="st">AI が自動でチェックする（待つ）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>待つだけ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・スワイプ・文言など）</li></ul></div>
       </div></div>
-
-      <div class="step key"><div class="sh"><span class="no">4</span><span class="st">参考サイトの分析（最も大事な工程）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が書いた「この参考サイトらしさ」（5つ以上）と、ページごとの割り当て表を読む</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/refcap.mjs</code> で参考サイトの動きをスマホ幅と PC 幅で記録し、コマを全部見る</li><li>数値・型・時間割だけを <code>DNA.md</code> に書く（コード・画像は持ち込まない）</li><li>参考の全セクションの型の表と、自分のページへの割り当て表を作る</li></ul></div>
-        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>参考サイトに何度もアクセスすると、相手にブロックされることがある（<a href="#trouble">8章</a>）</li><li>割り当て表が空のまま実装に進んでいないか</li></ul></div>
-      </div></div>
-
-      <div class="step"><div class="sh"><span class="no">5</span><span class="st">土台に流し込む</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>特になし</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>DNA の値を <code>site/tokens.css</code> に、見た目を <code>site/style.css</code> に書く</li><li>型の部品集（<code>templates/parts/</code>）から合うものを使う</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>土台（<code>base.css</code>・<code>swipe.js</code>）を書き換えていないか。書き換えると記録の ZIP に「✕」と出る</li></ul></div>
-      </div></div>
-
-      <div class="step"><div class="sh"><span class="no">6</span><span class="st">初稿（1案または3案）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>3案のときは、ページごとの比較動画を見て案を選ぶ</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>型は参考に忠実、中身（モチーフ・小物）は案件の業種に置き換える。各ページに「遊び」を1つ</li><li>3案のときは <code>tools/new_draft.sh</code> で案を分け、<code>tools/preview.mjs</code> で比較動画を作る</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>写真・イラストの人物が日本人か、指の形が崩れていないか（原寸で見る）</li></ul></div>
-      </div></div>
-
-      <div class="step"><div class="sh"><span class="no">6.5</span><span class="st">参考との並べ比べ</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>参考と自作を同じ時刻で並べた画像を見る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>自作も同じ道具で記録し、<code>tools/compare.sh</code> で上下に並べる。結果を <code>DNA.md</code> に書く</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>出る順番・速さ・明るさ・質感・余白が参考に近いか</li></ul></div>
-      </div></div>
-
-      <div class="step"><div class="sh"><span class="no">6.8</span><span class="st">OGP 画像（必須）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>できた画像を見る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/make_ogp.py</code> で 1200×630 の画像を作り、HTML の og:url・og:image を公開先の URL にする</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>URL が仮のままだと検査で不合格になる</li></ul></div>
-      </div></div>
-
-      <div class="step key"><div class="sh"><span class="no">7</span><span class="st">検査（すべて合格まで）</span></div><p class="muted" style="margin:10px 16px 0">この検査は、10原則のうち<b>道具で自動で測れる部分（A）</b>だけを調べます（重なり・色の見やすさ・はみ出し・13px・上下の余白・スワイプ・文言の照合など）。参考サイトらしさ・画像・動き・改行など、人の目が要る部分は、次の 7.5（あなた）と 8（AI）で見ます。</p><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>最後に「判定：すべて合格」と出たかを見る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/run_all.sh projects/&lt;案件名&gt;</code> で検査し、✕ を直して合格まで繰り返す</li><li>作業中は <code>--quick</code>（2サイズだけ）で確かめる</li></ul></div>
-        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>全ページの検査は1回あたり約7分。小さな直しのたびに全部を回さない</li><li>「Safari 未検査」は不合格ではないが、未確認として残る</li></ul></div>
-      </div></div>
-
-      <div class="step key"><div class="sh"><span class="no">7.5</span><span class="st">あなたが確かめて、直してほしい所を AI に伝える（いちばん大事）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が出した一覧画像と画面を、<b>携帯と PC の両方で</b>見る</li><li>10原則（<a href="#check">6章</a>）に当てて、気になる所を探す</li><li><b>直してほしい所を、まとめて1回で</b>チャットに書く（下の例文）</li><li>直った画面を見て、まだあれば同じようにもう1回。無ければ「OK」</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>検査に合格したら、一覧画像（全ページ・3サイズ）と、画面を開く URL を渡す</li><li>伝えられた所を<b>全部まとめて</b>直し、直したページだけ検査する</li><li>直す前と後を並べて見せる</li></ul></div>
-        <div class="col chk"><span class="lb">伝え方のコツ</span><ul><li>「何ページ目の・どこを・どうしたいか」を1件ずつ書く</li><li>見た目の話はスクリーンショットを添えると早い</li><li>思いついたたびに1件ずつ送らない。<b>まとめて送る</b>ほど早く終わる</li><li><b>音声入力（文字起こし）がおすすめ</b>：画面を見ながら気づいた所を話して、そのまま送ればよい（Mac は fn キーを2回押すと音声入力）</li></ul></div>
+      <div class="step key"><div class="sh"><span class="no">5</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る</li><li>10原則（6章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>全ページの一覧画像と、画面を開く URL を渡す</li><li>伝えられた所をまとめて直し、直した所だけ検査して、前と後を見せる</li></ul></div>
       </div>
-        <div class="cmd say" style="margin:10px 16px 16px"><pre>直してほしい所です。まとめて直して、直したページだけ検査してから、前と後を見せてください。
+        <div class="full"><div class="cmd say"><pre>直してほしい所です。まとめて直して、前と後を見せてください。
 1. 3ページ目：見出しと写真が近すぎる。間をもう少し空けたい
 2. 5ページ目：スマホで「〇〇」が途中で改行される。1行にしたい
 3. 全体：ボタンの色が薄い。もう少し濃く</pre><button class="copy" type="button">コピー</button></div>
-        <div class="warn" style="margin:0 16px 10px"><b>参考サイトと雰囲気がずれているときは、細かい直しを重ねない。</b>色や余白を1つずつ直しても近づきません。AI に「参考サイトをもっと深く分析し直して、初稿を作り直して」と伝えてください（下の例文）。分析（手順4）からやり直すほうが早く、仕上がりもよくなります。</div>
-        <div class="cmd say" style="margin:0 16px 16px"><pre>参考サイトと雰囲気がずれています。細かい直しではなく、参考サイトをもっと深く分析し直してください（全画面の動きのコマ・画像の文字の質感・余白の実測・後半のセクションの型まで）。分析を DNA.md に書き直してから、初稿を作り直して、参考と並べて見せてください。
-ずれていると感じる所：〔例：全体が地味／写真が小さい／動きが少ない〕</pre><button class="copy" type="button">コピー</button></div>
-      </div>
-
-      <div class="step key"><div class="sh"><span class="no">8</span><span class="st">提出の前（10原則・一覧画像）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>7.5 で直しきったら、最後に一覧画像をひととおり見る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>提出チェック.md</code> を埋め、10原則を全項目回す</li><li>全ページの一覧画像（360×640・390×844・1440×900）を作り直す</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>検査がすべて合格していること（AI が報告する）</li></ul></div>
+        <div class="warn"><b>参考サイトと雰囲気がずれているときは、細かい直しを重ねない。</b>色や余白を1つずつ直しても近づきません。「参考サイトをもっと深く分析し直して、初稿を作り直して」と伝えてください。そのほうが早く、仕上がりもよくなります。</div>
+        <div class="cmd say"><pre>参考サイトと雰囲気がずれています。細かい直しではなく、参考サイトをもっと深く分析し直してから、初稿を作り直して、参考と並べて見せてください。
+ずれていると感じる所：〔例：全体が地味／写真が小さい／動きが少ない〕</pre><button class="copy" type="button">コピー</button></div></div>
+</div>
+      <div class="step key"><div class="sh"><span class="no">6</span><span class="st">「OK、公開に進んで」と伝える</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>チャットで「OK、公開に進んで」と言うだけ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、版の URL（例：v1）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
       </div></div>
-
-      <div class="step key"><div class="sh"><span class="no">8.5</span><span class="st">公開（チャットで「OK」と言うだけ）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>チャットで <b>「OK、公開に進んで」</b> と言うだけ</li><li>公開のあとに出る記録の ZIP を、Slack の SPINOVA との共有の場所に貼る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li>あなたの「OK」を受けて、承認欄を代わりに書く（<code>tools/approve.sh</code>。名前と今日の日付が入る）</li><li><code>tools/publish.sh</code> で版の URL（https://v1.&lt;名前&gt;.pages.dev/）に公開し、公開側と照合する</li><li>公開に成功すると、作業記録が自動で ZIP にまとまる</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>「OK」と言わない限り、AI は承認欄を書かず、公開もしない</li><li>名前は初回に一度 AI に伝える（キットの案件の設定 <code>kit.conf</code> の APPROVER に入る）</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">7</span><span class="st">先方に送る</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、Slack で先方に送る</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の SPINOVA との共有の場所に貼る</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>先方に送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
       </div></div>
-
-      <div class="step"><div class="sh"><span class="no">8.8</span><span class="st">共有文面</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>文面を確かめて、ディレクターへ送る（送るのはあなた）</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>共有文面.md</code> の型で、URL と「シートの指定に合わせて通常と変えた点」だけの短い文を作る</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>経緯・前置きを足して長くしない</li></ul></div>
-      </div></div>
-      <p class="muted">先方の確認が済んだあとの WordPress 化（手順9.8）は、先方のマニュアルの工程どおりに進めます。WordPress へのログインと管理画面の操作は人が行います。</p>
+      <p class="muted">先方から修正が来たら、7章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
     </section>
 
     <!-- 6 -->
@@ -445,18 +390,22 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 7 -->
     <section class="sec" id="revise">
-      <h2><span class="n">7</span>修正が来たら</h2>
-      <p class="concl"><b>結論：</b>修正はまとめて直し、<b>版を上げて</b>（v1 → v2）出し直します。検査は直したセクションだけを道具が選んで回します。</p>
-      <ol class="steps">
-        <li><h3>修正をまとめて AI に渡す</h3><p>先方の指摘（スクリーンショットがあれば一緒に）をまとめて渡します。AI は直す場所を添付画像で確かめてから直します。</p>
-          <div class="cmd say"><pre>先方から修正が来ました。下の指摘をまとめて直し、版を v2 にして出せる状態にしてください。
-〔指摘を貼る〕</pre><button class="copy" type="button">コピー</button></div></li>
-        <li><h3>直している途中は、直したページだけ確かめる</h3><p>AI は <code>tools/run_all.sh … --quick</code> や <code>--pages=3,5</code>（直したページだけ）で確かめます。小さな直しのたびに全ページの検査を回しません。</p></li>
-        <li><h3>版を上げて公開する</h3><p><code>tools/publish.sh projects/&lt;案件名&gt; --version v2</code>。道具が、初稿の合格のときに作った基準（<span class="gloss">比べるための記録</span>）と比べ、<b>直したセクションだけ</b>を検査します。共有の CSS を直したときは、全ページの画面を基準と比べ、崩れたページも検査に入れます。迷うとき・大きく作り直したときは <code>--full</code>（全ページ）。</p>
-          <p class="muted">前の版の URL は上書きしません（先方が持っている URL を残すため）。公開の前に、承認欄を一覧画像で見直して書き直します。</p></li>
-        <li><h3>記録を残して送る</h3><p>公開に成功すると、作業記録の ZIP が自動でできます（理由は「修正（v2）」）。Slack の SPINOVA との共有の場所に貼ります。区切りごとに <code>修正記録_&lt;案件&gt;_&lt;日付&gt;.md</code>（指摘・原因・直し方）も AI が残します。</p></li>
-      </ol>
-      <p>新しい指摘は、10原則のどれに当たるかを決めて記録します（項目を増やさない）。</p>
+      <h2><span class="n">7</span>先方から修正が来たら</h2>
+      <p class="concl"><b>結論：</b>先方の指摘をまとめて AI に渡し、直った画面を見て「OK、公開に進んで」と言うだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">先方の指摘を、まとめて AI に渡す</span></div><div class="full" style="padding-top:12px">
+        <p>先方の指摘を全部まとめて、スクリーンショットがあれば一緒に貼ります。</p>
+        <div class="cmd say"><pre>先方から修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
+〔指摘を貼る〕</pre><button class="copy" type="button">コピー</button></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">AI が直して、自動でチェックする（待つ）</span></div><div class="full" style="padding-top:12px">
+        <p>AI は直した所だけをチェックするので、全体をやり直すより早く終わります。</p>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">直った画面を見て「OK、公開に進んで」</span></div><div class="full" style="padding-top:12px">
+        <p>携帯と PC で直った所を確かめます。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言うだけで、AI が新しい版の URL で公開します。</p>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">4</span><span class="st">先方に送る</span></div><div class="full" style="padding-top:12px">
+        <p>AI が作った文面と新しい URL を先方に送り、作業記録の ZIP を Slack の SPINOVA との共有の場所に貼ります（案件の初稿のときと同じです）。</p>
+      </div></div>
     </section>
 
     <!-- 8 -->
@@ -466,10 +415,9 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <h3>記録の ZIP</h3>
       <div class="grid g2">
         <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
-          <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div>
-          <p class="muted">AI は <code>tools/report_pack.sh projects/&lt;案件名&gt; --reason "困ったとき：…"</code> を実行します。完了のときは <code>--reason "完了"</code>。</p></div>
+          <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div></div>
         <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたの Mac の環境（macOS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
-          <p class="muted">場所：<code>projects/&lt;案件名&gt;/_report/記録_&lt;日時&gt;_&lt;理由&gt;.zip</code>。<b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
+          <p class="muted"><b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
       </div>
 
       <h3>よくある問題と対処</h3>
