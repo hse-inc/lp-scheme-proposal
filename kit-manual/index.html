@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>採用LP 制作キット 使い方</title>
+<meta name="description" content="spinova-lp-kit（採用LP 制作キット）を初めて使う制作者のための手引き。ダウンロード・初回の準備・案件ごとの手順・提出前のチェック・困ったときの対処。">
+<style>
+  /* 検証レポート（scheme-report）と同じ配色・書体 */
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-d: #b4470e; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray: #7a7a76; --gray-t: #efefec;
+    --code: #f3f3f0; --red: #b42318; --red-t: #fdecea;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; font-size: 16px; line-height: 1.8; word-break: auto-phrase; line-break: strict; overflow-wrap: anywhere; -webkit-text-size-adjust: 100%; }
+  .nb { white-space: nowrap; }
+  a { color: var(--blue); }
+  b, strong { font-weight: 700; }
+  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .88em; background: var(--code); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; word-break: break-all; }
+
+  /* 配置：PC は左に目次、スマホは上に目次 */
+  .wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  nav.toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; font-size: 14px; }
+  nav.toc .ttl { font-size: 12px; letter-spacing: .14em; color: var(--soft); font-weight: 700; margin: 0 0 8px; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+  nav.toc li { margin: 0; }
+  nav.toc a { display: block; padding: 6px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; line-height: 1.5; }
+  nav.toc a::before { counter-increment: t; content: counter(t) ". "; color: var(--blue); font-weight: 700; }
+  nav.toc a:hover { background: var(--blue-t); }
+  main { min-width: 0; }
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 20px 16px 64px; }
+    nav.toc { position: static; max-height: none; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    nav.toc ol { columns: 2; column-gap: 10px; }
+    nav.toc a { padding: 4px 6px; font-size: 13.5px; break-inside: avoid; }
+  }
+  @media (max-width: 420px) { nav.toc ol { columns: 1; } }
+
+  /* 見出し・本文 */
+  header.hero { margin-bottom: 28px; }
+  .kicker { font-size: 12.5px; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 6px 0 12px; font-size: clamp(26px, 4vw, 38px); line-height: 1.35; text-wrap: balance; }
+  .lead { color: var(--soft); font-size: 1.04em; margin: 0; }
+  section.sec { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 28px 30px; margin: 0 0 24px; }
+  @media (max-width: 600px) { section.sec { padding: 20px 16px; border-radius: 12px; } }
+  h2 { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 14px; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.4; text-wrap: balance; }
+  h2 .n { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .62em; flex: none; margin-top: .25em; }
+  h3 { margin: 22px 0 8px; font-size: 1.08em; line-height: 1.5; }
+  p { margin: 0 0 10px; }
+  ul, ol { margin: 6px 0 10px; padding-left: 1.4em; }
+  li { margin: 4px 0; }
+  .muted { color: var(--soft); font-size: .9em; }
+  .concl { background: var(--blue-t); border-radius: 12px; padding: 14px 18px; margin: 0 0 16px; font-weight: 500; }
+  .concl b { color: var(--blue); }
+  .warn { background: var(--orange-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .warn b { color: var(--orange-d); }
+  .stop { background: var(--red-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .stop b { color: var(--red); }
+  .tag { display: inline-block; padding: 0 10px; border-radius: 999px; font-size: .78em; font-weight: 700; line-height: 1.8; vertical-align: .08em; }
+  .t-blue { background: var(--blue-t); color: var(--blue); } .t-orange { background: var(--orange-t); color: var(--orange-d); }
+  .t-green { background: var(--green-t); color: var(--green); } .t-gray { background: var(--gray-t); color: var(--soft); }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .g2, .g3 { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .card h3 { margin-top: 0; }
+  .big { font-size: 1.7em; font-weight: 800; line-height: 1.2; color: var(--green); font-variant-numeric: tabular-nums; }
+
+  /* 用語の言い換え */
+  .term { border-bottom: 1px dotted var(--soft); }
+  .gloss { color: var(--soft); font-size: .86em; }
+
+  /* 表（スマホでは中だけ横に動く） */
+  .tw { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); margin: 8px 0 12px; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: .92em; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gray-t); font-size: .92em; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .tw.wide table { min-width: 640px; }
+
+  /* 全体の流れ */
+  .flow { display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 10px 0 6px; }
+  @media (max-width: 760px) { .flow { grid-template-columns: minmax(0, 1fr); } }
+  .phase { border-radius: 12px; padding: 12px 14px; position: relative; min-width: 0; }
+  .phase .ph { font-size: .78em; font-weight: 800; letter-spacing: .08em; }
+  .phase .pt { font-weight: 800; font-size: 1.05em; margin: 2px 0 6px; }
+  .phase ul { margin: 0; padding-left: 1.1em; font-size: .9em; }
+  .phase.p1 { background: var(--gray-t); } .phase.p1 .ph { color: var(--soft); }
+  .phase.p2 { background: var(--blue-t); } .phase.p2 .ph { color: var(--blue); }
+  .phase.p3 { background: var(--orange-t); } .phase.p3 .ph { color: var(--orange-d); }
+  .phase.p4 { background: var(--green-t); } .phase.p4 .ph { color: var(--green); }
+  .loop { margin-top: 8px; font-size: .9em; color: var(--soft); }
+
+  /* ダウンロード */
+  .dl { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding: 22px; border-radius: 14px; background: var(--ink); color: #fff; }
+  .dl .meta { font-size: .92em; line-height: 1.7; }
+  .dl .meta b { color: #ffb48a; }
+  .btn-dl { display: inline-flex; align-items: center; gap: 12px; padding: 16px 26px; border-radius: 999px; background: var(--orange); color: #1f1f1f; font-weight: 800; font-size: 1.1em; text-decoration: none; border: 0; cursor: pointer; box-shadow: 0 6px 18px rgba(242,105,35,.35); }
+  .btn-dl:hover { background: #ff7a35; }
+  .btn-dl:focus-visible, .copy:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .btn-dl svg { width: 22px; height: 22px; flex: none; }
+  .dl-msg { width: 100%; margin: 0; font-size: .92em; color: #ffd9c4; min-height: 1.6em; }
+
+  /* コマンド（コピーボタンつき） */
+  .cmd { position: relative; margin: 8px 0 12px; min-width: 0; max-width: 100%; }
+  .cmd pre { margin: 0; background: #23231f; color: #f3f3ee; border-radius: 10px; padding: 14px 92px 14px 16px; overflow-x: auto; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13.5px; line-height: 1.7; white-space: pre; }
+  .cmd.say pre { background: var(--blue-t); color: var(--ink); white-space: pre-wrap; word-break: normal; font-family: inherit; font-size: .95em; }
+  .copy { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); color: #fff; border-radius: 8px; padding: 4px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .cmd.say .copy { border-color: var(--blue); background: var(--paper); color: var(--blue); }
+  .copy.done { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* 手順の番号 */
+  ol.steps { list-style: none; padding: 0; margin: 10px 0 0; counter-reset: s; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  ol.steps > li { position: relative; margin: 0; padding: 0 0 0 46px; min-width: 0; }
+  @media (max-width: 600px) { ol.steps > li { padding-left: 40px; } }
+  ol.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font-weight: 800; font-size: 15px; }
+  ol.steps > li > h3 { margin: 4px 0 6px; }
+
+  /* 案件ごとの手順：3つの枠 */
+  .step { border: 1px solid var(--line); border-radius: 14px; margin: 0 0 16px; overflow: hidden; }
+  .step > .sh { display: flex; align-items: baseline; gap: 12px; padding: 12px 16px; background: var(--gray-t); }
+  .step > .sh .no { flex: none; font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums; min-width: 2.6em; }
+  .step > .sh .st { font-weight: 800; font-size: 1.05em; line-height: 1.5; }
+  .step.key > .sh { background: var(--orange-t); } .step.key > .sh .no { color: var(--orange-d); }
+  .step .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step .col { padding: 12px 16px; min-width: 0; font-size: .94em; }
+  .step .col + .col { border-left: 1px solid var(--line); }
+  .step .col .lb { display: block; font-size: .8em; font-weight: 800; letter-spacing: .06em; margin-bottom: 4px; }
+  .step .you .lb { color: var(--orange-d); } .step .ai .lb { color: var(--blue); } .step .chk .lb { color: var(--green); }
+  .step .col ul { margin: 0; padding-left: 1.1em; }
+  .step .full { padding: 0 16px 14px; }
+  @media (max-width: 760px) {
+    .step .cols { grid-template-columns: minmax(0, 1fr); }
+    .step .col + .col { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* 10原則 */
+  .p10 td:first-child { font-weight: 800; color: var(--blue); white-space: nowrap; }
+  .abc { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 8px 0 14px; }
+  @media (max-width: 760px) { .abc { grid-template-columns: minmax(0, 1fr); } }
+  .abc .card b.k { display: inline-grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; color: #fff; margin-right: 8px; }
+  .abc .a b.k { background: var(--green); } .abc .b b.k { background: var(--blue); } .abc .c b.k { background: var(--orange); }
+
+  /* よくある問題 */
+  details.faq { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 10px; background: var(--paper); }
+  details.faq > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; list-style: none; position: relative; padding-right: 40px; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq > summary::after { content: "＋"; position: absolute; right: 16px; top: 12px; color: var(--blue); font-weight: 800; }
+  details.faq[open] > summary::after { content: "－"; }
+  details.faq > div { padding: 0 16px 14px; }
+
+  footer { color: var(--soft); font-size: .86em; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="toc" aria-label="目次">
+    <p class="ttl">目次</p>
+    <ol>
+      <li><a href="#about">このページについて</a></li>
+      <li><a href="#download">ダウンロード</a></li>
+      <li><a href="#need">必要なもの</a></li>
+      <li><a href="#setup">初回だけの準備</a></li>
+      <li><a href="#steps">案件ごとの手順（初稿まで）</a></li>
+      <li><a href="#check">提出前のチェック（10原則）</a></li>
+      <li><a href="#revise">修正が来たら</a></li>
+      <li><a href="#trouble">困ったとき・記録の送り方</a></li>
+      <li><a href="#rules">守ること</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">株式会社HSE ／ 採用LP 制作キット（spinova-lp-kit）</div>
+      <h1>採用LP 制作キットの使い方</h1>
+      <p class="lead">このキットを初めて使う制作者の方のための手引きです。AI やターミナル（<span class="gloss">文字でパソコンに指示を出す画面</span>）に慣れていなくても進められるよう、<span class="nb">「あなたがすること」</span>と<span class="nb">「AI がすること」</span>を分けて書いています。</p>
+    </header>
+
+    <!-- 1 -->
+    <section class="sec" id="about">
+      <h2><span class="n">1</span>このページについて</h2>
+      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code または Codex）でキットのフォルダを開いて「手順0から始めて」と伝えれば、AI が作業ルールに沿って採用LPを作ります。<b>品質は検査の道具が止める</b>ので、あなたの仕事は「選ぶ・見る・承認する・送る」が中心です。</p>
+      <div class="grid g3">
+        <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
+        <div class="card"><h3>初稿までの目安</h3><div class="big">33〜72分</div><p class="muted">弊社の担当が作った5本の実測（確認待ちの時間を除く）。初めての方は、これより長くかかる見込みです（ほかの制作者での実測はまだありません）。全ページの検査は1回あたり約7分です。</p></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v2.5</div><p class="muted">2026年10月21日。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
+      </div>
+      <h3>全体の流れ</h3>
+      <div class="flow" role="list">
+        <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>キットを置く</li><li>ソフトを入れる</li><li>点検・ログイン</li><li>見本で検査を1回</li></ul></div>
+        <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>要件整理・分析</li><li>初稿・検査</li></ul></div>
+        <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>記録の ZIP を Slack に貼る</li></ul></div>
+      </div>
+      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の HSE との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">8章</a>）。</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="download">
+      <h2><span class="n">2</span>ダウンロード</h2>
+      <div class="dl">
+        <!-- DRIVE_URL: ここに Google Drive の共有 URL -->
+        <a class="btn-dl" id="dlBtn" href="#" data-drive-url="" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          キットをダウンロード（Google Drive）
+        </a>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v2.5.zip</b><br>版：<b>v2.5</b> ／ 日付：<b>2026-10-21</b><br>中身：土台・検査と公開の道具・ひな形・部品集・作業ルール・見本の案件（_sample）</div>
+        <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
+      </div>
+      <ul class="muted">
+        <li>ダウンロードした ZIP は、ダブルクリックで解凍（<span class="gloss">ZIP を開いてフォルダに戻すこと</span>）できます。</li>
+        <li>新しい版が出たら、このページの版と日付が変わります。案件の途中では版を変えないでください（案件を作ったときの版が <code>kit.conf</code> に残ります）。</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="need">
+      <h2><span class="n">3</span>必要なもの</h2>
+      <p class="concl"><b>結論：</b>Mac 1台と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
+      <div class="tw wide"><table>
+        <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
+        <tbody>
+          <tr><td>パソコン</td><td>Mac（macOS）</td><td>道具は Mac を前提に作っています。Windows ではまだ動かしていません</td></tr>
+          <tr><td>ソフト</td><td>Google Chrome</td><td>検査（画面を開いて測る）と画面の撮影</td></tr>
+          <tr><td>ソフト</td><td>Node.js（18 以上）</td><td>検査の道具を動かす（<span class="gloss">道具を動かすための土台のソフト</span>）。<code>npx</code> も一緒に入る</td></tr>
+          <tr><td>ソフト</td><td>Python 3 と openpyxl・Pillow</td><td>ヒアリングシート（Excel）を読む・文言の照合・OGP 画像（<span class="gloss">URL を共有したときに出る画像</span>）を作る</td></tr>
+          <tr><td>ソフト</td><td>ffmpeg</td><td>動画の書き出し・仮の動画を作る</td></tr>
+          <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
+          <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
+          <tr><td>アカウント</td><td>Claude（Claude Code）または ChatGPT（Codex）</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます</td></tr>
+          <tr><td>アカウント</td><td>画像生成の AI（ChatGPT または Gemini）</td><td>写真・イラストを作る（ブラウザで操作）</td></tr>
+          <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
+          <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="setup">
+      <h2><span class="n">4</span>初回だけの準備</h2>
+      <p class="concl"><b>結論：</b>6つの手順で、最後に見本の案件（_sample）で検査が最後まで動けば準備は終わりです。30分〜1時間ほどを見てください（ソフトの入れ方で変わります。目安で、実測ではありません）。</p>
+      <p><b>ターミナルの開き方：</b>Finder →「アプリケーション」→「ユーティリティ」→「ターミナル」。下の黒い枠のコマンドは、右上の「コピー」で写し、ターミナルに貼り付けて Return キーを押します。</p>
+      <ol class="steps">
+        <li>
+          <h3>ZIP を置く場所を決めて、解凍する</h3>
+          <p>例：ホームの「書類（Documents）」の中に「LP制作」フォルダを作り、その中で ZIP を解凍します。<code>spinova-lp-kit</code> というフォルダができます。</p>
+          <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
+        </li>
+        <li>
+          <h3>ソフトを入れる（公式の入れ方）</h3>
+          <p>すでに入っているものは飛ばして構いません。次の手順3の点検で、足りないものが分かります。</p>
+          <ul>
+            <li><b>Google Chrome</b>：<a href="https://www.google.com/chrome/" rel="noopener">https://www.google.com/chrome/</a> からダウンロードし、「アプリケーション」に入れる</li>
+            <li><b>Node.js</b>：<a href="https://nodejs.org/" rel="noopener">https://nodejs.org/</a> から「LTS（推奨版）」のインストーラを入れる（<code>npx</code> も入ります）</li>
+            <li><b>git と Python 3</b>：Apple の開発用ツールに入っています。ターミナルで次を実行し、出てきた画面で「インストール」を押します。
+              <div class="cmd"><pre>xcode-select --install</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">「すでにインストールされています」と出たら、そのままで大丈夫です。Python は <a href="https://www.python.org/downloads/macos/" rel="noopener">python.org</a> のインストーラでも入れられます。</p>
+            </li>
+            <li><b>openpyxl と Pillow</b>（Python の追加の部品）：
+              <div class="cmd"><pre>python3 -m pip install --user openpyxl Pillow</pre><button class="copy" type="button">コピー</button></div>
+            </li>
+            <li><b>ffmpeg</b>：Homebrew（<span class="gloss">Mac にソフトを入れる道具</span>。<a href="https://brew.sh/" rel="noopener">https://brew.sh/</a>）を使います。Homebrew が無ければ、公式ページのコマンドで先に入れます。
+              <div class="cmd"><pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">終わりに表示される「Next steps」の2行（PATH の設定）も、表示どおりに実行してください。そのあとで：</p>
+              <div class="cmd"><pre>brew install ffmpeg</pre><button class="copy" type="button">コピー</button></div>
+            </li>
+            <li><b>AI（どちらか1つ）</b>：入れ方は変わることがあるので、各社の公式の案内も確かめてください。
+              <div class="cmd"><pre># Claude Code（Anthropic）
+npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button">コピー</button></div>
+              <div class="cmd"><pre># Codex（OpenAI）
+npm install -g @openai/codex</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">初めて起動したときに、それぞれのアカウントでのログインを求められます。ログインはあなたが行います。</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>点検する（setup_check.sh）</h3>
+          <p>キットのフォルダに移動して、点検の道具を動かします。要るソフトの有無と版が表で出ます。<b>入れる操作はしません</b>（足りないものは入れ方が1行で出ます）。</p>
+          <div class="cmd"><pre>cd ~/Documents/LP制作/spinova-lp-kit
+tools/setup_check.sh</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">1行目はキットを置いた場所に合わせて直します（Finder でフォルダをターミナルへドラッグすると場所が入ります）。最後に「判定：必要なものはそろっています」と出れば次へ。Safari の行は任意で、状態だけを出します。</p>
+          <p class="muted">Safari の検査も使うなら（任意・1回だけ）：<code>sudo safaridriver --enable</code>（Mac のパスワードを聞かれます。入れるのはあなた）→ Safari の「開発」メニュー →「リモートオートメーションを許可」。「開発」メニューが無ければ、Safari の設定 →「詳細」→「Web デベロッパ用の機能を表示」。</p>
+        </li>
+        <li>
+          <h3>Cloudflare にログインする</h3>
+          <p>公開に使う wrangler（<span class="gloss">Cloudflare へ送る道具</span>）を、あなたのアカウントにつなぎます。ブラウザが開くので、あなたがログインして許可します。</p>
+          <div class="cmd"><pre>npx wrangler login</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">公開は必ずキットの <code>tools/publish.sh</code> で行います。wrangler を直接使って公開しないでください（検査を飛ばしてしまうため）。</p>
+        </li>
+        <li>
+          <h3>AI でキットのフォルダを開く</h3>
+          <p>ターミナルでキットのフォルダに移動してから、AI を起動します。AI は作業ルール（Claude Code は <code>CLAUDE.md</code>、Codex は <code>AGENTS.md</code>。中身は同じ）を自動で読みます。</p>
+          <div class="cmd"><pre>cd ~/Documents/LP制作/spinova-lp-kit
+claude        # Claude Code の場合
+# codex       # Codex の場合はこちら</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">AI がファイルの編集やコマンドの実行の許可を求めてきたら、内容を見て許可します。<b>公開と外への送信は、毎回あなたが承認</b>してください。</p>
+        </li>
+        <li>
+          <h3>見本（_sample）で検査を1回流す</h3>
+          <p>AI に次のように頼むか、ターミナルで直接実行します。検査が最後まで動き、「まとめ」の表が出れば準備は完了です（数分かかります）。</p>
+          <div class="cmd say"><pre>見本の案件で検査を1回流してください（tools/run_all.sh projects/_sample --quick）。結果の「まとめ」を見せてください。</pre><button class="copy" type="button">コピー</button></div>
+          <div class="warn"><b>v2.5 の見本は、3つの項目が ✕ になります</b>（シートの形式・上下の余白・コントラスト）。見本の案件がキットの古い版で作られたまま更新していないためで、あなたの環境の問題ではありません。<b>「まとめ」の表が最後まで出れば、道具は正しく動いています</b>。見本の更新はまだです。</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="steps">
+      <h2><span class="n">5</span>案件ごとの手順：初稿を出すまで</h2>
+      <p class="concl"><b>結論：</b>Slack に来た担当案件の URL を AI に貼り、「手順0から始めて」と伝えます。あとは AI が手順0〜8.8を進め、あなたは<b>選ぶ・見る・承認する・送る</b>を受け持ちます。</p>
+      <h3>AI への最初の一言（例）</h3>
+      <div class="cmd say"><pre>作業ルール（AGENTS.md／CLAUDE.md）を読んで、新しい案件を手順0から始めてください。
+担当案件：〔Slack の担当案件の URL を貼る〕
+進め方の選択・公開・先方への送信・最終チェックの承認欄は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
+      <p class="muted">以下の各手順は、<span class="tag t-orange">あなたがすること</span> <span class="tag t-blue">AI がすること</span> <span class="tag t-green">確かめること・つまずきやすい点</span> の3つに分けています。「手順」の番号はキットの作業ルール（2章）と同じです。</p>
+
+      <div class="step"><div class="sh"><span class="no">0</span><span class="st">進め方を選ぶ（最初に必ず）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が出す3つの問いに、選択肢から答える：①最初の数ページで一度確認するか ②初稿を全ページで出すか、最初の数ページだけか ③初稿の案を3案にするか、1案か</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>3つを選択式で聞く（AI は決めない）</li><li>選んだ内容と日付を <code>要件整理.md</code> に書く</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>AI が問いを飛ばして勝手に決めていないか（過去に3案を飛ばした例あり）</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を作る</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>Slack に来た担当案件の URL を AI に貼る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>シート・素材を取り込み、<code>tools/new_project.sh</code> で <code>projects/&lt;案件名&gt;/</code> を作る（土台とひな形が複製される）</li></ul></div>
+        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>AI が Slack を読めない設定のときは、シートと素材をあなたがダウンロードし、置いた場所を AI に伝える（Slack から取り込む専用の道具はまだありません）</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">シートを書き出す</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>特になし</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/dump_sheet.py</code> でヒアリングシートを文字に書き出す</li><li><code>kit.conf</code>（<span class="gloss">案件の設定のファイル</span>）の原稿の場所と照合するセクションをシートに合わせる</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>見出しの無い列（欄外のメモ）まで書き出されているか</li></ul></div>
+      </div></div>
+
+      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">要件整理（シートの照合表）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が「未定」として出した点を、選択肢から決める</li><li>開かれたシートと参考サイトのタブを見ておく</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>要件整理.md</code> を確定／解釈／未定に分けて埋める</li><li>シートの全セル・全補足を1行ずつ抜き出した照合表（✓△✕）を作る</li><li>シートと参考サイトをブラウザのタブで開く</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>照合表に ✕ が残っていないか（配色の役割・雰囲気の文の読み落としが多い）</li><li>シートに「スクロール形式」「画像で」などの指定があれば、それが最優先</li></ul></div>
+      </div></div>
+
+      <div class="step key"><div class="sh"><span class="no">4</span><span class="st">参考サイトの分析（最も大事な工程）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が書いた「この参考サイトらしさ」（5つ以上）と、ページごとの割り当て表を読む</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/refcap.mjs</code> で参考サイトの動きをスマホ幅と PC 幅で記録し、コマを全部見る</li><li>数値・型・時間割だけを <code>DNA.md</code> に書く（コード・画像は持ち込まない）</li><li>参考の全セクションの型の表と、自分のページへの割り当て表を作る</li></ul></div>
+        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>参考サイトに何度もアクセスすると、相手にブロックされることがある（<a href="#trouble">8章</a>）</li><li>割り当て表が空のまま実装に進んでいないか</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">5</span><span class="st">土台に流し込む</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>特になし</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>DNA の値を <code>site/tokens.css</code> に、見た目を <code>site/style.css</code> に書く</li><li>型の部品集（<code>templates/parts/</code>）から合うものを使う</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>土台（<code>base.css</code>・<code>swipe.js</code>）を書き換えていないか。書き換えると記録の ZIP に「✕」と出る</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">6</span><span class="st">初稿（1案または3案）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>3案のときは、ページごとの比較動画を見て案を選ぶ</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>型は参考に忠実、中身（モチーフ・小物）は案件の業種に置き換える。各ページに「遊び」を1つ</li><li>3案のときは <code>tools/new_draft.sh</code> で案を分け、<code>tools/preview.mjs</code> で比較動画を作る</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>写真・イラストの人物が日本人か、指の形が崩れていないか（原寸で見る）</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">6.5</span><span class="st">参考との並べ比べ</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>参考と自作を同じ時刻で並べた画像を見る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>自作も同じ道具で記録し、<code>tools/compare.sh</code> で上下に並べる。結果を <code>DNA.md</code> に書く</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>出る順番・速さ・明るさ・質感・余白が参考に近いか</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">6.8</span><span class="st">OGP 画像（必須）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>できた画像を見る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/make_ogp.py</code> で 1200×630 の画像を作り、HTML の og:url・og:image を公開先の URL にする</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>URL が仮のままだと検査で不合格になる</li></ul></div>
+      </div></div>
+
+      <div class="step key"><div class="sh"><span class="no">7</span><span class="st">検査（すべて合格まで）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>最後に「判定：すべて合格」と出たかを見る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/run_all.sh projects/&lt;案件名&gt;</code> で検査し、✕ を直して合格まで繰り返す</li><li>作業中は <code>--quick</code>（2サイズだけ）で確かめる</li></ul></div>
+        <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>全ページの検査は1回あたり約7分。小さな直しのたびに全部を回さない</li><li>「Safari 未検査」は不合格ではないが、未確認として残る</li></ul></div>
+      </div></div>
+
+      <div class="step key"><div class="sh"><span class="no">8</span><span class="st">提出の前（10原則・一覧画像・承認）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなた（責任者）がすること</span><ul><li>全ページの一覧画像を見る</li><li>問題が無ければ、<code>最終チェック.md</code> の承認欄に<b>自分で</b>名前と日付を書く</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>提出チェック.md</code> を埋め、10原則（<a href="#check">6章</a>）を全項目回す</li><li><code>tools/make_sheet.mjs</code> で全ページの一覧画像（360×640・390×844・1440×900）を作る</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li><b>承認欄を AI に書かせない</b>（AI が書いた承認は無効）</li><li>承認欄が空だと公開の道具が止まる</li></ul></div>
+      </div></div>
+
+      <div class="step key"><div class="sh"><span class="no">8.5</span><span class="st">公開</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>試しの結果を見て、公開してよいかを AI に伝える（公開ごとに承認）</li><li>公開のあとに出る記録の ZIP を、Slack の HSE との共有の場所に貼る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/publish.sh projects/&lt;案件名&gt; --dry-run</code>（公開しない試し）</li><li>承認のあとに <code>--version v1</code> で版の URL（https://v1.&lt;名前&gt;.pages.dev/）に公開</li><li>公開に成功すると、作業記録が自動で ZIP にまとまる</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>道具は、検査がすべて合格で承認欄がそろっていないと公開しない</li><li>ZIP は <code>projects/&lt;案件名&gt;/_report/</code> にできる</li></ul></div>
+      </div></div>
+
+      <div class="step"><div class="sh"><span class="no">8.8</span><span class="st">共有文面</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>文面を確かめて、ディレクターへ送る（送るのはあなた）</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>共有文面.md</code> の型で、URL と「シートの指定に合わせて通常と変えた点」だけの短い文を作る</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>経緯・前置きを足して長くしない</li></ul></div>
+      </div></div>
+      <p class="muted">先方の確認が済んだあとの WordPress 化（手順9.8）は、先方のマニュアルの工程どおりに進めます。WordPress へのログインと管理画面の操作は人が行います。</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="check">
+      <h2><span class="n">6</span>提出前のチェック：全案件に共通の10原則</h2>
+      <p class="concl"><b>結論：</b>提出の前に、AI がこの10原則を全項目回し、あなた（責任者）が一覧画像で確かめて承認します。中身はキットの <code>templates/先方指摘チェックリスト.md</code> にあります。</p>
+      <h3>確かめる段は3つ（A・B・C）</h3>
+      <div class="abc">
+        <div class="card a"><b class="k">A</b><b>道具が判定</b><p class="muted">道具が合否を出し、AI が直す。人は見なくてよい。不合格なら公開できない。</p></div>
+        <div class="card b"><b class="k">B</b><b>AI が見て、人が承認</b><p class="muted">AI が見て直し、責任者が一覧画像で承認する。AI の「OK」だけで出さない（AI の目は100%ではない）。</p></div>
+        <div class="card c"><b class="k">C</b><b>人だけが判断</b><p class="muted">見た目の質・参考らしさ・写真の選び方・実機の触り心地・提出の判断。AI は案を出すだけ。</p></div>
+      </div>
+      <div class="tw wide"><table class="p10">
+        <thead><tr><th>#</th><th>原則</th><th>段</th><th>道具で止めるもの（A）</th><th>目で確かめるもの（B・C）</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5"><b>デザイン</b></td></tr>
+          <tr><td>1</td><td>参考サイトのテイストに寄せる（型は参考に忠実、中身は案件に置き換え）</td><td>B・C</td><td>－</td><td>並べ比べを一覧画像に入れて見る</td></tr>
+          <tr><td>2</td><td>余白は詰めすぎず、均等に</td><td>A＋B</td><td>上下の余白・縦の詰まり</td><td>要素の間（間隔は3段階）・項目名と値の縦の線</td></tr>
+          <tr><td>3</td><td>文字を被せない・はみ出させない・背景と十分な差</td><td>A</td><td>重なり・コントラスト（本文 4.5:1・大きい文字 3:1）・はみ出し・Safari</td><td>疑似要素で描いた絵・タブで隠れた側・動画の別のコマ</td></tr>
+          <tr><td>4</td><td>文字は小さすぎず、意味のまとまりで折る</td><td>A＋B</td><td>最小 13px（全サイズ）</td><td>文節の途中の折れ（iPhone の幅で）・強調の句が1行か</td></tr>
+          <tr><td>5</td><td>同じ役割はそろえ、最後まで続ける</td><td>A⚠＋B</td><td>簡素なページ（⚠）・語の重複（⚠）</td><td>札・見出しの体裁・後半まで背景のあしらいが続くか</td></tr>
+          <tr><td>6</td><td>画像を破綻させない（人物は日本人・指や形・装飾は指定どおり）</td><td>B・C</td><td>－</td><td>指の数・形を原寸で・矢印や線の形・吹き出しの塗り</td></tr>
+          <tr><td>7</td><td>動きは速く（動き出し 0.3秒以内・1ページ 2秒以内に出そろう）</td><td>B</td><td>－</td><td>出る順番と速さ</td></tr>
+          <tr><td colspan="5"><b>実装</b></td></tr>
+          <tr><td>8</td><td>型と操作が PC・スマホで動く</td><td>A＋C</td><td>シートの形式・ヘッダーの移動・ページ送り</td><td>横に並んだ部品の送り・iPhone 実機の触り心地</td></tr>
+          <tr><td>9</td><td>文言とシートを守る（一言一句）</td><td>A＋B</td><td>文言照合・シートの書き出し</td><td>照合表 ✓△✕・文言の変更依頼の記録</td></tr>
+          <tr><td>10</td><td>公開の形をそろえる（版ごとの URL・OGP・1枚目の仮動画）</td><td>A</td><td>構成の検査・版ごとの公開</td><td>－</td></tr>
+        </tbody>
+      </table></div>
+      <h3>提出の前の流れ</h3>
+      <ol>
+        <li>道具（A）がすべて合格する（<code>run_all.sh</code> の「判定：すべて合格」）</li>
+        <li>AI が一覧画像を作り、10原則に1つずつ当てて全ページを見る</li>
+        <li>責任者が一覧画像を見て、<code>最終チェック.md</code> の承認欄（承認者・日付）を自分で書く。iPhone 実機でも1回触る</li>
+        <li>公開 → 共有文面で提出</li>
+      </ol>
+      <p class="muted">キットの文書で承認者として「りょうさん」と書かれている所は、弊社での運用の名残です。あなたの案件では、<b>あなたの側の責任者</b>に読み替えてください。</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="sec" id="revise">
+      <h2><span class="n">7</span>修正が来たら</h2>
+      <p class="concl"><b>結論：</b>修正はまとめて直し、<b>版を上げて</b>（v1 → v2）出し直します。検査は直したセクションだけを道具が選んで回します。</p>
+      <ol class="steps">
+        <li><h3>修正をまとめて AI に渡す</h3><p>先方の指摘（スクリーンショットがあれば一緒に）をまとめて渡します。AI は直す場所を添付画像で確かめてから直します。</p>
+          <div class="cmd say"><pre>先方から修正が来ました。下の指摘をまとめて直し、版を v2 にして出せる状態にしてください。
+〔指摘を貼る〕</pre><button class="copy" type="button">コピー</button></div></li>
+        <li><h3>直している途中は、直したページだけ確かめる</h3><p>AI は <code>tools/run_all.sh … --quick</code> や <code>--pages=3,5</code>（直したページだけ）で確かめます。小さな直しのたびに全ページの検査を回しません。</p></li>
+        <li><h3>版を上げて公開する</h3><p><code>tools/publish.sh projects/&lt;案件名&gt; --version v2</code>。道具が、初稿の合格のときに作った基準（<span class="gloss">比べるための記録</span>）と比べ、<b>直したセクションだけ</b>を検査します。共有の CSS を直したときは、全ページの画面を基準と比べ、崩れたページも検査に入れます。迷うとき・大きく作り直したときは <code>--full</code>（全ページ）。</p>
+          <p class="muted">前の版の URL は上書きしません（先方が持っている URL を残すため）。公開の前に、承認欄を一覧画像で見直して書き直します。</p></li>
+        <li><h3>記録を残して送る</h3><p>公開に成功すると、作業記録の ZIP が自動でできます（理由は「修正（v2）」）。Slack の HSE との共有の場所に貼ります。区切りごとに <code>修正記録_&lt;案件&gt;_&lt;日付&gt;.md</code>（指摘・原因・直し方）も AI が残します。</p></li>
+      </ol>
+      <p>新しい指摘は、10原則のどれに当たるかを決めて記録します（項目を増やさない）。</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="sec" id="trouble">
+      <h2><span class="n">8</span>困ったとき・記録の送り方</h2>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の HSE との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
+      <h3>記録の ZIP</h3>
+      <div class="grid g2">
+        <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
+          <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">AI は <code>tools/report_pack.sh projects/&lt;案件名&gt; --reason "困ったとき：…"</code> を実行します。完了のときは <code>--reason "完了"</code>。</p></div>
+        <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたの Mac の環境（macOS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
+          <p class="muted">場所：<code>projects/&lt;案件名&gt;/_report/記録_&lt;日時&gt;_&lt;理由&gt;.zip</code>。<b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
+      </div>
+
+      <h3>よくある問題と対処</h3>
+      <details class="faq"><summary>スクロール（ページ送り）がおかしい</summary><div>
+        <ul>
+          <li>まず <code>run_all.sh</code> の「ページ送り」が合格かを見ます。合格なら道具の上では正しく動いています</li>
+          <li>AI のアプリの中のブラウザで動きを見ない。画面が裏に回ると動きが止まって見えます。Chrome かスマホで見ます</li>
+          <li>土台の <code>swipe.js</code>・<code>base.css</code> を直して解決しようとしない（キットの問題として記録の ZIP で知らせる）</li>
+          <li>iPhone の実機の触り心地は道具では測れません（C の承認で人が触る）</li>
+        </ul></div></details>
+      <details class="faq"><summary>検査が通らない（✕ が消えない）</summary><div>
+        <ul>
+          <li>✕ の行に、ページ・画面サイズ・要素が出ます。AI に「上の ✕ を直して」と頼みます</li>
+          <li>道具の判定を外す設定（<code>--ignore</code>）で消さない。写真の上の文字は文字の後ろに地を敷いて <code>data-on-photo</code>、意図してはみ出させる絵は <code>data-bleed</code> を付けます</li>
+          <li>何度直しても通らないときは、AI に「作業記録をまとめて」と言い、ZIP を Slack に貼ります</li>
+        </ul></div></details>
+      <details class="faq"><summary>「Safari 未検査」と出る</summary><div>
+        <ul>
+          <li>不合格ではありません。Safari の自動操作が有効になっていないだけです</li>
+          <li>有効にする（1回だけ）：ターミナルで <code>sudo safaridriver --enable</code> → Safari の「開発」メニュー →「リモートオートメーションを許可」</li>
+          <li>有効にしないまま出すときは、<code>提出チェック.md</code> に「未確認」と書きます</li>
+        </ul></div></details>
+      <details class="faq"><summary>参考サイトにアクセスできない・ブロックされた</summary><div>
+        <ul>
+          <li>参考サイトの記録で多くのファイルを一度に取ると、相手に IP をブロックされることがあります（過去に1件）</li>
+          <li>記録は PC 幅 → スマホ幅の順に撮り、2回目以降は <code>--no-assets</code> を付けます</li>
+          <li>ブロックされたら、何度もアクセスし直さない。すでに開いているブラウザのタブと、撮れた画面から読み取ります</li>
+        </ul></div></details>
+      <details class="faq"><summary>確認用の簡易サーバーが起動しない</summary><div>
+        <ul><li><code>python3 -m http.server</code> が起動しない環境があります。その場合は Node の簡易サーバーを使います（AI に「node の簡易サーバーで開いて」と頼む）</li></ul></div></details>
+      <details class="faq"><summary>スマホで古い動画・画像が出る</summary><div>
+        <ul><li>読み込みに <code>?v=</code>（版の印）が付いていないと、スマホが古いものを覚えたまま表示します。検査の「構成」で付け忘れを見ています。公開のたびに上げます</li></ul></div></details>
+      <details class="faq"><summary>公開で止まる（承認・ログイン）</summary><div>
+        <ul>
+          <li>「最終チェック.md の承認がそろっていません」：責任者が承認欄を自分で書く（AI に書かせない）</li>
+          <li>「プロジェクト一覧を取得できません」：<code>npx wrangler login</code> でログインし直す</li>
+          <li>公開側の照合で「反映待ち」が続く：反映に数十秒かかることがあります。道具が自動で待ち直します</li>
+        </ul></div></details>
+      <details class="faq"><summary>キットにまだ無いもの</summary><div>
+        <ul>
+          <li>Slack から案件の資料を取り込む専用の道具：まだありません（AI が読めないときは、あなたがダウンロードします）</li>
+          <li>Windows での動作：まだ確かめていません</li>
+          <li>作業ルールの要点版（最初に読む量を減らしたもの）：まだありません</li>
+        </ul></div></details>
+    </section>
+
+    <!-- 9 -->
+    <section class="sec" id="rules">
+      <h2><span class="n">9</span>守ること</h2>
+      <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
+      <ol class="steps">
+        <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
+        <li><h3>公開と送信は人が承認する</h3><p>公開（<code>--dry-run</code> を付けない実行）・先方への送信・Slack への投稿は、毎回あなたが確かめて行います。AI に送らせない。</p></li>
+        <li><h3>承認欄は AI に書かせない</h3><p><code>最終チェック.md</code> の「承認者：」「日付：」は、責任者が自分で書きます。AI が書いた承認は無効です。</p></li>
+        <li><h3>キットの土台を書き換えない</h3><p><code>base.css</code>・<code>swipe.js</code>（土台）と <code>tools/</code>（道具）は直さない。案件だけの動きは <code>site/site.js</code> に書きます。土台に問題があれば、記録の ZIP で弊社に知らせてください。</p></li>
+        <li><h3>キットを再配布しない</h3><p>キットと、このページのダウンロードのリンクを、ほかの人・ほかの会社に渡さない。キットの道具は弊社（HSE）の所有です。</p></li>
+      </ol>
+    </section>
+
+    <footer>株式会社HSE ／ 採用LP 制作キット v2.5（2026-10-21）の使い方。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
+  </main>
+</div>
+<script>
+  // コピーボタン
+  document.querySelectorAll('.cmd .copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.parentElement.querySelector('pre').innerText;
+      var done = function () { b.textContent = 'コピーしました'; b.classList.add('done'); setTimeout(function () { b.textContent = 'コピー'; b.classList.remove('done'); }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); });
+      else { fallback(t); done(); }
+    });
+  });
+  function fallback(t) { var ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }
+  // ダウンロード：data-drive-url が空なら「準備中」
+  (function () {
+    var a = document.getElementById('dlBtn'), msg = document.getElementById('dlMsg');
+    var url = (a.getAttribute('data-drive-url') || '').trim();
+    if (url) { a.href = url; a.target = '_blank'; return; }
+    a.addEventListener('click', function (e) { e.preventDefault(); msg.textContent = '準備中です。ダウンロードのリンクは、準備ができしだいこのボタンに入ります。'; });
+  })();
+</script>
+</body>
+</html>
