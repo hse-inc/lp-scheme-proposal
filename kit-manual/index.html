@@ -291,10 +291,12 @@ tools/setup_check.sh</pre><button class="copy" type="button">コピー</button><
           <p class="muted">表に出る「Safari」の行は気にしなくて大丈夫です（使わなくても進められます）。</p>
         </li>
         <li>
-          <h3>Cloudflare にログインする</h3>
-          <p>公開に使う wrangler（<span class="gloss">Cloudflare へ送る道具</span>）を、あなたのアカウントにつなぎます。ブラウザが開くので、あなたがログインして許可します。</p>
+          <h3>Cloudflare にログインする（最初の1回だけ）</h3>
+          <p><b>何をする？</b>：作ったページをインターネットに公開するための Cloudflare（公開先のサービス）を、この Mac で使えるようにします。<b>1台の Mac につき最初の1回だけ</b>です。</p>
+          <p><b>やり方</b>：ターミナルに下の1行を貼って Return。ブラウザが自動で開くので、Cloudflare にログインして「許可（Allow）」を押せば終わりです。</p>
           <div class="cmd"><pre>npx wrangler login</pre><button class="copy" type="button">コピー</button></div>
-          <p class="muted">公開は必ずキットの <code>tools/publish.sh</code> で行います。wrangler を直接使って公開しないでください（検査を飛ばしてしまうため）。</p>
+          <p><b>もっと簡単に</b>：AI に「Cloudflare にログインして」と頼んでも同じです。AI がこのコマンドを打ち、あなたは開いたブラウザで「許可」を押すだけです。</p>
+          <p class="muted">Cloudflare のアカウントが無い場合は、先に作っておいてください（無料）。公開はこのあと AI がキットの道具で行います。自分で別の方法で公開しないでください（検査が飛ばされるため）。</p>
         </li>
         <li>
           <h3>AI でキットのフォルダを開く</h3>
