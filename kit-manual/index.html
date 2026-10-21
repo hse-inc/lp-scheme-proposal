@@ -189,7 +189,7 @@
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">33〜72分</div><p class="muted">弊社の担当が作った5本の実測（確認待ちの時間を除く）。初めての方は、これより長くかかる見込みです（ほかの制作者での実測はまだありません）。全ページの検査は1回あたり約7分です。</p></div>
-        <div class="card"><h3>このキットの版</h3><div class="big">v2.5.2</div><p class="muted">2026年10月21日。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v2.6</div><p class="muted">2026年10月21日。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
       </div>
       <h3>全体の流れ</h3>
       <div class="flow" role="list">
@@ -198,7 +198,7 @@
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の HSE との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">8章</a>）。</p>
+      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">8章</a>）。</p>
     </section>
 
     <!-- 2 -->
@@ -210,7 +210,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           キットをダウンロード（Google Drive）
         </a>
-        <div class="meta">ファイル：<b>spinova-lp-kit_v2.5.2.zip</b><br>版：<b>v2.5.2</b> ／ 日付：<b>2026-10-21</b><br>中身：土台・検査と公開の道具・ひな形・部品集・作業ルール</div>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v2.6.zip</b><br>版：<b>v2.6</b> ／ 日付：<b>2026-10-21</b><br>中身：土台・検査と公開の道具・ひな形・部品集・作業ルール</div>
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
       <ul class="muted">
@@ -375,16 +375,27 @@ claude        # Claude Code の場合
         <div class="col chk"><span class="lb">つまずきやすい点</span><ul><li>全ページの検査は1回あたり約7分。小さな直しのたびに全部を回さない</li><li>「Safari 未検査」は不合格ではないが、未確認として残る</li></ul></div>
       </div></div>
 
-      <div class="step key"><div class="sh"><span class="no">8</span><span class="st">提出の前（10原則・一覧画像・承認）</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなた（責任者）がすること</span><ul><li>全ページの一覧画像を見る</li><li>問題が無ければ、<code>最終チェック.md</code> の承認欄に<b>自分で</b>名前と日付を書く</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>提出チェック.md</code> を埋め、10原則（<a href="#check">6章</a>）を全項目回す</li><li><code>tools/make_sheet.mjs</code> で全ページの一覧画像（360×640・390×844・1440×900）を作る</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li><b>承認欄を AI に書かせない</b>（AI が書いた承認は無効）</li><li>承認欄が空だと公開の道具が止まる</li></ul></div>
+      <div class="step key"><div class="sh"><span class="no">7.5</span><span class="st">あなたが確かめて、直してほしい所を AI に伝える（いちばん大事）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>AI が出した一覧画像と画面を、<b>携帯と PC の両方で</b>見る</li><li>10原則（<a href="#check">6章</a>）に当てて、気になる所を探す</li><li><b>直してほしい所を、まとめて1回で</b>チャットに書く（下の例文）</li><li>直った画面を見て、まだあれば同じようにもう1回。無ければ「OK」</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>検査に合格したら、一覧画像（全ページ・3サイズ）と、画面を開く URL を渡す</li><li>伝えられた所を<b>全部まとめて</b>直し、直したページだけ検査する</li><li>直す前と後を並べて見せる</li></ul></div>
+        <div class="col chk"><span class="lb">伝え方のコツ</span><ul><li>「何ページ目の・どこを・どうしたいか」を1件ずつ書く</li><li>見た目の話はスクリーンショットを添えると早い</li><li>思いついたたびに1件ずつ送らない。<b>まとめて送る</b>ほど早く終わる</li></ul></div>
+      </div>
+        <div class="cmd say" style="margin:10px 16px 16px"><pre>直してほしい所です。まとめて直して、直したページだけ検査してから、前と後を見せてください。
+1. 3ページ目：見出しと写真が近すぎる。間をもう少し空けたい
+2. 5ページ目：スマホで「〇〇」が途中で改行される。1行にしたい
+3. 全体：ボタンの色が薄い。もう少し濃く</pre><button class="copy" type="button">コピー</button></div>
+      </div>
+
+      <div class="step key"><div class="sh"><span class="no">8</span><span class="st">提出の前（10原則・一覧画像）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>7.5 で直しきったら、最後に一覧画像をひととおり見る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>提出チェック.md</code> を埋め、10原則を全項目回す</li><li>全ページの一覧画像（360×640・390×844・1440×900）を作り直す</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>検査がすべて合格していること（AI が報告する）</li></ul></div>
       </div></div>
 
-      <div class="step key"><div class="sh"><span class="no">8.5</span><span class="st">公開</span></div><div class="cols">
-        <div class="col you"><span class="lb">あなたがすること</span><ul><li>試しの結果を見て、公開してよいかを AI に伝える（公開ごとに承認）</li><li>公開のあとに出る記録の ZIP を、Slack の HSE との共有の場所に貼る</li></ul></div>
-        <div class="col ai"><span class="lb">AI がすること</span><ul><li><code>tools/publish.sh projects/&lt;案件名&gt; --dry-run</code>（公開しない試し）</li><li>承認のあとに <code>--version v1</code> で版の URL（https://v1.&lt;名前&gt;.pages.dev/）に公開</li><li>公開に成功すると、作業記録が自動で ZIP にまとまる</li></ul></div>
-        <div class="col chk"><span class="lb">確かめること</span><ul><li>道具は、検査がすべて合格で承認欄がそろっていないと公開しない</li><li>ZIP は <code>projects/&lt;案件名&gt;/_report/</code> にできる</li></ul></div>
+      <div class="step key"><div class="sh"><span class="no">8.5</span><span class="st">公開（チャットで「OK」と言うだけ）</span></div><div class="cols">
+        <div class="col you"><span class="lb">あなたがすること</span><ul><li>チャットで <b>「OK、公開に進んで」</b> と言うだけ</li><li>公開のあとに出る記録の ZIP を、Slack の SPINOVA との共有の場所に貼る</li></ul></div>
+        <div class="col ai"><span class="lb">AI がすること</span><ul><li>あなたの「OK」を受けて、承認欄を代わりに書く（<code>tools/approve.sh</code>。名前と今日の日付が入る）</li><li><code>tools/publish.sh</code> で版の URL（https://v1.&lt;名前&gt;.pages.dev/）に公開し、公開側と照合する</li><li>公開に成功すると、作業記録が自動で ZIP にまとまる</li></ul></div>
+        <div class="col chk"><span class="lb">確かめること</span><ul><li>「OK」と言わない限り、AI は承認欄を書かず、公開もしない</li><li>名前は初回に一度 AI に伝える（キットの案件の設定 <code>kit.conf</code> の APPROVER に入る）</li></ul></div>
       </div></div>
 
       <div class="step"><div class="sh"><span class="no">8.8</span><span class="st">共有文面</span></div><div class="cols">
@@ -443,7 +454,7 @@ claude        # Claude Code の場合
         <li><h3>直している途中は、直したページだけ確かめる</h3><p>AI は <code>tools/run_all.sh … --quick</code> や <code>--pages=3,5</code>（直したページだけ）で確かめます。小さな直しのたびに全ページの検査を回しません。</p></li>
         <li><h3>版を上げて公開する</h3><p><code>tools/publish.sh projects/&lt;案件名&gt; --version v2</code>。道具が、初稿の合格のときに作った基準（<span class="gloss">比べるための記録</span>）と比べ、<b>直したセクションだけ</b>を検査します。共有の CSS を直したときは、全ページの画面を基準と比べ、崩れたページも検査に入れます。迷うとき・大きく作り直したときは <code>--full</code>（全ページ）。</p>
           <p class="muted">前の版の URL は上書きしません（先方が持っている URL を残すため）。公開の前に、承認欄を一覧画像で見直して書き直します。</p></li>
-        <li><h3>記録を残して送る</h3><p>公開に成功すると、作業記録の ZIP が自動でできます（理由は「修正（v2）」）。Slack の HSE との共有の場所に貼ります。区切りごとに <code>修正記録_&lt;案件&gt;_&lt;日付&gt;.md</code>（指摘・原因・直し方）も AI が残します。</p></li>
+        <li><h3>記録を残して送る</h3><p>公開に成功すると、作業記録の ZIP が自動でできます（理由は「修正（v2）」）。Slack の SPINOVA との共有の場所に貼ります。区切りごとに <code>修正記録_&lt;案件&gt;_&lt;日付&gt;.md</code>（指摘・原因・直し方）も AI が残します。</p></li>
       </ol>
       <p>新しい指摘は、10原則のどれに当たるかを決めて記録します（項目を増やさない）。</p>
     </section>
@@ -451,7 +462,7 @@ claude        # Claude Code の場合
     <!-- 8 -->
     <section class="sec" id="trouble">
       <h2><span class="n">8</span>困ったとき・記録の送り方</h2>
-      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の HSE との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の SPINOVA との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
         <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
@@ -518,7 +529,7 @@ claude        # Claude Code の場合
       </ol>
     </section>
 
-    <footer>株式会社HSE ／ 採用LP 制作キット v2.5.2（2026-10-21）の使い方。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
+    <footer>株式会社HSE ／ 採用LP 制作キット v2.6（2026-10-21）の使い方。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
   </main>
 </div>
 <script>
