@@ -193,7 +193,7 @@
       </div>
       <h3>全体の流れ</h3>
       <div class="flow" role="list">
-        <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>キットを置く</li><li>ソフトを入れる</li><li>点検・ログイン</li><li>AI でフォルダを開く</li></ul></div>
+        <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
         <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>要件整理・分析</li><li>初稿・検査</li></ul></div>
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>記録の ZIP を Slack に貼る</li></ul></div>
@@ -245,7 +245,7 @@
     <!-- 4 -->
     <section class="sec" id="setup">
       <h2><span class="n">4</span>初回だけの準備</h2>
-      <p class="concl"><b>結論：</b>5つの手順で、ソフトの点検がすべて OK になり、AI でキットのフォルダを開けたら準備は終わりです。30分〜1時間ほどを見てください（ソフトの入れ方で変わります。目安で、実測ではありません）。</p>
+      <p class="concl"><b>結論：</b>3つの手順です。あなたは ZIP を置いてアプリでフォルダを開くだけ。あとは AI に「初回の準備をして」と頼めば、点検・ソフトの取り付け・Cloudflare へのログインまで AI が進めます。30分〜1時間ほどを見てください（ソフトの入れ方で変わります。目安で、実測ではありません）。</p>
       <p><b>ターミナルの開き方：</b>Finder →「アプリケーション」→「ユーティリティ」→「ターミナル」。下の黒い枠のコマンドは、右上の「コピー」で写し、ターミナルに貼り付けて Return キーを押します。</p>
       <ol class="steps">
         <li>
@@ -254,8 +254,26 @@
           <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
         </li>
         <li>
-          <h3>ソフトを入れる（公式の入れ方）</h3>
-          <p>すでに入っているものは飛ばして構いません。次の手順3の点検で、足りないものが分かります。</p>
+          <h3>Claude のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
+          <p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit</code> フォルダを選びます。ターミナルは使いません。</p>
+          <p class="muted">AI はフォルダの中の作業ルール（<code>CLAUDE.md</code>）を自動で読みます。Codex を使う場合も、同じフォルダを開けば作業ルール（<code>AGENTS.md</code>。中身は同じ）を読みます。</p>
+        </li>
+        <li>
+          <h3>AI に「初回の準備をして」と頼む（あとは AI がやる）</h3>
+          <p>下の文をコピーして、AI に送ります。足りないソフトの点検と取り付け、Cloudflare（公開先のサービス）へのログインまで、AI が順に進めます。</p>
+          <div class="cmd say"><pre>初回の準備をしてください。
+1. tools/setup_check.sh で、必要なソフトがそろっているか点検する
+2. 足りないものがあれば、入れ方を説明してから入れる
+3. Cloudflare にログインする（npx wrangler login）
+4. 最後にもう一度点検して「そろっています」と出るのを見せる</pre><button class="copy" type="button">コピー</button></div>
+          <p><b>あなたがするのは、この3つだけです</b>（AI には代われない操作です）：</p>
+          <ul>
+            <li><b>Mac のパスワードを聞かれたら入力する</b>（ソフトを入れるとき）</li>
+            <li><b>「インストール」ボタンが出たら押す</b>（Apple の開発ツールが出てきた場合だけ）</li>
+            <li><b>ブラウザが開いたら、Cloudflare にログインして「許可（Allow）」を押す</b>（アカウントが無ければ先に作っておく。無料）</li>
+          </ul>
+          <p>最後に「必要なものはそろっています」と出れば、準備は終わりです。1台の Mac につき最初の1回だけです。</p>
+          <details style="margin-top:10px"><summary class="muted">（参考）自分でソフトを入れたい人向けの入れ方</summary>
           <ul>
             <li><b>Google Chrome</b>：<a href="https://www.google.com/chrome/" rel="noopener">https://www.google.com/chrome/</a> からダウンロードし、「アプリケーション」に入れる</li>
             <li><b>Node.js</b>：<a href="https://nodejs.org/" rel="noopener">https://nodejs.org/</a> から「LTS（推奨版）」のインストーラを入れる（<code>npx</code> も入ります）</li>
@@ -279,32 +297,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
               <p class="muted">初めて起動したときに、それぞれのアカウントでのログインを求められます。ログインはあなたが行います。</p>
             </li>
           </ul>
-        </li>
-        <li>
-          <h3>足りないソフトが無いか、点検する</h3>
-          <p><b>何をする？</b>：この Mac に、キットを動かすのに必要なソフトがそろっているかを、自動で調べます。調べるだけで、何かを入れたり変えたりはしません。</p>
-          <p><b>やり方</b>：ターミナルに、下の2行をコピーして貼り付け、Return キーを押します。</p>
-          <div class="cmd"><pre>cd ~/Documents/LP制作/spinova-lp-kit
-tools/setup_check.sh</pre><button class="copy" type="button">コピー</button></div>
-          <p><b>結果の見方</b>：最後に<b>「必要なものはそろっています」</b>と出れば OK です。次へ進みます。「足りない」と出たら、その行に書いてある入れ方で入れるか、AI に「足りないソフトを入れて」と頼んでください。</p>
-          <p class="muted">1行目は「キットを置いた場所に移動する」という意味です。上の例は、手順1でキットを「書類」の中の「LP制作」フォルダに置いた場合です。別の場所に置いたときは、<code>cd </code>（cd と空白）まで打ってから、Finder でキットのフォルダをターミナルにドラッグすると、場所が自動で入ります。</p>
-          <p class="muted">表に出る「Safari」の行は気にしなくて大丈夫です（使わなくても進められます）。</p>
-        </li>
-        <li>
-          <h3>Cloudflare にログインする（最初の1回だけ）</h3>
-          <p><b>何をする？</b>：作ったページをインターネットに公開するための Cloudflare（公開先のサービス）を、この Mac で使えるようにします。<b>1台の Mac につき最初の1回だけ</b>です。</p>
-          <p><b>やり方</b>：ターミナルに下の1行を貼って Return。ブラウザが自動で開くので、Cloudflare にログインして「許可（Allow）」を押せば終わりです。</p>
-          <div class="cmd"><pre>npx wrangler login</pre><button class="copy" type="button">コピー</button></div>
-          <p><b>もっと簡単に</b>：AI に「Cloudflare にログインして」と頼んでも同じです。AI がこのコマンドを打ち、あなたは開いたブラウザで「許可」を押すだけです。</p>
-          <p class="muted">Cloudflare のアカウントが無い場合は、先に作っておいてください（無料）。公開はこのあと AI がキットの道具で行います。自分で別の方法で公開しないでください（検査が飛ばされるため）。</p>
-        </li>
-        <li>
-          <h3>AI でキットのフォルダを開く</h3>
-          <p>ターミナルでキットのフォルダに移動してから、AI を起動します。AI は作業ルール（Claude Code は <code>CLAUDE.md</code>、Codex は <code>AGENTS.md</code>。中身は同じ）を自動で読みます。</p>
-          <div class="cmd"><pre>cd ~/Documents/LP制作/spinova-lp-kit
-claude        # Claude Code の場合
-# codex       # Codex の場合はこちら</pre><button class="copy" type="button">コピー</button></div>
-          <p class="muted">AI がファイルの編集やコマンドの実行の許可を求めてきたら、内容を見て許可します。<b>公開と外への送信は、毎回あなたが承認</b>してください。</p>
+          </details>
         </li>
       </ol>
     </section>
