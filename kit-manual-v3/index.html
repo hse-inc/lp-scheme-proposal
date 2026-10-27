@@ -157,6 +157,14 @@
   details.faq > div { padding: 0 16px 14px; }
 
   footer { color: var(--soft); font-size: .86em; margin-top: 28px; }
+
+  /* キャプチャ */
+  figure.shot { margin: 12px 0 18px; }
+  figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+  figure.shot.narrow img { max-width: 360px; }
+  figure.shot figcaption { color: var(--soft); font-size: .88em; margin-top: 6px; }
+  .shot-row { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .shot-row { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -173,6 +181,7 @@
       <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
       <li><a href="#check">提出前のチェック（10原則）</a></li>
       <li><a href="#revise">先方から修正が来たら</a></li>
+      <li><a href="#preset">動きのプリセットの使い方</a></li>
       <li><a href="#trouble">困ったとき・記録の送り方</a></li>
       <li><a href="#rules">守ること</a></li>
     </ol>
@@ -201,7 +210,7 @@
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">10章</a>）。</p>
+      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">11章</a>）。</p>
     </section>
 
 
@@ -225,7 +234,7 @@
       <h3>そのほかの変わった所</h3>
       <ul>
         <li><b>1枚目を先に見せる</b>：全ページを作る前に、動画と最初の1〜2ページだけを作り、参考サイトと並べて見せます。OK が出るまで残りを作りません（いちばん多かった「全面的な作り直し」を防ぐため）</li>
-        <li><b>動きは見本帳から名前で選ぶ</b>：AI が参考サイトに合いそうな動きをページごとに挙げます。その場の言葉で動きを足していくと崩れやすいためです</li>
+        <li><b>動きは見本帳から名前で選ぶ</b>：AI が参考サイトに合いそうな動きをページごとに挙げます。その場の言葉で動きを足していくと崩れやすいためです（使い方は10章）</li>
         <li><b>検査の待ちが減る</b>：一度合格した中身は検査し直しません。公開の前の検査で ✕ が出たら、直して同じように頼むと、✕ だった所と直した所だけを測ります</li>
         <li><b>修正版の検査は選べる</b>：初稿の公開前は必ず検査します。修正版は「検査を行いますか？」と聞かれます（9章）</li>
         <li><b>ページ送りの不具合を直した</b>：Windows のマウスや一部のトラックパッドで、軽く動かすと2ページ進むことがありました</li>
@@ -261,7 +270,7 @@
       <div class="tw wide"><table>
         <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
         <tbody>
-          <tr><td>パソコン</td><td>Mac（macOS）を推奨</td><td>道具は Mac を前提に作っています。v3.0 で Windows でも動くように直した所はありますが、正式にはまだ保証していません</td></tr>
+          <tr><td>パソコン</td><td>Mac（macOS）を推奨</td><td>道具は Mac を前提に作っています。Windows でも使えますが、正式な対応はまだです（下の「Windows で使う場合」）</td></tr>
           <tr><td>ソフト</td><td>Google Chrome</td><td>検査（画面を開いて測る）と画面の撮影</td></tr>
           <tr><td>ソフト</td><td>Node.js（18 以上）</td><td>検査の道具を動かす（<span class="gloss">道具を動かすための土台のソフト</span>）。<code>npx</code> も一緒に入る</td></tr>
           <tr><td>ソフト</td><td>Python 3 と openpyxl・Pillow</td><td>ヒアリングシート（Excel）を読む・文言の照合・OGP 画像（<span class="gloss">URL を共有したときに出る画像</span>）を作る</td></tr>
@@ -276,6 +285,22 @@
         </tbody>
       </table></div>
       <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
+      <h3 id="windows">Windows で使う場合</h3>
+      <div class="warn"><b>使えますが、正式な対応はまだです。</b>弊社が通しで確かめているのは Mac だけです。メンバーの Windows での制作が1件あり、そこで見つかった問題は v3.0 で直しました。うまく動かないときは、無理に道具を直さず、記録の ZIP で知らせてください（11章。あなたの環境も自動で記録されます）。</div>
+      <div class="tw wide"><table>
+        <thead><tr><th>項目</th><th>Windows での状態</th><th>あなたがすること</th></tr></thead>
+        <tbody>
+          <tr><td>道具を動かす土台</td><td>キットの道具（<code>.sh</code>）は <b>Git for Windows に入っている Git Bash</b> の上で動きます</td><td>Git for Windows を入れる。AI には「Windows なので Git Bash で動かして」と伝える</td></tr>
+          <tr><td>ソフトの入れ方</td><td>Node.js・Python・Chrome・ffmpeg は Windows 用の入れ方になります（Mac の手順とは違います）</td><td>初回の準備で AI に「Windows 向けの入れ方で」と頼む</td></tr>
+          <tr><td>Chrome</td><td>v3.0 から、入っている場所（Program Files など）を自動で探します</td><td>見つからないと出たら、AI に Chrome の場所を指定してもらう</td></tr>
+          <tr><td>公開用の複製</td><td>Windows のパスの区切りで画像が公開から抜ける問題を v3.0 で直しました</td><td>－</td></tr>
+          <tr><td>公開の照合</td><td>Mac の <code>shasum</code> が無くても、代わりの道具で照合します（v3.0）</td><td>－</td></tr>
+          <tr><td>配布の ZIP</td><td>Windows の標準機能で開ける形で作っています。Windows の実機で開けるかは、まだ確かめていません</td><td>開けなければ 7-Zip で開き、知らせる</td></tr>
+          <tr><td>ページ送り</td><td>Windows のマウスで軽く動かすと2ページ進む不具合を v3.0 で直しました。検査にも Windows の入力の型を入れています</td><td>出来上がりを、自分のマウスでも1回ずつ動かして確かめる</td></tr>
+          <tr><td>Safari の検査</td><td>Windows では行えません（「Safari 未検査」と出ます。不合格ではありません）</td><td>iPhone の実機で見て、<code>提出チェック.md</code> に書く</td></tr>
+        </tbody>
+      </table></div>
+
     </section>
 
     <!-- 4 -->
@@ -476,7 +501,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 〔修正内容の Slack メッセージの URL を貼る〕</pre><button class="copy" type="button">コピー</button></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">2</span><span class="st">AI が直して、自動でチェックする（待つ）</span></div><div class="full" style="padding-top:12px">
-        <p>直している間は検査を回さず、直した所の前と後を撮って見せます（数十秒〜数分）。</p>
+        <p>直している間は検査を回さず、直した所の前と後を撮って見せます（数十秒〜数分）。動きを変えたいときは、プリセットの名前で伝えます（10章）。</p>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">3</span><span class="st">直った画面を見て「OK、公開に進んで」</span></div><div class="full" style="padding-top:12px">
         <p>携帯と PC で直った所を確かめます。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
@@ -498,9 +523,50 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       </div></div>
     </section>
 
+    <!-- preset -->
+    <section class="sec" id="preset">
+      <h2><span class="n">10</span>動きのプリセットの使い方（初稿・修正）</h2>
+      <p class="concl"><b>結論：</b>動きは<b>見本帳から名前（プリセット）で選びます</b>。初稿では AI が案を出すので選ぶだけ。修正で動きを変えたいときも、「もっと動きを」ではなく<b>プリセットの名前で指示し直します</b>。その場の言葉で動きを足していくと、動きどうしがぶつかって崩れやすいためです。</p>
+
+      <h3>見本帳を開く</h3>
+      <p>AI に「見本帳を開いて」と頼みます。AI が手元の見本帳（<code>node tools/gallery_server.mjs</code>）を起動し、ブラウザで開きます。今は44件の動きがあります。</p>
+      <figure class="shot"><img src="img/preset-1-gallery.jpg" width="1400" height="1085" alt="動きの見本帳の画面。上にジャンル（登場・強調・ループ・遷移・退場）と質感の絞り込み、下に動きのカードが並ぶ" loading="lazy"><figcaption>見本帳。上の「ジャンル」「質感」で絞り込み、カードの「見本」で動きを、「実サイト」で実際に使った案件での様子を見ます。</figcaption></figure>
+      <p class="muted">動きは Chrome で見てください。AI のアプリの中のブラウザは、画面が裏に回ると動きが止まって見えることがあります。</p>
+
+      <h3>初稿のとき（7章の手順4）</h3>
+      <p>AI が参考サイトに合いそうな動きを、ページごとに見本帳から挙げて聞いてきます。見本帳で動きを見て「この案でよい」か「ここを変える」を選ぶだけです。</p>
+
+      <h3>修正で動きを指示し直す（3つのやり方）</h3>
+      <ol class="steps">
+        <li><h3>名前で伝える（いちばん簡単）</h3>
+          <p>見本帳で動きの名前を確かめ、その案件のチャットに書きます。速さなどは「パラメータ」で変えられます（例：<code>--pf-dur=0.5s</code>＝動く時間を0.5秒に）。</p>
+          <div class="cmd say"><pre>p3 の見出しの動きを、プリセットの card-slap に変えてください。速さは --pf-dur=0.5s。前と後を見せてください。</pre><button class="copy" type="button">コピー</button></div></li>
+        <li><h3>見本帳で選んで、指示文をコピーする</h3>
+          <p>カードの「選ぶ」に印を付け、「案件」「ページ」「適用箇所」（どこに付けるか）を入れます。下の帯の<b>「選んだものをコピー（指示文）」</b>を押して、その案件のチャットに貼ります。いくつかまとめて選べます。</p>
+          <figure class="shot"><img src="img/preset-2-select.jpg" width="1400" height="1085" alt="見本帳で card-slap のカードを選び、案件 sp-13-hakuai・ページ p3・適用箇所「p3 の見出し」・パラメータ --pf-dur=0.5s を入れた所。下の帯に「1件選択中」と「選んだものをコピー（指示文）」のボタン" loading="lazy"><figcaption>右のカード（card-slap）を選び、欄を埋めた所。下の帯のボタンで、AI に貼る指示文がコピーされます。</figcaption></figure>
+          <div class="cmd say"><pre>動きプリセット「card-slap」を案件 sp-13-hakuai の p3 に適用してください。適用箇所: p3 の見出し。パラメータ: --pf-dur=0.5s。（animations/card-slap/PRESET.md と web/ を読んで再現。記録と CSS の取り込みは tools/apply_preset.sh）</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">↑ コピーされる指示文の例です（そのまま貼れば AI が入れます）。</p></li>
+        <li><h3>見本帳から直接反映する（ローカルモード）</h3>
+          <div class="shot-row"><div>
+            <p>欄を埋めて<b>「反映」</b>を押すと、まず<b>確認だけ</b>（何も書き換えない）の結果が出ます。内容を見てよければ<b>「この内容で反映」</b>を押します。</p>
+            <p>反映でされるのは、案件の記録（DNA.md）への書き込み・動きの CSS の取り込み・読み込みの1行までです。<b>どの要素に付けるかは AI がする</b>ので、反映のあとにチャットで伝えます。</p>
+            <div class="cmd say"><pre>見本帳から card-slap を p3 に反映しました。p3 の見出しに付けて、前と後を見せてください。</pre><button class="copy" type="button">コピー</button></div>
+          </div>
+          <figure class="shot narrow"><img src="img/preset-3-dryrun.jpg" width="700" height="1110" alt="「反映」を押した後の確認の結果。dry-run（何も書きません）と出て、DNA.md への記録・CSS の複製・index.html への1行の追加の予定が並ぶ。横に「この内容で反映」のボタン" loading="lazy"><figcaption>「反映」を押した直後。ここではまだ何も書き換えていません。</figcaption></figure></div></li>
+      </ol>
+
+      <div class="warn"><b>気をつけること</b>
+        <ul style="margin:6px 0 0">
+          <li><b>「もっと派手に」「ここにも動きを」をその場の言葉で何度も足さない</b>。動きがぶつかり、文字が一瞬出て消えるなどの崩れが起きたことがあります。足すときも名前で</li>
+          <li><b>速さの目安</b>：動き出しは0.3秒以内、1ページの動きは2秒以内に出そろうように（遅い動きは、見る人が待たされる）</li>
+          <li><b>見本帳に無い動きが欲しいとき</b>：AI に「参考サイトのこの動きに近いプリセットを探して」と頼みます。それでも無ければ責任者に相談します（新しいプリセットは責任者が決めて作ります）</li>
+          <li>動きを変えると CSS が変わるので、修正版の公開で「検査を行いますか？」と聞かれたら<b>「行う」</b>を選びます（9章）</li>
+        </ul></div>
+    </section>
+
     <!-- 8 -->
     <section class="sec" id="trouble">
-      <h2><span class="n">10</span>困ったとき・記録の送り方</h2>
+      <h2><span class="n">11</span>困ったとき・記録の送り方</h2>
       <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の SPINOVA との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
@@ -550,14 +616,14 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <details class="faq"><summary>キットにまだ無いもの</summary><div>
         <ul>
           <li>Slack から案件の資料を取り込む専用の道具：まだありません（AI が読めないときは、あなたがダウンロードします）</li>
-          <li>Windows での正式な対応：まだです（v3.0 で直した所はあります）</li>
+          <li>Windows での正式な対応：まだです（使い方と注意は <a href="#windows">4章の「Windows で使う場合」</a>）</li>
           <li>作業ルールの要点版（最初に読む量を減らしたもの）：まだありません</li>
         </ul></div></details>
     </section>
 
     <!-- 9 -->
     <section class="sec" id="rules">
-      <h2><span class="n">11</span>守ること</h2>
+      <h2><span class="n">12</span>守ること</h2>
       <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
       <ol class="steps">
         <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
