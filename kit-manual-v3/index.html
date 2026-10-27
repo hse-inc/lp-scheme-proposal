@@ -182,6 +182,7 @@
       <li><a href="#check">提出前のチェック（10原則）</a></li>
       <li><a href="#revise">先方から修正が来たら</a></li>
       <li><a href="#preset">動きのプリセットの使い方</a></li>
+      <li><a href="#wp">WordPress への移行</a></li>
       <li><a href="#trouble">困ったとき・記録の送り方</a></li>
       <li><a href="#rules">守ること</a></li>
     </ol>
@@ -208,9 +209,9 @@
         <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
         <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>動きを選ぶ</li><li>1枚目を見て OK</li><li>残りのページ・検査</li></ul></div>
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
-        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>記録の ZIP を Slack に貼る</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">11章</a>）。</p>
+      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
     </section>
 
 
@@ -300,7 +301,7 @@
         </tbody>
       </table></div>
       <h3 id="windows">Windows で使う場合</h3>
-      <div class="warn"><b>使えますが、正式な対応はまだです。</b>弊社が通しで確かめているのは Mac だけです。メンバーの Windows での制作が1件あり、そこで見つかった問題は v3.0 で直しました。うまく動かないときは、無理に道具を直さず、記録の ZIP で知らせてください（11章。あなたの環境も自動で記録されます）。</div>
+      <div class="warn"><b>使えますが、正式な対応はまだです。</b>弊社が通しで確かめているのは Mac だけです。メンバーの Windows での制作が1件あり、そこで見つかった問題は v3.0 で直しました。うまく動かないときは、無理に道具を直さず、記録の ZIP で知らせてください（12章。あなたの環境も自動で記録されます）。</div>
       <div class="tw wide"><table>
         <thead><tr><th>項目</th><th>Windows での状態</th><th>あなたがすること</th></tr></thead>
         <tbody>
@@ -581,9 +582,41 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         </ul></div>
     </section>
 
+    <!-- wp -->
+    <section class="sec" id="wp">
+      <h2><span class="n">11</span>WordPress への移行（WP化）</h2>
+      <p class="concl"><b>結論：</b>先方の確認が済んだ版で、<b>先方マニュアル（Notion）の「静的→WP化」のとおりに</b>進めます。キット独自の手順は足しません。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
+      <h3>始めるときの一言</h3>
+      <div class="cmd say"><pre>〔案件の名前〕の WP化を始めてください。
+先方マニュアルの「静的→WP化」のとおりに進めてください（使う前に Notion の原本の更新を確かめる）。
+最初に CSS の散らかりを0件にしてください。
+ログイン・テーマの ZIP の選択・報告の送信は私がします。</pre><button class="copy" type="button">コピー</button></div>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">WP化の前に整理する（AI）</span></div><div class="full" style="padding-top:12px">
+        <p>AI が CSS の散らかり（効いていない書き直し・使っていない class など）を0件にし、見た目が変わっていないことを撮って見せます（数秒〜数分）。検査なしの修正でたまった分を、WP に移す前に片づけるためです。</p>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">先方マニュアルの「静的→WP化」で WP に移す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li><li>AI が Notion を読めないときは、先方マニュアルの該当の所を開いて渡す</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>先方マニュアルのプロンプトのとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">フォームのメールの変数を3回確かめる</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>テスト送信のメールが届いたら、AI が見られない場合は画面を見せる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>① 書いた段階でずれ0件（<code>check_cf7_vars.py</code>） ② WP に保存した後、管理画面の値を読み直す ③ テスト送信の2通に <code>[xxx]</code> が残っていない</li><li>テストで通知先を変えたら必ず戻す</li><li>報告にフォームの項目・受信メール・自動返信の設定・届いた自動返信の4枚の画面を付ける</li></ul></div>
+      </div>
+        <div class="full"><p class="muted">受信メール・自動返信の変数がフォームとずれる、という元請けからの指摘への対策です。</p></div></div>
+      <div class="step"><div class="sh"><span class="no">4</span><span class="st">ディレクターに共有し、OGP を確かめる</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI がそろえた送り物（メールアドレスの設定・自動返信の確認用の画面など）と報告文を確かめて、<b>該当案件の Slack チャットに送る</b></li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>先方マニュアルが挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
+      </div></div>
+      <div class="warn"><b>気をつけること</b>
+        <ul style="margin:6px 0 0">
+          <li>このページには先方マニュアルの文面を載せていません。手順の中身は、必ず先方マニュアル（Notion）の最新を見てください</li>
+          <li>実際に確かめていない項目（テスト送信・メールの受信など）は、報告で「未確認」と書きます。確かめていないものを「済み」にしない</li>
+        </ul></div>
+    </section>
+
     <!-- 8 -->
     <section class="sec" id="trouble">
-      <h2><span class="n">11</span>困ったとき・記録の送り方</h2>
+      <h2><span class="n">12</span>困ったとき・記録の送り方</h2>
       <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の SPINOVA との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
@@ -640,7 +673,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 9 -->
     <section class="sec" id="rules">
-      <h2><span class="n">12</span>守ること</h2>
+      <h2><span class="n">13</span>守ること</h2>
       <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
       <ol class="steps">
         <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
