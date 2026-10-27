@@ -197,7 +197,7 @@
     <!-- 1 -->
     <section class="sec" id="about">
       <h2><span class="n">1</span>このページについて</h2>
-      <p class="concl"><b>結論：</b>キットを Mac に置き、AI（Claude Code を推奨）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
+      <p class="concl"><b>結論：</b>キットを Mac に置き、AI エージェント（Claude Code か Codex）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">約1.5時間</div><p class="muted">v3.0 での弊社の試し制作（2026-10-27）は96分。うち1枚目の確認（直し2回）21分・初稿の検査28分。初めての方は、これより長くかかる見込みです。全ページの検査は1回あたり約7〜8分です。</p></div>
@@ -217,7 +217,7 @@
     <!-- v3 -->
     <section class="sec" id="v3">
       <h2><span class="n">2</span>v3.0 で変わったこと</h2>
-      <p class="concl"><b>結論：</b>v3.0 では、<b>AI が工程の要所ごとにあなたに確認を求めます</b>。その場で認識をそろえるので初稿の質が上がり、質の低い初稿を長く待って作り直すことが減ります。その代わり、<b>制作中は画面の前にいるか、リモートコントロール（携帯などから返事）で、すぐに答えられるようにしてください</b>。返事が無い間、AI は止まって待ちます。</p>
+      <p class="concl"><b>結論：</b>v3.0 では、<b>AI が工程の要所ごとにあなたに確認を求めます</b>。その場で認識をそろえるので初稿の質が上がり、質の低い初稿を長く待って作り直すことが減ります。その代わり、<b>制作中は画面の前にいるか、携帯などから返事できる仕組み（Claude Code のリモートコントロールなど）で、すぐに答えられるようにしてください</b>。聞き方は AI で違い、Claude Code は選ぶボタン、Codex は選択肢を文で出すことが多いです（番号や言葉で答えれば大丈夫です）。返事が無い間、AI は止まって待ちます。</p>
       <h3>確認が来る主な所</h3>
       <div class="tw wide"><table>
         <thead><tr><th>いつ</th><th>聞かれること</th><th>あなたがすること</th></tr></thead>
@@ -277,14 +277,28 @@
           <tr><td>ソフト</td><td>ffmpeg</td><td>動画の書き出し・仮の動画を作る</td></tr>
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
-          <tr><td>アカウント</td><td><b>Claude（Claude Code）を推奨</b>。ChatGPT（Codex）も可</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます</td></tr>
+          <tr><td>アカウント</td><td><b>Claude（Claude Code）</b>か <b>ChatGPT（Codex）</b>のどちらか</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます。ふだん使っている方を選んでください（下の「Claude Code と Codex の違い」）</td></tr>
           <tr><td>アカウント</td><td>画像生成の AI（ChatGPT または Gemini）</td><td>写真・イラストを作る（ブラウザで操作）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
-          <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
+          <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
         </tbody>
       </table></div>
       <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
+      <h3 id="ai">Claude Code と Codex の違い（このキットで）</h3>
+      <p>どちらでも、同じ手順・同じ決まりで進められます。違うのは画面と聞き方だけです。</p>
+      <div class="tw wide"><table>
+        <thead><tr><th>項目</th><th>Claude Code（Claude）</th><th>Codex（ChatGPT）</th></tr></thead>
+        <tbody>
+          <tr><td>アプリ</td><td>Claude のデスクトップアプリの「Code」</td><td>Codex のアプリ（macOS・Windows）。ChatGPT の有料プラン（Plus 以上）に含まれます</td></tr>
+          <tr><td>読む作業ルール</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code>（中身は <code>CLAUDE.md</code> と同じ）</td></tr>
+          <tr><td>新しいチャット</td><td>新しいセッションを作る</td><td>「New chat」</td></tr>
+          <tr><td>確認の聞き方</td><td>選ぶボタン（選択カード）</td><td>選択肢を文で出すことが多い。番号や言葉で答える</td></tr>
+          <tr><td>席を離れて返事</td><td>リモートコントロール（携帯から返事）</td><td>弊社では確かめていません。制作中はなるべく画面の前で</td></tr>
+          <tr><td>Slack の読み取り・下書き</td><td>Slack をつなげば、修正の指示を読み、返信の下書きを作れます</td><td>つなげるかは環境しだい（弊社では確かめていません）。つながっていなければ、指示は貼り付け、返信の文面は AI がチャットに出します</td></tr>
+          <tr><td>弊社での試し</td><td>多い（v3.0 の試し制作も Claude Code）</td><td>少ない。気づいたことは記録の ZIP で知らせてください</td></tr>
+        </tbody>
+      </table></div>
       <h3 id="windows">Windows で使う場合</h3>
       <div class="warn"><b>使えますが、正式な対応はまだです。</b>弊社が通しで確かめているのは Mac だけです。メンバーの Windows での制作が1件あり、そこで見つかった問題は v3.0 で直しました。うまく動かないときは、無理に道具を直さず、記録の ZIP で知らせてください（11章。あなたの環境も自動で記録されます）。</div>
       <div class="tw wide"><table>
@@ -316,10 +330,12 @@
           <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
         </li>
         <li>
-          <h3>Claude のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
-          <p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit</code> フォルダを選びます。ターミナルは使いません。</p>
-          <p><b>AI は Claude Code を推奨します。</b></p>
-          <p class="muted">AI はフォルダの中の作業ルール（<code>CLAUDE.md</code>）を自動で読みます。Codex を使う場合も、同じフォルダを開けば作業ルール（<code>AGENTS.md</code>。中身は同じ）を読みます。</p>
+          <h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
+          <div class="grid g2">
+            <div class="card"><h3>Claude Code の場合</h3><p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit</code> フォルダを選びます。</p><p class="muted">作業ルール <code>CLAUDE.md</code> を自動で読みます。</p></div>
+            <div class="card"><h3>Codex の場合</h3><p>Codex のアプリ（ChatGPT のダウンロードのページから。macOS・Windows）を入れて、ChatGPT のアカウントでサインインし、手順1で解凍した <code>spinova-lp-kit</code> フォルダを開きます。手元で動かす設定（「Local」）になっているかを確かめます。</p><p class="muted">作業ルール <code>AGENTS.md</code>（中身は <code>CLAUDE.md</code> と同じ）を読みます。</p></div>
+          </div>
+          <p>どちらもターミナルは使いません。</p>
         </li>
         <li>
           <h3>AI に「初回の準備をして」と頼む（あとは AI がやる）</h3>
@@ -369,12 +385,12 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- update -->
     <section class="sec" id="update">
       <h2><span class="n">6</span>前の版からのアップデート</h2>
-      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude のアプリで<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。v3.0 で点検の項目が増えたので、点検だけは手順5で1回行います（✕ が出たら、その分だけ入れ直します）。</p>
+      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、AI のアプリ（Claude Code か Codex）で<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。v3.0 で点検の項目が増えたので、点検だけは手順5で1回行います（✕ が出たら、その分だけ入れ直します）。</p>
       <ol class="steps">
         <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります（v3.0 は準備中です。準備ができたらお知らせします）。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
         <li><h3>古いフォルダとは別の場所に解凍する</h3><p>例：「LP制作」フォルダの中に <code>spinova-lp-kit_v3.0</code> のような名前で置きます。<b>古いキットのフォルダに上書きしない</b>でください（古い道具と新しい道具が混ざり、検査が正しく動かなくなります）。</p></li>
         <li><h3>作りかけの案件を移す</h3><p>古いキットの <code>projects/</code> の中にある案件のフォルダを、新しいキットの <code>projects/</code> の中へ移します（コピーでもかまいません）。終わった案件は移さなくてよいです。</p></li>
-        <li><h3>Claude のアプリで新しいフォルダを開き直す</h3><p>「Code」で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>。古いチャットの AI は古い決まりのまま動くためです。</p></li>
+        <li><h3>AI のアプリで新しいフォルダを開き直す</h3><p>Claude Code は「Code」で、Codex はフォルダを開く所で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>（Codex は「New chat」）。古いチャットの AI は古い決まりのまま動くためです。</p></li>
         <li><h3>AI に一言送る（あとは AI がやる）</h3>
           <div class="cmd say"><pre>新しい版のキットに入れ替えました。
 1. tools/setup_check.sh で点検し、✕ が0件になるまで直す
@@ -397,7 +413,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- 5 -->
     <section class="sec" id="steps">
       <h2><span class="n">7</span>案件ごとの流れ：初稿を出すまで</h2>
-      <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える（進め方・動き）」「1枚目と出来上がりを見て直してほしい所を伝える」「OK を出す」「先方に送る」です。作る・調べる・検査する・公開するのは AI です。<b>確認はそのつど来るので、制作中は返事ができるようにしてください</b>（2章）。</p>
+      <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える（進め方・動き）」「1枚目と出来上がりを見て直してほしい所を伝える」「OK を出す」「該当案件の Slack チャットに送る」です。作る・調べる・検査する・公開するのは AI です。<b>確認はそのつど来るので、制作中は返事ができるようにしてください</b>（2章）。</p>
       <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えたり、決まりが混ざったりします。修正もその案件のチャットで続けます。</div>
       <h3>最初の一言（コピーして AI に送る）</h3>
       <div class="cmd say"><pre>新しい案件を始めてください。
@@ -448,7 +464,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col you"><span class="lb">あなた</span><ul><li>チャットで「OK、公開に進んで」と言うだけ</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、版の URL（例：v1）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">10</span><span class="st">先方に送る</span></div><div class="cols c2">
+      <div class="step"><div class="sh"><span class="no">10</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、Slack で先方に送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の SPINOVA との共有の場所に貼る</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>先方に送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
       </div></div>
@@ -518,7 +534,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         </table></div>
         <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">5</span><span class="st">先方に送る</span></div><div class="full" style="padding-top:12px">
+      <div class="step"><div class="sh"><span class="no">5</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="full" style="padding-top:12px">
         <p>AI が作った文面と新しい URL を先方に送り、作業記録の ZIP を Slack の SPINOVA との共有の場所に貼ります（案件の初稿のときと同じです）。修正前と後を並べた比較画像も添えます。</p>
         <p class="muted">先方に送る前の社内の直し（責任者の確認で出た直しなど、まだ先方が URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
       </div></div>
