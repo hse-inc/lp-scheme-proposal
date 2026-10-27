@@ -463,12 +463,19 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 </div>
       <div class="step key"><div class="sh"><span class="no">9</span><span class="st">「OK、公開に進んで」と伝える</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>チャットで「OK、公開に進んで」と言うだけ</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、版の URL（例：v1）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、Cloudflare の版の URL（初稿は <b>v1</b>）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">10</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の弊社との共有の場所に貼る</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
       </div></div>
+      <div class="warn" id="version"><b>Cloudflare で出す URL は、版ごとに v1・v2・v3…と上げます。</b>
+      <ul style="margin:6px 0 0">
+        <li>初稿の提出は <b>v1</b>（例：<code>https://v1.〔公開名〕.pages.dev/</code>）。クライアントから修正が来て出し直すたびに <b>v2・v3…</b> と1つずつ上げます</li>
+        <li>前の版の URL は消えずに残ります（クライアントが持っている URL がそのまま見られるように）。<b>前の版に上書きしない</b>でください</li>
+        <li>版を上げるのは AI が公開するときです。公開の前に AI が「新しい版か・上書きか」を聞くので、クライアントに出す直しなら<b>新しい版</b>を選びます</li>
+        <li>例外：クライアントに送る前の社内の直し（責任者の確認で出た直しなど）は、版を上げずに同じ版に上書きしてかまいません</li>
+      </ul></div>
       <p class="muted">クライアントから修正が来たら、9章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
     </section>
 
@@ -512,7 +519,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- 7 -->
     <section class="sec" id="revise">
       <h2><span class="n">9</span>クライアントから修正が来たら</h2>
-      <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言い、「検査を行いますか？」に答えるだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
+      <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言い、「検査を行いますか？」に答えるだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります（版の上げ方は7章の最後）。</p>
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">修正の Slack メッセージの URL を、その案件のチャットに貼る</span></div><div class="full" style="padding-top:12px">
         <p><b>その案件を進めているチャット</b>に、修正内容が書かれた Slack メッセージの URL を貼るだけです。AI が指摘と添付の画像を読み取って直します。</p>
         <div class="cmd say"><pre>クライアントから修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
