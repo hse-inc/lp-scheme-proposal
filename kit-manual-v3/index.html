@@ -180,7 +180,7 @@
       <li><a href="#update">前の版からのアップデート</a></li>
       <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
       <li><a href="#check">提出前のチェック（10原則）</a></li>
-      <li><a href="#revise">先方から修正が来たら</a></li>
+      <li><a href="#revise">クライアントから修正が来たら</a></li>
       <li><a href="#preset">動きのプリセットの使い方</a></li>
       <li><a href="#wp">WordPress への移行</a></li>
       <li><a href="#trouble">困ったとき・記録の送り方</a></li>
@@ -211,7 +211,7 @@
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
+      <p class="loop">クライアントに出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の弊社との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
     </section>
 
 
@@ -224,7 +224,7 @@
         <thead><tr><th>いつ</th><th>聞かれること</th><th>あなたがすること</th></tr></thead>
         <tbody>
           <tr><td>始めるとき</td><td>進め方の3つの質問</td><td>選んで答える</td></tr>
-          <tr><td>要件整理のあと</td><td>シートの指示で決まっていない点</td><td>選んで答える（分からなければ「先方に聞く」）</td></tr>
+          <tr><td>要件整理のあと</td><td>シートの指示で決まっていない点</td><td>選んで答える（分からなければ「クライアントに確かめる」）</td></tr>
           <tr><td>実装の前</td><td>ページごとの動き（プリセット）の案</td><td>見本帳の動きを見て「この案でよい／変える」</td></tr>
           <tr><td>1枚目ができたら</td><td>参考サイトと並べた1枚目</td><td>方向が合っていれば OK。ずれていればまとめて伝える</td></tr>
           <tr><td>初稿ができたら</td><td>全ページの一覧画像</td><td>直してほしい所をまとめて1回で</td></tr>
@@ -404,7 +404,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       </ol>
       <div class="warn"><b>注意</b>
         <ul style="margin:6px 0 0">
-          <li><b>公開済みの版の URL は変わりません</b>。先方が持っている URL はそのままです</li>
+          <li><b>公開済みの版の URL は変わりません</b>。クライアントが持っている URL はそのままです</li>
           <li>引き上げた案件の<b>次の公開は「検査を行う」を選んでください</b>。ページ送りの部品が変わったため、検査なしでは道具が止めます</li>
           <li><b>古いフォルダは、新しいキットで案件が動くのを確かめるまで残しておきます</b>。消すのは、移した案件の公開まで済んでからにしてください</li>
           <li>Cloudflare のログインは、ふつうはそのまま使えます。公開で「ログインしてください」と出たら、AI に「Cloudflare にログインし直して」と頼みます</li>
@@ -419,7 +419,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <h3>最初の一言（コピーして AI に送る）</h3>
       <div class="cmd say"><pre>新しい案件を始めてください。
 担当案件：〔Slack に来た担当案件の URL を貼る〕
-進め方の選択・公開・先方への送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
+進め方の選択・公開・クライアントへの送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
 
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を渡す</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」に、Slack に来た担当案件の URL を入れて送る</li></ul></div>
@@ -466,16 +466,16 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、版の URL（例：v1）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">10</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、Slack で先方に送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の SPINOVA との共有の場所に貼る</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>先方に送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の弊社との共有の場所に貼る</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
       </div></div>
-      <p class="muted">先方から修正が来たら、9章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
+      <p class="muted">クライアントから修正が来たら、9章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
     </section>
 
     <!-- 6 -->
     <section class="sec" id="check">
       <h2><span class="n">8</span>提出前のチェック：全案件に共通の10原則</h2>
-      <p class="concl"><b>結論：</b>提出の前に、AI がこの10原則を全項目回し、あなた（責任者）が一覧画像で確かめて承認します。中身はキットの <code>templates/先方指摘チェックリスト.md</code> にあります。</p>
+      <p class="concl"><b>結論：</b>提出の前に、AI がこの10原則を全項目回し、あなた（責任者）が一覧画像で確かめて承認します。中身はキットの <code>templates/</code> の中のチェックリスト にあります。</p>
       <h3>確かめる段は3つ（A・B・C）</h3>
       <div class="abc">
         <div class="card a"><b class="k">A</b><b>道具が判定</b><p class="muted">道具が合否を出し、AI が直す。人は見なくてよい。不合格なら公開できない。</p></div>
@@ -511,11 +511,11 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 7 -->
     <section class="sec" id="revise">
-      <h2><span class="n">9</span>先方から修正が来たら</h2>
+      <h2><span class="n">9</span>クライアントから修正が来たら</h2>
       <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言い、「検査を行いますか？」に答えるだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">修正の Slack メッセージの URL を、その案件のチャットに貼る</span></div><div class="full" style="padding-top:12px">
         <p><b>その案件を進めているチャット</b>に、修正内容が書かれた Slack メッセージの URL を貼るだけです。AI が指摘と添付の画像を読み取って直します。</p>
-        <div class="cmd say"><pre>先方から修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
+        <div class="cmd say"><pre>クライアントから修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
 〔修正内容の Slack メッセージの URL を貼る〕</pre><button class="copy" type="button">コピー</button></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">2</span><span class="st">AI が直して、自動でチェックする（待つ）</span></div><div class="full" style="padding-top:12px">
@@ -536,8 +536,8 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
       </div></div>
       <div class="step"><div class="sh"><span class="no">5</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="full" style="padding-top:12px">
-        <p>AI が作った文面と新しい URL を先方に送り、作業記録の ZIP を Slack の SPINOVA との共有の場所に貼ります（案件の初稿のときと同じです）。修正前と後を並べた比較画像も添えます。</p>
-        <p class="muted">先方に送る前の社内の直し（責任者の確認で出た直しなど、まだ先方が URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
+        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、作業記録の ZIP を Slack の弊社との共有の場所に貼ります（案件の初稿のときと同じです）。修正前と後を並べた比較画像も添えます。</p>
+        <p class="muted">クライアントに送る前の社内の直し（責任者の確認で出た直しなど、まだクライアントが URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
       </div></div>
     </section>
 
@@ -585,18 +585,18 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- wp -->
     <section class="sec" id="wp">
       <h2><span class="n">11</span>WordPress への移行（WP化）</h2>
-      <p class="concl"><b>結論：</b>先方の確認が済んだ版で、<b>先方マニュアル（Notion）の「静的→WP化」のとおりに</b>進めます。キット独自の手順は足しません。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
+      <p class="concl"><b>結論：</b>クライアントの確認が済んだ版で、<b>SPINOVA のマニュアル（Notion）の「静的→WP化」のとおりに</b>進めます。キット独自の手順は足しません。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
       <h3>始めるときの一言</h3>
       <div class="cmd say"><pre>〔案件の名前〕の WP化を始めてください。
-先方マニュアルの「静的→WP化」のとおりに進めてください（使う前に Notion の原本の更新を確かめる）。
+SPINOVA のマニュアルの「静的→WP化」のとおりに進めてください（使う前に Notion の原本の更新を確かめる）。
 最初に CSS の散らかりを0件にしてください。
 ログイン・テーマの ZIP の選択・報告の送信は私がします。</pre><button class="copy" type="button">コピー</button></div>
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">WP化の前に整理する（AI）</span></div><div class="full" style="padding-top:12px">
         <p>AI が CSS の散らかり（効いていない書き直し・使っていない class など）を0件にし、見た目が変わっていないことを撮って見せます（数秒〜数分）。検査なしの修正でたまった分を、WP に移す前に片づけるためです。</p>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">2</span><span class="st">先方マニュアルの「静的→WP化」で WP に移す</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li><li>AI が Notion を読めないときは、先方マニュアルの該当の所を開いて渡す</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>先方マニュアルのプロンプトのとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">SPINOVA のマニュアルの「静的→WP化」で WP に移す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li><li>AI が Notion を読めないときは、SPINOVA のマニュアルの該当の所を開いて渡す</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>SPINOVA のマニュアルのプロンプトのとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">3</span><span class="st">フォームのメールの変数を3回確かめる</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>テスト送信のメールが届いたら、AI が見られない場合は画面を見せる</li></ul></div>
@@ -605,11 +605,11 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="full"><p class="muted">受信メール・自動返信の変数がフォームとずれる、という元請けからの指摘への対策です。</p></div></div>
       <div class="step"><div class="sh"><span class="no">4</span><span class="st">ディレクターに共有し、OGP を確かめる</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>AI がそろえた送り物（メールアドレスの設定・自動返信の確認用の画面など）と報告文を確かめて、<b>該当案件の Slack チャットに送る</b></li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>先方マニュアルが挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>SPINOVA のマニュアルが挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
       </div></div>
       <div class="warn"><b>気をつけること</b>
         <ul style="margin:6px 0 0">
-          <li>このページには先方マニュアルの文面を載せていません。手順の中身は、必ず先方マニュアル（Notion）の最新を見てください</li>
+          <li>手順の中身は、必ず SPINOVA のマニュアル（Notion）の最新を見てください（このページには写していません）</li>
           <li>実際に確かめていない項目（テスト送信・メールの受信など）は、報告で「未確認」と書きます。確かめていないものを「済み」にしない</li>
         </ul></div>
     </section>
@@ -617,7 +617,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
     <!-- 8 -->
     <section class="sec" id="trouble">
       <h2><span class="n">12</span>困ったとき・記録の送り方</h2>
-      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の SPINOVA との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の弊社との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
         <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
@@ -677,7 +677,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
       <ol class="steps">
         <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
-        <li><h3>公開と送信は人が承認する</h3><p>公開（<code>--dry-run</code> を付けない実行）・先方への送信・Slack への投稿は、毎回あなたが確かめて行います。AI に送らせない。</p></li>
+        <li><h3>公開と送信は人が承認する</h3><p>公開（<code>--dry-run</code> を付けない実行）・クライアントへの送信・Slack への投稿は、毎回あなたが確かめて行います。AI に送らせない。</p></li>
         <li><h3>「OK」はあなたが出す</h3><p>承認欄（<code>最終チェック.md</code> の「承認者：」「日付：」）は、あなたがチャットで「OK、公開に進んで」とはっきり伝えたときだけ、AI が代わりに書きます。画面を見ないまま「OK」を出さないでください。AI が自分の判断で承認欄を書くことはありません。</p></li>
         <li><h3>キットの土台を書き換えない</h3><p><code>base.css</code>・<code>swipe.js</code>（土台）と <code>tools/</code>（道具）は直さない。案件だけの動きは <code>site/site.js</code> に書きます。土台に問題があれば、記録の ZIP で弊社に知らせてください。</p></li>
         <li><h3>キットを再配布しない</h3><p>キットと、このページのダウンロードのリンクを、ほかの人・ほかの会社に渡さない。キットの道具は弊社の所有です。</p></li>
