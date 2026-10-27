@@ -169,6 +169,7 @@
       <li><a href="#download">ダウンロード</a></li>
       <li><a href="#need">必要なもの</a></li>
       <li><a href="#setup">初回だけの準備</a></li>
+      <li><a href="#update">前の版からのアップデート</a></li>
       <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
       <li><a href="#check">提出前のチェック（10原則）</a></li>
       <li><a href="#revise">先方から修正が来たら</a></li>
@@ -200,7 +201,7 @@
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">9章</a>）。</p>
+      <p class="loop">先方に出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の SPINOVA との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">10章</a>）。</p>
     </section>
 
 
@@ -217,7 +218,7 @@
           <tr><td>実装の前</td><td>ページごとの動き（プリセット）の案</td><td>見本帳の動きを見て「この案でよい／変える」</td></tr>
           <tr><td>1枚目ができたら</td><td>参考サイトと並べた1枚目</td><td>方向が合っていれば OK。ずれていればまとめて伝える</td></tr>
           <tr><td>初稿ができたら</td><td>全ページの一覧画像</td><td>直してほしい所をまとめて1回で</td></tr>
-          <tr><td>修正版の公開の前</td><td>「検査を行いますか？」</td><td>選ぶ（8章）</td></tr>
+          <tr><td>修正版の公開の前</td><td>「検査を行いますか？」</td><td>選ぶ（9章）</td></tr>
           <tr><td>公開の前</td><td>公開してよいか</td><td>「OK、公開に進んで」</td></tr>
         </tbody>
       </table></div>
@@ -226,12 +227,12 @@
         <li><b>1枚目を先に見せる</b>：全ページを作る前に、動画と最初の1〜2ページだけを作り、参考サイトと並べて見せます。OK が出るまで残りを作りません（いちばん多かった「全面的な作り直し」を防ぐため）</li>
         <li><b>動きは見本帳から名前で選ぶ</b>：AI が参考サイトに合いそうな動きをページごとに挙げます。その場の言葉で動きを足していくと崩れやすいためです</li>
         <li><b>検査の待ちが減る</b>：一度合格した中身は検査し直しません。公開の前の検査で ✕ が出たら、直して同じように頼むと、✕ だった所と直した所だけを測ります</li>
-        <li><b>修正版の検査は選べる</b>：初稿の公開前は必ず検査します。修正版は「検査を行いますか？」と聞かれます（8章）</li>
+        <li><b>修正版の検査は選べる</b>：初稿の公開前は必ず検査します。修正版は「検査を行いますか？」と聞かれます（9章）</li>
         <li><b>ページ送りの不具合を直した</b>：Windows のマウスや一部のトラックパッドで、軽く動かすと2ページ進むことがありました</li>
         <li><b>Slack の下書き</b>：AI が Slack につながっていれば、公開のあとに案件のスレッドへ返信の下書きを作ります。送るのはあなたです（画像は送る前にあなたが添付）</li>
         <li><b>検査が増えた</b>：表・カードの枠の外へ出た文字、上下の余白が狭すぎるページ（⚠）、〒番号・電話番号の途中の改行なども見ます</li>
       </ul>
-      <div class="warn"><b>前の版（v2.x）を使っていた方へ：</b>新しいフォルダに展開し、作りかけの案件は <code>projects/</code> ごと移します。そのあと AI に「v3.0 に入れ替えたので、版の確認と案件の引き上げをして」と頼みます（5章の最後）。<b>AI とは新しいチャットで始めてください</b>（古いチャットの AI は古い決まりのまま動きます）。</div>
+      <div class="warn"><b>前の版（v2.x）を使っていた方へ：</b>新しいフォルダに展開し、作りかけの案件は <code>projects/</code> ごと移します。くわしい手順は6章です。<b>AI とは新しいチャットで始めてください</b>（古いチャットの AI は古い決まりのまま動きます）。</div>
     </section>
 
     <!-- 2 -->
@@ -248,7 +249,7 @@
       </div>
       <ul class="muted">
         <li><b>開き方</b>：ダウンロードした ZIP をダブルクリックして解凍すると、<code>spinova-lp-kit</code> フォルダができます（パスワードがある場合は、配布のときに別にお知らせします）。v3.0 の ZIP は Windows の標準機能でも開ける形です（開けなければ 7-Zip）。</li>
-        <li>新しい版が出たら、このページの版と日付が変わります。案件の途中では版を変えないでください（案件を作ったときの版が <code>kit.conf</code> に残ります）。</li>
+        <li>新しい版が出たら、このページの版と日付が変わります。入れ替えは6章の手順で行います（作りかけの案件も、そのまま新しい版へ移せます）。</li>
       </ul>
     </section>
 
@@ -309,9 +310,7 @@
             <li><b>ブラウザが開いたら、Cloudflare にログインして「許可（Allow）」を押す</b>（アカウントが無ければ先に作っておく。無料）</li>
           </ul>
           <p>最後に <b>✕ が0件</b>になれば、準備は終わりです。<b>✕ が残っている間は制作を始めません</b>（Chrome で画面が撮れない・動画の文字入れができない、などで検査が正しく動かないため）。1台の Mac につき最初の1回だけです。</p>
-          <h3>前の版から入れ替えたとき</h3>
-          <p>作りかけの案件を <code>projects/</code> ごと新しいキットに移したら、新しいチャットで次を送ります。</p>
-          <div class="cmd say"><pre>v3.0 に入れ替えました。tools/setup_check.sh で点検し、tools/version.sh で版を確かめて、古い案件があれば tools/upgrade_project.sh で引き上げてください。最後に「v3.0で変わったこと.md」の要点を教えてください。</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">前の版（v2.x）を使っていた方は、次の6章の手順で入れ替えてください。</p>
           <details style="margin-top:10px"><summary class="muted">（参考）自分でソフトを入れたい人向けの入れ方</summary>
           <ul>
             <li><b>Google Chrome</b>：<a href="https://www.google.com/chrome/" rel="noopener">https://www.google.com/chrome/</a> からダウンロードし、「アプリケーション」に入れる</li>
@@ -341,9 +340,37 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       </ol>
     </section>
 
+    <!-- update -->
+    <section class="sec" id="update">
+      <h2><span class="n">6</span>前の版からのアップデート</h2>
+      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude のアプリで<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。</p>
+      <ol class="steps">
+        <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります（v3.0 は準備中です。準備ができたらお知らせします）。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
+        <li><h3>古いフォルダとは別の場所に解凍する</h3><p>例：「LP制作」フォルダの中に <code>spinova-lp-kit_v3.0</code> のような名前で置きます。<b>古いキットのフォルダに上書きしない</b>でください（古い道具と新しい道具が混ざり、検査が正しく動かなくなります）。</p></li>
+        <li><h3>作りかけの案件を移す</h3><p>古いキットの <code>projects/</code> の中にある案件のフォルダを、新しいキットの <code>projects/</code> の中へ移します（コピーでもかまいません）。終わった案件は移さなくてよいです。</p></li>
+        <li><h3>Claude のアプリで新しいフォルダを開き直す</h3><p>「Code」で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>。古いチャットの AI は古い決まりのまま動くためです。</p></li>
+        <li><h3>AI に一言送る（あとは AI がやる）</h3>
+          <div class="cmd say"><pre>新しい版のキットに入れ替えました。
+1. tools/setup_check.sh で点検し、✕ が0件になるまで直す
+2. tools/version.sh で、キットと projects/ の案件の版を確かめる
+3. 古い案件があれば tools/upgrade_project.sh で引き上げる
+4. 最後に「v3.0で変わったこと.md」の要点を教えてください</pre><button class="copy" type="button">コピー</button></div>
+          <p>AI が点検し、作りかけの案件を新しい版に合わせます（足すだけで、案件の中身は消しません。ページ送りの部品 <code>swipe.js</code> は新しいものに置き換え、前のものは控えに残します）。</p></li>
+        <li><h3>案件ごとに、新しいチャットで続ける</h3>
+          <div class="cmd say"><pre>〔案件の名前〕の続きをしてください。projects/〔案件のフォルダ〕の作業記録.md と要件整理.md を読んでから始めてください。</pre><button class="copy" type="button">コピー</button></div></li>
+      </ol>
+      <div class="warn"><b>注意</b>
+        <ul style="margin:6px 0 0">
+          <li><b>公開済みの版の URL は変わりません</b>。先方が持っている URL はそのままです</li>
+          <li>引き上げた案件の<b>次の公開は「検査を行う」を選んでください</b>。ページ送りの部品が変わったため、検査なしでは道具が止めます</li>
+          <li><b>古いフォルダは、新しいキットで案件が動くのを確かめるまで残しておきます</b>。消すのは、移した案件の公開まで済んでからにしてください</li>
+          <li>Cloudflare のログインは、ふつうはそのまま使えます。公開で「ログインしてください」と出たら、AI に「Cloudflare にログインし直して」と頼みます</li>
+        </ul></div>
+    </section>
+
     <!-- 5 -->
     <section class="sec" id="steps">
-      <h2><span class="n">6</span>案件ごとの流れ：初稿を出すまで</h2>
+      <h2><span class="n">7</span>案件ごとの流れ：初稿を出すまで</h2>
       <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える（進め方・動き）」「1枚目と出来上がりを見て直してほしい所を伝える」「OK を出す」「先方に送る」です。作る・調べる・検査する・公開するのは AI です。<b>確認はそのつど来るので、制作中は返事ができるようにしてください</b>（2章）。</p>
       <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えたり、決まりが混ざったりします。修正もその案件のチャットで続けます。</div>
       <h3>最初の一言（コピーして AI に送る）</h3>
@@ -380,7 +407,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は初稿の仕上げに1回（約7〜8分）。合格すると、同じ中身はもう検査しない</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">8</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る</li><li>10原則（7章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>全ページの一覧画像と、画面を開く URL を渡す</li><li>伝えられた所をまとめて直し、前と後を撮って見せる（直している間は検査を回さない）</li></ul></div>
       </div>
         <div class="full"><div class="cmd say"><pre>直してほしい所です。まとめて直して、前と後を見せてください。
@@ -399,12 +426,12 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、Slack で先方に送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の SPINOVA との共有の場所に貼る</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>先方に送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
       </div></div>
-      <p class="muted">先方から修正が来たら、8章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
+      <p class="muted">先方から修正が来たら、9章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
     </section>
 
     <!-- 6 -->
     <section class="sec" id="check">
-      <h2><span class="n">7</span>提出前のチェック：全案件に共通の10原則</h2>
+      <h2><span class="n">8</span>提出前のチェック：全案件に共通の10原則</h2>
       <p class="concl"><b>結論：</b>提出の前に、AI がこの10原則を全項目回し、あなた（責任者）が一覧画像で確かめて承認します。中身はキットの <code>templates/先方指摘チェックリスト.md</code> にあります。</p>
       <h3>確かめる段は3つ（A・B・C）</h3>
       <div class="abc">
@@ -441,7 +468,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 7 -->
     <section class="sec" id="revise">
-      <h2><span class="n">8</span>先方から修正が来たら</h2>
+      <h2><span class="n">9</span>先方から修正が来たら</h2>
       <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言い、「検査を行いますか？」に答えるだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります。</p>
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">修正の Slack メッセージの URL を、その案件のチャットに貼る</span></div><div class="full" style="padding-top:12px">
         <p><b>その案件を進めているチャット</b>に、修正内容が書かれた Slack メッセージの URL を貼るだけです。AI が指摘と添付の画像を読み取って直します。</p>
@@ -473,7 +500,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 8 -->
     <section class="sec" id="trouble">
-      <h2><span class="n">9</span>困ったとき・記録の送り方</h2>
+      <h2><span class="n">10</span>困ったとき・記録の送り方</h2>
       <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の SPINOVA との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
@@ -530,7 +557,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
 
     <!-- 9 -->
     <section class="sec" id="rules">
-      <h2><span class="n">10</span>守ること</h2>
+      <h2><span class="n">11</span>守ること</h2>
       <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
       <ol class="steps">
         <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
