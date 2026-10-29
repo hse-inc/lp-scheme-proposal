@@ -267,7 +267,7 @@
     <section class="sec" id="need">
       <h2><span class="n">4</span>必要なもの</h2>
       <p class="concl"><b>結論：</b>Mac 1台と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
-      <div class="warn"><b>AI は「AI エージェント」を使ってください。</b>Claude なら <b>Claude Code</b>、ChatGPT なら <b>Codex</b> です。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
+      <div class="warn"><b>AI は「AI エージェント」を使ってください。</b>Claude なら <b>Claude Code</b>（推奨）、ChatGPT なら <b>Codex</b> です。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
       <div class="tw wide"><table>
         <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
         <tbody>
@@ -278,7 +278,7 @@
           <tr><td>ソフト</td><td>ffmpeg</td><td>動画の書き出し・仮の動画を作る</td></tr>
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
-          <tr><td>アカウント</td><td><b>Claude（Claude Code）</b>か <b>ChatGPT（Codex）</b>のどちらか</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます。ふだん使っている方を選んでください（下の「Claude Code と Codex の違い」）</td></tr>
+          <tr><td>アカウント</td><td><b>Claude（Claude Code）</b>か <b>ChatGPT（Codex）</b>のどちらか</td><td>作業する AI。どちらもキットの作業ルール（<code>CLAUDE.md</code>／<code>AGENTS.md</code>。中身は同じ）を自動で読みます。<b>推奨は Claude Code</b>です（下の「Claude Code と Codex の違い」）</td></tr>
           <tr><td>アカウント</td><td>画像生成の AI（ChatGPT または Gemini）</td><td>写真・イラストを作る（ブラウザで操作）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
@@ -287,7 +287,8 @@
       </table></div>
       <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
       <h3 id="ai">Claude Code と Codex の違い（このキットで）</h3>
-      <p>どちらでも、同じ手順・同じ決まりで進められます。違うのは画面と聞き方だけです。</p>
+      <div class="warn"><b>推奨は Claude Code です。</b>弊社の試し制作と初稿の品質の確認は Claude Code で行っており、同じ手順でも初稿の出来に差が出ています。Codex でも同じ手順・同じ決まりで進められますが、迷ったら Claude Code を選んでください。どちらの場合も、AI の考える量の設定（エフォート）は「高」以上にしてください（軽い設定だと、シートの指示の読み落としが増えます）。</div>
+      <p>下の表は、2つの画面と聞き方の違いです。</p>
       <div class="tw wide"><table>
         <thead><tr><th>項目</th><th>Claude Code（Claude）</th><th>Codex（ChatGPT）</th></tr></thead>
         <tbody>
