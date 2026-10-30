@@ -210,7 +210,7 @@
     <!-- 1 -->
     <section class="sec" id="about">
       <h2><span class="n">1</span>このページについて</h2>
-      <p class="concl"><b>結論：</b>キットを Mac に置き、Claude Code（Opus 5.5）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
+      <p class="concl"><b>結論：</b>キットをパソコン（Mac・Windows）に置き、Claude Code（Opus 5.5）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">約1.5時間</div><p class="muted">v3.0 での弊社の試し制作（2026-10-27）は96分。うち1枚目の確認（直し2回）21分・初稿の検査28分。初めての方は、これより長くかかる見込みです。全ページの検査は1回あたり約7〜8分です。</p></div>
@@ -267,12 +267,12 @@
     <!-- 3 -->
     <section class="sec" id="need">
       <h2><span class="n">4</span>必要なもの</h2>
-      <p class="concl"><b>結論：</b>Mac 1台と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
+      <p class="concl"><b>結論：</b>パソコン1台（Mac か Windows）と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
       <div class="warn"><b>AI は Claude Code を使ってください（v4.0 の標準）。</b>画像生成だけは、Claude Code から ChatGPT を操作して使います（下の「最初の設定」）。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
       <div class="tw wide"><table>
         <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
         <tbody>
-          <tr><td>パソコン</td><td>Mac（macOS）を推奨</td><td>道具は Mac を前提に作っています。Windows でも使えますが、正式な対応はまだです（下の「Windows で使う場合」）</td></tr>
+          <tr><td>パソコン</td><td>Mac（macOS）か Windows</td><td>どちらでも使えます。Windows は入れ方などが少し違います（下の「Windows で使う場合」）</td></tr>
           <tr><td>ソフト</td><td>Google Chrome</td><td>検査（画面を開いて測る）と画面の撮影</td></tr>
           <tr><td>ソフト</td><td>Node.js（18 以上）</td><td>検査の道具を動かす（<span class="gloss">道具を動かすための土台のソフト</span>）。<code>npx</code> も一緒に入る</td></tr>
           <tr><td>ソフト</td><td>Python 3 と openpyxl・Pillow</td><td>ヒアリングシート（Excel）を読む・文言の照合・OGP 画像（<span class="gloss">URL を共有したときに出る画像</span>）を作る</td></tr>
@@ -301,7 +301,7 @@
       </table></div>
       <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP・ファビコン）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
       <h3 id="windows">Windows で使う場合</h3>
-      <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。Windows の実機での通しの確認はこれからなので、うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
+      <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
       <div class="tw wide"><table>
         <thead><tr><th>項目</th><th>Windows での状態</th><th>あなたがすること</th></tr></thead>
         <tbody>
@@ -345,11 +345,11 @@
 4. 最後にもう一度点検して、✕ が0件になったのを見せる</pre><button class="copy" type="button">コピー</button></div>
           <p><b>あなたがするのは、この3つだけです</b>（AI には代われない操作です）：</p>
           <ul>
-            <li><b>Mac のパスワードを聞かれたら入力する</b>（ソフトを入れるとき）</li>
+            <li><b>パソコンのパスワードを聞かれたら入力する</b>（ソフトを入れるとき）</li>
             <li><b>「インストール」ボタンが出たら押す</b>（Apple の開発ツールが出てきた場合だけ）</li>
             <li><b>ブラウザが開いたら、Cloudflare にログインして「許可（Allow）」を押す</b>（アカウントが無ければ先に作っておく。無料）</li>
           </ul>
-          <p>最後に <b>✕ が0件</b>になれば、準備は終わりです。<b>✕ が残っている間は制作を始めません</b>（Chrome で画面が撮れない・動画の文字入れができない、などで検査が正しく動かないため）。1台の Mac につき最初の1回だけです。</p>
+          <p>最後に <b>✕ が0件</b>になれば、準備は終わりです。<b>✕ が残っている間は制作を始めません</b>（Chrome で画面が撮れない・動画の文字入れができない、などで検査が正しく動かないため）。1台のパソコンにつき最初の1回だけです。</p>
           
           <details style="margin-top:10px"><summary class="muted">（参考）自分でソフトを入れたい人向けの入れ方</summary>
           <ul>
@@ -642,12 +642,12 @@ SPINOVA のマニュアルの「静的→WP化」のとおりに進めてくだ�
     <!-- 8 -->
     <section class="sec" id="trouble">
       <h2><span class="n">12</span>困ったとき・記録の送り方</h2>
-      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼って、何が起きたかを一言添えてください。管理する側で同じ案件を動かし、あなたのパソコンの問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
         <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
           <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div></div>
-        <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたの Mac の環境（macOS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
+        <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたのパソコンの環境（OS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
           <p class="muted"><b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
       </div>
 
