@@ -221,9 +221,9 @@
         <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
         <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>動きを選ぶ</li><li>1枚目を見て OK</li><li>残りのページ・検査</li></ul></div>
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
-        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>記録の ZIP を Slack に貼る</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>検収（公開）完了で作業記録を送る</li></ul></div>
       </div>
-      <p class="loop">クライアントに出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼ると（<b>初稿は必須</b>）、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
+      <p class="loop"><b>作業記録（作業レポート）を出すのは2回だけです：初稿（v1）を公開したときと、検収（公開）完了のとき。</b>どちらも必須で、案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。キットの改善に使います（<a href="#trouble">12章</a>）。</p>
     </section>
 
 
@@ -236,7 +236,7 @@
         <thead><tr><th>いつ</th><th>聞かれること</th><th>あなたがすること</th></tr></thead>
         <tbody>
           <tr><td>作り始める前（1回だけ）</td><td><b>シートの中の食い違い</b>（例：キーカラーはオレンジなのに説明文は「黄色」・3P と募集要項で賞与の有無が違う）</td><td>どちらに合わせるか、選んで答える（分からなければ「クライアントに確認」）。答えを待つ間も、関係ないページは作り進めます</td></tr>
-          <tr><td>OGP・ファビコンができたら</td><td>画像生成で作った OGP と、Claude が描いたファビコン</td><td>文字の誤り・人物の手や指を見て OK を出す。OK が出るまで差し込みません</td></tr>
+          <tr><td>OGP・ファビコンができたら</td><td>Claude が作った OGP とファビコン</td><td>文字の誤り・人物の手や指を見て OK を出す。OK が出るまで差し込みません</td></tr>
         </tbody>
       </table></div>
       <h3>変わった所</h3>
@@ -244,8 +244,8 @@
         <li><b>シートの全行を数える</b>：シートの行がサイトの照合から漏れていたら、検査が止めます（シートの「例 )」の記入例の行と、動画の寸法の行は自動で外れます）</li>
         <li><b>シートの誤字を直せる</b>：「6」だけ全角などの明らかな誤字は、責任者が決めて表（<code>照合の例外.tsv</code>）に書けば直せます。直した所はそのままクライアントへ伝える一覧になります。誤字らしい所は道具が候補として出します</li>
         <li><b>AI のレビュー役</b>：初稿を見せる前に、作った AI とは別の AI が悪い所を探し、作った AI が直してから見せます（記録だけ・止めません）</li>
-        <li><b>幅チェッカーに「目で見るチェックリスト」</b>：右下の「？」から、余白・改行・文字・重なりなどを1項目ずつ確かめられます（8章）</li>
-        <li><b>OGP を画像生成で・ファビコンは Claude が描く</b>：OGP はサイトの雰囲気に合わせて ChatGPT で作ります（以前の決まった型より質が上がります）。ファビコンは Claude が案件の色と業種の図案で描きます。WP 用の screenshot.png は、その OGP をそのまま使います</li>
+        <li><b>クオリティチェッカーに「目で見るチェックリスト」</b>：右下の「？」から、余白・改行・文字・重なりなどを1項目ずつ確かめられます（8章）</li>
+        <li><b>OGP とファビコンは Claude が作る</b>：旧スキームの「このサイトに合わせて作り、差し込まないで確認を投げる」のやり方を組み込みました。サイトの色・書体・写真で組むので、以前の決まった型より質が上がります。WP 用の screenshot.png は、その OGP をそのまま使います</li>
         <li><b>フォームの通知先</b>：WP化のとき、シートの「問い合わせフォームの通知先アドレス」を入れないと止まります。そのセルのスクショも送ります</li>
         <li><b>「※」だけが行の終わりに残る改行を止める</b>：注意書きの「※」を後ろの文とつなげ、「※」や括弧が行の終わりに残ったら検査が止めます（特に募集要項で多かった折れ方です）</li>
         <li><b>初稿の作業レポートは必須</b>：初稿（v1）を公開したら、作業レポートの ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。送った記録が無いと、v2 以降の公開が止まります</li>
@@ -260,7 +260,7 @@
       <h2><span class="n">3</span>ダウンロード</h2>
       <div class="warn"><b>v4.0 の ZIP は準備中です。準備ができたら、Drive のリンクをお知らせします。</b>届いたら、同じフォルダのパスワードの txt の1行目で開きます。リンクとパスワードは、ほかの人に渡さないでください。</div>
       <ul class="muted">
-        <li><b>開き方</b>：ZIP をダブルクリックし、パスワードを入力 → <code>spinova-lp-kit_v4.0</code> フォルダができます。Windows の標準機能でも開ける形です（開けなければ 7-Zip）。</li>
+        <li><b>開き方</b>：ZIP をダブルクリックし、パスワードを入力 → <code>spinova-lp-kit_v4.0</code> フォルダができます。Mac・Windows とも、標準の機能で開けます（Windows は、右クリック →「すべて展開」→ パスワード。メンバーの Windows で確認済み）。</li>
         <li>新しい版が出たら、このページの版と日付が変わります。入れ替えは6章の手順で行います（作りかけの案件も、そのまま新しい版へ移せます）。</li>
       </ul>
     </section>
@@ -281,7 +281,7 @@
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
           <tr><td>アカウント</td><td><b>Claude（Claude Code）</b></td><td>作業する AI。キットの作業ルール（<code>CLAUDE.md</code>）を自動で読みます。モデルは <b>Opus 5.5</b>（下の「最初の設定」）</td></tr>
-          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラスト・OGP を作る（ファビコンは Claude が描くので不要）。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
+          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラストを作る（OGP とファビコンは Claude が作るので不要）。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
           <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
@@ -300,7 +300,7 @@
           <tr><td>画像生成（ChatGPT）</td><td>Chrome に「Claude in Chrome」の拡張を入れ、ChatGPT にログインしておく</td><td>Claude Code が Chrome で ChatGPT を操作して画像を保存します</td></tr>
         </tbody>
       </table></div>
-      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
+      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
       <h3 id="windows">Windows で使う場合</h3>
       <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
       <div class="tw wide"><table>
@@ -311,7 +311,7 @@
           <tr><td>Chrome</td><td>v3.0 から、入っている場所（Program Files など）を自動で探します</td><td>見つからないと出たら、AI に Chrome の場所を指定してもらう</td></tr>
           <tr><td>公開用の複製</td><td>Windows のパスの区切りで画像が公開から抜ける問題を v3.0 で直しました</td><td>－</td></tr>
           <tr><td>公開の照合</td><td>Mac の <code>shasum</code> が無くても、代わりの道具で照合します（v3.0）</td><td>－</td></tr>
-          <tr><td>配布の ZIP</td><td>Windows の標準機能で開ける形で作っています。Windows の実機で開けるかは、まだ確かめていません</td><td>開けなければ 7-Zip で開き、知らせる</td></tr>
+          <tr><td>配布の ZIP</td><td>Windows の標準機能で開けます（メンバーの Windows で確認済み）</td><td>右クリック →「すべて展開」→ パスワードを入れる</td></tr>
           <tr><td>ページ送り</td><td>Windows のマウスで軽く動かすと2ページ進む不具合を v3.0 で直しました。検査にも Windows の入力の型を入れています</td><td>出来上がりを、自分のマウスでも1回ずつ動かして確かめる</td></tr>
           <tr><td>Safari の検査</td><td>Windows では行えません（「Safari 未検査」と出ます。不合格ではありません）</td><td>iPhone の実機で見て、<code>提出チェック.md</code> に書く</td></tr>
         </tbody>
@@ -322,14 +322,15 @@
     <!-- 4 -->
     <section class="sec" id="setup">
       <h2><span class="n">5</span>初回だけの準備</h2>
-      <div class="warn"><b>前の版（v2.x）をすでに使っている方は、この章は飛ばして <a href="#update">6章「前の版からのアップデート」</a>へ進んでください。</b>ソフトの入れ直しと Cloudflare へのログインは要りません。新しい版で増えた点検だけを、6章の手順で AI が1回行います。</div>
+      <div class="warn"><b>前の版をすでに使っている方は、この章は飛ばして <a href="#update">6章「前の版からのアップデート」</a>へ進んでください。</b>ソフトの入れ直しと Cloudflare へのログインは要りません。新しい版で増えた点検だけを、6章の手順で AI が1回行います。</div>
       <p class="concl"><b>結論：</b>3つの手順です。あなたは ZIP を置いてアプリでフォルダを開くだけ。あとは AI に「初回の準備をして」と頼めば、点検・ソフトの取り付け・Cloudflare へのログインまで AI が進めます。30分〜1時間ほどを見てください（ソフトの入れ方で変わります。目安で、実測ではありません）。</p>
-      <p><b>ターミナルの開き方：</b>Finder →「アプリケーション」→「ユーティリティ」→「ターミナル」。下の黒い枠のコマンドは、右上の「コピー」で写し、ターミナルに貼り付けて Return キーを押します。</p>
+      <p><b>ターミナルの開き方：</b></p><ul><li><b>Mac</b>：Finder →「アプリケーション」→「ユーティリティ」→「ターミナル」</li><li><b>Windows</b>：スタートメニューで「<b>Git Bash</b>」を探して開く（Git for Windows に入っています。キットの道具は Git Bash で動きます。PowerShell やコマンドプロンプトではありません）</li></ul><p>下の黒い枠のコマンドは、右上の「コピー」で写し、ターミナルに貼り付けて Return（Windows は Enter）キーを押します。Git Bash の貼り付けは、右クリック →「Paste」か Shift＋Insert です。</p>
       <ol class="steps">
         <li>
           <h3>ZIP を置く場所を決めて、解凍する</h3>
           <p>例：ホームの「書類（Documents）」の中に「LP制作」フォルダを作り、その中で ZIP を解凍します。<code>spinova-lp-kit_v4.0</code> というフォルダができます（名前は版ごとに変わります）。</p>
-          <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
+          <p><b>Windows の場合</b>：例として <code>C:\LP制作</code> フォルダを作り、その中で ZIP を右クリック →「すべて展開」→ パスワードを入れて解凍します。</p>
+          <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox・<b>OneDrive</b>（Windows の「ドキュメント」が OneDrive に同期されていることがあります）など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
         </li>
         <li>
           <h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
@@ -347,7 +348,7 @@
           <p><b>あなたがするのは、この3つだけです</b>（AI には代われない操作です）：</p>
           <ul>
             <li><b>パソコンのパスワードを聞かれたら入力する</b>（ソフトを入れるとき）</li>
-            <li><b>「インストール」ボタンが出たら押す</b>（Apple の開発ツールが出てきた場合だけ）</li>
+            <li><b>「インストール」ボタンが出たら押す</b>（Mac：Apple の開発ツールが出てきた場合だけ。Windows：「このアプリがデバイスに変更を加えることを許可しますか？」に「はい」、ソフトの入れ方の画面では「次へ」）</li>
             <li><b>ブラウザが開いたら、Cloudflare にログインして「許可（Allow）」を押す</b>（アカウントが無ければ先に作っておく。無料）</li>
           </ul>
           <p>最後に <b>✕ が0件</b>になれば、準備は終わりです。<b>✕ が残っている間は制作を始めません</b>（Chrome で画面が撮れない・動画の文字入れができない、などで検査が正しく動かないため）。1台のパソコンにつき最初の1回だけです。</p>
@@ -358,15 +359,19 @@
             <li><b>Node.js</b>：<a href="https://nodejs.org/" rel="noopener">https://nodejs.org/</a> から「LTS（推奨版）」のインストーラを入れる（<code>npx</code> も入ります）</li>
             <li><b>git と Python 3</b>：Apple の開発用ツールに入っています。ターミナルで次を実行し、出てきた画面で「インストール」を押します。
               <div class="cmd"><pre>xcode-select --install</pre><button class="copy" type="button">コピー</button></div>
+              <p><b>Windows</b>：git は Git for Windows（<a href="https://git-scm.com/download/win" rel="noopener">https://git-scm.com/download/win</a>。Git Bash も入ります）、Python は python.org の Windows 用インストーラ（最初の画面で「Add python.exe to PATH」に印を付ける）で入れます。</p>
               <p class="muted">「すでにインストールされています」と出たら、そのままで大丈夫です。Python は <a href="https://www.python.org/downloads/macos/" rel="noopener">python.org</a> のインストーラでも入れられます。</p>
             </li>
             <li><b>openpyxl と Pillow</b>（Python の追加の部品）：
               <div class="cmd"><pre>python3 -m pip install --user openpyxl Pillow</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">Windows の Git Bash では <code>python -m pip install --user openpyxl Pillow</code>（<code>python3</code> が無いときは <code>python</code>）。</p>
             </li>
             <li><b>ffmpeg</b>：Homebrew（<span class="gloss">Mac にソフトを入れる道具</span>。<a href="https://brew.sh/" rel="noopener">https://brew.sh/</a>）を使います。Homebrew が無ければ、公式ページのコマンドで先に入れます。
               <div class="cmd"><pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre><button class="copy" type="button">コピー</button></div>
               <p class="muted">終わりに表示される「Next steps」の2行（PATH の設定）も、表示どおりに実行してください。そのあとで：</p>
               <div class="cmd"><pre>brew install ffmpeg</pre><button class="copy" type="button">コピー</button></div>
+              <p><b>Windows</b>：PowerShell で次を実行し、Git Bash を開き直します。</p>
+              <div class="cmd"><pre>winget install Gyan.FFmpeg</pre><button class="copy" type="button">コピー</button></div>
             </li>
             <li><b>AI（Claude Code）</b>：入れ方は変わることがあるので、公式の案内も確かめてください。
               <div class="cmd"><pre># Claude Code（Anthropic）
@@ -382,7 +387,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
     <!-- update -->
     <section class="sec" id="update">
       <h2><span class="n">6</span>前の版からのアップデート</h2>
-      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude Code で<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。v3.0 で点検の項目が増えたので、点検だけは手順5で1回行います（✕ が出たら、その分だけ入れ直します）。</p>
+      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude Code で<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。新しい版では点検の項目が増えることがあるので、点検だけは手順5で1回行います（Mac・Windows とも同じ手順です）（✕ が出たら、その分だけ入れ直します）。</p>
       <ol class="steps">
         <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります（v4.0 は準備中です。準備ができたらお知らせします）。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
         <li><h3>古いフォルダとは別の場所に解凍する</h3><p>例：「LP制作」フォルダの中に <code>spinova-lp-kit_v4.0</code> のような名前で置きます。<b>古いキットのフォルダに上書きしない</b>でください（古い道具と新しい道具が混ざり、検査が正しく動かなくなります）。</p></li>
@@ -439,14 +444,14 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       </div></div>
       <div class="step"><div class="sh"><span class="no">6</span><span class="st">AI が残りのページを作る（待つ）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>基本は待つだけ。AI から質問が来たら答える</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（OGP は画像生成で、ファビコンは Claude が描いて作り、差し込む前にあなたに見せる）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（どちらも Claude が作り、差し込む前にあなたに見せる）</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">7</span><span class="st">AI が自動でチェックする（待つ）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>待つだけ</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は初稿の仕上げに1回（約7〜8分）。合格すると、同じ中身はもう検査しない</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">8</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る。PC では<a href="#width">幅チェッカー</a>（8章）で iPhone・iPad の幅も見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る。PC では<a href="#width">クオリティチェッカー</a>（8章）で iPhone・iPad の幅も見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>全ページの一覧画像と、画面を開く URL を渡す</li><li>伝えられた所をまとめて直し、前と後を撮って見せる（直している間は検査を回さない）</li></ul></div>
       </div>
         <div class="full"><div class="cmd say"><pre>直してほしい所です。まとめて直して、前と後を見せてください。
@@ -506,18 +511,18 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       <ol>
         <li>道具（A）がすべて合格する（<code>run_all.sh</code> の「判定：すべて合格」）</li>
         <li>AI が一覧画像を作り、10原則に1つずつ当てて全ページを見る。<b>初稿のときは、別の AI（レビュー役）が悪い所を探し、作った AI が直してから</b>あなたに見せる（v4.0。記録だけ）</li>
-        <li>責任者が一覧画像と画面（携帯・PC）を見て、チャットで「OK、公開に進んで」と伝える → AI が承認欄（承認者・日付）を代わりに書く。PC では<a href="#width">幅チェッカー</a>で iPhone・iPad の幅も見る</li>
+        <li>責任者が一覧画像と画面（携帯・PC）を見て、チャットで「OK、公開に進んで」と伝える → AI が承認欄（承認者・日付）を代わりに書く。PC では<a href="#width">クオリティチェッカー</a>で iPhone・iPad の幅も見る</li>
         <li>公開 → 共有文面で提出</li>
       </ol>
 
-      <h3 id="width">幅チェッカーで、いろいろな幅を見る</h3>
+      <h3 id="width">クオリティチェッカーで、いろいろな幅を見る</h3>
       <p>URL を入れると、そのサイトを iPhone・iPad・PC などの幅で表示する確認の道具です。PC 1台で、スマホやタブレットの見え方を確かめられます。開いた折りたたみスマホや iPad からでも、iPhone と同じ幅で見られます。</p>
       <p><a href="https://hse-inc.github.io/responsive-viewer/">https://hse-inc.github.io/responsive-viewer/</a></p>
-      <figure class="shot"><img src="img/width-checker.jpg" width="1316" height="903" alt="幅チェッカーの画面。上に URL の欄と端末のボタン（iPhone SE・iPhone・iPhone Pro Max・iPad mini・iPad・ノートPC・PC）、幅と高さの欄、操作のボタンが並び、下に iPhone の幅で表示した採用LP。枠の右に幅を変えるつまみ" loading="lazy"><figcaption>iPhone（390）の幅で表示した所。枠の右の縦長のつまみをドラッグすると、幅が自由に変わります。</figcaption></figure>
+      <figure class="shot"><img src="img/width-checker.jpg" width="1316" height="903" alt="クオリティチェッカーの画面。上に URL の欄と端末のボタン（iPhone SE・iPhone・iPhone Pro Max・iPad mini・iPad・ノートPC・PC）、幅と高さの欄、操作のボタンが並び、下に iPhone の幅で表示した採用LP。枠の右に幅を変えるつまみ" loading="lazy"><figcaption>iPhone（390）の幅で表示した所。枠の右の縦長のつまみをドラッグすると、幅が自由に変わります。</figcaption></figure>
       <div class="tw wide"><table>
         <thead><tr><th>したいこと</th><th>操作</th></tr></thead>
         <tbody>
-          <tr><td>サイトを表示する</td><td>上の欄に URL を入れて「表示」。v4.0 からは、AI が公開した URL を渡すときに幅チェッカーのリンクも添えるので、開くだけで案件のサイトが出ます</td></tr>
+          <tr><td>サイトを表示する</td><td>上の欄に URL を入れて「表示」。v4.0 からは、AI が公開した URL を渡すときにクオリティチェッカーのリンクも添えるので、開くだけで案件のサイトが出ます</td></tr>
           <tr><td>端末の幅を切り替える</td><td>「iPhone SE」「iPhone」「iPad」「PC」などのボタンを押す</td></tr>
           <tr><td>好きな幅にする</td><td>枠の右にあるつまみを左右にドラッグする（幅・高さの欄に数字を入れてもよい）</td></tr>
           <tr><td>3つの幅を一度に見る</td><td>「3つ並べる」に印を付ける（iPhone・iPad・PC が横に並ぶ）</td></tr>
@@ -530,7 +535,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <li>使う場面：初稿の出来上がりを見るとき（7章の手順8）・修正版を確かめるとき（9章の手順3）・提出の前（上の流れの3）</li>
         <li>文節の途中の折れ（原則4）や、余白・重なり（原則2・3）を、iPhone の幅で見るのに向いています</li>
       </ul>
-      <div class="warn"><b>幅チェッカーは見た目の確認用です。</b>スワイプの触り心地や動画の再生など、実機でしか分からないもの（原則8の C）は、最後に iPhone の実機でも確かめてください。サイトの側で埋め込みを禁止していると、枠の中が白いままになります（自分たちが公開した LP は表示できます）。</div>
+      <div class="warn"><b>クオリティチェッカーは見た目の確認用です。</b>スワイプの触り心地や動画の再生など、実機でしか分からないもの（原則8の C）は、最後に iPhone の実機でも確かめてください。サイトの側で埋め込みを禁止していると、枠の中が白いままになります（自分たちが公開した LP は表示できます）。</div>
     </section>
 
     <!-- 7 -->
@@ -546,7 +551,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <p>直している間は検査を回さず、直した所の前と後を撮って見せます（数十秒〜数分）。動きを変えたいときは、プリセットの名前で伝えます（10章）。</p>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">3</span><span class="st">直った画面を見て「OK、公開に進んで」</span></div><div class="full" style="padding-top:12px">
-        <p>携帯と PC で直った所を確かめます（PC では<a href="#width">幅チェッカー</a>で iPhone・iPad の幅も）。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
+        <p>携帯と PC で直った所を確かめます（PC では<a href="#width">クオリティチェッカー</a>で iPhone・iPad の幅も）。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">4</span><span class="st">「検査を行いますか？」に答える</span></div><div class="full" style="padding-top:12px">
         <p>修正版の公開では、検査をするかをあなたが選びます（初稿の公開前は必ず検査します）。</p>
@@ -560,7 +565,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
       </div></div>
       <div class="step"><div class="sh"><span class="no">5</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="full" style="padding-top:12px">
-        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、作業記録の ZIP を案件の Slack のスレッドに、長谷川・吉田・寺嶋をメンションして貼ります（修正版は任意。初稿は必須）。修正前と後を並べた比較画像も添えます。</p>
+        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、修正版では作業記録は作りません（作業記録は初稿と検収完了の2回だけ）。修正前と後を並べた比較画像も添えます。</p>
         <p class="muted">クライアントに送る前の社内の直し（責任者の確認で出た直しなど、まだクライアントが URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
       </div></div>
     </section>
@@ -609,18 +614,18 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
     <!-- wp -->
     <section class="sec" id="wp">
       <h2><span class="n">11</span>WordPress への移行（WP化）</h2>
-      <p class="concl"><b>結論：</b>クライアントの確認が済んだ版で、<b>SPINOVA のマニュアル（Notion）の「静的→WP化」のとおりに</b>進めます。キット独自の手順は足しません。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
+      <p class="concl"><b>結論：</b>クライアントの確認が済んだ版で、<b>キットの中の「WP化の指示文」（旧スキームの手順のアップデート版）のとおりに</b>進めます。旧スキームと同じ手順を、キットの中だけで効率よく進められるようにしてあります。<b>旧マニュアル（Notion）は見ないでください</b>（古い内容のままです）。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
       <h3>始めるときの一言</h3>
       <div class="cmd say"><pre>〔案件の名前〕の WP化を始めてください。
-SPINOVA のマニュアルの「静的→WP化」のとおりに進めてください（使う前に Notion の原本の更新を確かめる）。
+キットの templates/WP化の指示文.md のとおりに進めてください。
 最初に CSS の散らかりを0件にしてください。
 ログイン・テーマの ZIP の選択・報告の送信は私がします。</pre><button class="copy" type="button">コピー</button></div>
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">WP化の前に整理する（AI）</span></div><div class="full" style="padding-top:12px">
         <p>AI が CSS の散らかり（効いていない書き直し・使っていない class など）を0件にし、見た目が変わっていないことを撮って見せます（数秒〜数分）。検査なしの修正でたまった分を、WP に移す前に片づけるためです。</p>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">2</span><span class="st">SPINOVA のマニュアルの「静的→WP化」で WP に移す</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li><li>AI が Notion を読めないときは、SPINOVA のマニュアルの該当の所を開いて渡す</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>SPINOVA のマニュアルのプロンプトのとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">キットの「WP化の指示文」で WP に移す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>キットの WP化の指示文のとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">3</span><span class="st">フォームのメールの変数を3回確かめる</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>テスト送信のメールが届いたら、AI が見られない場合は画面を見せる</li></ul></div>
@@ -629,11 +634,12 @@ SPINOVA のマニュアルの「静的→WP化」のとおりに進めてくだ�
         <div class="full"><p class="muted">受信メール・自動返信の変数がフォームとずれる、という元請けからの指摘への対策です。</p></div></div>
       <div class="step"><div class="sh"><span class="no">4</span><span class="st">ディレクターに共有し、OGP を確かめる</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>AI がそろえた送り物（メールアドレスの設定・自動返信の確認用の画面など）と報告文を確かめて、<b>該当案件の Slack チャットに送る</b></li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>SPINOVA のマニュアルが挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>WP化の指示文が挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
       </div></div>
       <div class="warn"><b>気をつけること</b>
         <ul style="margin:6px 0 0">
-          <li>手順の中身は、必ず SPINOVA のマニュアル（Notion）の最新を見てください（このページには写していません）</li>
+          <li>手順の中身は、キットの <code>templates/WP化の指示文.md</code> にあります（旧スキームの WP 化の手順を、v4.0 で更新したもの）。<b>旧マニュアル（Notion）は見ないでください</b></li>
+          <li><b>検収（公開）完了のとき</b>は、AI に「完了の作業記録を出して」と頼み、案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります（必須）</li>
           <li><b>フォームの通知先</b>は、シートの「概要」タブの「問い合わせフォームの通知先アドレス」を入れます（WP の初期値のままにしない）。ディレクターへの送り物に、そのセルだけを切り出したスクショを付けます（認証情報の行は写さない。v4.0）</li>
           <li>WP 用の <code>screenshot.png</code>（テーマ選びの画面の絵）は新しく作らず、OK を出した OGP をそのまま使います。OGP の OK が出ていれば、確認なしで進めます（v4.0）</li>
           <li>実際に確かめていない項目（テスト送信・メールの受信など）は、報告で「未確認」と書きます。確かめていないものを「済み」にしない</li>
@@ -646,7 +652,7 @@ SPINOVA のマニュアルの「静的→WP化」のとおりに進めてくだ�
       <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼って、何が起きたかを一言添えてください。管理する側で同じ案件を動かし、あなたのパソコンの問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
-        <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
+        <div class="card"><h3>いつ出すか（2回）</h3><ul><li><b>初稿（v1）の公開のとき</b>：自動でできます。必須</li><li><b>検収（公開）完了のとき</b>：AI に「完了の作業記録を出して」と頼みます。必須</li><li>困ったときは、手順の外で別に出せます（下の一言を AI に）</li></ul>
           <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div></div>
         <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたのパソコンの環境（OS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
           <p class="muted"><b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
@@ -670,7 +676,8 @@ SPINOVA のマニュアルの「静的→WP化」のとおりに進めてくだ�
       <details class="faq"><summary>「Safari 未検査」と出る</summary><div>
         <ul>
           <li>不合格ではありません。Safari の自動操作が有効になっていないだけです</li>
-          <li>有効にする（1回だけ）：ターミナルで <code>sudo safaridriver --enable</code> → Safari の「開発」メニュー →「リモートオートメーションを許可」</li>
+          <li>有効にする（1回だけ・<b>Mac だけ</b>）：ターミナルで <code>sudo safaridriver --enable</code> → Safari の「開発」メニュー →「リモートオートメーションを許可」</li>
+          <li><b>Windows の場合</b>：Safari が無いので、この検査はできません（毎回「Safari 未検査」と出ます）。代わりに iPhone の実機で見て確かめます</li>
           <li>有効にしないまま出すときは、<code>提出チェック.md</code> に「未確認」と書きます</li>
         </ul></div></details>
       <details class="faq"><summary>参考サイトにアクセスできない・ブロックされた</summary><div>
