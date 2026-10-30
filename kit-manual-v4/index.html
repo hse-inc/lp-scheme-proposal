@@ -258,9 +258,17 @@
     <!-- 2 -->
     <section class="sec" id="download">
       <h2><span class="n">3</span>ダウンロード</h2>
-      <div class="warn"><b>v4.0 の ZIP は準備中です。準備ができたら、Drive のリンクをお知らせします。</b>届いたら、同じフォルダのパスワードの txt の1行目で開きます。リンクとパスワードは、ほかの人に渡さないでください。</div>
+      <div class="dl">
+        <!-- DRIVE_URL: Google Drive「SPINOVA LP制作キット ＞ v4.0 20261030」（2026-10-30） -->
+        <a class="btn-dl" id="dlBtn" href="https://drive.google.com/drive/folders/1yOhmSaGbAL6wfB4MJfO-CqFR5lK7LNWm?usp=sharing" data-drive-url="https://drive.google.com/drive/folders/1yOhmSaGbAL6wfB4MJfO-CqFR5lK7LNWm?usp=sharing" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          キットをダウンロード（Google Drive）
+        </a>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v4.0_pw.zip</b>（パスワード付き・約16MB）<br>版：<b>v4.0</b> ／ 日付：<b>2026-10-30</b><br>中身：土台・検査と公開の道具・ひな形（WP化の指示文・OGP とファビコンの作り方ほか）・動きのプリセット・作業ルール</div>
+        <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
+      </div>
       <ul class="muted">
-        <li><b>開き方</b>：ZIP をダブルクリックし、パスワードを入力 → <code>spinova-lp-kit_v4.0</code> フォルダができます。Mac・Windows とも、標準の機能で開けます（Windows は、右クリック →「すべて展開」→ パスワード。メンバーの Windows で確認済み）。</li>
+        <li><b>開き方</b>：Drive のフォルダから <code>spinova-lp-kit_v4.0_pw.zip</code> と <code>パスワード_v4.0.txt</code> をダウンロード → ZIP をダブルクリックし、txt の1行目のパスワードを入力 → <code>spinova-lp-kit_v4.0</code> フォルダができます。Mac・Windows とも、標準の機能で開けます（Windows は、右クリック →「すべて展開」→ パスワード。メンバーの Windows で確認済み）。</li>
         <li>新しい版が出たら、このページの版と日付が変わります。入れ替えは6章の手順で行います（作りかけの案件も、そのまま新しい版へ移せます）。</li>
       </ul>
     </section>
@@ -389,7 +397,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       <h2><span class="n">6</span>前の版からのアップデート</h2>
       <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude Code で<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。新しい版では点検の項目が増えることがあるので、点検だけは手順5で1回行います（Mac・Windows とも同じ手順です）（✕ が出たら、その分だけ入れ直します）。</p>
       <ol class="steps">
-        <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります（v4.0 は準備中です。準備ができたらお知らせします）。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
+        <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
         <li><h3>古いフォルダとは別の場所に解凍する</h3><p>例：「LP制作」フォルダの中に <code>spinova-lp-kit_v4.0</code> のような名前で置きます。<b>古いキットのフォルダに上書きしない</b>でください（古い道具と新しい道具が混ざり、検査が正しく動かなくなります）。</p></li>
         <li><h3>作りかけの案件を移す</h3><p>古いキットの <code>projects/</code> の中にある案件のフォルダを、新しいキットの <code>projects/</code> の中へ移します（コピーでもかまいません）。終わった案件は移さなくてよいです。</p></li>
         <li><h3>AI のアプリで新しいフォルダを開き直す</h3><p>Claude Code の「Code」で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>。古いチャットの AI は古い決まりのまま動くためです。</p></li>
