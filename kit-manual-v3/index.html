@@ -451,7 +451,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は初稿の仕上げに1回（約7〜8分）。合格すると、同じ中身はもう検査しない</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">8</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る。PC では<a href="#width">幅チェッカー</a>（8章）で iPhone・iPad の幅も見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>全ページの一覧画像と、画面を開く URL を渡す</li><li>伝えられた所をまとめて直し、前と後を撮って見せる（直している間は検査を回さない）</li></ul></div>
       </div>
         <div class="full"><div class="cmd say"><pre>直してほしい所です。まとめて直して、前と後を見せてください。
@@ -511,10 +511,30 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
       <ol>
         <li>道具（A）がすべて合格する（<code>run_all.sh</code> の「判定：すべて合格」）</li>
         <li>AI が一覧画像を作り、10原則に1つずつ当てて全ページを見る</li>
-        <li>責任者が一覧画像と画面（携帯・PC）を見て、チャットで「OK、公開に進んで」と伝える → AI が承認欄（承認者・日付）を代わりに書く</li>
+        <li>責任者が一覧画像と画面（携帯・PC）を見て、チャットで「OK、公開に進んで」と伝える → AI が承認欄（承認者・日付）を代わりに書く。PC では<a href="#width">幅チェッカー</a>で iPhone・iPad の幅も見る</li>
         <li>公開 → 共有文面で提出</li>
       </ol>
-      
+
+      <h3 id="width">幅チェッカーで、いろいろな幅を見る</h3>
+      <p>URL を入れると、そのサイトを iPhone・iPad・PC などの幅で表示する確認の道具です。PC 1台で、スマホやタブレットの見え方を確かめられます。開いた折りたたみスマホや iPad からでも、iPhone と同じ幅で見られます。</p>
+      <p><a href="https://hse-inc.github.io/responsive-viewer/">https://hse-inc.github.io/responsive-viewer/</a></p>
+      <figure class="shot"><img src="img/width-checker.jpg" width="1316" height="903" alt="幅チェッカーの画面。上に URL の欄と端末のボタン（iPhone SE・iPhone・iPhone Pro Max・iPad mini・iPad・ノートPC・PC）、幅と高さの欄、操作のボタンが並び、下に iPhone の幅で表示した採用LP。枠の右に幅を変えるつまみ" loading="lazy"><figcaption>iPhone（390）の幅で表示した所。枠の右の縦長のつまみをドラッグすると、幅が自由に変わります。</figcaption></figure>
+      <div class="tw wide"><table>
+        <thead><tr><th>したいこと</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td>サイトを表示する</td><td>上の欄に URL を入れて「表示」。キットの次の版（v3.0.1）からは、AI が公開した URL を渡すときに幅チェッカーのリンクも添えるので、開くだけで案件のサイトが出ます</td></tr>
+          <tr><td>端末の幅を切り替える</td><td>「iPhone SE」「iPhone」「iPad」「PC」などのボタンを押す</td></tr>
+          <tr><td>好きな幅にする</td><td>枠の右にあるつまみを左右にドラッグする（幅・高さの欄に数字を入れてもよい）</td></tr>
+          <tr><td>3つの幅を一度に見る</td><td>「3つ並べる」に印を付ける（iPhone・iPad・PC が横に並ぶ）</td></tr>
+          <tr><td>サイトを大きく見る</td><td>「操作の帯を隠す」を押す。右下の丸いボタンで戻す</td></tr>
+          <tr><td>見ている表示を人に送る</td><td>「この表示の URL をコピー」。受け取った人は同じ幅で開けます</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>使う場面：初稿の出来上がりを見るとき（7章の手順8）・修正版を確かめるとき（9章の手順3）・提出の前（上の流れの3）</li>
+        <li>文節の途中の折れ（原則4）や、余白・重なり（原則2・3）を、iPhone の幅で見るのに向いています</li>
+      </ul>
+      <div class="warn"><b>幅チェッカーは見た目の確認用です。</b>スワイプの触り心地や動画の再生など、実機でしか分からないもの（原則8の C）は、最後に iPhone の実機でも確かめてください。サイトの側で埋め込みを禁止していると、枠の中が白いままになります（自分たちが公開した LP は表示できます）。</div>
     </section>
 
     <!-- 7 -->
@@ -530,7 +550,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <p>直している間は検査を回さず、直した所の前と後を撮って見せます（数十秒〜数分）。動きを変えたいときは、プリセットの名前で伝えます（10章）。</p>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">3</span><span class="st">直った画面を見て「OK、公開に進んで」</span></div><div class="full" style="padding-top:12px">
-        <p>携帯と PC で直った所を確かめます。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
+        <p>携帯と PC で直った所を確かめます（PC では<a href="#width">幅チェッカー</a>で iPhone・iPad の幅も）。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">4</span><span class="st">「検査を行いますか？」に答える</span></div><div class="full" style="padding-top:12px">
         <p>修正版の公開では、検査をするかをあなたが選びます（初稿の公開前は必ず検査します）。</p>
