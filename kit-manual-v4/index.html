@@ -236,7 +236,7 @@
         <thead><tr><th>いつ</th><th>聞かれること</th><th>あなたがすること</th></tr></thead>
         <tbody>
           <tr><td>作り始める前（1回だけ）</td><td><b>シートの中の食い違い</b>（例：キーカラーはオレンジなのに説明文は「黄色」・3P と募集要項で賞与の有無が違う）</td><td>どちらに合わせるか、選んで答える（分からなければ「クライアントに確認」）。答えを待つ間も、関係ないページは作り進めます</td></tr>
-          <tr><td>OGP・ファビコンができたら</td><td>画像生成で作った OGP・ファビコン</td><td>文字の誤り・人物の手や指を見て OK を出す。OK が出るまで差し込みません</td></tr>
+          <tr><td>OGP・ファビコンができたら</td><td>画像生成で作った OGP と、Claude が描いたファビコン</td><td>文字の誤り・人物の手や指を見て OK を出す。OK が出るまで差し込みません</td></tr>
         </tbody>
       </table></div>
       <h3>変わった所</h3>
@@ -245,7 +245,7 @@
         <li><b>シートの誤字を直せる</b>：「6」だけ全角などの明らかな誤字は、責任者が決めて表（<code>照合の例外.tsv</code>）に書けば直せます。直した所はそのままクライアントへ伝える一覧になります。誤字らしい所は道具が候補として出します</li>
         <li><b>AI のレビュー役</b>：初稿を見せる前に、作った AI とは別の AI が悪い所を探し、作った AI が直してから見せます（記録だけ・止めません）</li>
         <li><b>幅チェッカーに「目で見るチェックリスト」</b>：右下の「？」から、余白・改行・文字・重なりなどを1項目ずつ確かめられます（8章）</li>
-        <li><b>OGP・ファビコンを画像生成で</b>：サイトの雰囲気に合わせて作ります（以前の決まった型より質が上がります）。WP 用の screenshot.png は、その OGP をそのまま使います</li>
+        <li><b>OGP を画像生成で・ファビコンは Claude が描く</b>：OGP はサイトの雰囲気に合わせて ChatGPT で作ります（以前の決まった型より質が上がります）。ファビコンは Claude が案件の色と業種の図案で描きます。WP 用の screenshot.png は、その OGP をそのまま使います</li>
         <li><b>フォームの通知先</b>：WP化のとき、シートの「問い合わせフォームの通知先アドレス」を入れないと止まります。そのセルのスクショも送ります</li>
         <li><b>初稿の作業レポートは必須</b>：初稿（v1）を公開したら、作業レポートの ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。送った記録が無いと、v2 以降の公開が止まります</li>
         <li><b>Windows で動かなかった道具を直した</b>：プリセットの反映（日本語の案件名）・案件の作成・参考サイトの記録の一覧画像・OGP・文字化け・公開の誤判定・確認用 URL（rsync）</li>
@@ -280,7 +280,7 @@
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
           <tr><td>アカウント</td><td><b>Claude（Claude Code）</b></td><td>作業する AI。キットの作業ルール（<code>CLAUDE.md</code>）を自動で読みます。モデルは <b>Opus 5.5</b>（下の「最初の設定」）</td></tr>
-          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラスト・OGP・ファビコンを作る。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
+          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラスト・OGP を作る（ファビコンは Claude が描くので不要）。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
           <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
@@ -299,7 +299,7 @@
           <tr><td>画像生成（ChatGPT）</td><td>Chrome に「Claude in Chrome」の拡張を入れ、ChatGPT にログインしておく</td><td>Claude Code が Chrome で ChatGPT を操作して画像を保存します</td></tr>
         </tbody>
       </table></div>
-      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP・ファビコン）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
+      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
       <h3 id="windows">Windows で使う場合</h3>
       <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
       <div class="tw wide"><table>
@@ -438,7 +438,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       </div></div>
       <div class="step"><div class="sh"><span class="no">6</span><span class="st">AI が残りのページを作る（待つ）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>基本は待つだけ。AI から質問が来たら答える</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（OGP・ファビコンは画像生成で作り、差し込む前にあなたに見せる）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（OGP は画像生成で、ファビコンは Claude が描いて作り、差し込む前にあなたに見せる）</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">7</span><span class="st">AI が自動でチェックする（待つ）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>待つだけ</li></ul></div>
