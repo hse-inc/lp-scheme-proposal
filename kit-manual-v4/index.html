@@ -223,7 +223,7 @@
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
         <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>記録の ZIP を Slack に貼る</li></ul></div>
       </div>
-      <p class="loop">クライアントに出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを Slack の弊社との共有の場所に貼ると、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
+      <p class="loop">クライアントに出すたび（初稿・修正版・完了）に、作業の記録が自動で ZIP にまとまります。それを案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼ると（<b>初稿は必須</b>）、弊社がキットの改善に使います（<a href="#trouble">12章</a>）。</p>
     </section>
 
 
@@ -247,6 +247,7 @@
         <li><b>幅チェッカーに「目で見るチェックリスト」</b>：右下の「？」から、余白・改行・文字・重なりなどを1項目ずつ確かめられます（8章）</li>
         <li><b>OGP・ファビコンを画像生成で</b>：サイトの雰囲気に合わせて作ります（以前の決まった型より質が上がります）。WP 用の screenshot.png は、その OGP をそのまま使います</li>
         <li><b>フォームの通知先</b>：WP化のとき、シートの「問い合わせフォームの通知先アドレス」を入れないと止まります。そのセルのスクショも送ります</li>
+        <li><b>初稿の作業レポートは必須</b>：初稿（v1）を公開したら、作業レポートの ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。送った記録が無いと、v2 以降の公開が止まります</li>
         <li><b>Windows で動かなかった道具を直した</b>：プリセットの反映（日本語の案件名）・案件の作成・参考サイトの記録の一覧画像・OGP・文字化け・公開の誤判定・確認用 URL（rsync）</li>
         <li><b>帯の上でホイールが効かない件を直した</b>：各自で1行足した方も、そのまま v4.0 の土台と同じになります</li>
       </ul>
@@ -267,7 +268,7 @@
     <section class="sec" id="need">
       <h2><span class="n">4</span>必要なもの</h2>
       <p class="concl"><b>結論：</b>Mac 1台と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
-      <div class="warn"><b>AI は Claude Code を使ってください（v4.0 の標準）。</b>画像生成だけは、Claude Code から Codex か ChatGPT を呼び出して使います（下の「最初の設定」）。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
+      <div class="warn"><b>AI は Claude Code を使ってください（v4.0 の標準）。</b>画像生成だけは、Claude Code から ChatGPT を操作して使います（下の「最初の設定」）。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
       <div class="tw wide"><table>
         <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
         <tbody>
@@ -279,7 +280,7 @@
           <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
           <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
           <tr><td>アカウント</td><td><b>Claude（Claude Code）</b></td><td>作業する AI。キットの作業ルール（<code>CLAUDE.md</code>）を自動で読みます。モデルは <b>Opus 5.5</b>（下の「最初の設定」）</td></tr>
-          <tr><td>アカウント</td><td>画像生成：<b>Codex</b> か <b>ChatGPT</b>（どちらか）</td><td>写真・イラスト・OGP・ファビコンを作る。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
+          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラスト・OGP・ファビコンを作る。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
           <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
           <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
@@ -287,7 +288,7 @@
       </table></div>
       <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
       <h3 id="ai">最初の設定（Claude Code・v4.0 の決まり）</h3>
-      <div class="warn"><b>AI は Claude Code（Opus 5.5）で作業し、画像生成だけ Codex か ChatGPT を Claude Code から呼び出します。</b>モデルとエフォートは自動では切り替わらないので、最初に1回、あなたが設定してください。</div>
+      <div class="warn"><b>AI は Claude Code（Opus 5.5）で作業し、画像生成だけ Claude Code から ChatGPT を操作して使います。</b>モデルとエフォートは自動では切り替わらないので、最初に1回、あなたが設定してください。</div>
       <div class="tw wide"><table>
         <thead><tr><th>項目</th><th>設定</th><th>どこで</th></tr></thead>
         <tbody>
@@ -295,11 +296,10 @@
           <tr><td>モデル</td><td><b>Opus 5.5</b></td><td>アプリのモデルの選択</td></tr>
           <tr><td>エフォート（AI の考える量）</td><td><b>中</b></td><td>アプリのエフォートの設定</td></tr>
           <tr><td>高速モード</td><td>必要なときだけ（急ぐ修正など）</td><td>チャットで <code>/fast</code></td></tr>
-          <tr><td>画像生成（Codex を使う場合）</td><td>Codex を入れて、ChatGPT のアカウントでログインしておく</td><td>Claude Code が Codex を呼び出して画像を作ります</td></tr>
-          <tr><td>画像生成（ChatGPT を使う場合）</td><td>Chrome に「Claude in Chrome」の拡張を入れ、ChatGPT にログインしておく</td><td>Claude Code が Chrome で ChatGPT を操作して画像を保存します</td></tr>
+          <tr><td>画像生成（ChatGPT）</td><td>Chrome に「Claude in Chrome」の拡張を入れ、ChatGPT にログインしておく</td><td>Claude Code が Chrome で ChatGPT を操作して画像を保存します</td></tr>
         </tbody>
       </table></div>
-      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP・ファビコン）で AI が自分から呼び出します。上の用意（Codex のログイン、または Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
+      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト・OGP・ファビコン）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
       <h3 id="windows">Windows で使う場合</h3>
       <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。Windows の実機での通しの確認はこれからなので、うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
       <div class="tw wide"><table>
@@ -332,11 +332,8 @@
         </li>
         <li>
           <h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
-          <div class="grid g2">
-            <div class="card"><h3>Claude Code の場合</h3><p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit_v4.0</code> フォルダを選びます。</p><p class="muted">作業ルール <code>CLAUDE.md</code> を自動で読みます。</p></div>
-            <div class="card"><h3>Codex の場合</h3><p>Codex のアプリ（ChatGPT のダウンロードのページから。macOS・Windows）を入れて、ChatGPT のアカウントでサインインし、手順1で解凍した <code>spinova-lp-kit_v4.0</code> フォルダを開きます。手元で動かす設定（「Local」）になっているかを確かめます。</p><p class="muted">作業ルール <code>AGENTS.md</code>（中身は <code>CLAUDE.md</code> と同じ）を読みます。</p></div>
-          </div>
-          <p>どちらもターミナルは使いません。</p>
+          <div class="card"><h3>Claude Code</h3><p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit_v4.0</code> フォルダを選びます。</p><p class="muted">作業ルール <code>CLAUDE.md</code> を自動で読みます。</p></div>
+          <p>ターミナルは使いません。</p>
         </li>
         <li>
           <h3>AI に「初回の準備をして」と頼む（あとは AI がやる）</h3>
@@ -370,12 +367,10 @@
               <p class="muted">終わりに表示される「Next steps」の2行（PATH の設定）も、表示どおりに実行してください。そのあとで：</p>
               <div class="cmd"><pre>brew install ffmpeg</pre><button class="copy" type="button">コピー</button></div>
             </li>
-            <li><b>AI（どちらか1つ）</b>：入れ方は変わることがあるので、各社の公式の案内も確かめてください。
+            <li><b>AI（Claude Code）</b>：入れ方は変わることがあるので、公式の案内も確かめてください。
               <div class="cmd"><pre># Claude Code（Anthropic）
 npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button">コピー</button></div>
-              <div class="cmd"><pre># Codex（OpenAI）
-npm install -g @openai/codex</pre><button class="copy" type="button">コピー</button></div>
-              <p class="muted">初めて起動したときに、それぞれのアカウントでのログインを求められます。ログインはあなたが行います。</p>
+              <p class="muted">初めて起動したときに、アカウントでのログインを求められます。ログインはあなたが行います。</p>
             </li>
           </ul>
           </details>
@@ -466,8 +461,8 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、Cloudflare の版の URL（初稿は <b>v1</b>）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">10</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li>あわせて、AI が作った「作業記録」の ZIP を Slack の弊社との共有の場所に貼る</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業記録を ZIP にまとめる</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li><b>初稿（v1）のときは必ず</b>、AI が作った「作業レポート」の ZIP を、<b>案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして</b>送る（送る文の下書きは AI が出します）。送ったら AI に「作業レポートを送った」と伝える（送った記録が無いと、v2 以降の公開が止まります）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業レポートを ZIP にまとめ、送る文（メンションと v1 の URL）を下書きする。「送った」と言われたら記録する</li></ul></div>
       </div></div>
       <div class="warn" id="version"><b>Cloudflare で出す URL は、版ごとに v1・v2・v3…と上げます。</b>
       <ul style="margin:6px 0 0">
@@ -564,7 +559,7 @@ npm install -g @openai/codex</pre><button class="copy" type="button">コピー</
         <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
       </div></div>
       <div class="step"><div class="sh"><span class="no">5</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="full" style="padding-top:12px">
-        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、作業記録の ZIP を Slack の弊社との共有の場所に貼ります（案件の初稿のときと同じです）。修正前と後を並べた比較画像も添えます。</p>
+        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、作業記録の ZIP を案件の Slack のスレッドに、長谷川・吉田・寺嶋をメンションして貼ります（修正版は任意。初稿は必須）。修正前と後を並べた比較画像も添えます。</p>
         <p class="muted">クライアントに送る前の社内の直し（責任者の確認で出た直しなど、まだクライアントが URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
       </div></div>
     </section>
@@ -647,7 +642,7 @@ SPINOVA のマニュアルの「静的→WP化」のとおりに進めてくだ�
     <!-- 8 -->
     <section class="sec" id="trouble">
       <h2><span class="n">12</span>困ったとき・記録の送り方</h2>
-      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を Slack の弊社との共有の場所に貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼って、何が起きたかを一言添えてください。弊社が同じ案件を弊社の Mac で動かし、あなたの Mac の問題か、キットの問題かを切り分けます。</p>
       <h3>記録の ZIP</h3>
       <div class="grid g2">
         <div class="card"><h3>いつできるか</h3><ul><li><b>自動</b>：公開に成功するたび（初稿＝「初稿（v1）」、修正版＝「修正（vN）」）</li><li><b>手で</b>：完了のとき・困ったとき（下の一言を AI に）</li></ul>
