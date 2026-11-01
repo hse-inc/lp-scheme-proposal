@@ -299,6 +299,14 @@
         <div class="meta">ファイル：<b>spinova-lp-kit_v4.1_pw.zip</b>（パスワード付き・約16MB）<br>版：<b>v4.1</b> ／ 日付：<b>2026-11-02</b><br>中身：土台・検査と公開の道具・ひな形（WP化の指示文・OGP とファビコンの作り方ほか）・動きのプリセット・作業ルール</div>
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
+      <div class="warn" id="quick-update"><b>前の版を使っていた方へ（マニュアルを読み直さなくて大丈夫です）</b>
+        <p style="margin:6px 0">ZIP を新しいフォルダに展開し、Claude Code でそのフォルダを<b>新しいチャットで</b>開いて、下の文を貼ってください。点検・作りかけの案件の引っ越し・変わったことの説明まで AI が進めます（古いチャットの続きに貼ると、古い決まりのまま動くことがあります）。前の版で作った案件も、そのまま続けられます。</p>
+        <div class="cmd say"><pre>キットを新しい版に入れ替えました。作業の前に次をしてください。
+1. tools/setup_check.sh で点検し、✕ が0件になるまで直す（入れ方は説明してから）
+2. 前のキットの projects/ にある作りかけの案件を、このフォルダの projects/ に移すか聞く
+3. tools/version.sh で案件の版を確かめ、古ければ tools/upgrade_project.sh で引き上げる
+4. 「v4.1で変わったこと.md」を読み、私の作業で変わる所だけを3行で教える</pre><button class="copy" type="button">コピー</button></div>
+      </div>
       <ul class="muted">
         <li><b>開き方</b>：Drive のフォルダから <code>spinova-lp-kit_v4.1_pw.zip</code> と <code>パスワード_v4.1.txt</code> をダウンロード → ZIP をダブルクリックし、txt の1行目のパスワードを入力 → <code>spinova-lp-kit_v4.1</code> フォルダができます。Mac・Windows とも、標準の機能で開けます（Windows は、右クリック →「すべて展開」→ パスワード。メンバーの Windows で確認済み）。</li>
         <li>新しい版が出たら、このページの版と日付が変わります。入れ替えは6章の手順で行います（作りかけの案件も、そのまま新しい版へ移せます）。</li>
@@ -434,11 +442,11 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <li><h3>作りかけの案件を移す</h3><p>古いキットの <code>projects/</code> の中にある案件のフォルダを、新しいキットの <code>projects/</code> の中へ移します（コピーでもかまいません）。終わった案件は移さなくてよいです。</p></li>
         <li><h3>AI のアプリで新しいフォルダを開き直す</h3><p>Claude Code の「Code」で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>。古いチャットの AI は古い決まりのまま動くためです。</p></li>
         <li><h3>AI に一言送る（あとは AI がやる）</h3>
-          <div class="cmd say"><pre>新しい版のキットに入れ替えました。
-1. tools/setup_check.sh で点検し、✕ が0件になるまで直す
-2. tools/version.sh で、キットと projects/ の案件の版を確かめる
-3. 古い案件があれば tools/upgrade_project.sh で引き上げる
-4. 最後に「v4.1で変わったこと.md」の要点を教えてください</pre><button class="copy" type="button">コピー</button></div>
+          <div class="cmd say"><pre>キットを新しい版に入れ替えました。作業の前に次をしてください。
+1. tools/setup_check.sh で点検し、✕ が0件になるまで直す（入れ方は説明してから）
+2. 前のキットの projects/ にある作りかけの案件を、このフォルダの projects/ に移すか聞く
+3. tools/version.sh で案件の版を確かめ、古ければ tools/upgrade_project.sh で引き上げる
+4. 「v4.1で変わったこと.md」を読み、私の作業で変わる所だけを3行で教える</pre><button class="copy" type="button">コピー</button></div>
           <p>AI が点検し、作りかけの案件を新しい版に合わせます（足すだけで、案件の中身は消しません。ページ送りの部品 <code>swipe.js</code> は新しいものに置き換え、前のものは控えに残します）。</p></li>
         <li><h3>案件ごとに、新しいチャットで続ける</h3>
           <div class="cmd say"><pre>〔案件の名前〕の続きをしてください。projects/〔案件のフォルダ〕の作業記録.md と要件整理.md を読んでから始めてください。</pre><button class="copy" type="button">コピー</button></div></li>
