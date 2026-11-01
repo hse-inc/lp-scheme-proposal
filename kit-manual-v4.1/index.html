@@ -300,7 +300,12 @@
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
       <div class="warn" id="quick-update"><b>前の版を使っていた方へ（マニュアルを読み直さなくて大丈夫です）</b>
-        <p style="margin:6px 0">ZIP を新しいフォルダに展開し、Claude Code でそのフォルダを<b>新しいチャットで</b>開いて、下の文を貼ってください。点検・作りかけの案件の引っ越し・変わったことの説明まで AI が進めます（古いチャットの続きに貼ると、古い決まりのまま動くことがあります）。前の版で作った案件も、そのまま続けられます。</p>
+        <ol style="margin:6px 0">
+          <li>ZIP をダウンロードして展開する（前の版のフォルダは消さない）</li>
+          <li>Claude Code で<b>新しいチャット</b>を開き、展開したフォルダを選ぶ</li>
+          <li>下の文をコピーして貼る</li>
+        </ol>
+        <p style="margin:6px 0">あとは AI が進めます。作りかけの案件もそのまま引き継げます。</p>
         <div class="cmd say"><pre>キットを新しい版に入れ替えました。作業の前に次をしてください。
 1. tools/setup_check.sh で点検し、✕ が0件になるまで直す（入れ方は説明してから）
 2. 前のキットの projects/ にある作りかけの案件を、このフォルダの projects/ に移すか聞く
