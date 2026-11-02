@@ -336,7 +336,7 @@
           <tr><td>アカウント</td><td><b>Claude（Claude Code）</b></td><td>作業する AI。キットの作業ルール（<code>CLAUDE.md</code>）を自動で読みます。モデルは <b>Opus 5.5</b>（下の「最初の設定」）</td></tr>
           <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラストを作る（OGP とファビコンは Claude が作るので不要）。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
           <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
-          <tr><td>アカウント（任意）</td><td>GitHub</td><td>確認用の仮の URL を出すとき。使わなくても進められます。リポジトリは AI が作れないので、使うときは先にあなたが作ります</td></tr>
+          <tr><td>アカウント（任意）</td><td>GitHub</td><td><b>なくて大丈夫です。</b>自分だけで見る確認用の仮の URL を出したいときだけ使います。<b>提出用の URL にはなりません</b>（提出はいつも Cloudflare）。使うときは、リポジトリを先にあなたが作ります</td></tr>
           <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
         </tbody>
       </table></div>
@@ -523,6 +523,11 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li><b>初稿（v1）のときは必ず</b>、AI が作った「作業レポート」の ZIP を、<b>案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして</b>送る（送る文の下書きは AI が出します）。送ったら AI に「作業レポートを送った」と伝える（送った記録が無いと、v2 以降の公開が止まります）</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業レポートを ZIP にまとめ、送る文（メンションと v1 の URL）を下書きする。「送った」と言われたら記録する</li></ul></div>
       </div></div>
+      <div class="warn" id="submit-url"><b>提出する URL は、いつも Cloudflare の版の URL です。</b>
+      <ul style="margin:6px 0 0">
+        <li>クライアントに渡すのは <code>https://v1.〔公開名〕.pages.dev/</code> のような <b>Cloudflare の URL だけ</b>です</li>
+        <li>GitHub は使わなくてかまいません（自分で見るための確認用・任意）。AI に「先に GitHub に出しますか？」と聞かれたら、「<b>GitHub は使わず、Cloudflare の v1 に出して</b>」と答えてください</li>
+      </ul></div>
       <div class="warn" id="version"><b>Cloudflare で出す URL は、版ごとに v1・v2・v3…と上げます。</b>
       <ul style="margin:6px 0 0">
         <li>初稿の提出は <b>v1</b>（例：<code>https://v1.〔公開名〕.pages.dev/</code>）。クライアントから修正が来て出し直すたびに <b>v2・v3…</b> と1つずつ上げます</li>
