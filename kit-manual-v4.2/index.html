@@ -231,7 +231,7 @@
     <section class="sec" id="v4">
       <h2><span class="n">2</span>v4.2・v4.1・v4.0 で変わったこと</h2>
       <p class="muted">前の版を使っていた方向けの、変更点の一覧です。必読ではありません。気になるときに開いてください。</p>
-      <details class="faq" open><summary>v4.2 で変わったことを開く（2026-11-07）</summary><div>
+      <details class="faq" open><summary>v4.2 で変わったことを開く（2026-11-08）</summary><div>
       <p class="concl"><b>結論：</b>v4.2 は<b>改善リスト（Slack の 📮・11/02 の AI 会議）をまとめて入れた版</b>です。作り方の大筋は v4.1 と同じです。大きいのは <b>WP化のテスト送信は自分専用のアドレスで</b>・<b>PC のスワイプの直し</b>・<b>修正の前後比較画像が必須</b>・<b>新しいヒアリングシートにも対応</b>の4つです。</p>
       <h3>入れ替えたら、まずすること</h3>
       <ul>
@@ -249,7 +249,10 @@
           <tr><td><b>絵と文字の被り</b></td><td>絵の端が文字に<b>少し（文字の 5% 以下）</b>掛かるだけなら、検査は止めずに注意（⚠）を出します。今までのように、絵を縮めるしかない、ということが減ります</td></tr>
           <tr><td><b>迷う所は AI が画像付きで聞く</b></td><td>「改行を優先すると絵に掛かる」のように、改行・余白・絵の位置がぶつかる所や、上の注意が出た所は、AI がその画面の画像を付けて「このままでよいか」を聞きます。選んで答えてください</td></tr>
           <tr><td><b>提出の前の4点</b></td><td>見た目（改行・余白）はクオリティチェッカーの iPhone と PC、動きは自分のブラウザとスマホで確かめてから提出します。AI はチェッカーのリンクを iPhone と PC の2本渡します</td></tr>
-          <tr><td><b>修正の前後比較画像</b></td><td><b>必須</b>になりました。直したページごとに「修正前｜修正後」を並べた1枚を AI が作り、返信文と一緒に渡します。社内の直しでも作ります</td></tr>
+          <tr><td><b>修正の前後比較画像</b></td><td><b>必須</b>になりました。直したページごとに「修正前｜修正後」を並べた1枚を AI が作り、返信文と一緒に渡します。社内の直しでも作ります。v2 以降は、公開の最後に AI が前の版と今の版の URL から自動で作ります</td></tr>
+          <tr><td><b>初稿の待ち時間</b></td><td>全ページの検査の完了を待たずに、一覧と画面を先に見せます。検査は裏で回り、その間も AI は直しを続けられます。✕ が出たら、あなたの指摘とまとめて直します</td></tr>
+          <tr><td><b>確認用の GitHub</b></td><td>出すのは約1分です。使うと答えた案件は、検査より先に出すので、すぐスマホで見られます（文言・改行などの軽い検査だけ。全部の検査は v1 の公開の前に行います）</td></tr>
+          <tr><td><b>修正版の公開</b></td><td>検査するサイズを4つ（スマホ3・PC）に絞りました。「検査を行わない」は CSS の小さな直しでも選べます。見た目が変わったページと、動きの指定の変更は、注意（⚠）で必ず知らせます</td></tr>
         </tbody>
       </table></div>
       <h3>変わった所</h3>
@@ -327,11 +330,11 @@
       <h2><span class="n">3</span>ダウンロード</h2>
       <div class="dl">
         <!-- DRIVE_URL: 配布のときに Google Drive「SPINOVA LP制作キット ＞ v4.2 …」のフォルダの URL を href と data-drive-url に入れる（空のあいだは「準備中」と出る） -->
-        <a class="btn-dl" id="dlBtn" href="#" data-drive-url="" target="_blank" rel="noopener">
+        <a class="btn-dl" id="dlBtn" href="https://drive.google.com/drive/folders/1jfc92gnP_Cum18eNdYKVs96NavIdp6xL?usp=sharing" data-drive-url="https://drive.google.com/drive/folders/1jfc92gnP_Cum18eNdYKVs96NavIdp6xL?usp=sharing" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           キットをダウンロード（Google Drive）
         </a>
-        <div class="meta">ファイル：<b>spinova-lp-kit_v4.2_pw.zip</b>（パスワード付き）<br>版：<b>v4.2</b> ／ 日付：<b>2026-11-07</b><br>中身：土台・検査と公開の道具・ひな形（WP化の指示文・OGP とファビコンの作り方ほか）・動きのプリセット・作業ルール</div>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v4.2_pw.zip</b>（パスワード付き）<br>版：<b>v4.2</b> ／ 日付：<b>2026-11-08</b><br>中身：土台・検査と公開の道具・ひな形（WP化の指示文・OGP とファビコンの作り方ほか）・動きのプリセット・作業ルール</div>
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
       <div class="warn" id="quick-update"><b>前の版を使っていた方へ（マニュアルを読み直さなくて大丈夫です）</b>
@@ -534,9 +537,9 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <div class="col you"><span class="lb">あなた</span><ul><li>基本は待つだけ。AI から質問が来たら答える</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（どちらも Claude が作り、差し込む前にあなたに見せる）</li></ul></div>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">7</span><span class="st">AI が自動でチェックする（待つ）</span></div><div class="cols c2">
+      <div class="step"><div class="sh"><span class="no">7</span><span class="st">AI が裏で自動チェックする（待たなくてよい）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>待つだけ</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は初稿の仕上げに1回（約7〜8分）。合格すると、同じ中身はもう検査しない</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は裏で1回（約9分）。終わるのを待たずに、次の 8 の確認へ進む（v4.2）</li><li>✕ が出たら、あなたの指摘とまとめて直す。直したあとは、直したページと見た目が変わったページだけを測る</li><li>合否で止めるのは公開の前の1回だけ。合格すると、同じ中身はもう検査しない</li></ul></div>
       </div></div>
       <div class="step key"><div class="sh"><span class="no">8</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li><b>4点で見る（v4.2）</b>：見た目（改行・余白）は AI が渡す<a href="#width">クオリティチェッカー</a>の <b>iPhone と PC の2本のリンク</b>で、動き（スワイプ・ボタン・動画）は<b>自分のブラウザと自分のスマホ</b>で（使っているモニターや端末で見え方が違うため、見た目はチェッカーを基準にする）</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
@@ -561,7 +564,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       <div class="warn" id="submit-url"><b>提出する URL は、いつも Cloudflare の版の URL です。</b>
       <ul style="margin:6px 0 0">
         <li>クライアントに渡すのは <code>https://v1.〔公開名〕.pages.dev/</code> のような <b>Cloudflare の URL だけ</b>です</li>
-        <li>GitHub は使わなくてかまいません（自分で見るための確認用・任意）。初稿を確認する前に、AI が「確認用の GitHub を使いますか？」と<b>必ず1回</b>聞きます（v4.2）。準備をしていなければ「<b>使わない（手元のブラウザと一覧画像で見る）</b>」を選んでください。同じ案件では聞き直しません</li>
+        <li>GitHub は使わなくてかまいません（自分で見るための確認用・任意）。初稿を確認する前に、AI が「確認用の GitHub を使いますか？」と<b>必ず1回</b>聞きます（v4.2）。準備をしていなければ「<b>使わない（手元のブラウザと一覧画像で見る）</b>」を選んでください。同じ案件では聞き直しません。使うと答えたら、検査より先に出すので約1分で見られます</li>
       </ul></div>
       <div class="warn" id="version"><b>Cloudflare で出す URL は、版ごとに v1・v2・v3…と上げます。</b>
       <ul style="margin:6px 0 0">
@@ -651,8 +654,8 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
         <div class="tw"><table>
           <thead><tr><th>選ぶ</th><th>使う場面</th><th>時間の目安</th></tr></thead>
           <tbody>
-            <tr><td><b>行う</b></td><td>見た目（色・余白・大きさ・配置）を直したとき。直したページと、見た目が変わったページだけを測る</td><td>数分（全ページに効く直しだと約9分）</td></tr>
-            <tr><td><b>行わない</b></td><td>文言だけ・ページの中の HTML だけを直したとき。共有の CSS などを直していると AI の道具が止めて「行う」を案内する</td><td>約25秒（軽い検査だけ）</td></tr>
+            <tr><td><b>行う</b></td><td>見た目（色・余白・大きさ・配置）を広く直したとき、動きを変えたとき。直したページと、見た目が変わったページだけを4サイズで測る</td><td>2分〜（直すページの数で変わる）</td></tr>
+            <tr><td><b>行わない</b></td><td>文言・改行・絵の位置などの小さな直しのとき。CSS を直しても選べる。見た目が変わったページと動きの指定の変更は注意（⚠）が出るので、そのページを見る。ページ送りに関わる所を直したときだけ、道具が止めて「行う」を案内する</td><td>約1分半（軽い検査だけ）</td></tr>
           </tbody>
         </table></div>
         <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
@@ -826,7 +829,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
       </ol>
     </section>
 
-    <footer>採用LP 制作キット v4.2（2026-11-07）の使い方。前の版の使い方は <a href="../kit-manual-v4.1/">v4.1</a>・<a href="../kit-manual-v4/">v4.0</a>・<a href="../kit-manual-v3/">v3.0</a>。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
+    <footer>採用LP 制作キット v4.2（2026-11-08）の使い方。前の版の使い方は <a href="../kit-manual-v4.1/">v4.1</a>・<a href="../kit-manual-v4/">v4.0</a>・<a href="../kit-manual-v3/">v3.0</a>。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
   </main>
 </div>
 <script>
