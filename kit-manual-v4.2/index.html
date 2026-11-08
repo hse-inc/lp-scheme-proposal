@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>採用LP 制作キット 使い方 v4.2</title>
+<meta name="description" content="spinova-lp-kit v4.2（採用LP 制作キット）を使う制作者のための手引き。ダウンロード・初回の準備・案件ごとの手順・提出前のチェック・困ったときの対処。">
+<style>
+  /* 検証レポート（scheme-report）と同じ配色・書体 */
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-d: #b4470e; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray: #7a7a76; --gray-t: #efefec;
+    --code: #f3f3f0; --red: #b42318; --red-t: #fdecea;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; font-size: 16px; line-height: 1.8; word-break: auto-phrase; line-break: strict; overflow-wrap: anywhere; -webkit-text-size-adjust: 100%; }
+  .nb { white-space: nowrap; }
+  a { color: var(--blue); }
+  b, strong { font-weight: 700; }
+  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .88em; background: var(--code); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; word-break: break-all; }
+
+  /* 配置：PC は左に目次、スマホは上に目次 */
+  .wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  nav.toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; font-size: 14px; }
+  nav.toc .ttl { font-size: 12px; letter-spacing: .14em; color: var(--soft); font-weight: 700; margin: 0 0 8px; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+  nav.toc li { margin: 0; }
+  nav.toc a { display: block; padding: 6px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; line-height: 1.5; }
+  nav.toc ol a::before { counter-increment: t; content: counter(t) ". "; color: var(--blue); font-weight: 700; }
+  nav.toc .first a { color: var(--ink); background: var(--blue-t); }
+  nav.toc a:hover { background: var(--blue-t); }
+  main { min-width: 0; }
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 20px 16px 64px; }
+    nav.toc { position: static; max-height: none; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    nav.toc ol { columns: 2; column-gap: 10px; }
+    nav.toc a { padding: 4px 6px; font-size: 13.5px; break-inside: avoid; }
+  }
+  @media (max-width: 420px) { nav.toc ol { columns: 1; } }
+
+  /* 見出し・本文 */
+  header.hero { margin-bottom: 28px; }
+  .kicker { font-size: 12.5px; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 6px 0 12px; font-size: clamp(26px, 4vw, 38px); line-height: 1.35; text-wrap: balance; }
+  .lead { color: var(--soft); font-size: 1.04em; margin: 0; }
+  section.sec { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 28px 30px; margin: 0 0 24px; }
+  @media (max-width: 600px) { section.sec { padding: 20px 16px; border-radius: 12px; } }
+  h2 { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 14px; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.4; text-wrap: balance; }
+  h2 .n { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .62em; flex: none; margin-top: .25em; }
+  h3 { margin: 22px 0 8px; font-size: 1.08em; line-height: 1.5; }
+  p { margin: 0 0 10px; }
+  ul, ol { margin: 6px 0 10px; padding-left: 1.4em; }
+  li { margin: 4px 0; }
+  .muted { color: var(--soft); font-size: .9em; }
+  .concl { background: var(--blue-t); border-radius: 12px; padding: 14px 18px; margin: 0 0 16px; font-weight: 500; }
+  .concl b { color: var(--blue); }
+  .warn { background: var(--orange-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .warn b { color: var(--orange-d); }
+  .stop { background: var(--red-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .stop b { color: var(--red); }
+  .tag { display: inline-block; padding: 0 10px; border-radius: 999px; font-size: .78em; font-weight: 700; line-height: 1.8; vertical-align: .08em; }
+  .t-blue { background: var(--blue-t); color: var(--blue); } .t-orange { background: var(--orange-t); color: var(--orange-d); }
+  .t-green { background: var(--green-t); color: var(--green); } .t-gray { background: var(--gray-t); color: var(--soft); }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .g2, .g3 { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .card h3 { margin-top: 0; }
+  .big { font-size: 1.7em; font-weight: 800; line-height: 1.2; color: var(--green); font-variant-numeric: tabular-nums; }
+
+  /* 用語の言い換え */
+  .term { border-bottom: 1px dotted var(--soft); }
+  .gloss { color: var(--soft); font-size: .86em; }
+
+  /* 表（スマホでは中だけ横に動く） */
+  .tw { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); margin: 8px 0 12px; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: .92em; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gray-t); font-size: .92em; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .tw.wide table { min-width: 640px; }
+
+  /* 全体の流れ */
+  .flow { display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 10px 0 6px; }
+  @media (max-width: 760px) { .flow { grid-template-columns: minmax(0, 1fr); } }
+  .phase { border-radius: 12px; padding: 12px 14px; position: relative; min-width: 0; }
+  .phase .ph { font-size: .78em; font-weight: 800; letter-spacing: .08em; }
+  .phase .pt { font-weight: 800; font-size: 1.05em; margin: 2px 0 6px; }
+  .phase ul { margin: 0; padding-left: 1.1em; font-size: .9em; }
+  .phase.p1 { background: var(--gray-t); } .phase.p1 .ph { color: var(--soft); }
+  .phase.p2 { background: var(--blue-t); } .phase.p2 .ph { color: var(--blue); }
+  .phase.p3 { background: var(--orange-t); } .phase.p3 .ph { color: var(--orange-d); }
+  .phase.p4 { background: var(--green-t); } .phase.p4 .ph { color: var(--green); }
+  .loop { margin-top: 8px; font-size: .9em; color: var(--soft); }
+
+  /* ダウンロード */
+  .dl { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding: 22px; border-radius: 14px; background: var(--ink); color: #fff; }
+  .dl .meta { font-size: .92em; line-height: 1.7; }
+  .dl .meta b { color: #ffb48a; }
+  .btn-dl { display: inline-flex; align-items: center; gap: 12px; padding: 16px 26px; border-radius: 999px; background: var(--orange); color: #1f1f1f; font-weight: 800; font-size: 1.1em; text-decoration: none; border: 0; cursor: pointer; box-shadow: 0 6px 18px rgba(242,105,35,.35); }
+  .btn-dl:hover { background: #ff7a35; }
+  .btn-dl:focus-visible, .copy:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .btn-dl svg { width: 22px; height: 22px; flex: none; }
+  .dl-msg { width: 100%; margin: 0; font-size: .92em; color: #ffd9c4; min-height: 1.6em; }
+
+  /* コマンド（コピーボタンつき） */
+  .cmd { position: relative; margin: 8px 0 12px; min-width: 0; max-width: 100%; }
+  .cmd pre { margin: 0; background: #23231f; color: #f3f3ee; border-radius: 10px; padding: 14px 92px 14px 16px; overflow-x: auto; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13.5px; line-height: 1.7; white-space: pre; }
+  .cmd.say pre { background: var(--blue-t); color: var(--ink); white-space: pre-wrap; word-break: normal; font-family: inherit; font-size: .95em; }
+  .copy { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); color: #fff; border-radius: 8px; padding: 4px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .cmd.say .copy { border-color: var(--blue); background: var(--paper); color: var(--blue); }
+  .copy.done { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* 手順の番号 */
+  ol.steps { list-style: none; padding: 0; margin: 10px 0 0; counter-reset: s; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  ol.steps > li { position: relative; margin: 0; padding: 0 0 0 46px; min-width: 0; }
+  @media (max-width: 600px) { ol.steps > li { padding-left: 40px; } }
+  ol.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font-weight: 800; font-size: 15px; }
+  ol.steps > li > h3 { margin: 4px 0 6px; }
+
+  /* 案件ごとの手順：3つの枠 */
+  .step { border: 1px solid var(--line); border-radius: 14px; margin: 0 0 16px; overflow: hidden; }
+  .step > .sh { display: flex; align-items: baseline; gap: 12px; padding: 12px 16px; background: var(--gray-t); }
+  .step > .sh .no { flex: none; font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums; min-width: 2.6em; }
+  .step > .sh .st { font-weight: 800; font-size: 1.05em; line-height: 1.5; }
+  .step.key > .sh { background: var(--orange-t); } .step.key > .sh .no { color: var(--orange-d); }
+  .step .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step .cols.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step .col { padding: 12px 16px; min-width: 0; font-size: .94em; }
+  .step .col + .col { border-left: 1px solid var(--line); }
+  .step .col .lb { display: block; font-size: .8em; font-weight: 800; letter-spacing: .06em; margin-bottom: 4px; }
+  .step .you .lb { color: var(--orange-d); } .step .ai .lb { color: var(--blue); } .step .chk .lb { color: var(--green); }
+  .step .col ul { margin: 0; padding-left: 1.1em; }
+  .step .full { padding: 0 16px 14px; }
+  @media (max-width: 760px) {
+    .step .cols, .step .cols.c2 { grid-template-columns: minmax(0, 1fr); }
+    .step .col + .col { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* 10原則 */
+  .p10 td:first-child { font-weight: 800; color: var(--blue); white-space: nowrap; }
+  .abc { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 8px 0 14px; }
+  @media (max-width: 760px) { .abc { grid-template-columns: minmax(0, 1fr); } }
+  .abc .card b.k { display: inline-grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; color: #fff; margin-right: 8px; }
+  .abc .a b.k { background: var(--green); } .abc .b b.k { background: var(--blue); } .abc .c b.k { background: var(--orange); }
+
+  /* よくある問題 */
+  details.faq { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 10px; background: var(--paper); }
+  details.faq > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; list-style: none; position: relative; padding-right: 40px; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq > summary::after { content: "＋"; position: absolute; right: 16px; top: 12px; color: var(--blue); font-weight: 800; }
+  details.faq[open] > summary::after { content: "－"; }
+  details.faq > div { padding: 0 16px 14px; }
+
+  footer { color: var(--soft); font-size: .86em; margin-top: 28px; }
+
+  /* キャプチャ */
+  figure.shot { margin: 12px 0 18px; }
+  figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+  figure.shot.narrow img { max-width: 360px; }
+  figure.shot figcaption { color: var(--soft); font-size: .88em; margin-top: 6px; }
+  .shot-row { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .shot-row { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="toc" aria-label="目次">
+    <p class="ttl">目次</p>
+    <p class="first" style="margin:0 0 6px"><a href="#promise"><b>使う前に（必ず守ること）</b></a></p>
+    <ol>
+      <li><a href="#about">このページについて</a></li>
+      <li><a href="#v4">v4.2・v4.1・v4.0 で変わったこと</a></li>
+      <li><a href="#download">ダウンロード</a></li>
+      <li><a href="#need">必要なもの</a></li>
+      <li><a href="#setup">初回だけの準備</a></li>
+      <li><a href="#update">前の版からのアップデート</a></li>
+      <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
+      <li><a href="#check">提出前のチェック（10原則）</a></li>
+      <li><a href="#revise">クライアントから修正が来たら</a></li>
+      <li><a href="#preset">動きのプリセットの使い方</a></li>
+      <li><a href="#wp">WordPress への移行</a></li>
+      <li><a href="#trouble">困ったとき・記録の送り方</a></li>
+      <li><a href="#rules">守ること</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">採用LP 制作キット（spinova-lp-kit）v4.2</div>
+      <h1>採用LP 制作キットの使い方 <span class="nb">（v4.2）</span></h1>
+      <p class="lead">このキットを初めて使う制作者の方のための手引きです。AI やターミナル（<span class="gloss">文字でパソコンに指示を出す画面</span>）に慣れていなくても進められるよう、<span class="nb">「あなたがすること」</span>と<span class="nb">「AI がすること」</span>を分けて書いています。</p>
+    </header>
+
+    <section class="sec" id="promise">
+      <div class="warn"><b>このキットを使う前に（必ず守ってください）</b>
+        <ol style="margin:8px 0 0">
+          <li>このキットとマニュアルは、SPINOVA の制作のためだけに使ってください。ほかの仕事や個人の制作には使わず、人にも渡さないでください。</li>
+          <li>キットの中身（手順書・道具・土台）は、自分で書き換えないでください。AI に頼んでも書き換えず、改善のお願いの文を下書きします。</li>
+          <li>直したいところや困ったことがあれば、Slack の「#スキーム管理ch_spinova」で、<b>スレッドに長谷川・吉田・寺嶋をメンションして</b>送ってください。直しは管理する側でまとめて行い、新しい版として配ります。</li>
+          <li>キットで作ったサイトには、このキットで作られたことが分かる目印が入ります。万が一、このキットを SPINOVA 以外の案件や事業で使った場合も、それが分かる仕組みになっています。</li>
+        </ol></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="sec" id="about">
+      <h2><span class="n">1</span>このページについて</h2>
+      <p class="concl"><b>結論：</b>キットをパソコン（Mac・Windows）に置き、Claude Code（Opus 5.5）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
+      <div class="grid g3">
+        <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
+        <div class="card"><h3>初稿までの目安</h3><div class="big">約1.5時間</div><p class="muted">v3.0 での弊社の試し制作（2026-10-27）は96分。うち1枚目の確認（直し2回）21分・初稿の検査28分。初めての方は、これより長くかかる見込みです。全ページの検査は1回あたり約7〜8分です。</p></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v4.2</div><p class="muted">2026年11月7日。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
+      </div>
+      <h3>全体の流れ</h3>
+      <div class="flow" role="list">
+        <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
+        <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>動きを選ぶ</li><li>1枚目を見て OK</li><li>残りのページ・検査</li></ul></div>
+        <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>検収（公開）完了で作業記録を送る</li></ul></div>
+      </div>
+      <p class="loop"><b>作業記録（作業レポート）を出すのは2回だけです：初稿（v1）を公開したときと、検収（公開）完了のとき。</b>どちらも必須で、案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。キットの改善に使います（<a href="#trouble">12章</a>）。</p>
+    </section>
+
+
+    <!-- v4 -->
+    <section class="sec" id="v4">
+      <h2><span class="n">2</span>v4.2・v4.1・v4.0 で変わったこと</h2>
+      <p class="muted">前の版を使っていた方向けの、変更点の一覧です。必読ではありません。気になるときに開いてください。</p>
+      <details class="faq" open><summary>v4.2 で変わったことを開く（2026-11-07）</summary><div>
+      <p class="concl"><b>結論：</b>v4.2 は<b>改善リスト（Slack の 📮・11/02 の AI 会議）をまとめて入れた版</b>です。作り方の大筋は v4.1 と同じです。大きいのは <b>WP化のテスト送信は自分専用のアドレスで</b>・<b>PC のスワイプの直し</b>・<b>修正の前後比較画像が必須</b>の3つです。</p>
+      <h3>入れ替えたら、まずすること</h3>
+      <ul>
+        <li>作りかけの案件は、6章の一言で AI が引き上げます。<b>ページ送りの部品（swipe.js）が新しくなった</b>ので、引き上げた案件の次の公開は「検査を行う」を選びます</li>
+      </ul>
+      <h3>いちばん大事な変更</h3>
+      <div class="tw wide"><table>
+        <thead><tr><th>何が</th><th>v4.2</th></tr></thead>
+        <tbody>
+          <tr><td><b>WP化のテスト送信</b></td><td><b>自分専用のアドレスで行います。クライアント（エンド）に届くテスト送信は禁止です。</b>AI がテストの前に送信先をあなたのアドレスに変え、終わったらシートの通知先に戻して読み直します（11章）</td></tr>
+          <tr><td><b>WP化の送信元</b></td><td>CF7 の初期値（<code>wordpress@…</code>）のままにしません（メールが届かない事故がありました）。空・初期値なら検査が止めます</td></tr>
+          <tr><td><b>PC のスワイプ</b></td><td>マウスを続けて回すと止まる・慣性が残っている間の次のスワイプが効かない・長いページの中を送った勢いで次のページへ抜ける、を直しました。送りも短くなりました（約0.5秒 → 約0.3秒）。<b>気になる動きがあれば、案件ごとに v4.1 の動きへ戻せます</b>（12章）</td></tr>
+          <tr><td><b>修正の前後比較画像</b></td><td><b>必須</b>になりました。直したページごとに「修正前｜修正後」を並べた1枚を AI が作り、返信文と一緒に渡します。社内の直しでも作ります</td></tr>
+        </tbody>
+      </table></div>
+      <h3>変わった所</h3>
+      <ul>
+        <li><b>初稿の案は1案が標準</b>：3案は、方向に迷いがあるなど理由があるときだけ（検査と確認の時間が3倍になるため）。3案のときは、選ぶ前は1枚目だけを検査します</li>
+        <li><b>重なりは1枚目を見せる前に直す</b>：文字と絵の重なりが公開の直前の検査で見つかり、OK をもらった見た目が変わる、ということが毎回起きていました。AI が1枚目を見せる前に重なりを検査し、見た目をなるべく変えない順（文をずらす → 絵をずらす → 地を敷く → 最後に絵を小さく）で直します</li>
+        <li><b>確認用の GitHub は任意</b>：提出は Cloudflare の v1 です。確認用・版の URL に Basic 認証は掛けず、閉じる操作もいりません（検索には出ません）</li>
+        <li><b>WP化のフォームのコードを読みやすく</b>：クライアントが見て分かるよう、字下げを整え、項目ごとに「01. お名前（必須）」のような見出しのコメントを入れます</li>
+        <li><b>本番の WP に noindex を残さない</b>：本番では「検索エンジンに表示させない」を外したことを確かめて画面を撮ります</li>
+        <li><b>エフォートは「中」が標準</b>（4章の設定のとおり）</li>
+        <li><b>進捗はプログレスバーで</b>：工程が2つ以上ある作業では、AI の返信の冒頭に <code>[■■■□□] 3/5 工程</code> が出ます</li>
+        <li>責任者の環境の AI だけが覚えていた決まり（とりあえず強調しない・絵の見切れ・写真の上の大見出し・クライアントの文言は Slack の原文から写す・PC は表示部分の高さでも撮る）を、全員の手順書に移しました</li>
+        <li><b>検査・公開の回数と待ち時間を記録</b>：道具が自動で記録し、作業レポートに合計が出ます。あなたがすることはありません</li>
+      </ul>
+      <p class="muted">新しいスワイプは機械の入力で確かめています。Windows・Mac のトラックパッドやマウスで気になる動きがあれば、#スキーム管理ch_spinova へ知らせてください。</p>
+      </div></details>
+      <details class="faq"><summary>v4.1 で変わったことを開く（2026-11-02）</summary><div>
+      <p class="concl"><b>結論：</b>v4.1 は<b>不具合の直しの版</b>です。作り方は v4.0 と同じです。Slack の 📮 で届いた報告（10/28〜11/01）のうち、作業や公開が止まるものと Windows まわりをまとめて直しました。</p>
+      <h3>入れ替えたら、まずすること</h3>
+      <ul>
+        <li><b>Node.js は 22 以上が必要になりました</b>（22 より古いと、参考サイトの記録が「Chrome に接続できません」で止まるため）。入れ替えたら AI に「新しい版に入れ替えました」の一言（6章）を送ると、点検で古い Node を ✕ で知らせます</li>
+        <li>Apple シリコンの Mac で、Intel 用の Node・Python が入っていると ⚠ が出ます。出た1行のとおり入れ替えてください（ページ送りの検査が遅くなり、✕ になる元でした）</li>
+      </ul>
+      <h3>直ったこと（あなたがすることはありません）</h3>
+      <div class="tw wide"><table>
+        <thead><tr><th>起きていたこと</th><th>v4.1</th></tr></thead>
+        <tbody>
+          <tr><td>日本語設定の Mac で、作業中の検査などが「unbound variable」で止まる</td><td>止まりません（<code>LC_ALL=C</code> を付けなくてよい）</td></tr>
+          <tr><td>配布 ZIP の日本語のファイル名が Windows で化ける</td><td>化けません</td></tr>
+          <tr><td>遅いパソコンで、ページ送りの検査が毎回 ✕ になり公開できない・長く止まって見える</td><td>入力が止まった回は ⚠「この PC では測れなかった」で通ります。途中経過が出て、10分で止まります</td></tr>
+          <tr><td>版の URL（v1・v2）を共有すると、OGP 画像が出ない</td><td>公開するときに道具が版の URL に書き換え、画像が本当に出るかを確かめます</td></tr>
+          <tr><td>参考サイトの記録の一覧画像（sheet_*.jpg）が Windows で作られない</td><td>作れないときは別のやり方で作ります</td></tr>
+          <tr><td>動きのプリセットの反映（apply_preset）が止まる</td><td><code>projects/</code> 付きの名前でも通ります</td></tr>
+          <tr><td>Windows で作業記録の ZIP を作るときに文字コードのエラー・環境の記録が「読めませんでした」</td><td>直しました（Windows の OS・機種・Chrome の版を記録します）</td></tr>
+        </tbody>
+      </table></div>
+      <h3>増えた検査（止まることがあります）</h3>
+      <ul>
+        <li><b>スワイプの動きをいじっていないかの検査</b>：縦スワイプの動きはキットの共通の部品が受け持っています。案件の中でこの部品を書き換えたり、ホイールや指の操作を独自に受け取る処理を足したりすると、検査が止めます（検査は合格なのに実際に触るとスワイプが不安定、という事故があったため）。横に流れるカードなど、どうしても必要な動きは、責任者に確かめてから AI に理由を書いてもらえば通ります</li>
+      </ul>
+      <h3>書き方の決まり</h3>
+      <ul><li><b>福利厚生などの（ ）内の補足は、本文の 85% ほどの大きさ</b>にします（標準の決まり）</li></ul>
+      <p class="muted">Windows での直りは、配ったあとの案件で確かめます。作業記録の「環境の記録」に OS・機種・Chrome の版が出ていない、参考サイトの記録の一覧画像ができていない、といったときは #スキーム管理ch_spinova へ知らせてください。</p>
+      </div></details>
+      <details class="faq"><summary>v4.0 で変わったことを開く（2026-10-30）</summary><div>
+      <p class="concl"><b>結論：</b>v4.0 は<b>「シートの読み落とし・食い違いを止める」「最後の確認（人と AI の目）をそろえる」「Windows でも動く」</b>の3つの版です。初稿までの作り方は v3.0 と同じです。</p>
+      <h3>確認が増える所</h3>
+      <div class="tw wide"><table>
+        <thead><tr><th>いつ</th><th>聞かれること</th><th>あなたがすること</th></tr></thead>
+        <tbody>
+          <tr><td>作り始める前（1回だけ）</td><td><b>シートの中の食い違い</b>（例：キーカラーはオレンジなのに説明文は「黄色」・3P と募集要項で賞与の有無が違う）</td><td>どちらに合わせるか、選んで答える（分からなければ「クライアントに確認」）。答えを待つ間も、関係ないページは作り進めます</td></tr>
+          <tr><td>OGP・ファビコンができたら</td><td>Claude が作った OGP とファビコン</td><td>文字の誤り・人物の手や指を見て OK を出す。OK が出るまで差し込みません</td></tr>
+        </tbody>
+      </table></div>
+      <h3>変わった所</h3>
+      <ul>
+        <li><b>シートの全行を数える</b>：シートの行がサイトの照合から漏れていたら、検査が止めます（シートの「例 )」の記入例の行と、動画の寸法の行は自動で外れます）</li>
+        <li><b>シートの誤字を直せる</b>：「6」だけ全角などの明らかな誤字は、責任者が決めて表（<code>照合の例外.tsv</code>）に書けば直せます。直した所はそのままクライアントへ伝える一覧になります。誤字らしい所は道具が候補として出します</li>
+        <li><b>AI のレビュー役</b>：初稿を見せる前に、作った AI とは別の AI が悪い所を探し、作った AI が直してから見せます（記録だけ・止めません）</li>
+        <li><b>クオリティチェッカーに「目で見るチェックリスト」</b>：右下の「？」から、余白・改行・文字・重なりなどを1項目ずつ確かめられます（8章）</li>
+        <li><b>OGP とファビコンは Claude が作る</b>：旧スキームの「このサイトに合わせて作り、差し込まないで確認を投げる」のやり方を組み込みました。サイトの色・書体・写真で組むので、以前の決まった型より質が上がります。WP 用の screenshot.png は、その OGP をそのまま使います</li>
+        <li><b>フォームの通知先</b>：WP化のとき、シートの「問い合わせフォームの通知先アドレス」を入れないと止まります。そのセルのスクショも送ります</li>
+        <li><b>FV は動画の次のページ</b>：動画のページを FV と取り違えて、2ページ目が簡素になることがありました。動画の次のページ（2ページ目）を FV として、参考サイトの最初の画面の型でいちばん作り込むようにしました</li>
+        <li><b>「※」だけが行の終わりに残る改行を止める</b>：注意書きの「※」を後ろの文とつなげ、「※」や括弧が行の終わりに残ったら検査が止めます（特に募集要項で多かった折れ方です）</li>
+        <li><b>初稿の作業レポートは必須</b>：初稿（v1）を公開したら、作業レポートの ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。送った記録が無いと、v2 以降の公開が止まります</li>
+        <li><b>Windows で動かなかった道具を直した</b>：プリセットの反映（日本語の案件名）・案件の作成・参考サイトの記録の一覧画像・OGP・文字化け・公開の誤判定・確認用 URL（rsync）</li>
+        <li><b>帯の上でホイールが効かない件を直した</b>：各自で1行足した方も、そのまま v4.0 の土台と同じになります</li>
+      </ul>
+      <div class="warn"><b>前の版を使っていた方へ：</b>新しいフォルダに展開し、作りかけの案件は <code>projects/</code> ごと移します（6章）。<b>AI とは新しいチャットで始めてください</b>（古いチャットの AI は古い決まりのまま動きます）。前の版で作り始めた案件は、新しい検査のうち「シートの食い違い」「ファビコン」は止めずに注意だけ出します。「シートの全行」は、記入例などの行は自動で外れるので、多くはそのまま通ります。</div>
+      </div></details>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="download">
+      <h2><span class="n">3</span>ダウンロード</h2>
+      <div class="dl">
+        <!-- DRIVE_URL: 配布のときに Google Drive「SPINOVA LP制作キット ＞ v4.2 …」のフォルダの URL を href と data-drive-url に入れる（空のあいだは「準備中」と出る） -->
+        <a class="btn-dl" id="dlBtn" href="#" data-drive-url="" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          キットをダウンロード（Google Drive）
+        </a>
+        <div class="meta">ファイル：<b>spinova-lp-kit_v4.2_pw.zip</b>（パスワード付き）<br>版：<b>v4.2</b> ／ 日付：<b>2026-11-07</b><br>中身：土台・検査と公開の道具・ひな形（WP化の指示文・OGP とファビコンの作り方ほか）・動きのプリセット・作業ルール</div>
+        <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
+      </div>
+      <div class="warn" id="quick-update"><b>前の版を使っていた方へ（マニュアルを読み直さなくて大丈夫です）</b>
+        <ol style="margin:6px 0">
+          <li>ZIP をダウンロードして展開する（前の版のフォルダは消さない）</li>
+          <li>Claude Code で<b>新しいチャット</b>を開き、展開したフォルダを選ぶ</li>
+          <li>下の文をコピーして貼る</li>
+        </ol>
+        <p style="margin:6px 0">あとは AI が進めます。作りかけの案件もそのまま引き継げます。</p>
+        <div class="cmd say"><pre>キットを新しい版に入れ替えました。作業の前に次をしてください。
+1. tools/setup_check.sh で点検し、✕ が0件になるまで直す（入れ方は説明してから）
+2. 前のキットの projects/ にある作りかけの案件を、このフォルダの projects/ に移すか聞く
+3. tools/version.sh で案件の版を確かめ、古ければ tools/upgrade_project.sh で引き上げる
+4. 「v4.2で変わったこと.md」を読み、私の作業で変わる所だけを3行で教える</pre><button class="copy" type="button">コピー</button></div>
+      </div>
+      <ul class="muted">
+        <li><b>開き方</b>：Drive のフォルダから <code>spinova-lp-kit_v4.2_pw.zip</code> と <code>パスワード_v4.2.txt</code> をダウンロード → ZIP をダブルクリックし、txt の1行目のパスワードを入力 → <code>spinova-lp-kit_v4.2</code> フォルダができます。Mac・Windows とも、標準の機能で開けます（Windows は、右クリック →「すべて展開」→ パスワード。メンバーの Windows で確認済み）。</li>
+        <li>新しい版が出たら、このページの版と日付が変わります。入れ替えは6章の手順で行います（作りかけの案件も、そのまま新しい版へ移せます）。</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="need">
+      <h2><span class="n">4</span>必要なもの</h2>
+      <p class="concl"><b>結論：</b>パソコン1台（Mac か Windows）と、無料で入るソフト6つ、アカウント3つ（AI・画像生成・Cloudflare）です。</p>
+      <div class="warn"><b>AI は Claude Code を使ってください（v4.0 の標準）。</b>画像生成だけは、Claude Code から ChatGPT を操作して使います（下の「最初の設定」）。ふつうの AI チャット（claude.ai や ChatGPT の会話の画面）では、キットのファイルを読んだり、検査や公開を動かしたりできないため、このスキームは使えません。</div>
+      <div class="tw wide"><table>
+        <thead><tr><th>種類</th><th>必要なもの</th><th>何に使うか</th></tr></thead>
+        <tbody>
+          <tr><td>パソコン</td><td>Mac（macOS）か Windows</td><td>どちらでも使えます。Windows は入れ方などが少し違います（下の「Windows で使う場合」）</td></tr>
+          <tr><td>ソフト</td><td>Google Chrome</td><td>検査（画面を開いて測る）と画面の撮影</td></tr>
+          <tr><td>ソフト</td><td>Node.js（22 以上）</td><td>検査の道具を動かす（<span class="gloss">道具を動かすための土台のソフト</span>）。<code>npx</code> も一緒に入る</td></tr>
+          <tr><td>ソフト</td><td>Python 3 と openpyxl・Pillow</td><td>ヒアリングシート（Excel）を読む・文言の照合・OGP 画像（<span class="gloss">URL を共有したときに出る画像</span>）を作る</td></tr>
+          <tr><td>ソフト</td><td>ffmpeg</td><td>動画の書き出し・仮の動画を作る</td></tr>
+          <tr><td>ソフト</td><td>git</td><td>キットの版の確認</td></tr>
+          <tr><td>ソフト（任意）</td><td>Safari の自動操作の許可</td><td>iPhone と同じ仕組み（WebKit）で重なり・はみ出しを測る。無くても進められます（「Safari 未検査」と表示）</td></tr>
+          <tr><td>アカウント</td><td><b>Claude（Claude Code）</b></td><td>作業する AI。キットの作業ルール（<code>CLAUDE.md</code>）を自動で読みます。モデルは <b>Opus 5.5</b>（下の「最初の設定」）</td></tr>
+          <tr><td>アカウント</td><td>画像生成：<b>ChatGPT</b></td><td>写真・イラストを作る（OGP とファビコンは Claude が作るので不要）。<b>Claude Code が呼び出して使います</b>（あなたが別の画面で作らなくてよい）</td></tr>
+          <tr><td>アカウント</td><td>Cloudflare（クラウドフレア）</td><td>完成した LP を公開する場所。あなた（または御社）のアカウントで公開します</td></tr>
+          <tr><td>アカウント（任意）</td><td>GitHub</td><td><b>なくて大丈夫です。</b>自分だけで見る確認用の仮の URL を出したいときだけ使います。<b>提出用の URL にはなりません</b>（提出はいつも Cloudflare）。使うときは、リポジトリを先にあなたが作ります</td></tr>
+          <tr><td>連携（任意）</td><td>Slack（AI のアプリにつなぐ。つなげるかは AI と環境しだい）</td><td>修正の指示を AI が読む・返信の下書きを作る。つながっていなければ、AI は文面をチャットに出します</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">ヒアリングシート・参考サイトの URL・ロゴや写真などの素材は、これまでどおり案件ごとに Slack で届きます。</p>
+      <h3 id="ai">最初の設定（Claude Code・v4.0 の決まり）</h3>
+      <div class="warn"><b>AI は Claude Code（Opus 5.5）で作業し、画像生成だけ Claude Code から ChatGPT を操作して使います。</b>モデルとエフォートは自動では切り替わらないので、最初に1回、あなたが設定してください。</div>
+      <div class="tw wide"><table>
+        <thead><tr><th>項目</th><th>設定</th><th>どこで</th></tr></thead>
+        <tbody>
+          <tr><td>アプリ</td><td>Claude のデスクトップアプリの「Code」</td><td><a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a></td></tr>
+          <tr><td>モデル</td><td><b>Opus 5.5</b></td><td>アプリのモデルの選択</td></tr>
+          <tr><td>エフォート（AI の考える量）</td><td><b>中</b></td><td>アプリのエフォートの設定</td></tr>
+          <tr><td>高速モード</td><td>必要なときだけ（急ぐ修正など）</td><td>チャットで <code>/fast</code></td></tr>
+          <tr><td>画像生成（ChatGPT）</td><td>Chrome に「Claude in Chrome」の拡張を入れ、ChatGPT にログインしておく</td><td>Claude Code が Chrome で ChatGPT を操作して画像を保存します</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">画像生成は、手順書に書いた場面（写真・イラスト）で AI が自分から呼び出します。上の用意（Chrome の拡張と ChatGPT のログイン）が無いと呼び出せないので、そのときは AI がそう伝えます。</p>
+      <h3 id="windows">Windows で使う場合</h3>
+      <div class="warn"><b>使えます。</b>v4.0 で、Windows で止まっていた道具（7件）を直しました。うまく動かないときは無理に道具を直さず、記録の ZIP と一緒に Slack で知らせてください。記録の ZIP には、あなたの環境も自動で記録されます（12章）。</div>
+      <div class="tw wide"><table>
+        <thead><tr><th>項目</th><th>Windows での状態</th><th>あなたがすること</th></tr></thead>
+        <tbody>
+          <tr><td>道具を動かす土台</td><td>キットの道具（<code>.sh</code>）は <b>Git for Windows に入っている Git Bash</b> の上で動きます</td><td>Git for Windows を入れる。AI には「Windows なので Git Bash で動かして」と伝える</td></tr>
+          <tr><td>ソフトの入れ方</td><td>Node.js・Python・Chrome・ffmpeg は Windows 用の入れ方になります（Mac の手順とは違います）</td><td>初回の準備で AI に「Windows 向けの入れ方で」と頼む</td></tr>
+          <tr><td>Chrome</td><td>v3.0 から、入っている場所（Program Files など）を自動で探します</td><td>見つからないと出たら、AI に Chrome の場所を指定してもらう</td></tr>
+          <tr><td>公開用の複製</td><td>Windows のパスの区切りで画像が公開から抜ける問題を v3.0 で直しました</td><td>－</td></tr>
+          <tr><td>公開の照合</td><td>Mac の <code>shasum</code> が無くても、代わりの道具で照合します（v3.0）</td><td>－</td></tr>
+          <tr><td>配布の ZIP</td><td>Windows の標準機能で開けます（メンバーの Windows で確認済み）</td><td>右クリック →「すべて展開」→ パスワードを入れる</td></tr>
+          <tr><td>ページ送り</td><td>Windows のマウスで軽く動かすと2ページ進む不具合を v3.0 で直しました。検査にも Windows の入力の型を入れています</td><td>出来上がりを、自分のマウスでも1回ずつ動かして確かめる</td></tr>
+          <tr><td>Safari の検査</td><td>Windows では行えません（「Safari 未検査」と出ます。不合格ではありません）</td><td>iPhone の実機で見て、<code>提出チェック.md</code> に書く</td></tr>
+        </tbody>
+      </table></div>
+
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="setup">
+      <h2><span class="n">5</span>初回だけの準備</h2>
+      <div class="warn"><b>前の版をすでに使っている方は、この章は飛ばして <a href="#update">6章「前の版からのアップデート」</a>へ進んでください。</b>ソフトの入れ直しと Cloudflare へのログインは要りません。新しい版で増えた点検だけを、6章の手順で AI が1回行います。</div>
+      <p class="concl"><b>結論：</b>3つの手順です。あなたは ZIP を置いてアプリでフォルダを開くだけ。あとは AI に「初回の準備をして」と頼めば、点検・ソフトの取り付け・Cloudflare へのログインまで AI が進めます。30分〜1時間ほどを見てください（ソフトの入れ方で変わります。目安で、実測ではありません）。</p>
+      <p><b>ターミナルの開き方：</b></p><ul><li><b>Mac</b>：Finder →「アプリケーション」→「ユーティリティ」→「ターミナル」</li><li><b>Windows</b>：スタートメニューで「<b>Git Bash</b>」を探して開く（Git for Windows に入っています。キットの道具は Git Bash で動きます。PowerShell やコマンドプロンプトではありません）</li></ul><p>下の黒い枠のコマンドは、右上の「コピー」で写し、ターミナルに貼り付けて Return（Windows は Enter）キーを押します。Git Bash の貼り付けは、右クリック →「Paste」か Shift＋Insert です。</p>
+      <ol class="steps">
+        <li>
+          <h3>ZIP を置く場所を決めて、解凍する</h3>
+          <p>例：ホームの「書類（Documents）」の中に「LP制作」フォルダを作り、その中で ZIP を解凍します。<code>spinova-lp-kit_v4.2</code> というフォルダができます（名前は版ごとに変わります）。</p>
+          <p><b>Windows の場合</b>：例として <code>C:\LP制作</code> フォルダを作り、その中で ZIP を右クリック →「すべて展開」→ パスワードを入れて解凍します。</p>
+          <div class="warn"><b>避ける場所：</b>iCloud Drive・Google Drive・Dropbox・<b>OneDrive</b>（Windows の「ドキュメント」が OneDrive に同期されていることがあります）など、自動で同期されるフォルダの中。顧客のシートや写真が外へ同期されてしまうためです（同期で検査も遅くなります）。</div>
+        </li>
+        <li>
+          <h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3>
+          <div class="card"><h3>Claude Code</h3><p>Claude のデスクトップアプリ（<a href="https://claude.ai/download" rel="noopener">https://claude.ai/download</a>）を入れてログインし、<b>「Code」</b>を開いて、手順1で解凍した <code>spinova-lp-kit_v4.2</code> フォルダを選びます。</p><p class="muted">作業ルール <code>CLAUDE.md</code> を自動で読みます。</p></div>
+          <p>ターミナルは使いません。</p>
+        </li>
+        <li>
+          <h3>AI に「初回の準備をして」と頼む（あとは AI がやる）</h3>
+          <p>下の文をコピーして、AI に送ります。足りないソフトの点検と取り付け、Cloudflare（公開先のサービス）へのログインまで、AI が順に進めます。</p>
+          <div class="cmd say"><pre>初回の準備をしてください。
+1. tools/setup_check.sh で、必要なソフトがそろっているか点検する
+2. 足りないものがあれば、入れ方を説明してから入れる
+3. Cloudflare にログインする（npx wrangler login）
+4. 最後にもう一度点検して、✕ が0件になったのを見せる</pre><button class="copy" type="button">コピー</button></div>
+          <p><b>あなたがするのは、この3つだけです</b>（AI には代われない操作です）：</p>
+          <ul>
+            <li><b>パソコンのパスワードを聞かれたら入力する</b>（ソフトを入れるとき）</li>
+            <li><b>「インストール」ボタンが出たら押す</b>（Mac：Apple の開発ツールが出てきた場合だけ。Windows：「このアプリがデバイスに変更を加えることを許可しますか？」に「はい」、ソフトの入れ方の画面では「次へ」）</li>
+            <li><b>ブラウザが開いたら、Cloudflare にログインして「許可（Allow）」を押す</b>（アカウントが無ければ先に作っておく。無料）</li>
+          </ul>
+          <p>最後に <b>✕ が0件</b>になれば、準備は終わりです。<b>✕ が残っている間は制作を始めません</b>（Chrome で画面が撮れない・動画の文字入れができない、などで検査が正しく動かないため）。1台のパソコンにつき最初の1回だけです。</p>
+          
+          <details style="margin-top:10px"><summary class="muted">（参考）自分でソフトを入れたい人向けの入れ方</summary>
+          <ul>
+            <li><b>Google Chrome</b>：<a href="https://www.google.com/chrome/" rel="noopener">https://www.google.com/chrome/</a> からダウンロードし、「アプリケーション」に入れる</li>
+            <li><b>Node.js</b>：<a href="https://nodejs.org/" rel="noopener">https://nodejs.org/</a> から「LTS（推奨版）」のインストーラを入れる（<code>npx</code> も入ります）</li>
+            <li><b>git と Python 3</b>：Apple の開発用ツールに入っています。ターミナルで次を実行し、出てきた画面で「インストール」を押します。
+              <div class="cmd"><pre>xcode-select --install</pre><button class="copy" type="button">コピー</button></div>
+              <p><b>Windows</b>：git は Git for Windows（<a href="https://git-scm.com/download/win" rel="noopener">https://git-scm.com/download/win</a>。Git Bash も入ります）、Python は python.org の Windows 用インストーラ（最初の画面で「Add python.exe to PATH」に印を付ける）で入れます。</p>
+              <p class="muted">「すでにインストールされています」と出たら、そのままで大丈夫です。Python は <a href="https://www.python.org/downloads/macos/" rel="noopener">python.org</a> のインストーラでも入れられます。</p>
+            </li>
+            <li><b>openpyxl と Pillow</b>（Python の追加の部品）：
+              <div class="cmd"><pre>python3 -m pip install --user openpyxl Pillow</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">Windows の Git Bash では <code>python -m pip install --user openpyxl Pillow</code>（<code>python3</code> が無いときは <code>python</code>）。</p>
+            </li>
+            <li><b>ffmpeg</b>：Homebrew（<span class="gloss">Mac にソフトを入れる道具</span>。<a href="https://brew.sh/" rel="noopener">https://brew.sh/</a>）を使います。Homebrew が無ければ、公式ページのコマンドで先に入れます。
+              <div class="cmd"><pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">終わりに表示される「Next steps」の2行（PATH の設定）も、表示どおりに実行してください。そのあとで：</p>
+              <div class="cmd"><pre>brew install ffmpeg</pre><button class="copy" type="button">コピー</button></div>
+              <p><b>Windows</b>：PowerShell で次を実行し、Git Bash を開き直します。</p>
+              <div class="cmd"><pre>winget install Gyan.FFmpeg</pre><button class="copy" type="button">コピー</button></div>
+            </li>
+            <li><b>AI（Claude Code）</b>：入れ方は変わることがあるので、公式の案内も確かめてください。
+              <div class="cmd"><pre># Claude Code（Anthropic）
+npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button">コピー</button></div>
+              <p class="muted">初めて起動したときに、アカウントでのログインを求められます。ログインはあなたが行います。</p>
+            </li>
+          </ul>
+          </details>
+        </li>
+      </ol>
+    </section>
+
+    <!-- update -->
+    <section class="sec" id="update">
+      <h2><span class="n">6</span>前の版からのアップデート</h2>
+      <p class="concl"><b>結論：</b>新しい ZIP を<b>古いフォルダとは別の場所</b>に解凍し、作りかけの案件を <code>projects/</code> ごと移して、Claude Code で<b>新しいフォルダを開き直し、新しいチャットで</b>一言送るだけです。点検と案件の引き上げは AI がします。15分ほどです（目安で、実測ではありません）。<b>5章の初回の準備（ソフトの取り付け・Cloudflare へのログイン）はやり直さなくてかまいません</b>。新しい版では点検の項目が増えることがあるので、点検だけは手順5で1回行います（Mac・Windows とも同じ手順です）（✕ が出たら、その分だけ入れ直します）。</p>
+      <ol class="steps">
+        <li><h3>新しい版の ZIP を受け取る</h3><p>3章のダウンロードから受け取ります。公開や修正の途中の案件は、区切りのよい所まで終えてから入れ替えます。</p></li>
+        <li><h3>古いフォルダとは別の場所に解凍する</h3><p>例：「LP制作」フォルダの中に <code>spinova-lp-kit_v4.2</code> のような名前で置きます。<b>古いキットのフォルダに上書きしない</b>でください（古い道具と新しい道具が混ざり、検査が正しく動かなくなります）。</p></li>
+        <li><h3>作りかけの案件を移す</h3><p>古いキットの <code>projects/</code> の中にある案件のフォルダを、新しいキットの <code>projects/</code> の中へ移します（コピーでもかまいません）。終わった案件は移さなくてよいです。</p></li>
+        <li><h3>AI のアプリで新しいフォルダを開き直す</h3><p>Claude Code の「Code」で、新しいキットのフォルダを選び直します。<b>チャットは新しく作ります</b>。古いチャットの AI は古い決まりのまま動くためです。</p></li>
+        <li><h3>AI に一言送る（あとは AI がやる）</h3>
+          <div class="cmd say"><pre>キットを新しい版に入れ替えました。作業の前に次をしてください。
+1. tools/setup_check.sh で点検し、✕ が0件になるまで直す（入れ方は説明してから）
+2. 前のキットの projects/ にある作りかけの案件を、このフォルダの projects/ に移すか聞く
+3. tools/version.sh で案件の版を確かめ、古ければ tools/upgrade_project.sh で引き上げる
+4. 「v4.2で変わったこと.md」を読み、私の作業で変わる所だけを3行で教える</pre><button class="copy" type="button">コピー</button></div>
+          <p>AI が点検し、作りかけの案件を新しい版に合わせます（足すだけで、案件の中身は消しません。ページ送りの部品 <code>swipe.js</code> は新しいものに置き換え、前のものは控えに残します）。</p></li>
+        <li><h3>案件ごとに、新しいチャットで続ける</h3>
+          <div class="cmd say"><pre>〔案件の名前〕の続きをしてください。projects/〔案件のフォルダ〕の作業記録.md と要件整理.md を読んでから始めてください。</pre><button class="copy" type="button">コピー</button></div></li>
+      </ol>
+      <div class="warn"><b>注意</b>
+        <ul style="margin:6px 0 0">
+          <li><b>公開済みの版の URL は変わりません</b>。クライアントが持っている URL はそのままです</li>
+          <li>引き上げた案件の<b>次の公開は「検査を行う」を選んでください</b>。ページ送りの部品が変わったため、検査なしでは道具が止めます</li>
+          <li><b>古いフォルダは、新しいキットで案件が動くのを確かめるまで残しておきます</b>。消すのは、移した案件の公開まで済んでからにしてください</li>
+          <li>Cloudflare のログインは、ふつうはそのまま使えます。公開で「ログインしてください」と出たら、AI に「Cloudflare にログインし直して」と頼みます</li>
+        </ul></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="steps">
+      <h2><span class="n">7</span>案件ごとの流れ：初稿を出すまで</h2>
+      <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える（進め方・動き）」「1枚目と出来上がりを見て直してほしい所を伝える」「OK を出す」「該当案件の Slack チャットに送る」です。作る・調べる・検査する・公開するのは AI です。<b>確認はそのつど来るので、制作中は返事ができるようにしてください</b>（2章）。</p>
+      <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えたり、決まりが混ざったりします。修正もその案件のチャットで続けます。</div>
+      <h3>最初の一言（コピーして AI に送る）</h3>
+      <div class="cmd say"><pre>新しい案件を始めてください。
+担当案件：〔Slack に来た担当案件の URL を貼る〕
+進め方の選択・公開・クライアントへの送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
+
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を渡す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」に、Slack に来た担当案件の URL を入れて送る</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>ヒアリングシートと素材を取り込み、案件の準備をする</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">進め方を選ぶ</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が出す3つの質問に、選んで答える（途中で一度見るか／最初から全ページか／案は1つか3つか）。<b>案は1つが標準</b>です（3案は理由があるときだけ。v4.2）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>質問を出し、選ばれたとおりに進める</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">3</span><span class="st">要件整理と分析（待つ・聞かれたら答える）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>シートの指示で決まっていない点を聞かれたら、選んで答える</li><li><b>シートの中の食い違い</b>（色・数字・有無など）をまとめて聞かれたら、どちらに合わせるか選ぶ（v4.0）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>ヒアリングシートの全部の指示（画像・メモ・リンクも）を表にして照らし合わせる</li><li>参考サイトをくわしく分析する（色・文字・余白・動き）</li></ul></div>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">4</span><span class="st">動きのプリセットを選ぶ</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が開いた見本帳で動きを見て、「この案でよい」か「ここを変える」を選ぶ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>参考サイトに合いそうな動きを、見本帳（動きのプリセット44件）からページごとに挙げる</li></ul></div>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">5</span><span class="st">1枚目を見て OK を出す（必ず）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>参考サイトと並べた1枚目（動画＋最初の1〜2ページ）を見る</li><li>方向が合っていれば「OK」。ずれていれば、まとめて伝える</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目だけを作り、参考の同じ画面と並べて見せる</li><li>見せる前に、後半のページにも雰囲気を続けられるか・各ページに強い一文があるか・写真やイラストの質感がそろっているかを見る</li><li>見せる前に、文字と絵の重なりを検査して直しておく（公開の直前に見た目が変わらないように。v4.2）</li><li>OK が出るまで残りのページを作らない</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">6</span><span class="st">AI が残りのページを作る（待つ）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>基本は待つだけ。AI から質問が来たら答える</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>1枚目の作りに合わせて、残りのページを作る</li><li>仮の動画・OGP 画像・ファビコンは最後に作る（どちらも Claude が作り、差し込む前にあなたに見せる）</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">7</span><span class="st">AI が自動でチェックする（待つ）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>待つだけ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>10原則のうち、道具で測れる所を自動で検査し、問題があれば直す（重なり・色の見やすさ・文字の大きさ・余白・枠からのはみ出し・スワイプ・文言など）</li><li>全ページの検査は初稿の仕上げに1回（約7〜8分）。合格すると、同じ中身はもう検査しない</li></ul></div>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">8</span><span class="st">出来上がりを見て、直してほしい所を伝える（いちばん大事）</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>携帯と PC の両方で見る。PC では<a href="#width">クオリティチェッカー</a>（8章）で iPhone・iPad の幅も見る</li><li>10原則（8章）に当てて、気になる所を探す</li><li><b>直してほしい所は、まとめて1回で</b>送る。音声入力（文字起こし）で話してそのまま送るのがおすすめ</li><li>直った画面を見て、まだあればもう1回。無ければ次へ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>全ページの一覧画像と、画面を開く URL を渡す</li><li>伝えられた所をまとめて直し、前と後を並べた比較画像で見せる（直している間は検査を回さない。v4.2 から社内の直しでも必ず）</li></ul></div>
+      </div>
+        <div class="full"><div class="cmd say"><pre>直してほしい所です。まとめて直して、前と後を見せてください。
+1. 3ページ目：見出しと写真が近すぎる。間をもう少し空けたい
+2. 5ページ目：スマホで「〇〇」が途中で改行される。1行にしたい
+3. 全体：ボタンの色が薄い。もう少し濃く</pre><button class="copy" type="button">コピー</button></div>
+        <div class="warn"><b>参考サイトと雰囲気がずれているときは、細かい直しを重ねない。</b>色や余白を1つずつ直しても近づきません。「参考サイトをもっと深く分析し直して、初稿を作り直して」と伝えてください。そのほうが早く、仕上がりもよくなります。</div>
+        <div class="cmd say"><pre>参考サイトと雰囲気がずれています。細かい直しではなく、参考サイトをもっと深く分析し直してから、初稿を作り直して、参考と並べて見せてください。
+ずれていると感じる所：〔例：全体が地味／写真が小さい／動きが少ない〕</pre><button class="copy" type="button">コピー</button></div></div>
+</div>
+      <div class="step key"><div class="sh"><span class="no">9</span><span class="st">「OK、公開に進んで」と伝える</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>チャットで「OK、公開に進んで」と言うだけ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>承認の記録を代わりに書き、公開の前の検査に合格したら、Cloudflare の版の URL（初稿は <b>v1</b>）に公開する</li><li>公開できたか、公開側の中身が手元と同じかを確かめる</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">10</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が作った文面と URL を、該当案件の Slack チャットに送る（AI が Slack につながっていれば、スレッドに下書きができているので、確かめて送る）</li><li><b>初稿（v1）のときは必ず</b>、AI が作った「作業レポート」の ZIP を、<b>案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして</b>送る（送る文の下書きは AI が出します）。送ったら AI に「作業レポートを送った」と伝える（送った記録が無いと、v2 以降の公開が止まります）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>クライアントに送る短い文面を作る（URL と、シートの指定に合わせて変えた点だけ）</li><li>作業レポートを ZIP にまとめ、送る文（メンションと v1 の URL）を下書きする。「送った」と言われたら記録する</li></ul></div>
+      </div></div>
+      <div class="warn" id="submit-url"><b>提出する URL は、いつも Cloudflare の版の URL です。</b>
+      <ul style="margin:6px 0 0">
+        <li>クライアントに渡すのは <code>https://v1.〔公開名〕.pages.dev/</code> のような <b>Cloudflare の URL だけ</b>です</li>
+        <li>GitHub は使わなくてかまいません（自分で見るための確認用・任意）。AI に「先に GitHub に出しますか？」と聞かれたら、「<b>GitHub は使わず、Cloudflare の v1 に出して</b>」と答えてください</li>
+      </ul></div>
+      <div class="warn" id="version"><b>Cloudflare で出す URL は、版ごとに v1・v2・v3…と上げます。</b>
+      <ul style="margin:6px 0 0">
+        <li>初稿の提出は <b>v1</b>（例：<code>https://v1.〔公開名〕.pages.dev/</code>）。クライアントから修正が来て出し直すたびに <b>v2・v3…</b> と1つずつ上げます</li>
+        <li>前の版の URL は消えずに残ります（クライアントが持っている URL がそのまま見られるように）。<b>前の版に上書きしない</b>でください</li>
+        <li>版を上げるのは AI が公開するときです。公開の前に AI が「新しい版か・上書きか」を聞くので、クライアントに出す直しなら<b>新しい版</b>を選びます</li>
+        <li>例外：クライアントに送る前の社内の直し（責任者の確認で出た直しなど）は、版を上げずに同じ版に上書きしてかまいません</li>
+      </ul></div>
+      <p class="muted">クライアントから修正が来たら、9章の流れで直して、新しい版（v2・v3…）で出し直します。</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="check">
+      <h2><span class="n">8</span>提出前のチェック：全案件に共通の10原則</h2>
+      <p class="concl"><b>結論：</b>提出の前に、AI がこの10原則を全項目回し、あなた（責任者）が一覧画像で確かめて承認します。中身はキットの <code>templates/</code> の中のチェックリスト にあります。</p>
+      <h3>確かめる段は3つ（A・B・C）</h3>
+      <div class="abc">
+        <div class="card a"><b class="k">A</b><b>道具が判定</b><p class="muted">道具が合否を出し、AI が直す。人は見なくてよい。不合格なら公開できない。</p></div>
+        <div class="card b"><b class="k">B</b><b>AI が見て、人が承認</b><p class="muted">AI が見て直し、責任者が一覧画像で承認する。AI の「OK」だけで出さない（AI の目は100%ではない）。</p></div>
+        <div class="card c"><b class="k">C</b><b>人だけが判断</b><p class="muted">見た目の質・参考らしさ・写真の選び方・実機の触り心地・提出の判断。AI は案を出すだけ。</p></div>
+      </div>
+      <div class="tw wide"><table class="p10">
+        <thead><tr><th>#</th><th>原則</th><th>段</th><th>道具で止めるもの（A）</th><th>目で確かめるもの（B・C）</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5"><b>デザイン</b></td></tr>
+          <tr><td>1</td><td>参考サイトのテイストに寄せる（型は参考に忠実、中身は案件に置き換え）</td><td>B・C</td><td>－</td><td>並べ比べを一覧画像に入れて見る</td></tr>
+          <tr><td>2</td><td>余白は詰めすぎず、均等に</td><td>A＋B</td><td>上下の余白（16px 未満は ⚠）・縦の詰まり</td><td>要素の間（間隔は3段階）・項目名と値の縦の線</td></tr>
+          <tr><td>3</td><td>文字を被せない・はみ出させない・背景と十分な差</td><td>A</td><td>重なり・コントラスト（本文 4.5:1・大きい文字 3:1）・はみ出し（表・カードの枠の外の文字も）・Safari</td><td>疑似要素で描いた絵・タブで隠れた側・動画の別のコマ</td></tr>
+          <tr><td>4</td><td>文字は小さすぎず、意味のまとまりで折る</td><td>A＋B</td><td>最小 13px（全サイズ）・〒番号と電話番号の途中の改行</td><td>文節の途中の折れ（iPhone の幅で）・強調の句が1行か</td></tr>
+          <tr><td>5</td><td>同じ役割はそろえ、最後まで続ける</td><td>A⚠＋B</td><td>簡素なページ（⚠）・語の重複（⚠）</td><td>札・見出しの体裁・後半まで背景のあしらいが続くか</td></tr>
+          <tr><td>6</td><td>画像を破綻させない（人物は日本人・指や形・装飾は指定どおり）</td><td>B・C</td><td>－</td><td>指の数・形を原寸で・矢印や線の形・吹き出しの塗り</td></tr>
+          <tr><td>7</td><td>動きは速く（動き出し 0.3秒以内・1ページ 2秒以内に出そろう）</td><td>B</td><td>－</td><td>出る順番と速さ</td></tr>
+          <tr><td colspan="5"><b>実装</b></td></tr>
+          <tr><td>8</td><td>型と操作が PC・スマホで動く</td><td>A＋C</td><td>シートの形式・ヘッダーの移動・ページ送り</td><td>横に並んだ部品の送り・iPhone 実機の触り心地</td></tr>
+          <tr><td>9</td><td>文言とシートを守る（一言一句）</td><td>A＋B</td><td>文言照合・シートの書き出し</td><td>照合表 ✓△✕・文言の変更依頼の記録</td></tr>
+          <tr><td>10</td><td>公開の形をそろえる（版ごとの URL・OGP・1枚目の仮動画）</td><td>A</td><td>構成の検査・版ごとの公開</td><td>－</td></tr>
+        </tbody>
+      </table></div>
+      <h3>提出の前の流れ</h3>
+      <ol>
+        <li>道具（A）がすべて合格する（<code>run_all.sh</code> の「判定：すべて合格」）</li>
+        <li>AI が一覧画像を作り、10原則に1つずつ当てて全ページを見る。<b>初稿のときは、別の AI（レビュー役）が悪い所を探し、作った AI が直してから</b>あなたに見せる（v4.0。記録だけ）</li>
+        <li>責任者が一覧画像と画面（携帯・PC）を見て、チャットで「OK、公開に進んで」と伝える → AI が承認欄（承認者・日付）を代わりに書く。PC では<a href="#width">クオリティチェッカー</a>で iPhone・iPad の幅も見る</li>
+        <li>公開 → 共有文面で提出</li>
+      </ol>
+
+      <h3 id="width">クオリティチェッカーで、いろいろな幅を見る</h3>
+      <p>URL を入れると、そのサイトを iPhone・iPad・PC などの幅で表示する確認の道具です。PC 1台で、スマホやタブレットの見え方を確かめられます。開いた折りたたみスマホや iPad からでも、iPhone と同じ幅で見られます。</p>
+      <p><a href="https://hse-inc.github.io/responsive-viewer/">https://hse-inc.github.io/responsive-viewer/</a></p>
+      <figure class="shot"><img src="img/width-checker.jpg" width="1316" height="903" alt="クオリティチェッカーの画面。上に URL の欄と端末のボタン（iPhone SE・iPhone・iPhone Pro Max・iPad mini・iPad・ノートPC・PC）、幅と高さの欄、操作のボタンが並び、下に iPhone の幅で表示した採用LP。枠の右に幅を変えるつまみ" loading="lazy"><figcaption>iPhone（390）の幅で表示した所。枠の右の縦長のつまみをドラッグすると、幅が自由に変わります。</figcaption></figure>
+      <div class="tw wide"><table>
+        <thead><tr><th>したいこと</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td>サイトを表示する</td><td>上の欄に URL を入れて「表示」。v4.0 からは、AI が公開した URL を渡すときにクオリティチェッカーのリンクも添えるので、開くだけで案件のサイトが出ます</td></tr>
+          <tr><td>端末の幅を切り替える</td><td>「iPhone SE」「iPhone」「iPad」「PC」などのボタンを押す</td></tr>
+          <tr><td>好きな幅にする</td><td>枠の右にあるつまみを左右にドラッグする（幅・高さの欄に数字を入れてもよい）</td></tr>
+          <tr><td>3つの幅を一度に見る</td><td>「3つ並べる」に印を付ける（iPhone・iPad・PC が横に並ぶ）</td></tr>
+          <tr><td>サイトを大きく見る</td><td>「操作の帯を隠す」を押す。右下の丸いボタンで戻す</td></tr>
+          <tr><td>見ている表示を人に送る</td><td>「この表示の URL をコピー」。受け取った人は同じ幅で開けます</td></tr>
+          <tr><td><b>目で見るチェックリスト</b>（v4.0）</td><td>右下の「？」を押す。「ページごと」（余白・改行・文字・重なりなど8項目）と「全体」（参考らしさ・後半の寂しさ・実機など5項目）にチェックを付ける。チェックは URL ごとに残り、「結果をコピー」で Slack に貼れます</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>使う場面：初稿の出来上がりを見るとき（7章の手順8）・修正版を確かめるとき（9章の手順3）・提出の前（上の流れの3）</li>
+        <li>文節の途中の折れ（原則4）や、余白・重なり（原則2・3）を、iPhone の幅で見るのに向いています</li>
+      </ul>
+      <div class="warn"><b>クオリティチェッカーは見た目の確認用です。</b>スワイプの触り心地や動画の再生など、実機でしか分からないもの（原則8の C）は、最後に iPhone の実機でも確かめてください。サイトの側で埋め込みを禁止していると、枠の中が白いままになります（自分たちが公開した LP は表示できます）。</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="sec" id="revise">
+      <h2><span class="n">9</span>クライアントから修正が来たら</h2>
+      <p class="concl"><b>結論：</b>修正内容の Slack メッセージの URL を、その案件を進めているチャットに貼り、直った画面を見て「OK、公開に進んで」と言い、「検査を行いますか？」に答えるだけです。新しい版（v2・v3…）の URL で出し直し、前の版の URL はそのまま残ります（版の上げ方は7章の最後）。</p>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">修正の Slack メッセージの URL を、その案件のチャットに貼る</span></div><div class="full" style="padding-top:12px">
+        <p><b>その案件を進めているチャット</b>に、修正内容が書かれた Slack メッセージの URL を貼るだけです。AI が指摘と添付の画像を読み取って直します。</p>
+        <div class="cmd say"><pre>クライアントから修正が来ました。下の指摘をまとめて直して、前と後を見せてください。
+〔修正内容の Slack メッセージの URL を貼る〕</pre><button class="copy" type="button">コピー</button></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">AI が直して、自動でチェックする（待つ）</span></div><div class="full" style="padding-top:12px">
+        <p>直している間は検査を回さず、直した所の前と後を撮って見せます（数十秒〜数分）。動きを変えたいときは、プリセットの名前で伝えます（10章）。</p>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">直った画面を見て「OK、公開に進んで」</span></div><div class="full" style="padding-top:12px">
+        <p>携帯と PC で直った所を確かめます（PC では<a href="#width">クオリティチェッカー</a>で iPhone・iPad の幅も）。まだ直したい所があれば、まとめてもう一度伝えます。よければ「OK、公開に進んで」と言います。</p>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">4</span><span class="st">「検査を行いますか？」に答える</span></div><div class="full" style="padding-top:12px">
+        <p>修正版の公開では、検査をするかをあなたが選びます（初稿の公開前は必ず検査します）。</p>
+        <div class="tw"><table>
+          <thead><tr><th>選ぶ</th><th>使う場面</th><th>時間の目安</th></tr></thead>
+          <tbody>
+            <tr><td><b>行う</b></td><td>見た目（色・余白・大きさ・配置）を直したとき。直したページと、見た目が変わったページだけを測る</td><td>数分（全ページに効く直しだと約9分）</td></tr>
+            <tr><td><b>行わない</b></td><td>文言だけ・ページの中の HTML だけを直したとき。共有の CSS などを直していると AI の道具が止めて「行う」を案内する</td><td>約25秒（軽い検査だけ）</td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted">検査で ✕ が出たら、AI がその所を直して同じように公開し直します。2回目は ✕ だった所と直した所だけを測ります。</p>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">5</span><span class="st">該当案件の Slack チャットに送る</span></div><div class="full" style="padding-top:12px">
+        <p>AI が作った文面と新しい URL を該当案件の Slack チャットに送り、修正版では作業記録は作りません（作業記録は初稿と検収完了の2回だけ）。<b>修正前と後を並べた比較画像を必ず添えます</b>（v4.2）。AI が直したページごとに「修正前｜修正後」（スマホと PC）を1枚にして、返信文と一緒に渡すので、送る前に添付してください。クライアントからのスクリーンショットがあれば一緒に添えます。</p>
+        <p class="muted">クライアントに送る前の社内の直し（責任者の確認で出た直しなど、まだクライアントが URL を持っていない段階）は、版を上げずに同じ版に上書きしてかまいません。</p>
+      </div></div>
+    </section>
+
+    <!-- preset -->
+    <section class="sec" id="preset">
+      <h2><span class="n">10</span>動きのプリセットの使い方（初稿・修正）</h2>
+      <p class="concl"><b>結論：</b>動きは<b>見本帳から名前（プリセット）で選びます</b>。初稿では AI が案を出すので選ぶだけ。修正で動きを変えたいときも、「もっと動きを」ではなく<b>プリセットの名前で指示し直します</b>。その場の言葉で動きを足していくと、動きどうしがぶつかって崩れやすいためです。</p>
+
+      <h3>見本帳を開く</h3>
+      <p>AI に「見本帳を開いて」と頼みます。AI が手元の見本帳（<code>node tools/gallery_server.mjs</code>）を起動し、ブラウザで開きます。今は44件の動きがあります。</p>
+      <figure class="shot"><img src="img/preset-1-gallery.jpg" width="1400" height="1085" alt="動きの見本帳の画面。上にジャンル（登場・強調・ループ・遷移・退場）と質感の絞り込み、下に動きのカードが並ぶ" loading="lazy"><figcaption>見本帳。上の「ジャンル」「質感」で絞り込み、カードの「見本」で動きを、「実サイト」で実際に使った案件での様子を見ます。</figcaption></figure>
+      <p class="muted">動きは Chrome で見てください。AI のアプリの中のブラウザは、画面が裏に回ると動きが止まって見えることがあります。</p>
+
+      <h3>初稿のとき（7章の手順4）</h3>
+      <p>AI が参考サイトに合いそうな動きを、ページごとに見本帳から挙げて聞いてきます。見本帳で動きを見て「この案でよい」か「ここを変える」を選ぶだけです。</p>
+
+      <h3>修正で動きを指示し直す（3つのやり方）</h3>
+      <ol class="steps">
+        <li><h3>名前で伝える（いちばん簡単）</h3>
+          <p>見本帳で動きの名前を確かめ、その案件のチャットに書きます。速さなどは「パラメータ」で変えられます（例：<code>--pf-dur=0.5s</code>＝動く時間を0.5秒に）。</p>
+          <div class="cmd say"><pre>p3 の見出しの動きを、プリセットの card-slap に変えてください。速さは --pf-dur=0.5s。前と後を見せてください。</pre><button class="copy" type="button">コピー</button></div></li>
+        <li><h3>見本帳で選んで、指示文をコピーする</h3>
+          <p>カードの「選ぶ」に印を付け、「案件」「ページ」「適用箇所」（どこに付けるか）を入れます。下の帯の<b>「選んだものをコピー（指示文）」</b>を押して、その案件のチャットに貼ります。いくつかまとめて選べます。</p>
+          <figure class="shot"><img src="img/preset-2-select.jpg" width="1400" height="1085" alt="見本帳で card-slap のカードを選び、案件 sp-13-hakuai・ページ p3・適用箇所「p3 の見出し」・パラメータ --pf-dur=0.5s を入れた所。下の帯に「1件選択中」と「選んだものをコピー（指示文）」のボタン" loading="lazy"><figcaption>右のカード（card-slap）を選び、欄を埋めた所。下の帯のボタンで、AI に貼る指示文がコピーされます。</figcaption></figure>
+          <div class="cmd say"><pre>動きプリセット「card-slap」を案件 sp-13-hakuai の p3 に適用してください。適用箇所: p3 の見出し。パラメータ: --pf-dur=0.5s。（animations/card-slap/PRESET.md と web/ を読んで再現。記録と CSS の取り込みは tools/apply_preset.sh）</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">↑ コピーされる指示文の例です（そのまま貼れば AI が入れます）。</p></li>
+        <li><h3>見本帳から直接反映する（ローカルモード）</h3>
+          <div class="shot-row"><div>
+            <p>欄を埋めて<b>「反映」</b>を押すと、まず<b>確認だけ</b>（何も書き換えない）の結果が出ます。内容を見てよければ<b>「この内容で反映」</b>を押します。</p>
+            <p>反映でされるのは、案件の記録（DNA.md）への書き込み・動きの CSS の取り込み・読み込みの1行までです。<b>どの要素に付けるかは AI がする</b>ので、反映のあとにチャットで伝えます。</p>
+            <div class="cmd say"><pre>見本帳から card-slap を p3 に反映しました。p3 の見出しに付けて、前と後を見せてください。</pre><button class="copy" type="button">コピー</button></div>
+          </div>
+          <figure class="shot narrow"><img src="img/preset-3-dryrun.jpg" width="700" height="1110" alt="「反映」を押した後の確認の結果。dry-run（何も書きません）と出て、DNA.md への記録・CSS の複製・index.html への1行の追加の予定が並ぶ。横に「この内容で反映」のボタン" loading="lazy"><figcaption>「反映」を押した直後。ここではまだ何も書き換えていません。</figcaption></figure></div></li>
+      </ol>
+
+      <div class="warn"><b>気をつけること</b>
+        <ul style="margin:6px 0 0">
+          <li><b>「もっと派手に」「ここにも動きを」をその場の言葉で何度も足さない</b>。動きがぶつかり、文字が一瞬出て消えるなどの崩れが起きたことがあります。足すときも名前で</li>
+          <li><b>速さの目安</b>：動き出しは0.3秒以内、1ページの動きは2秒以内に出そろうように（遅い動きは、見る人が待たされる）</li>
+          <li><b>見本帳に無い動きが欲しいとき</b>：AI に「参考サイトのこの動きに近いプリセットを探して」と頼みます。それでも無ければ責任者に相談します（新しいプリセットは責任者が決めて作ります）</li>
+          <li>動きを変えると CSS が変わるので、修正版の公開で「検査を行いますか？」と聞かれたら<b>「行う」</b>を選びます（9章）</li>
+        </ul></div>
+    </section>
+
+    <!-- wp -->
+    <section class="sec" id="wp">
+      <h2><span class="n">11</span>WordPress への移行（WP化）</h2>
+      <p class="concl"><b>結論：</b>クライアントの確認が済んだ版で、<b>キットの中の「WP化の指示文」（旧スキームの手順のアップデート版）のとおりに</b>進めます。旧スキームと同じ手順を、キットの中だけで効率よく進められるようにしてあります。<b>旧マニュアル（Notion）は見ないでください</b>（古い内容のままです）。<b>あなたがするのは、ログイン・テーマの ZIP のファイル選択・報告の送信</b>だけで、それ以外の管理画面の設定・確認・スクリーンショット・報告文の下書きは AI がします。</p>
+      <h3>始めるときの一言</h3>
+      <div class="cmd say"><pre>〔案件の名前〕の WP化を始めてください。
+キットの templates/WP化の指示文.md のとおりに進めてください。
+最初に CSS の散らかりを0件にしてください。
+ログイン・テーマの ZIP の選択・報告の送信は私がします。</pre><button class="copy" type="button">コピー</button></div>
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">WP化の前に整理する（AI）</span></div><div class="full" style="padding-top:12px">
+        <p>AI が CSS の散らかり（効いていない書き直し・使っていない class など）を0件にし、見た目が変わっていないことを撮って見せます（数秒〜数分）。検査なしの修正でたまった分を、WP に移す前に片づけるためです。</p>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">キットの「WP化の指示文」で WP に移す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>WordPress・検証環境に<b>ログインする</b>（ID・パスワードは AI に入力させず、チャットにも書かない）</li><li>テーマの ZIP を<b>ファイルの選択</b>で選ぶ</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>キットの WP化の指示文のとおりにテーマを作る</li><li>プラグインの導入・フォームの作成と保存・テーマの有効化・表示の設定など、管理画面の操作</li></ul></div>
+      </div></div>
+      <div class="step key"><div class="sh"><span class="no">3</span><span class="st">フォームのメールの変数を3回確かめる</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI に聞かれたら、<b>テストを受け取る自分専用のアドレス</b>をチャットで伝える（ファイルには書きません）</li><li>送信先が自分のアドレスに変わったのを見て OK を出す</li><li>テスト送信のメールが届いたら、AI が見られない場合は画面を見せる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>① 書いた段階でずれ0件（<code>check_cf7_vars.py</code>。送信元が空・初期値でも止める） ② WP に保存した後、管理画面の値を読み直す ③ テスト送信の2通に <code>[xxx]</code> が残っていない</li><li>テスト送信は下の①〜⑥の順で、自分専用のアドレスにだけ送る</li><li>報告にフォームの項目・受信メール・自動返信の設定・届いた自動返信・<b>戻した後の送信先</b>の5枚の画面を付ける</li></ul></div>
+      </div>
+        <div class="full">
+        <div class="warn"><b>テスト送信は自分専用のアドレスで。クライアント（エンド）に届くテスト送信は禁止です（v4.2）。</b>
+        <ol style="margin:6px 0 0">
+          <li>AI が CF7 の送信先を、あなたのテスト用のアドレスに変える（Cc・Bcc のクライアントのアドレスも外す）</li>
+          <li>AI が設定を読み直し、あなたが OK を出す</li>
+          <li>応募者の欄にも自分のアドレスを入れて、1回だけ送る</li>
+          <li>届いた2通（通知と自動返信）を確かめる</li>
+          <li>AI が送信先をシートの通知先に戻す</li>
+          <li>AI が読み直して画面を撮る。<b>戻したあとはテスト送信をしない</b></li>
+        </ol>
+        <p style="margin:6px 0 0">万一クライアントに届いてしまったら、作業を止めて責任者に知らせます（クライアントへ自分から連絡しない）。メールが届かない・「送信に失敗しました」と出たら、送信元を疑い、止めて報告します。</p></div>
+        <p class="muted">受信メール・自動返信の変数がフォームとずれる、という元請けからの指摘への対策です。フォームのコードは、クライアントが読めるように字下げと項目ごとのコメントを整えます（v4.2）。</p></div></div>
+      <div class="step"><div class="sh"><span class="no">4</span><span class="st">ディレクターに共有し、OGP を確かめる</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI がそろえた送り物（メールアドレスの設定・自動返信の確認用の画面など）と報告文を確かめて、<b>該当案件の Slack チャットに送る</b></li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>WP化の指示文が挙げる送り物をそろえ、報告文を下書きする</li><li>検証環境の URL を共有したときに OGP 画像が出るかを確かめる</li></ul></div>
+      </div></div>
+      <div class="warn"><b>気をつけること</b>
+        <ul style="margin:6px 0 0">
+          <li>手順の中身は、キットの <code>templates/WP化の指示文.md</code> にあります（旧スキームの WP 化の手順を、v4.0 で更新したもの）。<b>旧マニュアル（Notion）は見ないでください</b></li>
+          <li><b>検収（公開）完了のとき</b>は、AI に「完了の作業記録を出して」と頼み、案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります（必須）</li>
+          <li><b>フォームの通知先</b>は、シートの「概要」タブの「問い合わせフォームの通知先アドレス」を入れます（WP の初期値のままにしない）。ディレクターへの送り物に、そのセルだけを切り出したスクショを付けます（認証情報の行は写さない。v4.0）</li>
+          <li>WP 用の <code>screenshot.png</code>（テーマ選びの画面の絵）は新しく作らず、OK を出した OGP をそのまま使います。OGP の OK が出ていれば、確認なしで進めます（v4.0）</li>
+          <li><b>本番の WP では「検索エンジンでの表示」の noindex を外し</b>、外したことを確かめて画面を撮ります（v4.2。検証環境は付けたままでよい）</li>
+          <li>実際に確かめていない項目（テスト送信・メールの受信など）は、報告で「未確認」と書きます。クライアントのアドレスでの受信は「未確認」です。確かめていないものを「済み」にしない</li>
+        </ul></div>
+    </section>
+
+    <!-- 8 -->
+    <section class="sec" id="trouble">
+      <h2><span class="n">12</span>困ったとき・記録の送り方</h2>
+      <p class="concl"><b>結論：</b>困ったら、AI に「<b>作業記録をまとめて</b>」と言い、できた ZIP を案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして貼って、何が起きたかを一言添えてください。管理する側で同じ案件を動かし、あなたのパソコンの問題か、キットの問題かを切り分けます。</p>
+      <h3>記録の ZIP</h3>
+      <div class="grid g2">
+        <div class="card"><h3>いつ出すか（2回）</h3><ul><li><b>初稿（v1）の公開のとき</b>：自動でできます。必須</li><li><b>検収（公開）完了のとき</b>：AI に「完了の作業記録を出して」と頼みます。必須</li><li>困ったときは、手順の外で別に出せます（下の一言を AI に）</li></ul>
+          <div class="cmd say"><pre>作業記録をまとめてください。理由は「困ったとき：〔何が起きたか〕」です。</pre><button class="copy" type="button">コピー</button></div></div>
+        <div class="card"><h3>中身</h3><ul><li><b>入るもの</b>（文章だけ）：キットの版・最終チェック・公開の記録・作業記録・修正記録・要件整理と DNA・検査の出力・あなたのパソコンの環境（OS・Chrome・Node などの版・機種名・トラックパッドとマウスの設定）・土台が書き換えられていないかの判定</li><li><b>入らないもの</b>：顧客の写真・ロゴ・動画・ヒアリングシート・素材・参考サイトの複製</li><li>トークン・パスワードに見える値は伏せられます</li></ul>
+          <p class="muted"><b>送るのはあなた</b>です（道具も AI も送りません）。</p></div>
+      </div>
+
+      <h3>よくある問題と対処</h3>
+      <details class="faq"><summary>スクロール（ページ送り）がおかしい</summary><div>
+        <ul>
+          <li>v3.0 で、Windows のマウスなどで軽く動かすと2ページ進む不具合を直しました。前の版で作りかけの案件は、AI に「upgrade_project で swipe.js を新しくして」と頼みます</li>
+          <li>まず <code>run_all.sh</code> の「ページ送り」が合格かを見ます。合格なら道具の上では正しく動いています。「1回目は ✕・撮り直しで合格」と出たら、続けて出るか実機で確かめます</li>
+          <li>⚠「この PC では測れなかった（入力が◯ms 止まった）」と出たら、パソコンが重くて検査の入力が途中で止まった回です。公開は止まりません。毎回出るなら、AI に <code>tools/setup_check.sh</code> を流してもらい、Intel 用の Node などの ⚠ が無いかを見ます（v4.1）</li>
+          <li>「ページ送りの土台」が ✕ のときは、案件の中にページ送りを横取りする処理があります。AI に直してもらうか、要る理由を責任者に確かめてから書いてもらいます（v4.1）</li>
+          <li><b>v4.2 のスワイプで気になる動きがあったら、案件ごとに v4.1 の動きへ戻せます</b>：責任者に確かめてから、AI に「この案件のページ送りを v4.1 に戻して。理由は〔起きた動き〕」と頼みます（<code>tools/swipe_switch.sh</code>。前のものは控えに残り、記録も残るので、いつでも v4.2 に戻せます）。戻したら、起きた動きを #スキーム管理ch_spinova に知らせてください</li>
+          <li>AI のアプリの中のブラウザで動きを見ない。画面が裏に回ると動きが止まって見えます。Chrome かスマホで見ます</li>
+          <li>土台の <code>swipe.js</code>・<code>base.css</code> を直して解決しようとしない（キットの問題として記録の ZIP で知らせる）</li>
+          <li>iPhone の実機の触り心地は道具では測れません（C の承認で人が触る）</li>
+        </ul></div></details>
+      <details class="faq"><summary>検査が通らない（✕ が消えない）</summary><div>
+        <ul>
+          <li>✕ の行に、ページ・画面サイズ・要素が出ます。AI に「上の ✕ を直して」と頼みます</li>
+          <li>道具の判定を外す設定（<code>--ignore</code>）で消さない。写真の上の文字は文字の後ろに地を敷いて <code>data-on-photo</code>、意図してはみ出させる絵は <code>data-bleed</code> を付けます</li>
+          <li>何度直しても通らないときは、AI に「作業記録をまとめて」と言い、ZIP を Slack に貼ります</li>
+        </ul></div></details>
+      <details class="faq"><summary>「Safari 未検査」と出る</summary><div>
+        <ul>
+          <li>不合格ではありません。Safari の自動操作が有効になっていないだけです</li>
+          <li>有効にする（1回だけ・<b>Mac だけ</b>）：ターミナルで <code>sudo safaridriver --enable</code> → Safari の「開発」メニュー →「リモートオートメーションを許可」</li>
+          <li><b>Windows の場合</b>：Safari が無いので、この検査はできません（毎回「Safari 未検査」と出ます）。代わりに iPhone の実機で見て確かめます</li>
+          <li>有効にしないまま出すときは、<code>提出チェック.md</code> に「未確認」と書きます</li>
+        </ul></div></details>
+      <details class="faq"><summary>参考サイトにアクセスできない・ブロックされた</summary><div>
+        <ul>
+          <li>参考サイトの記録で多くのファイルを一度に取ると、相手に IP をブロックされることがあります（過去に1件）</li>
+          <li>記録は PC 幅 → スマホ幅の順に撮り、2回目以降は <code>--no-assets</code> を付けます</li>
+          <li>ブロックされたら、何度もアクセスし直さない。すでに開いているブラウザのタブと、撮れた画面から読み取ります</li>
+        </ul></div></details>
+      <details class="faq"><summary>確認用の簡易サーバーが起動しない</summary><div>
+        <ul><li><code>python3 -m http.server</code> が起動しない環境があります。その場合は Node の簡易サーバーを使います（AI に「node の簡易サーバーで開いて」と頼む）</li></ul></div></details>
+      <details class="faq"><summary>スマホで古い動画・画像が出る</summary><div>
+        <ul><li>読み込みに <code>?v=</code>（版の印）が付いていないと、スマホが古いものを覚えたまま表示します。検査の「構成」で付け忘れを見ています。公開のたびに上げます</li></ul></div></details>
+      <details class="faq"><summary>公開で止まる（承認・ログイン）</summary><div>
+        <ul>
+          <li>「最終チェック.md の承認がそろっていません」：まだ「OK」を伝えていない。画面を確かめて、チャットで「OK、公開に進んで」と伝える</li>
+          <li>「プロジェクト一覧を取得できません」：<code>npx wrangler login</code> でログインし直す</li>
+          <li>公開側の照合で「反映待ち」が続く：反映に数十秒かかることがあります。道具が自動で待ち直します</li>
+          <li>「og:image が image/jpeg で返りません」：OGP 画像が公開先で出ていません。<code>site/assets/ogp.jpg</code> があるか、index.html の og:image が本番の URL（<code>https://〔名前〕.pages.dev/assets/ogp.jpg</code>）になっているかを AI に見てもらいます。版の URL への書き換えは道具が行うので、index.html は本番の URL のままで構いません（v4.1）</li>
+        </ul></div></details>
+      <details class="faq"><summary>キットにまだ無いもの</summary><div>
+        <ul>
+          <li>Slack から案件の資料を取り込む専用の道具：まだありません（AI が読めないときは、あなたがダウンロードします）</li>
+          <li>Windows での正式な対応：まだです（使い方と注意は <a href="#windows">4章の「Windows で使う場合」</a>）</li>
+          <li>作業ルールの要点版（最初に読む量を減らしたもの）：まだありません</li>
+        </ul></div></details>
+    </section>
+
+    <!-- 9 -->
+    <section class="sec" id="rules">
+      <h2><span class="n">13</span>守ること</h2>
+      <div class="stop"><b>次の5つは必ず守ってください。</b>品質と、顧客・御社・弊社の信用を守るための決まりです。</div>
+      <ol class="steps">
+        <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外や他のサービスに出さない。公開するのは <code>site/</code> の中だけです（道具がそれ以外を入れません）。参考サイトの複製は <code>_analysis/</code> の中だけで扱います。</p></li>
+        <li><h3>公開と送信は人が承認する</h3><p>公開（<code>--dry-run</code> を付けない実行）・クライアントへの送信・Slack への投稿は、毎回あなたが確かめて行います。AI に送らせない。</p></li>
+        <li><h3>「OK」はあなたが出す</h3><p>承認欄（<code>最終チェック.md</code> の「承認者：」「日付：」）は、あなたがチャットで「OK、公開に進んで」とはっきり伝えたときだけ、AI が代わりに書きます。画面を見ないまま「OK」を出さないでください。AI が自分の判断で承認欄を書くことはありません。</p></li>
+        <li><h3>キットを書き換えない</h3><p>手順書・<code>tools/</code>（道具）・<code>base/</code>（土台）は直さない。案件だけの動きは <code>site/site.js</code> に書きます。直したいことは、Slack の「#スキーム管理ch_spinova」のスレッドで長谷川・吉田・寺嶋をメンションして知らせてください（ページの冒頭）。</p></li>
+        <li><h3>キットを再配布しない</h3><p>キットと、このページのダウンロードのリンクを、ほかの人・ほかの会社に渡さない。キットの道具は弊社の所有です。</p></li>
+      </ol>
+    </section>
+
+    <footer>採用LP 制作キット v4.2（2026-11-07）の使い方。前の版の使い方は <a href="../kit-manual-v4.1/">v4.1</a>・<a href="../kit-manual-v4/">v4.0</a>・<a href="../kit-manual-v3/">v3.0</a>。このページは関係者向けで、検索には出しません。中身はキットの作業ルール（AGENTS.md）・README・道具から取っています。</footer>
+  </main>
+</div>
+<script>
+  // コピーボタン
+  document.querySelectorAll('.cmd .copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.parentElement.querySelector('pre').innerText;
+      var done = function () { b.textContent = 'コピーしました'; b.classList.add('done'); setTimeout(function () { b.textContent = 'コピー'; b.classList.remove('done'); }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); });
+      else { fallback(t); done(); }
+    });
+  });
+  function fallback(t) { var ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }
+  // ダウンロード：data-drive-url が空なら「準備中」
+  (function () {
+    var a = document.getElementById('dlBtn'), msg = document.getElementById('dlMsg');
+    var url = (a.getAttribute('data-drive-url') || '').trim();
+    if (url) { a.href = url; a.target = '_blank'; return; }
+    a.addEventListener('click', function (e) { e.preventDefault(); msg.textContent = '準備中です。ダウンロードのリンクは、準備ができしだいこのボタンに入ります。'; });
+  })();
+</script>
+</body>
+</html>
