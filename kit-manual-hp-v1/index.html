@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>採用HP 制作キット 使い方 v1.0（試用版・下書き）</title>
+<meta name="description" content="spinova-hp-kit v1.0 試用版（採用HP 制作キット）を使う制作者のための手引き（下書き）。初回の準備・案件ごとの手順・提出前のチェックと公開・修正。">
+<style>
+  /* 検証レポート（scheme-report）と同じ配色・書体 */
+  :root {
+    --bg: #f6f6f4; --paper: #fff; --ink: #1f1f1f; --soft: #5d5d5d; --line: #e2e2de;
+    --blue: #0563ae; --blue-t: #e3edf8; --orange: #f26923; --orange-d: #b4470e; --orange-t: #fde6d8;
+    --green: #2e8a57; --green-t: #e1f2e8; --gray: #7a7a76; --gray-t: #efefec;
+    --code: #f3f3f0; --red: #b42318; --red-t: #fdecea;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif; font-size: 16px; line-height: 1.8; word-break: auto-phrase; line-break: strict; overflow-wrap: anywhere; -webkit-text-size-adjust: 100%; }
+  .nb { white-space: nowrap; }
+  a { color: var(--blue); }
+  b, strong { font-weight: 700; }
+  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .88em; background: var(--code); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; word-break: break-all; }
+
+  /* 配置：PC は左に目次、スマホは上に目次 */
+  .wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  nav.toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; font-size: 14px; }
+  nav.toc .ttl { font-size: 12px; letter-spacing: .14em; color: var(--soft); font-weight: 700; margin: 0 0 8px; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+  nav.toc li { margin: 0; }
+  nav.toc a { display: block; padding: 6px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; line-height: 1.5; }
+  nav.toc ol a::before { counter-increment: t; content: counter(t) ". "; color: var(--blue); font-weight: 700; }
+  nav.toc .first a { color: var(--ink); background: var(--blue-t); }
+  nav.toc a:hover { background: var(--blue-t); }
+  main { min-width: 0; }
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 20px 16px 64px; }
+    nav.toc { position: static; max-height: none; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    nav.toc ol { columns: 2; column-gap: 10px; }
+    nav.toc a { padding: 4px 6px; font-size: 13.5px; break-inside: avoid; }
+  }
+  @media (max-width: 420px) { nav.toc ol { columns: 1; } }
+
+  /* 見出し・本文 */
+  header.hero { margin-bottom: 28px; }
+  .kicker { font-size: 12.5px; letter-spacing: .14em; color: var(--soft); font-weight: 700; }
+  h1 { margin: 6px 0 12px; font-size: clamp(26px, 4vw, 38px); line-height: 1.35; text-wrap: balance; }
+  .lead { color: var(--soft); font-size: 1.04em; margin: 0; }
+  section.sec { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 28px 30px; margin: 0 0 24px; }
+  @media (max-width: 600px) { section.sec { padding: 20px 16px; border-radius: 12px; } }
+  h2 { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 14px; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.4; text-wrap: balance; }
+  h2 .n { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--blue); color: #fff; font-size: .62em; flex: none; margin-top: .25em; }
+  h3 { margin: 22px 0 8px; font-size: 1.08em; line-height: 1.5; }
+  p { margin: 0 0 10px; }
+  ul, ol { margin: 6px 0 10px; padding-left: 1.4em; }
+  li { margin: 4px 0; }
+  .muted { color: var(--soft); font-size: .9em; }
+  .concl { background: var(--blue-t); border-radius: 12px; padding: 14px 18px; margin: 0 0 16px; font-weight: 500; }
+  .concl b { color: var(--blue); }
+  .warn { background: var(--orange-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .warn b { color: var(--orange-d); }
+  .stop { background: var(--red-t); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+  .stop b { color: var(--red); }
+  .tag { display: inline-block; padding: 0 10px; border-radius: 999px; font-size: .78em; font-weight: 700; line-height: 1.8; vertical-align: .08em; }
+  .t-blue { background: var(--blue-t); color: var(--blue); } .t-orange { background: var(--orange-t); color: var(--orange-d); }
+  .t-green { background: var(--green-t); color: var(--green); } .t-gray { background: var(--gray-t); color: var(--soft); }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .g2, .g3 { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .card h3 { margin-top: 0; }
+  .big { font-size: 1.7em; font-weight: 800; line-height: 1.2; color: var(--green); font-variant-numeric: tabular-nums; }
+
+  /* 用語の言い換え */
+  .term { border-bottom: 1px dotted var(--soft); }
+  .gloss { color: var(--soft); font-size: .86em; }
+
+  /* 表（スマホでは中だけ横に動く） */
+  .tw { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); margin: 8px 0 12px; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: .92em; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gray-t); font-size: .92em; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .tw.wide table { min-width: 640px; }
+
+  /* 全体の流れ */
+  .flow { display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 10px 0 6px; }
+  @media (max-width: 760px) { .flow { grid-template-columns: minmax(0, 1fr); } }
+  .phase { border-radius: 12px; padding: 12px 14px; position: relative; min-width: 0; }
+  .phase .ph { font-size: .78em; font-weight: 800; letter-spacing: .08em; }
+  .phase .pt { font-weight: 800; font-size: 1.05em; margin: 2px 0 6px; }
+  .phase ul { margin: 0; padding-left: 1.1em; font-size: .9em; }
+  .phase.p1 { background: var(--gray-t); } .phase.p1 .ph { color: var(--soft); }
+  .phase.p2 { background: var(--blue-t); } .phase.p2 .ph { color: var(--blue); }
+  .phase.p3 { background: var(--orange-t); } .phase.p3 .ph { color: var(--orange-d); }
+  .phase.p4 { background: var(--green-t); } .phase.p4 .ph { color: var(--green); }
+  .loop { margin-top: 8px; font-size: .9em; color: var(--soft); }
+
+  /* ダウンロード */
+  .dl { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding: 22px; border-radius: 14px; background: var(--ink); color: #fff; }
+  .dl .meta { font-size: .92em; line-height: 1.7; }
+  .dl .meta b { color: #ffb48a; }
+  .btn-dl { display: inline-flex; align-items: center; gap: 12px; padding: 16px 26px; border-radius: 999px; background: var(--orange); color: #1f1f1f; font-weight: 800; font-size: 1.1em; text-decoration: none; border: 0; cursor: pointer; box-shadow: 0 6px 18px rgba(242,105,35,.35); }
+  .btn-dl:hover { background: #ff7a35; }
+  .btn-dl:focus-visible, .copy:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .btn-dl svg { width: 22px; height: 22px; flex: none; }
+  .dl-msg { width: 100%; margin: 0; font-size: .92em; color: #ffd9c4; min-height: 1.6em; }
+
+  /* コマンド（コピーボタンつき） */
+  .cmd { position: relative; margin: 8px 0 12px; min-width: 0; max-width: 100%; }
+  .cmd pre { margin: 0; background: #23231f; color: #f3f3ee; border-radius: 10px; padding: 14px 92px 14px 16px; overflow-x: auto; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13.5px; line-height: 1.7; white-space: pre; }
+  .cmd.say pre { background: var(--blue-t); color: var(--ink); white-space: pre-wrap; word-break: normal; font-family: inherit; font-size: .95em; }
+  .copy { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); color: #fff; border-radius: 8px; padding: 4px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .cmd.say .copy { border-color: var(--blue); background: var(--paper); color: var(--blue); }
+  .copy.done { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* 手順の番号 */
+  ol.steps { list-style: none; padding: 0; margin: 10px 0 0; counter-reset: s; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  ol.steps > li { position: relative; margin: 0; padding: 0 0 0 46px; min-width: 0; }
+  @media (max-width: 600px) { ol.steps > li { padding-left: 40px; } }
+  ol.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font-weight: 800; font-size: 15px; }
+  ol.steps > li > h3 { margin: 4px 0 6px; }
+
+  /* 案件ごとの手順：3つの枠 */
+  .step { border: 1px solid var(--line); border-radius: 14px; margin: 0 0 16px; overflow: hidden; }
+  .step > .sh { display: flex; align-items: baseline; gap: 12px; padding: 12px 16px; background: var(--gray-t); }
+  .step > .sh .no { flex: none; font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums; min-width: 2.6em; }
+  .step > .sh .st { font-weight: 800; font-size: 1.05em; line-height: 1.5; }
+  .step.key > .sh { background: var(--orange-t); } .step.key > .sh .no { color: var(--orange-d); }
+  .step .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step .cols.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step .col { padding: 12px 16px; min-width: 0; font-size: .94em; }
+  .step .col + .col { border-left: 1px solid var(--line); }
+  .step .col .lb { display: block; font-size: .8em; font-weight: 800; letter-spacing: .06em; margin-bottom: 4px; }
+  .step .you .lb { color: var(--orange-d); } .step .ai .lb { color: var(--blue); } .step .chk .lb { color: var(--green); }
+  .step .col ul { margin: 0; padding-left: 1.1em; }
+  .step .full { padding: 0 16px 14px; }
+  @media (max-width: 760px) {
+    .step .cols, .step .cols.c2 { grid-template-columns: minmax(0, 1fr); }
+    .step .col + .col { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* 10原則 */
+  .p10 td:first-child { font-weight: 800; color: var(--blue); white-space: nowrap; }
+  .abc { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 8px 0 14px; }
+  @media (max-width: 760px) { .abc { grid-template-columns: minmax(0, 1fr); } }
+  .abc .card b.k { display: inline-grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; color: #fff; margin-right: 8px; }
+  .abc .a b.k { background: var(--green); } .abc .b b.k { background: var(--blue); } .abc .c b.k { background: var(--orange); }
+
+  /* よくある問題 */
+  details.faq { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 10px; background: var(--paper); }
+  details.faq > summary { cursor: pointer; padding: 12px 16px; font-weight: 700; list-style: none; position: relative; padding-right: 40px; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq > summary::after { content: "＋"; position: absolute; right: 16px; top: 12px; color: var(--blue); font-weight: 800; }
+  details.faq[open] > summary::after { content: "－"; }
+  details.faq > div { padding: 0 16px 14px; }
+
+  footer { color: var(--soft); font-size: .86em; margin-top: 28px; }
+
+  /* キャプチャ */
+  figure.shot { margin: 12px 0 18px; }
+  figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+  figure.shot.narrow img { max-width: 360px; }
+  figure.shot figcaption { color: var(--soft); font-size: .88em; margin-top: 6px; }
+  .shot-row { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .shot-row { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="toc" aria-label="目次">
+    <p class="ttl">目次</p>
+    <p class="first" style="margin:0 0 6px"><a href="#promise"><b>使う前に（必ず守ること）</b></a></p>
+    <ol>
+      <li><a href="#about">このページについて</a></li>
+      <li><a href="#diff">LP キットとの違い</a></li>
+      <li><a href="#download">ダウンロード</a></li>
+      <li><a href="#need">必要なもの</a></li>
+      <li><a href="#setup">初回だけの準備</a></li>
+      <li><a href="#steps">案件ごとの流れ（TOP の初稿まで）</a></li>
+      <li><a href="#pages">下層ページを作る</a></li>
+      <li><a href="#check">提出前のチェックと公開</a></li>
+      <li><a href="#revise">クライアントから修正が来たら</a></li>
+      <li><a href="#wp">WordPress への移行</a></li>
+      <li><a href="#trouble">困ったとき</a></li>
+      <li><a href="#rules">守ること</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- DRAFT: 配布のときにこの帯を消す -->
+    <div class="warn"><b>下書き（未公開）</b>：このページは下書きです（2026-11-13 の中身）。ダウンロードのリンクはまだ入っていません（準備中）。キットは v1.0 の試用版で、実際の公開（Cloudflare・GitHub への送信）と WordPress への移行は、まだこのキットで通していません。</div>
+    <header class="hero">
+      <div class="kicker">採用HP 制作キット（spinova-hp-kit）v1.0 試用版</div>
+      <h1>採用HP 制作キットの使い方 <span class="nb">（v1.0 試用版）</span></h1>
+      <p class="lead">採用HP（TOP と下層ページ）を、毎回同じ土台と同じ検査で作るためのキットの手引きです。AI やターミナル（<span class="gloss">文字でパソコンに指示を出す画面</span>）に慣れていなくても進められるよう、<span class="nb">「あなたがすること」</span>と<span class="nb">「AI がすること」</span>を分けて書いています。採用LP は別のキット（spinova-lp-kit）です。</p>
+    </header>
+
+    <section class="sec" id="promise">
+      <div class="warn"><b>このキットを使う前に（必ず守ってください）</b>
+        <ol style="margin:8px 0 0">
+          <li>このキットとマニュアルは、SPINOVA の制作のためだけに使ってください。ほかの仕事や個人の制作には使わず、人にも渡さないでください。</li>
+          <li>キットの中身（手順書・道具・土台）は、自分で書き換えないでください。AI に頼んでも書き換えません。直したい所は、責任者へ伝えてください。</li>
+          <li>キットで作ったサイトには、このキットで作られたことが分かる目印（版と印）が入ります。</li>
+          <li>ヒアリングシートにある認証情報（FTP・WordPress の ID とパスワード）は、AI に読ませない・貼らないでください。</li>
+        </ol></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="sec" id="about">
+      <h2><span class="n">1</span>このページについて</h2>
+      <p class="concl"><b>結論：</b>キットをパソコン（Mac・Windows）に置き、AI のアプリでキットのフォルダを開いて案件を渡すと、AI が採用HP を作ります。最初に見せるのは <b>TOP だけ</b>。TOP の OK が出てから下層ページを作ります。あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」です。</p>
+      <div class="grid g3">
+        <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、TOP と下層（私たちについて・事業内容・会社概要・お問い合わせ）を作る</li><li>リンク切れ・はみ出し・最小の文字・メニュー・読みやすさ・改行などを道具で検査する</li><li>合格し、承認がそろったものだけを公開する（版ごとの URL）</li></ul></div>
+        <div class="card"><h3>作らないもの</h3><ul><li>採用ページ（採用情報は採用LP へのリンクにします）</li><li>WordPress への移行の手順（HP 版はまだありません。10章）</li></ul></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v1.0</div><p class="muted">試用版（2026-11-13）。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。初稿までにかかる時間は、まだ測っていません。</p></div>
+      </div>
+      <h3>全体の流れ</h3>
+      <div class="flow" role="list">
+        <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
+        <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">TOP の初稿</div><ul><li>案件を AI に渡す</li><li>進め方を選ぶ</li><li>TOP を見て直しを伝える</li><li>TOP だけを先方へ</li></ul></div>
+        <div class="phase p3" role="listitem"><div class="ph">TOP の OK のあと</div><div class="pt">下層・公開</div><ul><li>下層ページを作る</li><li>全ページを見る</li><li>承認 → 公開 → 共有文面</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正</div><ul><li>版を上げて出し直す</li><li>前後の比較画像を添える</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="diff">
+      <h2><span class="n">2</span>LP キットとの違い</h2>
+      <p class="concl"><b>結論：</b>進め方の大筋（シートを読む → 要件を整理 → 参考サイトを分析 → 最初の画面を見せる → 検査 → 承認 → 公開 → 修正）と、あなたの役割・守ることは、採用LP キットと同じです。違うのは<b>作るものの形</b>（1ページのスワイプ型か、TOP と下層の複数ページか）と、それに合わせた<b>検査と道具の範囲</b>です。</p>
+      <div class="tw wide"><table>
+        <thead><tr><th>項目</th><th>採用LP キット</th><th>採用HP キット（このキット）</th></tr></thead>
+        <tbody>
+          <tr><th>作るもの</th><td>採用LP（1ページ）。標準は縦スワイプ型（<span class="gloss">1回の操作で1画面ずつ進む形</span>）</td><td>採用HP（TOP と下層ページ）。ふつうに上下へスクロールする形</td></tr>
+          <tr><th>ページ</th><td>1ページの中に画面を並べる</td><td>TOP と下層（私たちについて・事業内容・会社概要・お問い合わせ。シートに合わせて増やせる）。ヘッダー・フッター・メニューは TOP が元で、道具が全ページへ写す</td></tr>
+          <tr><th>最初に見せるもの</th><td>1枚目（最初の画面）を参考サイトと並べて見せ、OK のあと全体を作る</td><td>TOP だけを作って先方へ出し、方向の OK のあと下層を作る</td></tr>
+          <tr><th>採用情報</th><td>LP そのものが採用ページ</td><td>採用ページは作らない。採用情報は採用LP へのリンクにする</td></tr>
+          <tr><th>動き</th><td>動きの見本帳（44件）から選ぶ。最初の画面の動画（FV動画）は責任者が別に作る</td><td>見本帳は無い。土台にある「表示されたときにふわっと出る動き」だけ</td></tr>
+          <tr><th>検査の大きさ</th><td>4サイズ。ページ送りや、1画面に収まるかも見る</td><td>リンク切れ・はみ出しなどは4サイズ（スマホ 360・375・390 と PC 1440）。時間のかかる検査（文字の読みやすさ・絵の見切れ・改行）は、スマホ 390 と PC 1440 の2サイズ（スワイプ型ではないため）。1画面に収める検査は無い</td></tr>
+          <tr><th>全部の検査の時間</th><td>約7〜8分</td><td>試しの5ページで約3分（初回）。2回目からは、前の公開から変わったページだけを時間のかかる検査にかける</td></tr>
+          <tr><th>修正の比較画像</th><td colspan="2">同じ。スマホの1サイズで、直した所を「修正前｜修正後」で切り出し、1枚に縦に積む。AI への指定の仕方も同じ</td></tr>
+          <tr><th>公開</th><td colspan="2">同じ。社内の確認用（GitHub Pages）→ 先方用（Cloudflare Pages の版ごとの URL）。前の版の URL は上書きしない。HP では、責任者が「検査とばせ」と言った版だけ、時間のかかる検査を省いて出す「急ぎの公開」がある（8章）</td></tr>
+          <tr><th>確認の手助け</th><td>いろいろな幅で見るクオリティチェッカー・別の AI による見直し（レビュー役）・困ったときに送る作業記録の ZIP</td><td>まだ無い。全ページを PC・スマホ各1枚の画像で見る</td></tr>
+          <tr><th>WordPress への移行</th><td>指示文がある</td><td>まだ無い（10章）</td></tr>
+          <tr><th>版</th><td>v5</td><td>v1.0（試用版。キットの道具を通した先方用の公開と、WordPress への移行は、まだ通していない）</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="muted">
+        <li><b>どちらを使うか</b>：ヒアリングシートが採用LP なら LP キット、採用HP（会社のサイト）なら HP キットです。迷ったら責任者に確かめてください。</li>
+        <li>2つのキットは別のフォルダに置き、中身を混ぜません。ZIP・パスワード・版の番号も別です。</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="download">
+      <h2><span class="n">3</span>ダウンロード</h2>
+      <div class="dl">
+        <!-- DRIVE_URL: 配布のときに Google Drive のフォルダの URL を href と data-drive-url に入れる（空のあいだは「準備中」と出る） -->
+        <a class="btn-dl" id="dlBtn" href="#" data-drive-url="" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          キットをダウンロード（準備中）
+        </a>
+        <div class="meta">ファイル：<b>spinova-hp-kit_v1.0_pw.zip</b>（パスワード付き）<br>版：<b>v1.0（試用版）</b><br>中身：土台（TOP と下層）・検査と公開の道具・ひな形（要件整理・DNA・提出チェック・写真チェック・共有文面・OGP とファビコンの作り方）・手順書</div>
+        <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
+      </div>
+      <ul class="muted">
+        <li><b>開き方</b>：ZIP とパスワードのファイルを受け取る → ZIP をダブルクリックし、パスワードを入力 → <code>spinova-hp-kit_v1.0</code> フォルダができます（Windows は、右クリック →「すべて展開」→ パスワード）。Windows での展開は、この版ではまだ確かめていません。</li>
+        <li>採用LP のキット（spinova-lp-kit）とは別のフォルダに置きます。中身を混ぜないでください。</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="need">
+      <h2><span class="n">4</span>必要なもの</h2>
+      <div class="grid g3">
+        <div class="card"><h3>パソコン</h3><ul><li>macOS か Windows（Git Bash）</li><li>Google Chrome</li><li>Node.js 22 以上</li><li>Python 3 と Pillow</li></ul></div>
+        <div class="card"><h3>AI のアプリ</h3><ul><li>Claude のデスクトップアプリ（Claude Code）など、フォルダを開いて作業できる AI</li><li>キットのフォルダにある手順書（<code>AGENTS.md</code>＝<code>CLAUDE.md</code>）を AI が読みます</li></ul></div>
+        <div class="card"><h3>公開するとき</h3><ul><li>Cloudflare のアカウント（Cloudflare Pages。wrangler にログイン）</li><li>確認用の GitHub Pages：git と、GitHub の操作に使う道具（gh）へのログイン。リポジトリと Pages は、公開の道具が自動で作ります</li></ul></div>
+      </div>
+      <p class="muted">そろっているかは、5章の「初回の準備」で AI が <code>tools/setup_check.sh</code> を使って確かめます（入れる操作は、説明してから）。</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="setup">
+      <h2><span class="n">5</span>初回だけの準備</h2>
+      <ol class="steps">
+        <li><h3>ZIP を置く場所を決めて、解凍する</h3><p>例：「HP制作」フォルダを作り、その中に解凍します。フォルダの名前（<code>spinova-hp-kit_v1.0</code>）は変えないでください。</p></li>
+        <li><h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3><p>解凍してできた <code>spinova-hp-kit_v1.0</code> フォルダを選びます（その中の <code>projects</code> などではなく、いちばん外のフォルダ）。</p></li>
+        <li><h3>AI に「初回の準備をして」と頼む（あとは AI がやる）</h3>
+          <div class="cmd say"><pre>初回の準備をしてください。
+1. AGENTS.md を読む
+2. tools/setup_check.sh で点検し、足りないものがあれば、入れ方を説明してから進める
+3. tools/version.sh でキットの版を教える</pre><button class="copy" type="button">コピー</button></div>
+          <p class="muted">表の「状態」がすべて OK（⚠ は説明を読んで判断）になれば準備は終わりです。</p></li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="steps">
+      <h2><span class="n">6</span>案件ごとの流れ：TOP の初稿を出すまで</h2>
+      <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える」「TOP を見て直してほしい所を伝える」「OK を出す」「先方へ送る」です。作る・調べる・検査する・公開するのは AI です。確認はそのつど来るので、制作中は返事ができるようにしてください。</p>
+      <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えます。修正もその案件のチャットで続けます。</div>
+      <h3>最初の一言（コピーして AI に送る）</h3>
+      <div class="cmd say"><pre>新しい HP の案件を始めてください。
+担当案件：〔担当案件の URL か、ヒアリングシートの場所を書く〕
+進め方の選択・公開・クライアントへの送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
+
+      <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を渡す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」を送る</li><li>ヒアリングシートは Google のサインインが要ります。AI の内蔵ブラウザで、初回だけあなたがサインインします（AI はパスワードを入れません）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>案件のフォルダを作る（<code>projects/</code> の中）</li><li>作業中は、シート・参考サイト・手元の確認・確認用の GitHub の4つをブラウザに開いておく（あなたがいつでも進み具合を見られるように）</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">進め方を選ぶ・食い違いに答える</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>選択カードで選ぶ：初稿の範囲（標準は TOP だけ）・案の数・写真の方針（先方の写真／フリー素材／AI 生成／イラスト）</li><li>AI 生成の写真を使うときは、先に先方の了承を取る</li><li>シートの食い違い（住所・郵便番号・社名の書き方・色など）をまとめて1回聞かれるので、答える</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>シートを全部読み、確定・解釈・未定に分けて <code>要件整理.md</code> に書く</li><li>シートに無い事実（電話・郵便番号など）は作らない。仮のまま残すか、項目ごと外すかを聞く</li><li>色の名前しか無いときは、近い色を仮に置いて、あなたに確かめる</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">3</span><span class="st">参考サイトを調べる</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が開けないリンク（Canva・Drive など）は、開いて要点を伝える</li><li>参考サイトの指定が無い案件は、AI が方針を報告してくるので、責任者に確かめる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>参考サイトを PC とスマホで見て、「らしさ」と数値を <code>DNA.md</code> に書く（持ち込むのは数値と型だけ。画像やコードは持ち込まない）</li><li>先方の「参考にしてほしい点」は、実際に操作して確かめる</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">4</span><span class="st">TOP を作って、見る</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>届いた画像（ページ全体を PC・スマホ各1枚）を見て、直してほしい所をまとめて伝える</li><li>OGP（<span class="gloss">URL を貼ったときに出る画像</span>）とファビコンを見て OK を出す</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>TOP を作り、写真を1枚ずつ確かめ（<code>写真チェック.md</code>）、ロゴを差し替える</li><li>撮った画像を自分で見てから渡す。直しの途中は、直した所を撮って見せるだけ（全部の検査は公開の前に1回）</li><li>社内で見る確認用の URL（GitHub Pages）は、了承なしで AI が出す</li></ul></div>
+      </div></div>
+      <div class="step"><div class="sh"><span class="no">5</span><span class="st">TOP だけの初稿を出す</span></div><div class="cols c2">
+        <div class="col you"><span class="lb">あなた</span><ul><li>責任者の OK をもらい、AI に「OK、公開に進んで」と伝える</li><li>届いた URL を自分の目で見て、共有文面の下書きを直して先方へ送る（送るのはあなた）</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>公開の門（検査）→ 承認の記録 → 公開 → 公開した中身の照合（8章）</li><li>下層は中身を作る前の仮ページのまま出す（仮ページは時間のかかる検査を省く）。共有文面に「今回は TOP のみ」「仮の所」を書く</li></ul></div>
+      </div></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="pages">
+      <h2><span class="n">7</span>下層ページを作る（TOP の OK のあと）</h2>
+      <p class="concl"><b>結論：</b>先方から TOP の方向に OK が出たら、「下層を作って」と伝えます。基本は4ページ（私たちについて・事業内容・会社概要・お問い合わせ）で、シートの構成に合わせて増やせます。</p>
+      <ul>
+        <li>ヘッダー・フッター・メニューは TOP が元で、道具が全ページへ写します。メニューとフッターには「トップ」が入ります。</li>
+        <li>同じ役割の見出し・ボタン・表は、ページの間でそろえます。同じ写真・同じ構図は使い回しません。</li>
+        <li>お問い合わせフォームは見た目までです。送信の仕組みは WordPress への移行で入ります（10章）。</li>
+        <li>確定の文が無い所は仮の文にし、提出のときに「仮の所」として伝えます。</li>
+      </ul>
+    </section>
+
+    <!-- 7 -->
+    <section class="sec" id="check">
+      <h2><span class="n">8</span>提出前のチェックと公開</h2>
+      <p class="concl"><b>結論：</b>公開は道具（<code>tools/publish.sh</code>）だけで行います。検査に合格し、その版の承認の記録があるときだけ公開されます。止まったら、止めた理由を直します。</p>
+      <h3>確かめる段は3つ（A・B・C）</h3>
+      <div class="grid g3">
+        <div class="card"><h3>A　道具が判定</h3><ul><li>リンク切れ・はみ出し・最小の文字 13px・メニューの開閉・電話と〒の折れ</li><li>文字の読みやすさ（コントラスト）・絵の見切れ・文節の途中の改行</li><li>✕ が0になるまで AI が直す</li></ul></div>
+        <div class="card"><h3>B　AI が見て直し、責任者が画像で承認</h3><ul><li>改行・余白の段階・写真・ページ間のそろい・参考サイトらしさ</li><li>全ページを PC・スマホ各1枚の画像で見る</li></ul></div>
+        <div class="card"><h3>C　責任者だけが判断</h3><ul><li>見た目の質・写真の選び方</li><li>iPhone の実機で触ったか（見ていなければ「未確認」）</li><li>提出・公開してよいか</li></ul></div>
+      </div>
+      <h3>公開の流れ</h3>
+      <ol class="steps">
+        <li><h3>確認用で先に見る（社内）</h3><p>確認用の GitHub Pages に出して社内で見ます。了承は要らず、リポジトリや Pages が無ければ道具が作ります。いきなり先方用を出しません。</p></li>
+        <li><h3>責任者の OK を、版ごとに記録する</h3><p>責任者がチャットで「OK、公開に進んで」と伝えたときだけ、AI が承認の行を書きます（版ごとに1行。前の版の OK は使い回しません）。</p></li>
+        <li><h3>公開する</h3><p>版ごとの URL（v1・v2 …）で公開されます。前の版の URL は上書きされません。公開のあと、道具が公開された全ファイルを手元と照合します。</p></li>
+        <li><h3>共有文面を送る</h3><p>AI が下書きを作ります。書くのは URL と「仮の所・通常と変えた点」だけ。送るのはあなたです。</p></li>
+      </ol>
+      <h3>検査の時間と、急ぎの公開</h3>
+      <ul>
+        <li><b>時間の目安</b>（試しの5ページ・手元での計測）：初回は全ページで約3分。2回目からは、前の公開から変わったページだけを時間のかかる検査（文字の読みやすさ・絵の見切れ・改行）にかけ、変わったページが無ければ約1分半です。どのページを見て、どのページを見ていないかは、出力に出ます。</li>
+        <li><b>急ぎの公開</b>：責任者が「検査とばせ」「すぐ出して」と言った版だけ、時間のかかる検査を省いて出します（ほかの検査・承認・公開後の照合はいつも通り）。省いた分は、次の版を出すときにまとめて検査します。本番の URL には使えません。手で公開することはしません。</li>
+      </ul>
+    </section>
+
+    <!-- 8 -->
+    <section class="sec" id="revise">
+      <h2><span class="n">9</span>クライアントから修正が来たら</h2>
+      <p class="concl"><b>結論：</b>修正の指示（Slack のスレッドの URL など）を、その案件のチャットに貼るだけです。AI はまとめて直し、直した所を見せ、版を上げて公開し、返信文の下書きと比較画像を渡します。</p>
+      <div class="cmd say"><pre>修正が来ました。修正時.md の手順で進めてください。
+修正の指示：〔Slack のスレッドの URL か、指示の文を貼る〕</pre><button class="copy" type="button">コピー</button></div>
+      <ul>
+        <li><b>先方へ出した後の直しは、必ず版を上げます</b>（v1 → v2）。前の版の URL は残るので、先方が見比べられます。</li>
+        <li>直している間は、直した所を撮って見せるだけです。検査は公開の前に1回。急ぎのときは、責任者の指示で急ぎの公開（8章）にできます。</li>
+        <li><b>比較画像は1枚</b>：スマホの幅の1サイズで、直した所を「修正前｜修正後」で切り出し、全部を1枚に縦に積みます（多いときだけ道具が2枚に分けます）。PC でしか見えない直しのときだけ、PC の1サイズにします。画像は公開したあとの URL 同士で作ります。</li>
+        <li>渡す順番は「返信文の下書き → すぐ画像」。送るのはあなたです。</li>
+        <li>先方の文言は、Slack・シートの原文から写します（転送文・要約から写しません）。</li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section class="sec" id="wp">
+      <h2><span class="n">10</span>WordPress への移行（WP化）</h2>
+      <div class="warn"><b>HP 版の WP化の手順は、まだありません（未整備）。</b>WP化の段になったら、進め方を責任者に確認してください。AI は認証情報（FTP・WordPress の ID とパスワード）を扱いません。</div>
+      <p class="muted">先にできること：CSS の散らかりを0件にしておく（見た目を変えない整理だけ）。</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="sec" id="trouble">
+      <h2><span class="n">11</span>困ったとき</h2>
+      <div class="grid g3">
+        <div class="card"><h3>検査で止まった</h3><p>✕ の行に、ページ・画面の大きさ・理由が出ます。AI に「✕ を直して、同じコマンドを流し直して」と伝えます。検査を通すために、除外の指定で消すことはしません。</p></div>
+        <div class="card"><h3>公開で止まった</h3><p>「承認の行がありません」は、その版の責任者の OK がまだ記録されていない、という意味です。「もう公開しています」は、同じ版へ出し直そうとしたときです（次の番号で出します）。</p></div>
+        <div class="card"><h3>キットがおかしい</h3><p><code>tools/version.sh</code> で、キットの版と、キット本体が書き換わっていないかが分かります。不具合・足りない所は、AI に直させず、責任者へ伝えてください。</p></div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="sec" id="rules">
+      <h2><span class="n">12</span>守ること</h2>
+      <ol class="steps">
+        <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外やほかの案件へ持ち出しません。認証情報は AI に読ませません。</p></li>
+        <li><h3>公開と送信は人が承認する</h3><p>公開・クライアントへの送信・Slack への投稿は、あなたと責任者が決めます。AI は下書きまでです。</p></li>
+        <li><h3>「OK」は人が出す</h3><p>承認の記録は、責任者がはっきり OK を伝えたときだけ書かれます。AI の判断では書きません。</p></li>
+        <li><h3>事実を足さない</h3><p>シートに無い電話・住所・数字・実績を、AI に作らせません。先方の文言は言い換えません。</p></li>
+        <li><h3>キットを書き換えない・再配布しない</h3><p>手順書・道具・土台は直しません。キットと、このページのダウンロードのリンクを、ほかの人に渡しません。</p></li>
+      </ol>
+    </section>
+
+    <footer>採用HP 制作キット v1.0（試用版）の使い方（下書き・2026-11-13）。このページは関係者向けで、検索には出しません。中身はキットの手順書（AGENTS.md・修正時.md）・README・道具から書いています。</footer>
+  </main>
+</div>
+<script>
+  // コピーボタン
+  document.querySelectorAll('.cmd .copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.parentElement.querySelector('pre').innerText;
+      var done = function () { b.textContent = 'コピーしました'; b.classList.add('done'); setTimeout(function () { b.textContent = 'コピー'; b.classList.remove('done'); }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); });
+      else { fallback(t); done(); }
+    });
+  });
+  function fallback(t) { var ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }
+  // ダウンロード：data-drive-url が空なら「準備中」
+  (function () {
+    var a = document.getElementById('dlBtn'), msg = document.getElementById('dlMsg');
+    var url = (a.getAttribute('data-drive-url') || '').trim();
+    if (url) { a.href = url; a.target = '_blank'; return; }
+    a.addEventListener('click', function (e) { e.preventDefault(); msg.textContent = '準備中です。ダウンロードのリンクは、準備ができしだいこのボタンに入ります。'; });
+  })();
+</script>
+</body>
+</html>
