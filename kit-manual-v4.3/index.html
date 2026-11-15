@@ -182,15 +182,16 @@
   @media (max-width: 860px) { nav.toc { position: sticky; padding: 8px 8px 0; } nav.toc ol { columns: 2; } }
   @media (max-width: 520px) { nav.toc ol { columns: 1; } }
   section.sec, [id] { scroll-margin-top: 76px; }
+  @media (min-width: 601px) { .tw > table.stack { table-layout: fixed; } .tw > table.stack > thead th:first-child { width: 11em; } }
   @media (max-width: 600px) {
-    .tw table.stack, .tw table.stack tbody, .tw table.stack tr, .tw table.stack td { display: block; width: auto; }
+    .tw table.stack, .tw table.stack > tbody, .tw table.stack > tbody > tr, .tw table.stack > tbody > tr > td { display: block; width: auto; }
     .tw.wide table.stack { min-width: 0; }
     .tw table.stack thead { display: none; }
-    .tw table.stack tr { border-bottom: 1px solid var(--line); }
-    .tw table.stack tr:last-child { border-bottom: 0; }
-    .tw table.stack td { border-bottom: 0; }
-    .tw table.stack td:first-child { padding-bottom: 0; }
-    .tw table.stack td:first-child:not(:only-child) { white-space: normal; }
+    .tw table.stack > tbody > tr { border-bottom: 1px solid var(--line); }
+    .tw table.stack > tbody > tr:last-child { border-bottom: 0; }
+    .tw table.stack > tbody > tr > td { border-bottom: 0; }
+    .tw table.stack > tbody > tr > td:first-child { padding-bottom: 0; }
+    .tw table.stack > tbody > tr > td:first-child:not(:only-child) { white-space: normal; }
   }
 </style>
 </head>
@@ -271,7 +272,7 @@
           <tr><td><b>初稿（v1）の公開の門</b></td><td><b>約12分 → 約3分</b>になりました。止めるのは<b>事実のまちがい</b>（文言・シートの全行・構成・CSS の散らかり・〒と電話の改行）だけです。見た目（改行・余白・収まり・重なり・はみ出し・コントラスト）は止めずに最後まで測り、気になる所があると AI が<b>その場所の切り抜き画像と4つの案</b>（最後は必ず「このままでよい」）で<b>「どうしますか？」とカードで聞きます</b>。選んだ案で直して比較画像を見せ、直したページだけ測り直します（聞いた所は聞き直しません）。測るのはスマホ 390×664・低い画面 375×553・PC 1440×900 の3サイズです。ページ送りの作りを変えていなければ、ページ送りの検査は省きます。検査中は「3/8 余白の検査・44秒」のように、今何をしているかと秒数が出ます</td></tr>
           <tr><td><b>見た目を聞くときは、案を並べた1枚</b></td><td>見た目の判断を聞くときは、AI が<b>「今｜案A｜案B…」を同じ場所・同じ大きさで3倍に切り抜いて横に並べた1枚</b>（案の比較画像を作る道具 <code>ask_options.mjs</code>。重なり・はみ出し・空きの数値つき）をチャットに出してから、選択カードで聞きます。選択肢の頭の A・B は、画像の列の記号です。<b>画像なしで見た目の判断を聞くことはありません</b>。カードの文は日本語です</td></tr>
           <tr><td><b>改行の位置は原稿で決める</b></td><td>見出し・キャッチ・吹き出しは、文言に「／」を書いた所でだけ折れます（「／」は画面に出ません）。<b>手で <code>&lt;br&gt;</code> を入れない</b>でください。スマホだけ・PC だけで折りたいときは <code>.br-sp</code>・<code>.br-pc</code> を使います。1行に固定した行（nowrap）には折れる印を入れません。文言を直したら、比較画像を作る前に道具が改行を測り直します</td></tr>
-          <tr><td><b>余白は5段</b></td><td>行間＜段落＜見出しと本文＜まとまり＜ページの5段（<code>--sp-1</code>・<code>--sp-p</code>・<code>--sp-h</code>・<code>--sp-g</code>・<code>--sp-s</code>、比 1:2:3:5:8）だけを使います。px・rem の数字を直に書くと聞かれます（どうしても必要なら kit.conf の <code>SPACE_ALLOW</code> に理由つきで書く）。上下の空きすぎ・箇条の2行目のずれ・見出しの最後の行が3字以下・鍵括弧で始まる見出し（<code>.qh</code> で外へ出す）も聞かれます</td></tr>
+          <tr><td><b>余白は5段</b></td><td>余白の大きさを<b>決まった5種類だけ</b>にしました。中身どうしの関係が近いほど狭く、遠いほど広くします。<table class="mini" style="margin:8px 0;width:auto;min-width:0"><tbody><tr><td>1</td><td>行と行の間</td><td>いちばん狭い</td></tr><tr><td>2</td><td>段落と段落の間</td><td>行間の2倍</td></tr><tr><td>3</td><td>見出しと本文の間</td><td>行間の3倍</td></tr><tr><td>4</td><td>まとまり（カード・ブロック）どうしの間</td><td>行間の5倍</td></tr><tr><td>5</td><td>ページ（画面）どうしの間</td><td>いちばん広い（行間の8倍）</td></tr></tbody></table><b>ねらい：</b>場所ごとに思いつきの数字を入れると余白がばらばらになり、「詰まっている・空きすぎ」と指摘されていました。5種類に絞ると、関係の近さが見た目でそろいます。<br><b>あなたに関わること：</b>この5種類以外の大きさを使うと、検査が「この余白でよいですか？」と<b>聞いてきます</b>（止まりはしません）。どうしても必要な所は、AI が理由つきで例外に登録します。<br>ほかに、上下の空きすぎ・箇条の2行目のずれ・見出しの最後の行が3字以下・鍵括弧で始まる見出しも、同じように聞かれます。</td></tr>
           <tr><td><b>右に空きが出るページは中央揃え</b></td><td>左揃えで右側が空いて見えるページは、ページ単位で中央揃え（<code>.pg-center</code>）に切り替えます。1ページの中で混ぜません。行頭をそろえたい箇条などは群ごと中央に置きます（<code>.pg-keep</code>）。横幅いっぱいの作り・左右に並ぶ組は対象外です</td></tr>
           <tr><td><b>短い句は1行に保つ</b></td><td>「！」で終わる短い句・鍵括弧の中・数字＋単位（17万円・90分）・〒・都道府県＋市区町村・人名＋さん は、道具が自動で1行の塊にします</td></tr>
           <tr><td><b>箱の内側の余白・行間</b></td><td>枠・ボタン・ラベル・チップの内側は「左右 ≥ 上下・左右 16px 以上」、アイコンと文字の間は 20px 前後（部品 <code>.in-box</code>・<code>.in-chip</code>・<code>.in-ico</code>）。外れると聞かれます。行間は本文と見出しの2種類（<code>--lh-body</code>・<code>--lh-head</code>）だけを使います</td></tr>
@@ -855,7 +856,7 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
 (function(){
   var d=document.querySelector('nav.toc details');
   if(d){ d.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ d.open=false; }); }); }
-  document.querySelectorAll('.tw table').forEach(function(t){
+  document.querySelectorAll('.tw > table').forEach(function(t){
     var r=t.querySelector('tr'); if(r && r.children.length===2) t.classList.add('stack');
   });
 })();
