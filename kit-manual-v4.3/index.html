@@ -169,7 +169,7 @@
 
   /* 11/15 目次を上のプルダウンに・本文を1列で広く・2列の表はスマホで縦に積む */
   .wrap { display: block; max-width: 920px; padding-top: 0; }
-  nav.toc { position: sticky; top: 0; z-index: 30; max-height: none; overflow: visible; margin: 0 -8px 20px; padding: 10px 8px 0; background: var(--bg, #f6f5f1); }
+  nav.toc { position: static; z-index: auto; max-height: none; overflow: visible; margin: 0 0 20px; padding: 0; background: none; }
   nav.toc details { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
   nav.toc summary { cursor: pointer; list-style: none; padding: 12px 16px; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
   nav.toc summary::-webkit-details-marker { display: none; }
@@ -179,9 +179,9 @@
   nav.toc .toc-body .first { margin-top: 10px !important; }
   nav.toc ol { columns: 2; column-gap: 12px; }
   nav.toc a { break-inside: avoid; }
-  @media (max-width: 860px) { nav.toc { position: sticky; padding: 8px 8px 0; } nav.toc ol { columns: 2; } }
+  @media (max-width: 860px) { nav.toc { position: static; padding: 0; } nav.toc ol { columns: 2; } }
   @media (max-width: 520px) { nav.toc ol { columns: 1; } }
-  section.sec, [id] { scroll-margin-top: 76px; }
+  section.sec, [id] { scroll-margin-top: 16px; }
   @media (min-width: 601px) { .tw > table.stack { table-layout: fixed; } .tw > table.stack > thead th:first-child { width: 11em; } }
   @media (max-width: 600px) {
     .tw table.stack, .tw table.stack > tbody, .tw table.stack > tbody > tr, .tw table.stack > tbody > tr > td { display: block; width: auto; }
@@ -197,25 +197,7 @@
 </head>
 <body>
 <div class="wrap">
-  <nav class="toc" aria-label="目次"><details><summary>目次</summary><div class="toc-body">
-    
-    <p class="first" style="margin:0 0 6px"><a href="#promise"><b>使う前に（必ず守ること）</b></a></p>
-    <ol>
-      <li><a href="#about">このページについて</a></li>
-      <li><a href="#v4">v4.3 で変わったこと（v4.2 との比較）</a></li>
-      <li><a href="#download">ダウンロード</a></li>
-      <li><a href="#need">必要なもの</a></li>
-      <li><a href="#setup">初回だけの準備</a></li>
-      <li><a href="#update">前の版からのアップデート</a></li>
-      <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
-      <li><a href="#check">提出前のチェック（10原則）</a></li>
-      <li><a href="#revise">クライアントから修正が来たら</a></li>
-      <li><a href="#preset">動きのプリセットの使い方</a></li>
-      <li><a href="#wp">WordPress への移行</a></li>
-      <li><a href="#trouble">困ったとき・記録の送り方</a></li>
-      <li><a href="#rules">守ること</a></li>
-    </ol>
-  </div></details></nav>
+  
 
   <main>
     <header class="hero">
@@ -235,6 +217,25 @@
     </section>
 
     <!-- 1 -->
+    <nav class="toc" aria-label="目次"><details><summary>目次</summary><div class="toc-body">
+    
+    <p class="first" style="margin:0 0 6px"><a href="#promise"><b>使う前に（必ず守ること）</b></a></p>
+    <ol>
+      <li><a href="#about">このページについて</a></li>
+      <li><a href="#v4">v4.3 で変わったこと（v4.2 との比較）</a></li>
+      <li><a href="#download">ダウンロード</a></li>
+      <li><a href="#need">必要なもの</a></li>
+      <li><a href="#setup">初回だけの準備</a></li>
+      <li><a href="#update">前の版からのアップデート</a></li>
+      <li><a href="#steps">案件ごとの流れ（初稿まで）</a></li>
+      <li><a href="#check">提出前のチェック（10原則）</a></li>
+      <li><a href="#revise">クライアントから修正が来たら</a></li>
+      <li><a href="#preset">動きのプリセットの使い方</a></li>
+      <li><a href="#wp">WordPress への移行</a></li>
+      <li><a href="#trouble">困ったとき・記録の送り方</a></li>
+      <li><a href="#rules">守ること</a></li>
+    </ol>
+  </div></details></nav>
     <section class="sec" id="about">
       <h2><span class="n">1</span>このページについて</h2>
       <p class="concl"><b>結論：</b>キットをパソコン（Mac・Windows）に置き、Claude Code（Opus 5.5）でキットのフォルダを開き、Slack の担当案件の URL を送れば、AI が採用LPを作ります。<b>品質は自動の検査が止める</b>ので、あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」だけです。</p>
