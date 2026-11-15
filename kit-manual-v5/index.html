@@ -232,7 +232,7 @@
       <li><a href="#revise">クライアントから修正が来たら</a></li>
       <li><a href="#preset">動きのプリセットの使い方</a></li>
       <li><a href="#wp">WordPress への移行</a></li>
-      <li><a href="#fv">FV動画の作り方（試し）</a></li>
+      <li><a href="#fv">FV動画の作り方（β版）</a></li>
       <li><a href="#trouble">困ったとき・記録の送り方</a></li>
       <li><a href="#rules">守ること</a></li>
     </ol>
@@ -243,14 +243,14 @@
       <div class="grid g3">
         <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、縦スワイプ型（<span class="gloss">1回の操作で1ページ進む形</span>）の採用LPを作る</li><li>文言・収まり・重なり・配色・ページ送りを道具で検査する</li><li>合格したものだけを、あなたの Cloudflare で公開する</li></ul></div>
         <div class="card"><h3>初稿までの目安</h3><div class="big">約1.5時間</div><p class="muted">v3.0 での弊社の試し制作（2026-10-27）は96分。うち1枚目の確認（直し2回）21分・初稿の検査28分。初めての方は、これより長くかかる見込みです。全ページの検査は1回あたり約7〜8分です。</p></div>
-        <div class="card"><h3>このキットの版</h3><div class="big">v5</div><p class="muted">2026年11月16日（v4.3 と同じ中身に、FV動画のキットを同梱したもの。コアメンバー向けの試し）。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v5</div><p class="muted">2026年11月16日（v4.3 と同じ中身に、FV動画のキットを同梱したもの。一部メンバー向けのβ版）。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。</p></div>
       </div>
       <h3>全体の流れ</h3>
       <div class="flow" role="list">
         <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
         <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">初稿を作る</div><ul><li>URL を AI に貼る</li><li>進め方を選ぶ</li><li>動きを選ぶ</li><li>1枚目を見て OK</li><li>残りのページ・検査</li></ul></div>
         <div class="phase p3" role="listitem"><div class="ph">提出の前</div><div class="pt">確かめて出す</div><ul><li>10原則で全ページを見る</li><li>責任者が承認を書く</li><li>公開 → 共有文面</li></ul></div>
-        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>FV動画（12章・試し）</li><li>検収（公開）完了で作業記録を送る</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正・記録</div><ul><li>版を上げて出し直す</li><li>検査するかを選ぶ</li><li>WP化（11章）</li><li>FV動画（12章・β版）</li><li>検収（公開）完了で作業記録を送る</li></ul></div>
       </div>
       <p class="loop"><b>作業記録（作業レポート）を出すのは2回だけです：初稿（v1）を公開したときと、検収（公開）完了のとき。</b>どちらも必須で、案件の Slack のスレッドに長谷川・吉田・寺嶋をメンションして送ります。キットの改善に使います（<a href="#trouble">13章</a>）。</p>
     </section>
@@ -261,8 +261,8 @@
       <h2><span class="n">2</span>v5 で変わったこと（v4.2 との比較）</h2>
       <p class="muted">前の版を使っていた方向けの、変更点の一覧です。必読ではありません。気になるときに開いてください。</p>
       <details class="faq" open><summary>v5 で変わったことを開く（2026-11-16）</summary><div>
-      <p class="concl"><b>結論：</b>v5 は、一般メンバーに配る v4.3 と同じ中身に、<b>FV動画のキットを同梱した版</b>です（コアメンバー向けの試し。作り方は12章）。作り方の大筋は v4.2 と同じです。あなたの手が変わるのは <b>初稿（v1）の公開の門が約3分に短くなり、見た目の気になる所は止めずに、案を並べた画像を付けて「どうしますか？」と聞かれる</b>・<b>余白と改行の決まり</b>・<b>WP化のあとの「人の目のダブルチェック」（4点）</b>・<b>本番反映後に共有するものが3点に</b>・<b>初稿の前の「参考との見比べ」</b>・<b>修正版の返信に「どこをどう変えたか」</b>です。</p>
-      <div class="card" style="border-color:var(--blue);background:var(--blue-t)"><h3>追加された新機能：FV動画制作キット</h3><p>v5 には、v4.2 からの<b>変更</b>とは別に、<b>新しく FV動画制作キットが入りました</b>（ZIP の中の <code>spinova-fv-kit/</code>）。採用LP の1枚目（FV）で流す動画を、公開中の LP の文言・写真・色・書体から AI が作ります。</p><ul><li>使うのは、初稿に OK が出たあと。案件のチャットで「FV動画を作って」と言うだけです</li><li>出来た動画は LP と同じく案件の Slack のスレッドで先方に出し、OK が出たら AI が LP の動画を差し替えます</li><li>コアメンバー向けの試しの機能です。作り方は <a href="#fv">12章「FV動画の作り方」</a></li></ul></div>
+      <p class="concl"><b>結論：</b>v5 は、一般メンバーに配る v4.3 と同じ中身に、<b>FV動画のキットを同梱した版</b>です（一部メンバー向けのβ版。作り方は12章）。作り方の大筋は v4.2 と同じです。あなたの手が変わるのは <b>初稿（v1）の公開の門が約3分に短くなり、見た目の気になる所は止めずに、案を並べた画像を付けて「どうしますか？」と聞かれる</b>・<b>余白と改行の決まり</b>・<b>WP化のあとの「人の目のダブルチェック」（4点）</b>・<b>本番反映後に共有するものが3点に</b>・<b>初稿の前の「参考との見比べ」</b>・<b>修正版の返信に「どこをどう変えたか」</b>です。</p>
+      <div class="card" style="border-color:var(--blue);background:var(--blue-t)"><h3>追加された新機能：FV動画制作キット</h3><p>v5 には、v4.2 からの<b>変更</b>とは別に、<b>新しく FV動画制作キットが入りました</b>（ZIP の中の <code>spinova-fv-kit/</code>）。採用LP の1枚目（FV）で流す動画を、公開中の LP の文言・写真・色・書体から AI が作ります。</p><ul><li>使うのは、初稿に OK が出たあと。案件のチャットで「FV動画を作って」と言うだけです</li><li>出来た動画は LP と同じく案件の Slack のスレッドで先方に出し、OK が出たら AI が LP の動画を差し替えます</li><li>一部メンバー向けのβ版の機能です。作り方は <a href="#fv">12章「FV動画の作り方」</a></li></ul></div>
       <h3>入れ替えたら、まずすること</h3>
       <ul>
         <li>作りかけの案件は、6章の一言で AI が引き上げます（募集要項・フォームの型が新しくなりました。作りかけの案件の HTML は自動では書き換わりません）</li>
@@ -759,8 +759,8 @@ npm install -g @anthropic-ai/claude-code</pre><button class="copy" type="button"
 
     <!-- fv -->
     <section class="sec" id="fv">
-      <h2><span class="n">12</span>FV動画の作り方（コアメンバー向けの試し）</h2>
-      <div class="warn"><b>この章は試しの版です。</b>v5 は、コアメンバーに試してもらうために、FV動画のキットを同梱した版です。手順や道具は、試した結果で変わることがあります。気になる点・止まった所は #スキーム管理ch_spinova へ知らせてください。</div>
+      <h2><span class="n">12</span>FV動画の作り方（β版）</h2>
+      <div class="warn"><b>この章はβ版です。</b>v5 は、一部メンバーに先に使ってもらうために、FV動画のキットを同梱したβ版です。手順や道具は、試した結果で変わることがあります。気になる点・止まった所は #スキーム管理ch_spinova へ知らせてください。</div>
       <p class="concl"><b>結論：</b>初稿に OK が出たら、その案件のチャットで<b>「FV動画を作って」</b>と言います。AI が公開中の LP から文言・写真・色・書体を FV動画のキットへ渡して動画を作り、OK の出た動画を LP の1枚目に差し替えて、版を上げて公開します。<b>提出は LP と同じ流れ</b>です（案件の Slack のスレッドで先方に出す）。</p>
       <h3>始める前に</h3>
       <ul>
