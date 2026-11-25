@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>採用HP 制作キット 使い方 v1.0（試用版・下書き）</title>
-<meta name="description" content="spinova-hp-kit v1.0 試用版（採用HP 制作キット）を使う制作者のための手引き（下書き）。初回の準備・案件ごとの手順・提出前のチェックと公開・修正。">
+<title>採用HP 制作キット 使い方 v1.0（β版）</title>
+<meta name="description" content="spinova-hp-kit v1.0 β版（採用HP 制作キット）を使う制作者のための手引き。初回の準備・案件ごとの手順・提出前のチェックと公開・修正。">
 <style>
   /* 検証レポート（scheme-report）と同じ配色・書体 */
   :root {
@@ -166,35 +166,59 @@
   figure.shot figcaption { color: var(--soft); font-size: .88em; margin-top: 6px; }
   .shot-row { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
   @media (max-width: 760px) { .shot-row { grid-template-columns: minmax(0, 1fr); } }
+  /* 11/15 目次を上のプルダウンに・本文を1列で広く・2列の表はスマホで縦に積む */
+  .wrap { display: block; max-width: 920px; padding-top: 0; }
+  nav.toc { position: static; z-index: auto; max-height: none; overflow: visible; margin: 0 0 20px; padding: 0; background: none; }
+  nav.toc details { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  nav.toc summary { cursor: pointer; list-style: none; padding: 12px 16px; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
+  nav.toc summary::-webkit-details-marker { display: none; }
+  nav.toc summary::after { content: "▼"; font-size: 11px; color: var(--soft); transition: transform .2s; }
+  nav.toc details[open] summary::after { transform: rotate(180deg); }
+  nav.toc .toc-body { max-height: 70vh; overflow-y: auto; padding: 0 12px 12px; border-top: 1px solid var(--line); }
+  nav.toc .toc-body .first { margin-top: 10px !important; }
+  nav.toc ol { columns: 2; column-gap: 12px; }
+  nav.toc a { break-inside: avoid; }
+  @media (max-width: 860px) { nav.toc { position: static; padding: 0; } nav.toc ol { columns: 2; } }
+  @media (max-width: 520px) { nav.toc ol { columns: 1; } }
+  section.sec, [id] { scroll-margin-top: 16px; }
+  @media (min-width: 601px) { .tw > table.stack { table-layout: fixed; } .tw > table.stack > thead th:first-child { width: 11em; } }
+  @media (max-width: 600px) {
+    .tw table.stack, .tw table.stack > tbody, .tw table.stack > tbody > tr, .tw table.stack > tbody > tr > td { display: block; width: auto; }
+    .tw.wide table.stack { min-width: 0; }
+    .tw table.stack thead { display: none; }
+    .tw table.stack > tbody > tr { border-bottom: 1px solid var(--line); }
+    .tw table.stack > tbody > tr:last-child { border-bottom: 0; }
+    .tw table.stack > tbody > tr > td { border-bottom: 0; }
+    .tw table.stack > tbody > tr > td:first-child { padding-bottom: 0; }
+    .tw table.stack > tbody > tr > td:first-child:not(:only-child) { white-space: normal; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="toc" aria-label="目次">
-    <p class="ttl">目次</p>
+  <nav class="toc" aria-label="目次"><details><summary>目次</summary><div class="toc-body">
     <p class="first" style="margin:0 0 6px"><a href="#promise"><b>使う前に（必ず守ること）</b></a></p>
     <ol>
       <li><a href="#about">このページについて</a></li>
+      <li><a href="#changes">β版で変わったこと</a></li>
       <li><a href="#diff">LP キットとの違い</a></li>
       <li><a href="#download">ダウンロード</a></li>
       <li><a href="#need">必要なもの</a></li>
       <li><a href="#setup">初回だけの準備</a></li>
       <li><a href="#steps">案件ごとの流れ（TOP の初稿まで）</a></li>
-      <li><a href="#pages">下層ページを作る</a></li>
+      <li><a href="#pages">下層ページと作りの決まり</a></li>
       <li><a href="#check">提出前のチェックと公開</a></li>
       <li><a href="#revise">クライアントから修正が来たら</a></li>
       <li><a href="#wp">WordPress への移行</a></li>
       <li><a href="#trouble">困ったとき</a></li>
       <li><a href="#rules">守ること</a></li>
     </ol>
-  </nav>
+  </div></details></nav>
 
   <main>
-    <!-- DRAFT: 配布のときにこの帯を消す -->
-    <div class="warn"><b>下書き（未公開）</b>：このページは下書きです（2026-11-16 の中身）。ダウンロードのリンクはまだ入っていません（準備中）。キットは v1.0 の試用版で、実際の公開（Cloudflare・GitHub への送信）と WordPress への移行は、まだこのキットで通していません。</div>
     <header class="hero">
-      <div class="kicker">採用HP 制作キット（spinova-hp-kit）v1.0 試用版</div>
-      <h1>採用HP 制作キットの使い方 <span class="nb">（v1.0 試用版）</span></h1>
+      <div class="kicker">採用HP 制作キット（spinova-hp-kit）v1.0 β版</div>
+      <h1>採用HP 制作キットの使い方 <span class="nb">（v1.0 β版）</span></h1>
       <p class="lead">採用HP（TOP と下層ページ）を、毎回同じ土台と同じ検査で作るためのキットの手引きです。AI やターミナル（<span class="gloss">文字でパソコンに指示を出す画面</span>）に慣れていなくても進められるよう、<span class="nb">「あなたがすること」</span>と<span class="nb">「AI がすること」</span>を分けて書いています。採用LP は別のキット（spinova-lp-kit）です。</p>
     </header>
 
@@ -213,51 +237,65 @@
       <h2><span class="n">1</span>このページについて</h2>
       <p class="concl"><b>結論：</b>キットをパソコン（Mac・Windows）に置き、AI のアプリでキットのフォルダを開いて案件を渡すと、AI が採用HP を作ります。最初に見せるのは <b>TOP だけ</b>。TOP の OK が出てから下層ページを作ります。あなたの仕事は「選ぶ・見て直しを伝える・OK を出す・送る」です。</p>
       <div class="grid g3">
-        <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、TOP と下層（私たちについて・事業内容・会社概要・お問い合わせ）を作る</li><li>リンク切れ・はみ出し・最小の文字・メニュー・読みやすさ・改行などを道具で検査する</li><li>合格し、承認がそろったものだけを公開する（版ごとの URL）</li></ul></div>
-        <div class="card"><h3>作らないもの</h3><ul><li>採用ページ（採用情報は採用LP へのリンクにします）</li><li>WordPress への移行の手順（HP 版はまだありません。10章）</li></ul></div>
-        <div class="card"><h3>このキットの版</h3><div class="big">v1.0</div><p class="muted">試用版（2026-11-16 更新）。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。初稿までにかかる時間は、まだ測っていません。</p></div>
+        <div class="card"><h3>できること</h3><ul><li>ヒアリングシートから、TOP と下層（私たちについて・事業内容・会社概要・お問い合わせ。シートの構成に合わせて増減）を作る</li><li>リンク切れ・はみ出し・最小の文字・メニュー・読みやすさ・改行などを道具で検査する</li><li>合格し、承認がそろったものだけを公開する（版ごとの URL）</li></ul></div>
+        <div class="card"><h3>作らないもの</h3><ul><li>採用ページ（標準は採用LP へのリンク。シートの「採用情報の扱い」で決めます）</li><li>WordPress への移行の手順（HP 版はまだありません。11章）</li></ul></div>
+        <div class="card"><h3>このキットの版</h3><div class="big">v1.0 β版</div><p class="muted">2026-11-26 から配る版です。2026-11 の HP の実案件で、検査・確認用の公開・先方用の公開まで使いながら直してきました。版は ZIP の名前と、キットの中の <code>CHANGELOG.md</code>（<span class="gloss">更新の履歴</span>）で分かります。気づいたことは、責任者へ返してください（13章）。</p></div>
       </div>
       <h3>全体の流れ</h3>
       <div class="flow" role="list">
         <div class="phase p1" role="listitem"><div class="ph">初回だけ</div><div class="pt">準備</div><ul><li>ZIP を解凍して置く</li><li>アプリでフォルダを開く</li><li>AI に準備を頼む</li></ul></div>
-        <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">TOP の初稿</div><ul><li>案件を AI に渡す</li><li>進め方を選ぶ</li><li>TOP を見て直しを伝える</li><li>TOP だけを先方へ</li></ul></div>
+        <div class="phase p2" role="listitem"><div class="ph">案件ごと</div><div class="pt">TOP の初稿</div><ul><li>案件を AI に渡す</li><li>進め方を選ぶ</li><li>FV を参考と並べて見る</li><li>TOP だけを先方へ</li></ul></div>
         <div class="phase p3" role="listitem"><div class="ph">TOP の OK のあと</div><div class="pt">下層・公開</div><ul><li>下層ページを作る</li><li>全ページを見る</li><li>承認 → 公開 → 共有文面</li></ul></div>
-        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正</div><ul><li>版を上げて出し直す</li><li>前後の比較画像を添える</li></ul></div>
+        <div class="phase p4" role="listitem"><div class="ph">そのあと</div><div class="pt">修正</div><ul><li>版を上げて出し直す</li><li>比較画像を1枚添える</li></ul></div>
       </div>
-      <h3>2026-11-16 に足したこと（11/13 の中身との比較）</h3>
-      <p class="muted">採用LP キット（v4.3）で効いた進め方を、HP キットにも入れました。版の番号は v1.0 のままです。</p>
-      <ul>
-        <li><b>TOP の最初の画面（FV）を、参考サイトと並べた画像で確かめる</b>：スマホ・PC 各1枚。この OK が記録されるまで、下層の検査と公開は止まります（6章の手順4）</li>
-        <li><b>参考サイトの分析を深く</b>：先方の素材（ロゴ・写真・今のサイト）も同じ物差しで見る。場面ごとに、表現の種類の数・余白・文字の段数を数える。参考と素材の方向が反対なら最初に1回聞く</li>
-        <li><b>「参考と離れている」ときのやり直し</b>：分析をやり直して言葉にまとめてから作り直す。貼れる指示文「クオリティを上げるコツ」（6章）</li>
-        <li><b>資料フォルダは全部を一覧にしてから進む</b>：サブフォルダの中まで。ロゴが見つからなければ、仮のロゴを作る前に聞く</li>
-        <li><b>別の AI による見直し（レビュー役）</b>：FV を見せる前に1回</li>
-        <li><b>見た目の検査は「止めずに聞く」</b>：先方用の公開の前、見た目の問題は「要確認」として、切り抜き画像と案を並べた1枚で聞かれる（8章）</li>
-        <li><b>修正のとき</b>：返信には指示の番号ごとに「どこを・どう変えたか」。社内の見た目の直しが2回を超えても合わなければ作り直しを提案。先方の指摘を記録してためる（9章）</li>
-      </ul>
     </section>
 
     <!-- 2 -->
+    <section class="sec" id="changes">
+      <h2><span class="n">2</span>β版で変わったこと（2026-11-16 の掲載との比較）</h2>
+      <p class="muted">このページの前の掲載（2026-11-16）から変わった所の一覧です。初めて使う方は読まなくて大丈夫です（中身は各章に入っています）。版の番号は v1.0 のままで、「試用版」の表記を「β版」に替えました。</p>
+      <details class="faq" open><summary>β版で変わったことを開く（2026-11-24・11-25 の直し）</summary><div>
+      <p class="concl"><b>結論：</b>あなたの手が変わるのは、<b>公開の待ち時間が短くなったこと</b>と、<b>新しいヒアリングシートをそのまま渡せるようになったこと</b>です。作り方の大筋は同じです。</p>
+      <div class="tw wide"><table class="stack">
+        <thead><tr><th>何が</th><th>どう変わったか（あなたに関わること）</th></tr></thead>
+        <tbody>
+          <tr><td><b>公開の待ち時間</b></td><td>公開の前に、AI が数秒で終わる速い検査を手元で通し、✕ をまとめて直してから1回だけ公開します。社内の確認用の公開の検査は、5ページで約15〜25秒になりました（前は1分半ほど）。同じ中身の出し直しは検査を省きます。公開の完了を待たずに、AI が先に画像で報告します（9章）</td></tr>
+          <tr><td><b>公開に失敗したとき</b></td><td>検査に合格したあとの送信の失敗（GitHub の不調など）は、検査をやり直さずに送信だけやり直します（12章）</td></tr>
+          <tr><td><b>固まらない</b></td><td>検査の1ページ・1画面の大きさごとに時間の上限（既定 90秒）が付き、超えたら「✕ 固まった」と出して止まります。何時間も止まったままになりません</td></tr>
+          <tr><td><b>写真に文字を重ねる所</b></td><td>文字と写真の重なりを「意図したもの」として通すときは、AI が画像を見せてあなたに聞いてから印を付けます（新しく始める案件から）</td></tr>
+          <tr><td><b>新しいヒアリングシート</b></td><td>新しい様式（タブ「基本情報」「採用HP(提出用)」）と、前の様式（「概要」＋ページごとのタブ）の両方を、AI が道具で読みます。下層の一覧も、シートのサイトマップから作ります（7章）</td></tr>
+          <tr><td><b>FV（最初の画面）</b></td><td>FV を見せる前に、写真を本番の写真にします（仮の写真のまま見せません）。参考と並べる画像はスマホ 390×664 で撮ります。低い PC 画面（1280×720・1366×768）の FV の画像も付きます（7章）</td></tr>
+          <tr><td><b>AI の写真</b></td><td>ChatGPT で作れないときの第2候補として、Figma の画像生成を使えます（使う前に、生成する場所とクレジットを使うことをあなたに聞きます）</td></tr>
+          <tr><td><b>土台</b></td><td>スマホのメニューのサブメニューが「＋」を押して開く形に。TOP だけのローディング（使わなければ外せます）。新しく始める案件から効きます</td></tr>
+          <tr><td><b>修正の比較画像</b></td><td>直した所ごとに、見る所と数値を赤の一文で添えます。比較画像は毎回必ず付けます（10章）</td></tr>
+          <tr><td><b>作りの決まり</b></td><td>HP の案件で繰り返し戻った点（ぶら下げ・ホバーの下線・番号と項目の近さ・大きな文を横いっぱいにしない など）を決まりに足しました（8章）</td></tr>
+          <tr><td><b>Slack</b></td><td>AI は Slack を送りません。送る文は下書きまでで、送るのはあなたです</td></tr>
+        </tbody>
+      </table></div>
+      </div></details>
+    </section>
+
+    <!-- 3 -->
     <section class="sec" id="diff">
-      <h2><span class="n">2</span>LP キットとの違い</h2>
+      <h2><span class="n">3</span>LP キットとの違い</h2>
       <p class="concl"><b>結論：</b>進め方の大筋（シートを読む → 要件を整理 → 参考サイトを分析 → 最初の画面を見せる → 検査 → 承認 → 公開 → 修正）と、あなたの役割・守ることは、採用LP キットと同じです。違うのは<b>作るものの形</b>（1ページのスワイプ型か、TOP と下層の複数ページか）と、それに合わせた<b>検査と道具の範囲</b>です。</p>
       <div class="tw wide"><table>
         <thead><tr><th>項目</th><th>採用LP キット</th><th>採用HP キット（このキット）</th></tr></thead>
         <tbody>
           <tr><th>作るもの</th><td>採用LP（1ページ）。標準は縦スワイプ型（<span class="gloss">1回の操作で1画面ずつ進む形</span>）</td><td>採用HP（TOP と下層ページ）。ふつうに上下へスクロールする形</td></tr>
-          <tr><th>ページ</th><td>1ページの中に画面を並べる</td><td>TOP と下層（私たちについて・事業内容・会社概要・お問い合わせ。シートに合わせて増やせる）。ヘッダー・フッター・メニューは TOP が元で、道具が全ページへ写す</td></tr>
+          <tr><th>ページ</th><td>1ページの中に画面を並べる</td><td>TOP と下層（シートのサイトマップに合わせて増減）。ヘッダー・フッター・メニューは TOP が元で、道具が全ページへ写す</td></tr>
+          <tr><th>ヒアリングシート</th><td>LP のシート</td><td>HP のシート（新しい様式・前の様式とも読める）。LP のシートを読む道具では読めない</td></tr>
           <tr><th>最初に見せるもの</th><td>1枚目（最初の画面）を参考サイトと並べて見せ、OK のあと全体を作る</td><td>TOP の最初の画面（FV）を参考サイトと並べて見せ、OK のあと TOP を仕上げて先方へ出す。方向の OK のあと下層を作る</td></tr>
-          <tr><th>採用情報</th><td>LP そのものが採用ページ</td><td>採用ページは作らない。採用情報は採用LP へのリンクにする</td></tr>
-          <tr><th>動き</th><td>動きの見本帳（44件）から選ぶ。最初の画面の動画（FV動画）は責任者が別に作る</td><td>見本帳は無い。土台にある「表示されたときにふわっと出る動き」だけ</td></tr>
-          <tr><th>検査の大きさ</th><td>4サイズ。ページ送りや、1画面に収まるかも見る</td><td>リンク切れ・はみ出しなどは4サイズ（スマホ 360・375・390 と PC 1440）。時間のかかる検査（文字の読みやすさ・絵の見切れ・改行）は、スマホ 390 と PC 1440 の2サイズ（スワイプ型ではないため）。1画面に収める検査は無い</td></tr>
-          <tr><th>全部の検査の時間</th><td>約7〜8分</td><td>試しの5ページで約3分（初回）。2回目からは、前の公開から変わったページだけを時間のかかる検査にかける</td></tr>
+          <tr><th>採用情報</th><td>LP そのものが採用ページ</td><td>標準は採用ページを作らず、採用LP へのリンクにする（シートの指定で決める）</td></tr>
+          <tr><th>動き</th><td>動きの見本帳から選ぶ。最初の画面の動画（FV動画）は責任者が別に作る</td><td>見本帳は無い。土台の動き（ふわっと出る・英字の見出しのせり上がり・ローディング など）から選び、足りない分だけ足す</td></tr>
+          <tr><th>検査の大きさ</th><td>4サイズ。ページ送りや、1画面に収まるかも見る</td><td>先方用の公開の前は4サイズ（スマホ 360・375・390 と PC 1440）。時間のかかる検査（文字の読みやすさ・絵の見切れ・改行）はスマホ 390 と PC 1440 の2サイズ。社内の確認用の公開は 390 と 1440 の2サイズだけ。1画面に収める検査は無い</td></tr>
+          <tr><th>検査の時間</th><td>約7〜8分</td><td>公開の前の速い検査は数秒。社内の確認用の公開は5ページで約15〜25秒。先方用の公開は初回の全ページで約3分、2回目からは変わったページだけを時間のかかる検査にかける</td></tr>
           <tr><th>修正の比較画像</th><td colspan="2">同じ。スマホの1サイズで、直した所を「修正前｜修正後」で切り出し、1枚に縦に積む。AI への指定の仕方も同じ</td></tr>
-          <tr><th>公開</th><td colspan="2">同じ。社内の確認用（GitHub Pages）→ 先方用（Cloudflare Pages の版ごとの URL）。前の版の URL は上書きしない。HP では、責任者が「検査とばせ」と言った版だけ、時間のかかる検査を省いて出す「急ぎの公開」がある（8章）</td></tr>
+          <tr><th>公開</th><td colspan="2">同じ。社内の確認用（GitHub Pages）→ 先方用（Cloudflare Pages の版ごとの URL）。前の版の URL は上書きしない。HP では、責任者が「検査とばせ」と言った版だけ、時間のかかる検査を省いて出す「急ぎの公開」がある（9章）</td></tr>
           <tr><th>確認の手助け</th><td>いろいろな幅で見るクオリティチェッカー・別の AI による見直し（レビュー役）・困ったときに送る作業記録の ZIP</td><td>別の AI による見直し（レビュー役）はある。いろいろな幅で見るチェッカーと作業記録の ZIP はまだ無い。全ページを PC・スマホ各1枚の画像で見る</td></tr>
-          <tr><th>参考サイトの分析</th><td colspan="2">同じ。先方の素材も同じ物差しで見て、場面ごとに数えられる事実で書く。「参考と離れている」と言われたら分析をやり直し、言葉にまとめてから作り直す</td></tr>
-          <tr><th>見た目の検査の ✕</th><td colspan="2">同じ。リンク切れなど事実の誤りは止める。見た目（はみ出し・見切れ・重なり・読みやすさ・改行）は、先方用の公開の前は止めずに「要確認」として案を並べた画像で聞く</td></tr>
-          <tr><th>WordPress への移行</th><td>指示文がある</td><td>まだ無い（10章）</td></tr>
-          <tr><th>版</th><td>v5</td><td>v1.0（試用版。キットの道具を通した先方用の公開と、WordPress への移行は、まだ通していない）</td></tr>
+          <tr><th>見た目の検査の ✕</th><td colspan="2">同じ。リンク切れなど事実の誤りは止める。見た目（はみ出し・見切れ・重なり・読みやすさ・改行）は止めずに「要確認」として、案を並べた画像で聞く</td></tr>
+          <tr><th>WordPress への移行</th><td>指示文がある</td><td>まだ無い（11章）</td></tr>
+          <tr><th>版</th><td>v5</td><td>v1.0（β版）</td></tr>
         </tbody>
       </table></div>
       <ul class="muted">
@@ -266,38 +304,39 @@
       </ul>
     </section>
 
-    <!-- 3 -->
+    <!-- 4 -->
     <section class="sec" id="download">
-      <h2><span class="n">3</span>ダウンロード</h2>
+      <h2><span class="n">4</span>ダウンロード</h2>
       <div class="dl">
-        <!-- DRIVE_URL: 配布のときに Google Drive のフォルダの URL を href と data-drive-url に入れる（空のあいだは「準備中」と出る） -->
-        <a class="btn-dl" id="dlBtn" href="#" data-drive-url="" target="_blank" rel="noopener">
+        <!-- DRIVE_URL: Google Drive の配布フォルダの URL が決まったら、href と data-drive-url の両方に入れる（空のあいだは押すと「準備中」と出る） -->
+        <a class="btn-dl" id="dlBtn" href="https://drive.google.com/drive/folders/1UtT64e4mcw75K7rYrl6v013srozAV-BN" data-drive-url="https://drive.google.com/drive/folders/1UtT64e4mcw75K7rYrl6v013srozAV-BN" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          キットをダウンロード（準備中）
+          キットをダウンロード（Google Drive）
         </a>
-        <div class="meta">ファイル：<b>spinova-hp-kit_v1.0_pw.zip</b>（パスワード付き）<br>版：<b>v1.0（試用版）</b><br>中身：土台（TOP と下層）・検査と公開の道具・ひな形（要件整理・DNA・参考との見比べ・AI の見直しの頼み方・提出チェック・写真チェック・指摘の記録・共有文面・OGP とファビコンの作り方）・手順書</div>
+        <div class="meta">ファイル：<b>spinova-hp-kit_v1.0_pw.zip</b>（パスワード付き）<br>版：<b>v1.0（β版）</b> ／ 配布日：<b>2026-11-26</b><br>中身：土台（TOP と下層）・検査と公開の道具・ヒアリングシートを読む道具・ひな形（要件整理・DNA・参考との見比べ・AI の見直しの頼み方・要確認の聞き方・提出チェック・写真チェック・指摘の記録・共有文面・OGP とファビコンの作り方）・手順書</div>
         <p class="dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
       </div>
       <ul class="muted">
-        <li><b>開き方</b>：ZIP とパスワードのファイルを受け取る → ZIP をダブルクリックし、パスワードを入力 → <code>spinova-hp-kit_v1.0</code> フォルダができます（Windows は、右クリック →「すべて展開」→ パスワード）。Windows での展開は、この版ではまだ確かめていません。</li>
+        <li><b>パスワード</b>は、ZIP とは別に責任者から伝えます。人に渡さないでください。</li>
+        <li><b>開き方</b>：ZIP をダブルクリックし、パスワードを入力 → <code>spinova-hp-kit_v1.0</code> フォルダができます（Windows は、右クリック →「すべて展開」→ パスワード）。Windows での展開は、この版ではまだ確かめていません。開けないときは責任者へ伝えてください。</li>
         <li>採用LP のキット（spinova-lp-kit）とは別のフォルダに置きます。中身を混ぜないでください。</li>
       </ul>
     </section>
 
-    <!-- 3 -->
+    <!-- 5 -->
     <section class="sec" id="need">
-      <h2><span class="n">4</span>必要なもの</h2>
+      <h2><span class="n">5</span>必要なもの</h2>
       <div class="grid g3">
-        <div class="card"><h3>パソコン</h3><ul><li>macOS か Windows（Git Bash）</li><li>Google Chrome</li><li>Node.js 22 以上</li><li>Python 3 と Pillow</li></ul></div>
+        <div class="card"><h3>パソコン</h3><ul><li>macOS か Windows（Git Bash）</li><li>Google Chrome</li><li>Node.js 22 以上</li><li>Python 3 と Pillow（新しいシートを読むときは openpyxl も）</li></ul></div>
         <div class="card"><h3>AI のアプリ</h3><ul><li>Claude のデスクトップアプリ（Claude Code）など、フォルダを開いて作業できる AI</li><li>キットのフォルダにある手順書（<code>AGENTS.md</code>＝<code>CLAUDE.md</code>）を AI が読みます</li></ul></div>
         <div class="card"><h3>公開するとき</h3><ul><li>Cloudflare のアカウント（Cloudflare Pages。wrangler にログイン）</li><li>確認用の GitHub Pages：git と、GitHub の操作に使う道具（gh）へのログイン。リポジトリと Pages は、公開の道具が自動で作ります</li></ul></div>
       </div>
-      <p class="muted">そろっているかは、5章の「初回の準備」で AI が <code>tools/setup_check.sh</code> を使って確かめます（入れる操作は、説明してから）。</p>
+      <p class="muted">そろっているかは、6章の「初回の準備」で AI が環境を確かめる道具（<code>tools/setup_check.sh</code>）で確かめます（入れる操作は、説明してから）。</p>
     </section>
 
-    <!-- 4 -->
+    <!-- 6 -->
     <section class="sec" id="setup">
-      <h2><span class="n">5</span>初回だけの準備</h2>
+      <h2><span class="n">6</span>初回だけの準備</h2>
       <ol class="steps">
         <li><h3>ZIP を置く場所を決めて、解凍する</h3><p>例：「HP制作」フォルダを作り、その中に解凍します。フォルダの名前（<code>spinova-hp-kit_v1.0</code>）は変えないでください。</p></li>
         <li><h3>AI のアプリで、キットのフォルダを開く（ここまでがあなた）</h3><p>解凍してできた <code>spinova-hp-kit_v1.0</code> フォルダを選びます（その中の <code>projects</code> などではなく、いちばん外のフォルダ）。</p></li>
@@ -306,13 +345,13 @@
 1. AGENTS.md を読む
 2. tools/setup_check.sh で点検し、足りないものがあれば、入れ方を説明してから進める
 3. tools/version.sh でキットの版を教える</pre><button class="copy" type="button">コピー</button></div>
-          <p class="muted">表の「状態」がすべて OK（⚠ は説明を読んで判断）になれば準備は終わりです。</p></li>
+          <p class="muted">表の「状態」がすべて OK（⚠ は説明を読んで判断）になれば準備は終わりです。版は「v1.0（β版）」と出ます。</p></li>
       </ol>
     </section>
 
-    <!-- 5 -->
+    <!-- 7 -->
     <section class="sec" id="steps">
-      <h2><span class="n">6</span>案件ごとの流れ：TOP の初稿を出すまで</h2>
+      <h2><span class="n">7</span>案件ごとの流れ：TOP の初稿を出すまで</h2>
       <p class="concl"><b>結論：</b>あなたがするのは「案件を渡す」「質問に答える」「TOP を見て直してほしい所を伝える」「OK を出す」「先方へ送る」です。作る・調べる・検査する・公開するのは AI です。確認はそのつど来るので、制作中は返事ができるようにしてください。</p>
       <div class="warn"><b>案件ごとに、新しいチャットを作ってください。</b>1つのチャットで複数の案件を進めると、AI が案件どうしを取り違えます。修正もその案件のチャットで続けます。</div>
       <h3>最初の一言（コピーして AI に送る）</h3>
@@ -321,120 +360,153 @@
 進め方の選択・公開・クライアントへの送信は、私が決めます。</pre><button class="copy" type="button">コピー</button></div>
 
       <div class="step"><div class="sh"><span class="no">1</span><span class="st">案件を渡す</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」を送る</li><li>ヒアリングシートは Google のサインインが要ります。AI の内蔵ブラウザで、初回だけあなたがサインインします（AI はパスワードを入れません）</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>上の「最初の一言」を送る</li><li>ヒアリングシートは Google のサインインが要ります。AI の内蔵ブラウザで、初回だけあなたがサインインします（AI はパスワードを入れません）</li><li>納期が Slack・シートに無いときは、AI に聞かれたら答える</li></ul></div>
         <div class="col ai"><span class="lb">AI</span><ul><li>案件のフォルダを作る（<code>projects/</code> の中）</li><li>作業中は、シート・参考サイト・手元の確認・確認用の GitHub の4つをブラウザに開いておく（あなたがいつでも進み具合を見られるように）</li></ul></div>
       </div></div>
-      <div class="step"><div class="sh"><span class="no">2</span><span class="st">進め方を選ぶ・食い違いに答える</span></div><div class="cols c2">
+      <div class="step"><div class="sh"><span class="no">2</span><span class="st">シートを読む・進め方を選ぶ・食い違いに答える</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>選択カードで選ぶ：FV で一度確認を取るか（取るのがおすすめ）・初稿の範囲（標準は TOP だけ）・案の数・写真の方針（先方の写真／フリー素材／AI 生成／イラスト）</li><li>AI 生成の写真を使うときは、先に先方の了承を取る</li><li>シートの食い違い（住所・郵便番号・社名の書き方・色など）をまとめて1回聞かれるので、答える</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>シートを全部読み、確定・解釈・未定に分けて <code>要件整理.md</code> に書く</li><li>資料フォルダは、サブフォルダの中まで全部を一覧にしてから進む（支給素材の表を作る）。ロゴが見つからなければ、仮のロゴを作る前に聞く</li><li>シートに無い事実（電話・郵便番号など）は作らない。仮のまま残すか、項目ごと外すかを聞く</li><li>色の名前しか無いときは、近い色を仮に置いて、あなたに確かめる</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>シートを道具で読み（下の「ヒアリングシートの読み方」）、確定・解釈・未定に分けて <code>要件整理.md</code> に書く</li><li>最初に、下層の一覧をシートのサイトマップに合わせる（シートに無いページは作らない）。採用ページの要否はシートの「採用情報の扱い」で決める</li><li>資料フォルダは、サブフォルダの中まで全部を一覧にしてから進む。ロゴが見つからなければ、仮のロゴを作る前に聞く</li><li>シートに無い事実（電話・郵便番号など）は作らない。仮のまま残すか、項目ごと外すかを聞く</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">3</span><span class="st">参考サイトを調べる</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>AI が開けないリンク（Canva・Drive など）は、開いて要点を伝える</li><li>参考サイトの指定が無い案件は、AI が方針を報告してくるので、責任者に確かめる</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>参考サイトを PC とスマホで見て、「らしさ」と数値を <code>DNA.md</code> に書く（持ち込むのは数値と型だけ。画像やコードは持ち込まない）</li><li>先方の素材（ロゴ・写真・今のサイト）も同じ物差しで見る。場面ごとに表現の種類の数・余白・文字の段数を数える</li><li>参考と素材の方向が反対なら、最初に1回聞く</li><li>先方の「参考にしてほしい点」は、実際に操作して確かめる</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>AI が開けないリンク（Canva・Drive など）は、開いて要点を伝える</li><li>参考サイトの指定が無い案件は、AI が方針を報告してくるので、責任者に確かめる</li><li>参考とシートのイメージが反対のときは、どちらを主にするかを聞かれるので答える</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>参考サイトを PC とスマホで見て、「らしさ」と数値を <code>DNA.md</code> に書く（持ち込むのは数値と型だけ。画像やコードは持ち込まない）</li><li>先方の素材（ロゴ・写真・今のサイト）も同じ物差しで見る。場面ごとに表現の種類の数・余白・文字の段数を数える</li><li>参考とシートの方向が反対なら、FV を作る前に必ず聞く</li><li>先方の「参考にしてほしい点」は、実際に操作して確かめる</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">4</span><span class="st">最初の画面（FV）を、参考と並べて見る</span></div><div class="cols c2">
-        <div class="col you"><span class="lb">あなた</span><ul><li>「参考 → 自作」を上下に並べた画像（スマホ・PC 各1枚）を見て、OK か直してほしい所を伝える</li><li>OK はチャットで伝える（AI が記録する）。記録されるまで、下層の検査と公開は止まる</li><li>参考と離れていると感じたら、下の「クオリティを上げるコツ」を送る</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>FV を作り、見せる前に別の AI の見直し（レビュー役）を1回通す</li><li>並べた画像を作って渡す（参考サイトの無い案件は自作だけ）</li><li>参考との見比べ（背景・写真・動き・文字の強弱）を記録し、参考より少ない所を足す（足す量は参考が上限）</li></ul></div>
+        <div class="col you"><span class="lb">あなた</span><ul><li>「参考 → 自作」を上下に並べた画像（スマホ・PC 各1枚）と、低い PC 画面の FV の画像を見て、OK か直してほしい所を伝える</li><li>OK はチャットで伝える（AI が記録する）。記録されるまで、下層の検査と公開は止まる</li><li>写真が間に合わないときは「写真を作ってから見せるか」を聞かれるので答える</li><li>参考と離れていると感じたら、下の「クオリティを上げるコツ」を送る</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>FV の写真を本番の写真にしてから見せる（仮の写真・仮の絵のまま見せない）</li><li>並べた画像を作る道具で、参考と同じ大きさ（スマホは 390×664）で撮って並べる（参考サイトの無い案件は自作だけ）</li><li>見せる前に、別の AI の見直し（レビュー役）を1回通し、参考との見比べを記録して、参考より少ない所を足す（足す量は参考が上限）</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">5</span><span class="st">TOP を仕上げて、見る</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>届いた画像（ページ全体を PC・スマホ各1枚）を見て、直してほしい所をまとめて伝える</li><li>OGP（<span class="gloss">URL を貼ったときに出る画像</span>）とファビコンを見て OK を出す</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>TOP を作り、写真を1枚ずつ確かめ（<code>写真チェック.md</code>）、ロゴを差し替える</li><li>撮った画像を自分で見てから渡す。直しの途中は、直した所を撮って見せるだけ（全部の検査は公開の前に1回）</li><li>社内で見る確認用の URL（GitHub Pages）は、了承なしで AI が出す</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>TOP を作り、写真を1枚ずつ確かめ（<code>写真チェック.md</code>。AI の写真は手を原寸で数える）、ロゴを差し替える</li><li>撮った画像を自分で見てから渡す。直しの途中は、直した所を撮って見せるだけ（全部の検査は公開の前に1回）</li><li>社内で見る確認用の URL（GitHub Pages）は、了承なしで AI が出す</li></ul></div>
       </div></div>
       <div class="step"><div class="sh"><span class="no">6</span><span class="st">TOP だけの初稿を出す</span></div><div class="cols c2">
         <div class="col you"><span class="lb">あなた</span><ul><li>責任者の OK をもらい、AI に「OK、公開に進んで」と伝える</li><li>届いた URL を自分の目で見て、共有文面の下書きを直して先方へ送る（送るのはあなた）</li></ul></div>
-        <div class="col ai"><span class="lb">AI</span><ul><li>公開の門（検査）→ 承認の記録 → 公開 → 公開した中身の照合（8章）</li><li>下層は中身を作る前の仮ページのまま出す（仮ページは時間のかかる検査を省く）。共有文面に「今回は TOP のみ」「仮の所」を書く</li></ul></div>
+        <div class="col ai"><span class="lb">AI</span><ul><li>公開の門（検査）→ 承認の記録 → 公開 → 公開した中身の照合（9章）</li><li>下層は中身を作る前の仮ページのまま出す（仮ページは時間のかかる検査を省く）。共有文面に「今回は TOP のみ」「仮の所」を書く</li></ul></div>
       </div></div>
+
+      <h3>ヒアリングシートの読み方</h3>
+      <p>シートは、AI がシートを読む道具（<code>tools/dump_hp_sheet.py</code>。<span class="gloss">シートを要件整理に使う形で書き出す道具</span>）で読みます。Google のシートは xlsx に書き出してから読みます。LP のシートを読む道具では、HP のシートは読めません。</p>
+      <div class="grid g3">
+        <div class="card"><h3>新しい様式</h3><ul><li>タブは「基本情報」と「採用HP(提出用)」の2つ。原稿のタブはありません</li><li>基本情報の 1〜17行は LP と同じ。<b>19行目からが HP の項目</b>（会社名・所在地・事業内容・HP の種類・新規かリニューアルか・今のサイトの URL・業種・採用情報の扱い・採用ページの URL・ドメイン）</li><li>「採用HP(提出用)」は、カラー・ページ・セクション・文言・スクショ・参考 URL・参考にしたいポイント・補足</li></ul></div>
+        <div class="card"><h3>前の様式</h3><ul><li>タブ「概要」＋ページごとのタブ（10枚前後）</li><li>概要のタブは丸ごと読みません（認証情報の行があるため）。ほかのタブを行ごとに書き出し、ページの名前のタブから下層の一覧の候補を作ります</li></ul></div>
+        <div class="card"><h3>読まないもの・別の様式</h3><ul><li>基本情報の 15〜17行（FTP・パスワード・サーバー）は、道具も AI も読みません。問い合わせの通知先は「ある・無い」だけ</li><li>どちらでもない様式（先方の独自の様式）は、道具が「読めない」と出し、AI が手で書き出します</li></ul></div>
+      </div>
+
       <h3>クオリティを上げるコツ（参考と離れていると感じたら、コピーして AI に送る）</h3>
       <div class="cmd say"><pre>デザインテイストが参考サイトと離れているのでもう一度デザインDNA分析をやり直してください。分析が完了したら作業前に分析結果を言語化してまとめてください</pre><button class="copy" type="button">コピー</button></div>
       <p class="muted">まとめが届いたら中身を確かめ、「この分析のとおりに作り直してください」と送ります。言葉にさせてから作らせると、次の版の質が上がります。</p>
     </section>
 
-    <!-- 6 -->
+    <!-- 8 -->
     <section class="sec" id="pages">
-      <h2><span class="n">7</span>下層ページを作る（TOP の OK のあと）</h2>
-      <p class="concl"><b>結論：</b>先方から TOP の方向に OK が出たら、「下層を作って」と伝えます。基本は4ページ（私たちについて・事業内容・会社概要・お問い合わせ）で、シートの構成に合わせて増やせます。</p>
+      <h2><span class="n">8</span>下層ページと作りの決まり</h2>
+      <p class="concl"><b>結論：</b>先方から TOP の方向に OK が出たら、「下層を作って」と伝えます。ページはシートのサイトマップに合わせます。作るときの決まりは AI が手順書で守ります。あなたは、下の要点に外れていないかを画像で見てください。</p>
+      <h3>下層ページ</h3>
       <ul>
         <li>ヘッダー・フッター・メニューは TOP が元で、道具が全ページへ写します。メニューとフッターには「トップ」が入ります。</li>
         <li>同じ役割の見出し・ボタン・表は、ページの間でそろえます。同じ写真・同じ構図は使い回しません。</li>
-        <li>お問い合わせフォームは見た目までです。送信の仕組みは WordPress への移行で入ります（10章）。</li>
+        <li>「リッチな動きに」と言われたら、まず土台の動き（ふわっと出る・英字の見出しのせり上がり・メニュー・ローディング・ボタン）から選び、足りない分だけ足します。参考に無い動きは足しません。</li>
+        <li>お問い合わせフォームは見た目までです。送信の仕組みは WordPress への移行で入ります（11章）。</li>
         <li>確定の文が無い所は仮の文にし、提出のときに「仮の所」として伝えます。</li>
       </ul>
+      <h3>作りの決まり（要点）</h3>
+      <div class="grid g3">
+        <div class="card"><h3>改行・余白</h3><ul><li>文節で折る。強調の句・社名・数字と単位・電話・〒番号は途中で折らない</li><li>余白は5段階：行間 ＜ 段落 ＜ 本文とボタン ＜ 見出しと本文 ＜ まとまりの間</li><li>スマホの余白は PC の約6〜7割</li><li>番号と項目の間は、項目どうしの間より近く</li></ul></div>
+        <div class="card"><h3>写真・FV</h3><ul><li>FV を見せる前に本番の写真を入れる</li><li>ヘッダーは写真に重ねない（参考が重ねているときだけ）</li><li>写真の上の文字は白・顔に掛けない</li><li>AI の写真は手を原寸で数える。スマホで顔・頭が切れていないか</li></ul></div>
+        <div class="card"><h3>見出し・強調</h3><ul><li>とりあえず強調をしない（太く大きく・色文字・太い下線を反射で足さない）</li><li>シートに無い記号・飾り文字を足さない。文字に filter をかけない</li><li>大きな文を横いっぱいにしない（1行 20〜30字まで）</li><li>「・」「※」で始まる文は、2行目の頭をそろえる（ぶら下げ）</li><li>明るいキーカラーは文字ではなく面に。（ ）の中は 85% の大きさ</li></ul></div>
+      </div>
+      <p class="muted">ほかに：ホバーの下線は文字のすぐ下／英字の書体の数字の高さをそろえる／「！？」の傾きと高さを拡大して確かめる／マウスに追う動きは PC だけ／横に流すカルーセルは、フェードで入れ替える形も選べる。最小の文字は 13px。</p>
     </section>
 
-    <!-- 7 -->
+    <!-- 9 -->
     <section class="sec" id="check">
-      <h2><span class="n">8</span>提出前のチェックと公開</h2>
-      <p class="concl"><b>結論：</b>公開は道具（<code>tools/publish.sh</code>）だけで行います。検査に合格し、その版の承認の記録があるときだけ公開されます。止まったら、止めた理由を直します。</p>
+      <h2><span class="n">9</span>提出前のチェックと公開</h2>
+      <p class="concl"><b>結論：</b>公開は公開の道具（<code>tools/publish.sh</code>。<span class="gloss">検査・承認の確認・公開・照合をまとめて行う道具</span>）だけで行います。検査に合格し、その版の承認の記録があるときだけ公開されます。AI は公開の前に手元で検査を通し、✕ をまとめて直してから<b>1回だけ</b>公開します。公開の完了は待たずに、先に画像で報告します。</p>
       <h3>確かめる段は3つ（A・B・C）</h3>
       <div class="grid g3">
-        <div class="card"><h3>A　道具が判定</h3><ul><li><b>止める（事実）</b>：リンク切れ・メニューの開閉・電話と〒の折れ・仮の文言など。✕ が0になるまで AI が直す</li><li><b>聞く（見た目）</b>：はみ出し・文字の見切れ・最小の文字 13px・写真との重なり・読みやすさ・絵の見切れ・改行・文字のぼかし。先方用の公開の前は止めずに「要確認」になり、切り抜き画像と「今｜案A｜案B」を並べた1枚で聞かれる → あなたが選ぶ</li></ul></div>
+        <div class="card"><h3>A　道具が判定</h3><ul><li><b>止める（事実）</b>：リンク切れ・メニューの開閉・電話と〒の折れ・仮の文言など。✕ が0になるまで AI が直す</li><li><b>聞く（見た目）</b>：はみ出し・文字の見切れ・最小の文字 13px・写真との重なり・読みやすさ・絵の見切れ・改行・文字のぼかし。止めずに「要確認」になり、切り抜き画像と「今｜案A｜案B」を並べた1枚で聞かれる → あなたが選ぶ</li></ul></div>
         <div class="card"><h3>B　AI が見て直し、責任者が画像で承認</h3><ul><li>改行・余白の段階・写真・ページ間のそろい・参考サイトらしさ</li><li>全ページを PC・スマホ各1枚の画像で見る</li></ul></div>
         <div class="card"><h3>C　責任者だけが判断</h3><ul><li>見た目の質・写真の選び方</li><li>iPhone の実機で触ったか（見ていなければ「未確認」）</li><li>提出・公開してよいか</li></ul></div>
       </div>
+      <h3>公開の前に AI がすること</h3>
+      <ol class="steps">
+        <li><h3>手元で速い検査を通す</h3><p>組み立て・CSS の散らかり・リンク切れ・飛び先・読み込みの版の印・公開用の複製を、数秒で見ます（検査の道具 <code>run_all.sh</code> の <code>--fast</code>。<span class="gloss">速い検査だけを回す指定</span>）。直したページは画面の検査も通します。公開の門を「検査の代わり」に使いません。</p></li>
+        <li><h3>✕ は全部まとめて直してから、公開を1回だけ</h3><p>速い検査は ✕ を全部まとめて出します。1件直しては公開し直す、をしません。速い検査に ✕ があると、時間のかかる画面の検査の前に止まります。</p></li>
+        <li><h3>公開は裏で流し、完了を待たない</h3><p>小さな直しは、直した所の画像と報告で先に終えます。URL は出たら後から届きます。</p></li>
+      </ol>
       <h3>公開の流れ</h3>
       <ol class="steps">
-        <li><h3>確認用で先に見る（社内）</h3><p>確認用の GitHub Pages に出して社内で見ます。了承は要らず、リポジトリや Pages が無ければ道具が作ります。いきなり先方用を出しません。</p></li>
+        <li><h3>確認用で先に見る（社内）</h3><p>確認用の GitHub Pages に出して社内で見ます。了承は要らず、リポジトリや Pages が無ければ道具が作ります。検査は画面の大きさ2つ（390・1440）で、5ページで約15〜25秒です。いきなり先方用を出しません。</p></li>
         <li><h3>責任者の OK を、版ごとに記録する</h3><p>責任者がチャットで「OK、公開に進んで」と伝えたときだけ、AI が承認の行を書きます（版ごとに1行。前の版の OK は使い回しません）。</p></li>
-        <li><h3>公開する</h3><p>版ごとの URL（v1・v2 …）で公開されます。前の版の URL は上書きされません。公開のあと、道具が公開された全ファイルを手元と照合します。</p></li>
-        <li><h3>共有文面を送る</h3><p>AI が下書きを作ります。書くのは URL と「仮の所・通常と変えた点」だけ。送るのはあなたです。</p></li>
+        <li><h3>公開する</h3><p>版ごとの URL（v1・v2 …）で公開されます。前の版の URL は上書きされません（責任者が上書きを指示したときだけ、先に一言伝えてから上書きします）。公開のあと、道具が公開された全ファイルを手元と照合します。</p></li>
+        <li><h3>共有文面を送る</h3><p>AI が下書きを作ります。書くのは URL と「仮の所・通常と変えた点」だけ。送るのはあなたです（AI は Slack を送りません）。</p></li>
       </ol>
-      <h3>検査の時間と、急ぎの公開</h3>
+      <h3>検査の時間・やり直し・急ぎの公開</h3>
       <ul>
-        <li><b>時間の目安</b>（試しの5ページ・手元での計測）：初回は全ページで約3分。2回目からは、前の公開から変わったページだけを時間のかかる検査（文字の読みやすさ・絵の見切れ・改行）にかけ、変わったページが無ければ約1分半です。どのページを見て、どのページを見ていないかは、出力に出ます。</li>
-        <li><b>急ぎの公開</b>：責任者が「検査とばせ」「すぐ出して」と言った版だけ、時間のかかる検査を省いて出します（ほかの検査・承認・公開後の照合はいつも通り）。省いた分は、次の版を出すときにまとめて検査します。本番の URL には使えません。手で公開することはしません。</li>
+        <li><b>時間の目安</b>（試しの5ページ・手元での計測）：速い検査は数秒。確認用の公開は約15〜25秒。先方用の公開は、初回が全ページで約3分。2回目からは、前の合格から変わったページだけを時間のかかる検査にかけます（写真の差し替えは、その写真を使うページだけ。CSS やヘッダーの直しは全ページ）。小さな直しは1回の公開にまとめます。</li>
+        <li><b>合格の使い回し</b>：同じ中身で合格していれば、2回目の公開は検査を省き、承認・公開・照合だけを行います。1バイトでも違えば検査からやり直します。</li>
+        <li><b>送信だけのやり直し</b>：検査に合格したあとに送信（GitHub への push など）が失敗したら、AI が同じ公開に「送信だけやり直す」指定（<code>--retry-push</code>）を付けて流します。検査はやり直しません。</li>
+        <li><b>固まったとき</b>：1ページ・1画面の大きさごとに時間の上限（既定 90秒）があり、超えると「✕ 固まった：ページ・サイズ」と出して止まります。外側で時間を切ることはしません。</li>
+        <li><b>要確認</b>：見た目の要確認が出ると、公開せずに止まります（✕ ではありません）。画像を見て案を選ぶと、AI が直し、「答えた」指定（<code>--asked</code>）を付けて流し直します。答えた所は、次の版でも聞き直しません。写真に文字を重ねるなど「意図した重なり」の印も、あなたに聞いてから付けます。</li>
+        <li><b>急ぎの公開</b>：責任者が「検査とばせ」「すぐ出して」と言った版だけ、時間のかかる検査を省いて出します（急ぎの公開の指定 <code>--quick</code>。ほかの検査・承認・公開後の照合はいつも通り）。省いた分は、次の版を出すときにまとめて検査します。本番の URL には使えません。手で公開することはしません。</li>
       </ul>
     </section>
 
-    <!-- 8 -->
+    <!-- 10 -->
     <section class="sec" id="revise">
-      <h2><span class="n">9</span>クライアントから修正が来たら</h2>
+      <h2><span class="n">10</span>クライアントから修正が来たら</h2>
       <p class="concl"><b>結論：</b>修正の指示（Slack のスレッドの URL など）を、その案件のチャットに貼るだけです。AI はまとめて直し、直した所を見せ、版を上げて公開し、返信文の下書きと比較画像を渡します。</p>
       <div class="cmd say"><pre>修正が来ました。修正時.md の手順で進めてください。
 修正の指示：〔Slack のスレッドの URL か、指示の文を貼る〕</pre><button class="copy" type="button">コピー</button></div>
       <ul>
         <li><b>先方へ出した後の直しは、必ず版を上げます</b>（v1 → v2）。前の版の URL は残るので、先方が見比べられます。</li>
-        <li>直している間は、直した所を撮って見せるだけです。検査は公開の前に1回。急ぎのときは、責任者の指示で急ぎの公開（8章）にできます。</li>
-        <li><b>比較画像は1枚</b>：スマホの幅の1サイズで、直した所を「修正前｜修正後」で切り出し、全部を1枚に縦に積みます（多いときだけ道具が2枚に分けます）。PC でしか見えない直しのときだけ、PC の1サイズにします。画像は公開したあとの URL 同士で作ります。</li>
+        <li>指摘された所と同じクラス・同じ型の所を全部洗い出して、まとめて直します（言われた1か所だけを直しません）。</li>
+        <li>直している間は、直した所を撮って見せるだけです。検査は公開の前に1回。急ぎのときは、責任者の指示で急ぎの公開（9章）にできます。</li>
+        <li><b>比較画像は毎回1枚</b>：スマホの幅の1サイズで、直した所を「修正前｜修正後」で切り出し、全部を1枚に縦に積みます（多いときだけ道具が2枚に分けます）。直した所ごとに、<b>見る所と数値を赤の一文</b>で添えます。PC でしか見えない直しのときだけ、PC の1サイズにします。画像は公開したあとの URL 同士で作ります。</li>
+        <li>AI への指定の仕方は LP キットと同じで、ページと直した所を指定します（比較画像の道具 <code>before_after.mjs</code> の <code>--focus</code>。赤の一文は <code>--note</code>）。あなたが指定を書く必要はありません。</li>
         <li>渡す順番は「返信文の下書き → すぐ画像」。送るのはあなたです。</li>
         <li>先方の文言は、Slack・シートの原文から写します（転送文・要約から写しません）。</li>
         <li><b>返信の下書きには、指示の番号ごとに「どこを・どう変えたか」</b>を書きます（「反映しました」だけにしません）。</li>
-        <li>社内の見た目の直しが2回を超えても方向が合わないときは、AI が参考サイトの分析からの作り直しを提案します。</li>
-        <li>先方の指摘は、種類ごとに記録してためます（次の案件で同じ指摘を受けないため）。</li>
+        <li>社内の見た目の直しが3回目に入っても方向が合わないときは、AI が参考サイトの分析からの作り直しを提案します。</li>
+        <li>先方の指摘は、種類ごとに記録してためます。キットの改善になるものは、案件の区切りで責任者へ1行で伝えます。</li>
       </ul>
     </section>
 
-    <!-- 9 -->
+    <!-- 11 -->
     <section class="sec" id="wp">
-      <h2><span class="n">10</span>WordPress への移行（WP化）</h2>
+      <h2><span class="n">11</span>WordPress への移行（WP化）</h2>
       <div class="warn"><b>HP 版の WP化の手順は、まだありません（未整備）。</b>WP化の段になったら、進め方を責任者に確認してください。AI は認証情報（FTP・WordPress の ID とパスワード）を扱いません。</div>
       <p class="muted">先にできること：CSS の散らかりを0件にしておく（見た目を変えない整理だけ）。</p>
     </section>
 
-    <!-- 10 -->
+    <!-- 12 -->
     <section class="sec" id="trouble">
-      <h2><span class="n">11</span>困ったとき</h2>
+      <h2><span class="n">12</span>困ったとき</h2>
       <div class="grid g3">
-        <div class="card"><h3>検査で止まった</h3><p>✕ の行に、ページ・画面の大きさ・理由が出ます。AI に「✕ を直して、同じコマンドを流し直して」と伝えます。検査を通すために、除外の指定で消すことはしません。</p></div>
+        <div class="card"><h3>検査で止まった</h3><p>✕ の行に、ページ・画面の大きさ・理由が出ます。AI に「✕ を全部まとめて直して、同じコマンドを流し直して」と伝えます。検査を通すために、除外の指定で消すことはしません。</p></div>
         <div class="card"><h3>「FV の確認がまだ」で止まった</h3><p>最初の画面（FV）の OK が、まだ記録されていません。AI に並べた画像を出してもらい、見て OK を伝えてください。TOP の検査は、この前でも通ります。</p></div>
         <div class="card"><h3>「要確認」で止まった</h3><p>✕ ではなく、見た目を人が決める所です。届いた画像（今と案を並べた1枚）を見て、どれにするかを答えます。答えたあと、AI が続きから公開に進みます。</p></div>
+        <div class="card"><h3>「✕ 固まった」と出た</h3><p>ブラウザが応答しなくなったページと画面の大きさが出ます。AI に「固まった所を確かめて、流し直して」と伝えます。同じ所で何度も出るときは責任者へ。</p></div>
+        <div class="card"><h3>公開の送信で失敗した</h3><p>検査には合格して、送信（GitHub など）だけが失敗した状態です。AI に「送信だけやり直して」と伝えます（検査はやり直しません）。</p></div>
         <div class="card"><h3>公開で止まった</h3><p>「承認の行がありません」は、その版の責任者の OK がまだ記録されていない、という意味です。「もう公開しています」は、同じ版へ出し直そうとしたときです（次の番号で出します）。</p></div>
-        <div class="card"><h3>キットがおかしい</h3><p><code>tools/version.sh</code> で、キットの版と、キット本体が書き換わっていないかが分かります。不具合・足りない所は、AI に直させず、責任者へ伝えてください。</p></div>
+        <div class="card"><h3>キットがおかしい</h3><p>版を確かめる道具（<code>tools/version.sh</code>）で、キットの版と、キット本体が書き換わっていないかが分かります。不具合・足りない所は、AI に直させず、責任者へ伝えてください。</p></div>
+        <div class="card"><h3>β版で気づいたこと</h3><p>使いにくい所・止まった所・手順書と違った動きは、最初の案件のうちに責任者へ返してください。AI に「キットへの改善メモを1行にまとめて」と頼むと、案件の記録から書き出します。</p></div>
       </div>
     </section>
 
-    <!-- 11 -->
+    <!-- 13 -->
     <section class="sec" id="rules">
-      <h2><span class="n">12</span>守ること</h2>
+      <h2><span class="n">13</span>守ること</h2>
       <ol class="steps">
         <li><h3>顧客の情報を外に出さない</h3><p>ヒアリングシート・写真・ロゴ・参考サイトの複製を、キットの外やほかの案件へ持ち出しません。認証情報は AI に読ませません。</p></li>
         <li><h3>公開と送信は人が承認する</h3><p>公開・クライアントへの送信・Slack への投稿は、あなたと責任者が決めます。AI は下書きまでです。</p></li>
         <li><h3>「OK」は人が出す</h3><p>承認の記録は、責任者がはっきり OK を伝えたときだけ書かれます。AI の判断では書きません。</p></li>
         <li><h3>事実を足さない</h3><p>シートに無い電話・住所・数字・実績を、AI に作らせません。先方の文言は言い換えません。</p></li>
-        <li><h3>キットを書き換えない・再配布しない</h3><p>手順書・道具・土台は直しません。キットと、このページのダウンロードのリンクを、ほかの人に渡しません。</p></li>
+        <li><h3>キットを書き換えない・再配布しない</h3><p>手順書・道具・土台は直しません。キットと、このページのダウンロードのリンク・パスワードを、ほかの人に渡しません。</p></li>
       </ol>
     </section>
 
-    <footer>採用HP 制作キット v1.0（試用版）の使い方（下書き・2026-11-16）。このページは関係者向けで、検索には出しません。中身はキットの手順書（AGENTS.md・修正時.md）・README・道具から書いています。</footer>
+    <footer>採用HP 制作キット v1.0（β版）の使い方（2026-11-25 更新）。このページは関係者向けで、検索には出しません。中身はキットの手順書（AGENTS.md・修正時.md）・README・CHANGELOG・道具から書いています。</footer>
   </main>
 </div>
 <script>
