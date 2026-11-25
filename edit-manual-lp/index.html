@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>有限会社岩井田工業 採用サイト 編集マニュアル（見本）</title>
+<style>
+:root{--ink:#212121;--soft:#5c5c5c;--line:#d9d9d9;--bg:#f7f7f7;--paper:#fff;--blue:#0563ae;--orange:#f26923;--tint:#dfe9f5;--warn:#fde3d4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 80px}
+header.top{background:var(--blue);color:#fff;padding:28px 16px 24px}
+header.top .in{max-width:780px;margin:0 auto}
+header.top p{margin:0;font-size:13px;opacity:.85}
+header.top h1{margin:6px 0 4px;font-size:clamp(22px,5.5vw,30px);line-height:1.35}
+.badge{display:inline-block;background:var(--orange);color:#fff;font-size:12px;font-weight:700;border-radius:99px;padding:1px 10px;margin-bottom:6px}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:22px 0}
+nav.toc b{display:block;margin-bottom:4px}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--blue)}
+h2{font-size:22px;line-height:1.4;margin:48px 0 14px;padding-left:12px;border-left:6px solid var(--orange)}
+h3{font-size:19px;margin:36px 0 10px}
+h3 span{font-size:13px;color:var(--soft);font-weight:400;margin-left:4px}
+h4{font-size:15px;margin:18px 0 6px;color:var(--blue)}
+p,li{margin:.6em 0}
+ul,ol{padding-left:1.4em}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px 18px 10px;margin:14px 0}
+.box.warn{background:var(--warn);border-color:#f6a77c}
+.box.ok{background:var(--tint);border-color:#a9c4e4}
+.box p:first-child{margin-top:.8em}
+.code{font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#212121;color:#eee;border-radius:10px;padding:12px 14px;white-space:pre-wrap;word-break:break-all;margin:10px 0}
+.code .cm{color:#9ec6f0}
+.code mark{background:var(--orange);color:#fff;border-radius:3px;padding:0 2px}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#ececec;border-radius:4px;padding:1px 5px;word-break:break-all}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{counter-increment:s;position:relative;padding:2px 0 2px 44px;margin:14px 0}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:grid;place-items:center}
+.shots{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.shots img{width:min(100%,360px);height:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table.t{border-collapse:collapse;width:100%;font-size:14px;line-height:1.6}
+.t th{background:#efefef;text-align:left;padding:8px 10px;white-space:nowrap}
+.t td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+.t td:first-child{white-space:nowrap}
+b.e,b.i{display:inline-block;color:#fff;border-radius:99px;padding:0 10px;font:700 13px/22px Arial,sans-serif}
+b.e{background:var(--orange)} b.i{background:var(--blue)}
+small.nt{display:block;color:var(--soft);font-size:12px;line-height:1.5;margin-top:3px}
+.nt2{font-size:14px;color:var(--soft)}
+.chk li{list-style:none;margin:.35em 0}
+.chk{padding-left:.2em}
+.chk li::before{content:"□ ";color:var(--blue)}
+table.leg{border-collapse:collapse;font-size:14px;margin:8px 0}
+table.leg td,table.leg th{border:1px solid var(--line);padding:6px 10px;background:#fff;text-align:left}
+@media (max-width:640px){
+  .t thead{display:none}
+  .t,.t tbody,.t tr,.t td{display:block;width:100%}
+  .t tr{border-top:1px solid var(--line);padding:8px 10px}
+  .t tr:first-child{border-top:0}
+  .t td{border:0;padding:2px 0}
+  .t td::before{content:attr(data-l);display:inline-block;min-width:6.5em;color:var(--soft);font-size:12px}
+  .t td:first-child::before{display:none}
+  .t td:first-child{margin-bottom:2px}
+}
+footer{color:var(--soft);font-size:13px;margin-top:48px}
+@media print{
+  @page{size:A4;margin:12mm 10mm}
+  body{background:#fff;font-size:13px}
+  header.top{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .code,b.e,b.i,.box,.badge,.steps>li::before,.t th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2,h3,h4{break-after:avoid}
+  .shots{break-inside:avoid}
+  .shots img{width:250px}
+  .t tr,.box,.code,.steps>li{break-inside:avoid}
+  section.pg{break-before:page}
+  section.pg#pg-top{break-before:auto}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="in"><span class="badge">見本</span><p>有限会社岩井田工業 採用サイト</p><h1>編集マニュアル</h1><p>文言を直す／画像を差し替える（2026年11月25日版）</p></div></header>
+<div class="wrap">
+
+<nav class="toc"><b>もくじ</b><ol>
+<li><a href="#s1">はじめに</a></li>
+<li><a href="#s2">文言の直し方</a></li>
+<li><a href="#s3">画像の差し替え方</a></li>
+<li><a href="#s4">ページ別の一覧（番号つきの画面と表）</a></li>
+<li><a href="#s5">やってはいけないこと</a></li>
+<li><a href="#s6">直した後の確認</a></li>
+<li><a href="#s7">困ったら</a></li>
+</ol></nav>
+
+<h2 id="s1">1．はじめに</h2>
+<p>このサイトは、スマホで<b>「1回のスワイプで1ページ」</b>進む作りです。1ページの高さは画面1枚分に決まっているため、文字を増やしすぎると、はみ出したり、ほかの文や写真に被ったりします。</p>
+<p>ご自身で直してよいのは<b>「目印」がついている所だけ</b>です。直せるのは次の2つです（目印は文言 68 か所・画像 9 種類）。</p>
+<ul>
+<li><b>文言（✏️）</b>…サイトの文章。軽い言い換えや、数字・名前の変更。</li>
+<li><b>画像（🖼）</b>…写真・動画・ロゴの差し替え。</li>
+</ul>
+<p>目印は、<code>index.html</code> というファイルの中に、次のような一行で入っています。</p>
+<div class="code"><span class="cm">&lt;!-- ✏️E15 2P 見出し｜文字数の目安｜注意 --&gt;</span>
+<span class="cm">&lt;!-- 🖼I07 2P 写真｜ファイル名｜縦横比・サイズ --&gt;</span></div>
+<p><b>✏️E</b>＋数字が文言、<b>🖼I</b>＋数字が画像の番号です。目印の<b>すぐ下</b>にあるものが、その番号の直す対象です。番号はこのマニュアルの画面や表にも同じものが出ています。目印は画面には出ません（見た目は目印を入れる前と同じです）。</p>
+<div class="box warn"><p><b>作業の前に、必ず控えを取ってください。</b></p>
+<ol>
+<li>サイトのフォルダ（<code>index.html</code> と <code>assets</code> フォルダが入っているフォルダ）を、まるごとコピーします（Macは右クリック→「複製」、Windowsはコピーして貼り付け）。</li>
+<li>名前を「岩井田工業_採用サイト_控え_1125」のようにして、作業日を足します。</li>
+<li>直す作業は、元のフォルダのほうで行います。</li>
+</ol></div>
+<div class="box"><p><b>用意するもの</b></p>
+<ul>
+<li>文章を直すための編集ソフト。無料の「Visual Studio Code」が使いやすいです（Windows・Mac対応）。Macの「テキストエディット」を使う場合は「フォーマット→標準テキストにする」にしてください。Windowsのメモ帳でも直せます。</li>
+<li>確認用のブラウザ（Chrome・Safariなど）。</li>
+<li><b>文字コードは UTF-8 で保存</b>します。Visual Studio Code は画面の右下に「UTF-8」と出ていれば大丈夫です。違う表示のときは、そこをクリックして「エンコード付きで保存」から UTF-8 を選びます。日本語が「???」や文字化けになったら、保存せずに控えへ戻してください。</li>
+</ul></div>
+
+<h2 id="s2">2．文言の直し方</h2>
+<ol class="steps">
+<li><b>index.html を編集ソフトで開きます。</b>（サイトのフォルダの中にあります。）</li>
+<li><b>番号で探します。</b>編集ソフトの検索（Windows は Ctrl＋F、Mac は command＋F）に「✏️E13」のように入れます。「✏️」が入力しにくいときは「E13 」（番号のあとに空白を入れる）だけでも探せます。</li>
+<li><b>目印のすぐ下の文を、書き換えます。</b>下の見本のように、<mark style="background:#f26923;color:#fff;border-radius:3px;padding:0 2px">色をつけた部分</mark>の「文字」だけを直します。<code>&lt;</code> と <code>&gt;</code> で囲まれた部分（タグ）は、そのままにしてください。
+<div class="code"><span class="cm">&lt;!-- ✏️E13 1P 本文1｜3行｜1行め 現状22字→安全24字(…)／2行め …｜行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;｜「上品な足場屋」の囲み(class="slogan")は残す --&gt;</span>
+&lt;p class=&quot;body rv&quot;&gt;&lt;span class=&quot;ln&quot;&gt;<mark>悪いイメージを</mark>&lt;wbr&gt;<mark>持ってる</mark>&lt;wbr&gt;<mark>方も</mark>&lt;wbr&gt;&lt;span class=&quot;nb&quot;&gt;<mark>多いかと思います。</mark>&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;ln&quot;&gt;<mark>そんな</mark>&lt;wbr&gt;<mark>イメージの</mark>&lt;wbr&gt;<mark>会社が</mark>&lt;wbr&gt;<mark>多い中、</mark>&lt;/span&gt;&lt;span class=&quot;ln&quot;&gt;<mark>当社の</mark>&lt;wbr&gt;<mark>スローガンは</mark>&lt;wbr&gt;&lt;span class=&quot;nb&quot;&gt;&lt;span class=&quot;slogan&quot;&gt;<mark>「上品な足場屋」</mark>&lt;/span&gt;<mark>です。</mark>&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</div>
+<p class="nt2">上の例は、E13（1Pの本文1）です。「上品な足場屋」の周りの <code>&lt;span class="slogan"&gt;</code> は、文字に下線を引いて強調する部品なので、消さずに残します。</p></li>
+<li><b>保存します。</b>（Ctrl／command＋S）文字コードは UTF-8 のままにします。</li>
+<li><b>ブラウザで確認します。</b><code>index.html</code> をブラウザにドラッグすると表示されます。直したページまでスワイプ（PCはスクロール）して、文が最後まで出ること、画面の下で切れていないこと、ほかの文や写真に被っていないことを見ます。くわしくは「6．直した後の確認」へ。</li>
+</ol>
+
+<h3>文字数の目安の見方</h3>
+<p>目印と一覧表には、文字数の目安を書いてあります。文字数は、<b>全角の1文字を1字</b>と数えます。「、」「。」「　」も1字、半角の英数字も1字として数えます（半角のほうが幅が狭いので、安全側です）。</p>
+<table class="leg"><tbody>
+<tr><th>表示</th><th>意味</th></tr>
+<tr><td>現状○字→安全△字</td><td>△字までなら、行が増えず、見た目がほとんど変わりません。迷ったらこの数字までにしてください。</td></tr>
+<tr><td>（限界□字）</td><td>その行だけを伸ばして、折り返しで行が増えても、ギリギリ被らなかった・はみ出さなかった字数です。ほかの行も一緒に伸ばすと被ることがあります。</td></tr>
+<tr><td>現状○字→△字まで</td><td>△字までは行が増えず、それを超えると被る・はみ出す所です（安全と限界が同じ）。</td></tr>
+<tr><td>現状○字のまま</td><td>これ以上は増やせません（余裕がない所です）。</td></tr>
+<tr><td>被る心配なし</td><td>今の文字数＋60字まで伸ばしても被らないことを確認した所です。ただし行が増えると見た目は変わるので、「安全」の数字を目安にしてください。</td></tr>
+</tbody></table>
+<p class="nt2">この数字は、スマホ（360×640、390×540）とPC（1280×720）の3つの画面の大きさで、実際に表示して、1字ずつ足して測りました（3つのうち、いちばん厳しい数字です）。ほかの大きさの画面では少し変わることがあります。PC表示だけに出る所はPC（1280×720）で測りました。画面に出ない設定（タブ名など）の字数は、一般的な目安で、実測ではありません。</p>
+
+<h3>行（ぎょう）と改行について</h3>
+<ul>
+<li>本文は、<code>&lt;span class="ln"&gt;〜&lt;/span&gt;</code> で<b>1行ごと</b>に区切ってあります。<b>この区切り（行）の数は増やしたり減らしたりしないでください。</b>行が増えると、画面の高さが足りなくなります。</li>
+<li><b>このサイトは、<code>&lt;wbr&gt;</code> を入れた所でだけ改行されます。</b>言葉の途中で折れないようにするための印です。文を足したときは、文節の区切り（「〜を」「〜の」「、」の後ろなど）に <code>&lt;wbr&gt;</code> を入れてください。入れないと、長い文が折り返せず、画面の右にはみ出すことがあります。</li>
+<li><code>&lt;span class="nb"&gt;〜&lt;/span&gt;</code> は「この中では改行しない」という印です（番地・電話番号・強調の言葉など）。中の文字は直してよいですが、囲みは残してください。</li>
+<li>1つの行の中で、途中で改行したいときだけ、改行したい場所に <code>&lt;br&gt;</code> を入れます。ただし改行すると高さが増えるので、必ず「6．直した後の確認」を行ってください。</li>
+<li>文の中に <code>&amp;</code> を書きたいときは <code>&amp;amp;</code> と書きます。<code>&lt;</code> や <code>&gt;</code> を文字として書くことはできません。</li>
+</ul>
+
+<h2 id="s3">3．画像の差し替え方</h2>
+<p>画像は、<b>同じファイル名・同じ縦横比・同じ形式で、上書き</b>するのがいちばん簡単で安全です。目印の文を書き換える必要はありません。</p>
+<ol class="steps">
+<li><b>差し替えたい画像の番号を探します。</b>このマニュアルの画面の青い番号（例：I07）か、<code>index.html</code> で「🖼I07」を検索します。目印の中に、ファイル名（例：<code>assets/greet.jpg</code>）、縦横比、大きさが書いてあります。</li>
+<li><b>新しい写真を、同じ縦横比にします。</b>例として I07 は「横長3:2・1200×800px(元と同じ)・JPG・容量95KB」です。縦横比が違う写真を入れると、枠に合わせて<b>中央が自動で切り取られます</b>（被写体は真ん中に入れてください）。</li>
+<li><b>JPG形式にします。</b>無料のブラウザ用ツール「Squoosh」（<code>squoosh.app</code>）が使えます。写真を画面にドラッグし、右側の形式で「MozJPEG」を選び、品質を75〜80くらいにして、「リサイズ」で元と同じ大きさ（幅×高さ）にそろえ、右下のダウンロードを押します。（ツールの画面は変わることがあります。表示が違うときは担当者にご相談ください。）</li>
+<li><b>ファイル名を元と同じにして、上書きします。</b>ダウンロードしたファイルの名前を <code>greet.jpg</code> のように元と同じにして、<code>assets</code> フォルダに入れ、「置き換える」を選びます。<b>上書きの前に、控えを取ってあることを確かめてください。</b></li>
+<li><b>ブラウザで強めに再読み込みして確認します。</b>（Windows：Ctrl＋Shift＋R、Mac：command＋Shift＋R）古い写真が残って見えるときは、これで直ります。</li>
+</ol>
+<div class="box ok"><p><b>知っておくと安心なこと</b></p>
+<ul>
+<li>同じ写真が、いくつかのページで使われている場合があります。ファイルを1つ上書きすると、使われているすべての場所が変わります（1Pの背景 I06 は会社概要の背景にも、ロゴ I03 はヘッダーとPC表示の左側にも使っています。一覧表と目印の末尾に書いてあります）。</li>
+<li>ページに出る写真は小さいので、元より大きな写真は不要です。目安は「元と同じ大きさ」です。容量が大きすぎると表示が重くなります。元のファイルの容量（表に記載）を大きく超えないようにしてください。</li>
+<li><code>index.html</code> の画像のファイル名の後ろの <code>?v=20261113a</code> のような文字は、スマホが古い画像を使い続けないための印です。公開のときに担当者が新しくします。消さないでください。</li>
+<li><code>assets</code> フォルダには、今のページで使っていないファイル（<code>stars.png</code>・<code>stars-twinkle.png</code>・<code>logo-white.svg</code>・<code>favicon.svg</code>・<code>favicon-src.svg</code>）も入っています。差し替えても画面は変わりません。<code>site-icon.png</code> は WordPress のサイトアイコン用です。</li>
+<li>TOPの動画（I04）、動画が始まる前の写真（I05）、ロゴ（I03）、シェア用の画像（I01）、タブのアイコン（I02）は、縦横比と大きさが決まっています。差し替えるときは、表の通りの大きさで作り、同じファイル名で上書きします。動画の作り直しは担当者にご相談ください。</li>
+</ul></div>
+
+<h2 id="s4">4．ページ別の一覧</h2>
+<p>画面の<b style="color:#f26923">オレンジの番号</b>が文言、<b style="color:#0563ae">青い番号</b>が画像です。画面と同じ番号が、その下の表にあります。スマホ表示の画面で、<b>390×664 の大きさ</b>です（ページ共通だけPCの 1280×720）。</p>
+<section class="pg" id="pg-top"><h3>TOP　<span>はじまり（最初の画面・動画）</span></h3><div class="shots"><img src="img/00_top.jpg" alt="TOPの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E10</b></td><td data-l="場所">ページの題名(画面には出ない・読み上げと検索用)</td><td data-l="今の文言">有限会社岩井田工業 鳶職人 採用サイ…</td><td data-l="文字数の目安">現状19字｜画面には出ないので字数の制限なし。ただし長すぎない一文に</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I04</b></td><td data-l="場所">背景動画(最初の画面)</td><td data-l="ファイル"><code>assets/hero.mp4</code></td><td data-l="縦横比・サイズ">動画 MP4(H.264)・縦長9:16・1080×1920px・約25秒・音なし・容量5.3MB<small class="nt">動画の中の文字(Be Elegant. など)は動画に焼き込まれている。動画の作り直しは担当者に相談</small></td></tr><tr><td data-l="番号"><b class="i">I05</b></td><td data-l="場所">動画が始まる前に出る写真</td><td data-l="ファイル"><code>assets/hero-poster.jpg</code></td><td data-l="縦横比・サイズ">縦長9:16・1080×1920px・JPG・容量334KB<small class="nt">動画の最初の1コマと同じ絵にする</small></td></tr></tbody></table></div><p class="nt2">TOP の画面の文字（Be Elegant. など）は動画の中に描かれた絵で、<code>index.html</code> では直せません。動画の作り直しは担当者にご相談ください。上の帯（ロゴと2つのボタン）は「ページ共通」の表にあります。</p></section>
+<section class="pg" id="pg-p1"><h3>1P　<span>メッセージ（建設業ってどんなイメージ？）</span></h3><div class="shots"><img src="img/01_p1.jpg" alt="1Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E11</b></td><td data-l="場所">見出し(問いかけ)<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">建設業ってどんなイメージですか？</td><td data-l="文字数の目安">現状16字→安全18字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E12</b></td><td data-l="場所">四角で囲んだ2つの言葉<small class="nt">囲み(class=&quot;fv__voice&quot;)の数は変えない</small></td><td data-l="今の文言">怖そう／古い業界</td><td data-l="文字数の目安">1つめ：現状3字→安全6字(限界24字)<br>2つめ：現状4字→安全7字(限界28字)</td></tr><tr><td data-l="番号"><b class="e">E13</b></td><td data-l="場所">本文1<small class="nt">行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;</small><small class="nt">「上品な足場屋」の囲み(class=&quot;slogan&quot;)は残す</small></td><td data-l="今の文言">悪いイメージを持ってる方も多いかと思…</td><td data-l="文字数の目安">1行め：現状22字→安全24字(被る心配なし・+60字まで確認)<br>2行め：現状15字→安全21字(被る心配なし・+60字まで確認)<br>3行め：現状20字→安全21字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E14</b></td><td data-l="場所">本文2<small class="nt">行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">足場は工事が終われば無くなってしまい…</td><td data-l="文字数の目安">1行め：現状21字(安全はこのまま・被る心配なし・+60字まで確認)<br>2行め：現状35字→安全36字(被る心配なし・+60字まで確認)<br>3行め：現状13字→安全21字(被る心配なし・+60字まで確認)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I06</b></td><td data-l="場所">背景の写真(夜明けの足場)</td><td data-l="ファイル"><code>assets/fv.jpg</code></td><td data-l="縦横比・サイズ">縦長2:3・1024×1536px(元と同じ)・JPG・容量79KB<small class="nt">画面いっぱいに敷き、枠に合わせて自動で切り取られる。上に白い文字が載るので暗めの写真に</small><small class="nt">同じファイルが会社概要でも使われている(1回の差し替えで全部変わる)</small></td></tr></tbody></table></div></section>
+<section class="pg" id="pg-p2"><h3>2P　<span>強み１（挨拶）</span></h3><div class="shots"><img src="img/02_p2.jpg" alt="2Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E15</b></td><td data-l="場所">見出し<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">必要なのは、毎朝の「おはようございま…</td><td data-l="文字数の目安">現状24字(安全はこのまま・限界43字)</td></tr><tr><td data-l="番号"><b class="e">E16</b></td><td data-l="場所">本文1<small class="nt">行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">経験は一切不要、道具の扱いや体力は後…</td><td data-l="文字数の目安">1行め：現状27字→安全29字(限界68字)<br>2行め：現状8字→安全20字(限界48字)</td></tr><tr><td data-l="番号"><b class="e">E17</b></td><td data-l="場所">2つの約束(I・II の札)<small class="nt">札の数字(I・II)と、読み上げ用の「・」(class=&quot;vh&quot;)は残す</small></td><td data-l="今の文言">時間を守ること／気持ちよく挨拶できる…</td><td data-l="文字数の目安">1つめ：現状7字→安全13字(限界34字)<br>2つめ：現状12字→安全13字(限界34字)</td></tr><tr><td data-l="番号"><b class="e">E18</b></td><td data-l="場所">本文2<small class="nt">行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">他業界出身で従業員想いの代表だから、…</td><td data-l="文字数の目安">1行め：現状35字→安全38字(限界66字)<br>2行め：現状34字→安全38字(限界66字)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I07</b></td><td data-l="場所">写真(上の横長の帯)</td><td data-l="ファイル"><code>assets/greet.jpg</code></td><td data-l="縦横比・サイズ">横長3:2・1200×800px(元と同じ)・JPG・容量95KB<small class="nt">この場所の枠は横長の帯・写真は枠に合わせて中央が自動で切り取られる(人物は真ん中に)</small></td></tr></tbody></table></div></section>
+<section class="pg" id="pg-p3"><h3>3P　<span>強み２（大手並みの環境）</span></h3><div class="shots"><img src="img/03_p3.jpg" alt="3Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E19</b></td><td data-l="場所">見出し<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">職人を使い捨てにしない「大手並み」の…</td><td data-l="文字数の目安">現状21字→安全25字(限界28字)</td></tr><tr><td data-l="番号"><b class="e">E20</b></td><td data-l="場所">本文<small class="nt">行の数は変えない・行の中で改行したい時は&lt;br&gt;・文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">業界の悪習はすべて排除。／働きやすさ…</td><td data-l="文字数の目安">1行め：現状12字→安全20字(限界24字)<br>2行め：現状35字→安全39字(限界47字)</td></tr><tr><td data-l="番号"><b class="e">E21</b></td><td data-l="場所">待遇1(01)<small class="nt">番号(01)は変えない</small><small class="nt">金色の強調(class=&quot;perk__em&quot;)の囲みは残す</small></td><td data-l="今の文言">早く終われば昼解散でも日当満額</td><td data-l="文字数の目安">現状15字(安全はこのまま・限界39字)</td></tr><tr><td data-l="番号"><b class="e">E22</b></td><td data-l="場所">待遇2(02)<small class="nt">番号(02)は変えない</small><small class="nt">金色の強調の囲みは残す</small></td><td data-l="今の文言">早出分の給与は1分単位で上乗せ</td><td data-l="文字数の目安">現状15字(安全はこのまま・限界39字)</td></tr><tr><td data-l="番号"><b class="e">E23</b></td><td data-l="場所">待遇3(03)<small class="nt">番号(03)は変えない</small><small class="nt">金色の強調の囲みは残す</small></td><td data-l="今の文言">事務所の軽食・カップ麺・ドリンクは食…</td><td data-l="文字数の目安">現状23字→安全24字(限界36字)</td></tr><tr><td data-l="番号"><b class="e">E24</b></td><td data-l="場所">結びの一文<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">腕のある職人に長くいてほしいからこそ…</td><td data-l="文字数の目安">現状30字→安全32字(限界41字)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I08</b></td><td data-l="場所">写真(上の横長の帯・英字が流れる)</td><td data-l="ファイル"><code>assets/lounge.jpg</code></td><td data-l="縦横比・サイズ">横長3:2・1200×800px(元と同じ)・JPG・容量145KB<small class="nt">この場所の枠は横長の帯・写真は枠に合わせて中央が自動で切り取られる</small></td></tr></tbody></table></div></section>
+<section class="pg" id="pg-p4"><h3>4P　<span>仕事内容（1日の流れ）</span></h3><div class="shots"><img src="img/04_p4.jpg" alt="4Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E25</b></td><td data-l="場所">小見出し「業務内容」</td><td data-l="今の文言">業務内容</td><td data-l="文字数の目安">現状4字→安全17字(限界60字)</td></tr><tr><td data-l="番号"><b class="e">E26</b></td><td data-l="場所">仕事の内容(大きな文)<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">戸建て〜大型ビルの足場組立・解体、現…</td><td data-l="文字数の目安">現状21字→安全25字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E27</b></td><td data-l="場所">「1日の流れ：」</td><td data-l="今の文言">1日の流れ：</td><td data-l="文字数の目安">現状6字→16字まで</td></tr><tr><td data-l="番号"><b class="e">E28</b></td><td data-l="場所">1日の流れ(時刻と内容 7行)<small class="nt">時刻(class=&quot;flow__t&quot;)は「07:30」の形(半角5字)のまま。行(class=&quot;flow__row&quot;)は増やさない(7行で画面がいっぱい)</small></td><td data-l="今の文言">事務所集合・移動／現場到着・元気に挨…</td><td data-l="文字数の目安">07:30の行：現状8字→安全10字(限界40字)<br>08:30の行：現状10字(安全はこのまま・限界38字)<br>09:00の行：現状9字→安全10字(限界40字)<br>12:00の行：現状12字→安全14字(限界34字)<br>13:00の行：現状4字→安全10字(限界40字)<br>16:30の行：現状6字→安全10字(限界40字)<br>17:30の行：現状5字→安全10字(限界40字)</td></tr><tr><td data-l="番号"><b class="e">E29</b></td><td data-l="場所">下の注意書き(※)<small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">※昼〜昼過ぎに現場が終わることが多い…</td><td data-l="文字数の目安">現状20字(安全はこのまま・限界50字)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I09</b></td><td data-l="場所">背景の写真(足場)</td><td data-l="ファイル"><code>assets/scaffold.jpg</code></td><td data-l="縦横比・サイズ">縦長2:3・1024×1536px(元と同じ)・JPG・容量252KB<small class="nt">暗く敷いて使う。枠に合わせて自動で切り取られる</small></td></tr></tbody></table></div></section>
+<section class="pg" id="pg-p5"><h3>5P　<span>先輩の声</span></h3><div class="shots"><img src="img/05_p5_a.jpg" alt="5Pの画面（番号つき）" loading="lazy"><img src="img/05_p5_b.jpg" alt="5Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E30</b></td><td data-l="場所">見出し「先輩の声」<small class="nt">上の英字(Voice)は飾りなので変えない</small></td><td data-l="今の文言">先輩の声</td><td data-l="文字数の目安">現状4字→13字まで</td></tr><tr><td data-l="番号"><b class="e">E31</b></td><td data-l="場所">1枚目のカード 名前(Aさん)<small class="nt">大きな頭文字(class=&quot;card__ini&quot;)は1字。「さん」は class=&quot;card__name&quot; の中</small></td><td data-l="今の文言">Aさん</td><td data-l="文字数の目安">現状3字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E32</b></td><td data-l="場所">1枚目のカード 4つの答え<small class="nt">項目名(dt)を変えるときは2枚のカードでそろえる</small><small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">怒鳴られるのが怖くて建設業を避けてい…</td><td data-l="文字数の目安">入社理由：現状46字→49字まで<br>実際の業務：現状51字→59字まで<br>会社の魅力：現状32字のまま<br>メッセージ：現状31字のまま</td></tr><tr><td data-l="番号"><b class="e">E33</b></td><td data-l="場所">2枚目のカード 名前(Bさん)<small class="nt">大きな頭文字は1字</small></td><td data-l="今の文言">Bさん</td><td data-l="文字数の目安">現状3字→15字まで</td></tr><tr><td data-l="番号"><b class="e">E34</b></td><td data-l="場所">2枚目のカード 4つの答え<small class="nt">カードの枚数は変えない(増やすときは担当者へ。下の点の数・矢印の動きも変わるため)</small><small class="nt">文を足したら区切りに&lt;wbr&gt;</small></td><td data-l="今の文言">前職のサービス早出や日当削りに嫌気が…</td><td data-l="文字数の目安">入社理由：現状39字→49字まで<br>実際の業務：現状21字→安全26字(限界30字)<br>会社の魅力：現状49字のまま<br>メッセージ：現状31字のまま</td></tr></tbody></table></div><p class="nt2">カードは横にスライドします。左が1枚目（Aさん）、右が2枚目（Bさん）の画面です。カードの中の文が長くなると、カードの下が切れます（「限界」が小さいのはそのためです）。</p></section>
+<section class="pg" id="pg-p6"><h3>6P　<span>よくある質問</span></h3><div class="shots"><img src="img/06_p6.jpg" alt="6Pの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E35</b></td><td data-l="場所">見出し「よくある質問」<small class="nt">上の英字(Q&amp;A)は飾りなので変えない</small></td><td data-l="今の文言">よくある質問</td><td data-l="文字数の目安">現状6字→安全14字(限界56字)</td></tr><tr><td data-l="番号"><b class="e">E36</b></td><td data-l="場所">質問1と答え1<small class="nt">「Q.」「A.」(class=&quot;qa__mk&quot;)は変えない</small><small class="nt">開くのは1つずつ。答えを開いた状態で測った</small><small class="nt">質問と答えの組の数は変えない(5組で画面がいっぱい)</small></td><td data-l="今の文言">体力に自信がなく、高所も少し怖いので…</td><td data-l="文字数の目安">質問：現状21字(安全はこのまま・被る心配なし・+60字まで確認)<br>答え：現状33字→安全36字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E37</b></td><td data-l="場所">質問2と答え2<small class="nt">「Q.」「A.」(class=&quot;qa__mk&quot;)は変えない</small><small class="nt">開くのは1つずつ。答えを開いた状態で測った</small><small class="nt">質問と答えの組の数は変えない(5組で画面がいっぱい)</small></td><td data-l="今の文言">現場で怒鳴られたりしませんか？／「上…</td><td data-l="文字数の目安">質問：現状15字→安全17字(被る心配なし・+60字まで確認)<br>答え：現状32字→安全33字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E38</b></td><td data-l="場所">質問3と答え3<small class="nt">「Q.」「A.」(class=&quot;qa__mk&quot;)は変えない</small><small class="nt">開くのは1つずつ。答えを開いた状態で測った</small><small class="nt">質問と答えの組の数は変えない(5組で画面がいっぱい)</small></td><td data-l="今の文言">事務所の飲食物は無料って本当ですか？…</td><td data-l="文字数の目安">質問：現状18字→安全21字(被る心配なし・+60字まで確認)<br>答え：現状35字→安全42字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E39</b></td><td data-l="場所">質問4と答え4<small class="nt">「Q.」「A.」(class=&quot;qa__mk&quot;)は変えない</small><small class="nt">開くのは1つずつ。答えを開いた状態で測った</small><small class="nt">質問と答えの組の数は変えない(5組で画面がいっぱい)</small></td><td data-l="今の文言">早く終わった日の給料はどうなりますか…</td><td data-l="文字数の目安">質問：現状19字→安全21字(被る心配なし・+60字まで確認)<br>答え：現状29字→安全36字(被る心配なし・+60字まで確認)</td></tr><tr><td data-l="番号"><b class="e">E40</b></td><td data-l="場所">質問5と答え5<small class="nt">「Q.」「A.」(class=&quot;qa__mk&quot;)は変えない</small><small class="nt">開くのは1つずつ。答えを開いた状態で測った</small><small class="nt">質問と答えの組の数は変えない(5組で画面がいっぱい)</small></td><td data-l="今の文言">早出や残業代は本当に出ますか？／1分…</td><td data-l="文字数の目安">質問：現状15字→安全17字(被る心配なし・+60字まで確認)<br>答え：現状30字→安全35字(被る心配なし・+60字まで確認)</td></tr></tbody></table></div><p class="nt2">質問を押すと答えが開きます。開くのは1つずつです（ほかの答えは閉じます）。文字数は、それぞれの答えを開いた状態で測りました。画面は1つ目を開いた状態です。</p></section>
+<section class="pg" id="pg-company"><h3>会社概要　<span>会社概要</span></h3><div class="shots"><img src="img/07_company.jpg" alt="会社概要の画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E41</b></td><td data-l="場所">見出し「会社概要」<small class="nt">上の英字(Company)は飾りなので変えない</small></td><td data-l="今の文言">会社概要</td><td data-l="文字数の目安">現状4字→安全14字(限界28字)</td></tr><tr><td data-l="番号"><b class="e">E42</b></td><td data-l="場所">会社名<small class="nt">項目名(dt)の「：」は残す</small></td><td data-l="今の文言">有限会社岩井田工業</td><td data-l="文字数の目安">現状9字→安全11字(限界32字)</td></tr><tr><td data-l="番号"><b class="e">E43</b></td><td data-l="場所">代表取締役</td><td data-l="今の文言">（代表者名）</td><td data-l="文字数の目安">現状6字→安全12字(限界32字)</td></tr><tr><td data-l="番号"><b class="e">E44</b></td><td data-l="場所">所在地(本社・事務所)<small class="nt">【本社】【事務所】の見出し(class=&quot;prof__h&quot;)は残す</small><small class="nt">番地は class=&quot;nb&quot; で包んで途中で折れないようにしてある</small></td><td data-l="今の文言">（本社の所在地）／（事務所の所在地）</td><td data-l="文字数の目安">本社の住所：現状17字(安全はこのまま・限界23字)<br>事務所の住所：現状18字→安全19字(限界39字)</td></tr><tr><td data-l="番号"><b class="e">E45</b></td><td data-l="場所">電話番号<small class="nt">番号は class=&quot;nb&quot; で包んで途中で折れないようにしてある</small></td><td data-l="今の文言">（電話番号）</td><td data-l="文字数の目安">現状12字→安全16字(限界37字)</td></tr><tr><td data-l="番号"><b class="e">E46</b></td><td data-l="場所">設立</td><td data-l="今の文言">平成16年</td><td data-l="文字数の目安">現状5字→安全12字(限界33字)</td></tr><tr><td data-l="番号"><b class="e">E47</b></td><td data-l="場所">資本金</td><td data-l="今の文言">300万円</td><td data-l="文字数の目安">現状5字→安全13字(限界33字)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I06</b></td><td data-l="場所">背景の写真(夜明けの足場を暗く敷いたもの)</td><td data-l="ファイル"><code>assets/fv.jpg</code></td><td data-l="縦横比・サイズ">縦長2:3・1024×1536px(元と同じ)・JPG・容量79KB<small class="nt">同じファイルが1Pでも使われている(1回の差し替えで全部変わる)</small></td></tr></tbody></table></div></section>
+<section class="pg" id="pg-requirements"><h3>募集要項　<span>募集要項（ページの中を下へスクロール）</span></h3><div class="shots"><img src="img/08_requirements_a.jpg" alt="募集要項の画面（番号つき）" loading="lazy"><img src="img/08_requirements_b.jpg" alt="募集要項の画面（番号つき）" loading="lazy"><img src="img/08_requirements_c.jpg" alt="募集要項の画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E48</b></td><td data-l="場所">見出し「募集要項」<small class="nt">上の英字(Requirements)は飾りなので変えない</small></td><td data-l="今の文言">募集要項</td><td data-l="文字数の目安">現状4字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E49</b></td><td data-l="場所">職種</td><td data-l="今の文言">鳶職人</td><td data-l="文字数の目安">現状3字→11字まで</td></tr><tr><td data-l="番号"><b class="e">E50</b></td><td data-l="場所">仕事内容</td><td data-l="今の文言">現場における仮設足場設置など</td><td data-l="文字数の目安">現状14字→15字まで</td></tr><tr><td data-l="番号"><b class="e">E51</b></td><td data-l="場所">雇用形態</td><td data-l="今の文言">正社員</td><td data-l="文字数の目安">現状3字→11字まで</td></tr><tr><td data-l="番号"><b class="e">E52</b></td><td data-l="場所">給与<small class="nt">「未経験者：」「経験者：」の見出し(class=&quot;req__h&quot;)と※の注意書き(class=&quot;req__note&quot;)は残す</small></td><td data-l="今の文言">日給／10,000円〜／12,000…</td><td data-l="文字数の目安">1行め(日給)：現状2字→11字まで<br>2行め(未経験者の金額)：現状8字→13字まで<br>3行め(経験者の金額)：現状8字→13字まで</td></tr><tr><td data-l="番号"><b class="e">E53</b></td><td data-l="場所">試用期間<small class="nt">字数は「2ヶ月」の部分。※の注意書きは class=&quot;req__note&quot; の中(字数に含めない)</small></td><td data-l="今の文言">2ヶ月※条件面の変更なし</td><td data-l="文字数の目安">現状3字→11字まで</td></tr><tr><td data-l="番号"><b class="e">E54</b></td><td data-l="場所">勤務地<small class="nt">番地は class=&quot;nb&quot; で包んである</small></td><td data-l="今の文言">（所在地）</td><td data-l="文字数の目安">現状17字(これ以上は行が増える・下へ伸びるだけで被りはしない)</td></tr><tr><td data-l="番号"><b class="e">E55</b></td><td data-l="場所">勤務時間<small class="nt">※の注意書きは class=&quot;req__note&quot; の中</small></td><td data-l="今の文言">固定時間制／8:30〜17:30／実…</td><td data-l="文字数の目安">1行め：現状5字→11字まで<br>2行め：現状10字→15字まで<br>3行め：現状10字→11字まで</td></tr><tr><td data-l="番号"><b class="e">E56</b></td><td data-l="場所">休日休暇<small class="nt">■の付いた項目は1つずつ class=&quot;sq&quot; で包んである。増やす時は隣の項目を丸ごとコピーして文だけ変える</small></td><td data-l="今の文言">日曜休み／GW休暇／夏季休暇／年末年…</td><td data-l="文字数の目安">項目4個｜各項目、1行に収まるのは10字まで(今いちばん長い項目は6字)</td></tr><tr><td data-l="番号"><b class="e">E57</b></td><td data-l="場所">福利厚生<small class="nt">■の付いた項目は1つずつ class=&quot;sq&quot; で包んである。増やす時は隣の項目を丸ごとコピーして文だけ変える</small><small class="nt">小さな補足は class=&quot;sup&quot; の中</small></td><td data-l="今の文言">社会保険完備／昇給あり／賞与あり／健…</td><td data-l="文字数の目安">項目13個｜各項目、1行に収まるのは10字まで(今いちばん長い項目は13字)</td></tr></tbody></table></div><p class="nt2">募集要項は長いページで、ページの中を下へスクロールします。文が増えてもページが下へ伸びるだけなので、ほかに被ることはありません。目安の字数は「行が増えない字数」です。画面は上から順に3枚です。</p></section>
+<section class="pg" id="pg-entry"><h3>エントリー　<span>応募フォーム（ページの中を下へスクロール）</span></h3><div class="shots"><img src="img/09_entry_a.jpg" alt="エントリーの画面（番号つき）" loading="lazy"><img src="img/09_entry_b.jpg" alt="エントリーの画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E58</b></td><td data-l="場所">見出し「エントリー」<small class="nt">上の英字(Entry)は飾りなので変えない</small></td><td data-l="今の文言">エントリー</td><td data-l="文字数の目安">現状5字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E59</b></td><td data-l="場所">入力欄の名前「名前」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">名前</td><td data-l="文字数の目安">現状2字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E60</b></td><td data-l="場所">入力欄の名前「メールアドレス」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">メールアドレス</td><td data-l="文字数の目安">現状7字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E61</b></td><td data-l="場所">入力欄の名前「電話番号」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">電話番号</td><td data-l="文字数の目安">現状4字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E62</b></td><td data-l="場所">入力欄の名前「面談ご希望の日時」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">面談ご希望の日時</td><td data-l="文字数の目安">現状8字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E63</b></td><td data-l="場所">入力欄の名前「志望動機・ご質問」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">志望動機・ご質問</td><td data-l="文字数の目安">現状8字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E64</b></td><td data-l="場所">入力欄の名前「当社を知ったきっかけ」<small class="nt">(必須)(任意)の部分(class=&quot;field__req&quot;・&quot;field__opt&quot;)は残す(字数に含めない)</small><small class="nt">入力欄の名前(name=&quot;…&quot;)・種類(type=&quot;…&quot;)は変えない(送信の仕組みとつながっている)</small></td><td data-l="今の文言">当社を知ったきっかけ</td><td data-l="文字数の目安">現状10字→14字まで</td></tr><tr><td data-l="番号"><b class="e">E65</b></td><td data-l="場所">「当社を知ったきっかけ」の選択肢<small class="nt">選択肢は &lt;option&gt;〜&lt;/option&gt; の中の文字。増やす時は1行を丸ごとコピー。先頭の「選択してください」(value=&quot;&quot;)は残す</small></td><td data-l="今の文言">選択してください／知人の紹介／SNS…</td><td data-l="文字数の目安">選択肢4つ＋「選択してください」｜実測していない(選択肢は端末の一覧で表示される)。1つ20字以内が目安</td></tr><tr><td data-l="番号"><b class="e">E66</b></td><td data-l="場所">送信ボタン「送信する」<small class="nt">type=&quot;submit&quot; は変えない</small></td><td data-l="今の文言">送信する</td><td data-l="文字数の目安">現状4字→12字まで</td></tr></tbody></table></div><p class="nt2">エントリーも長いページです。入力欄の名前の後ろの「（必須）」「（任意）」は字数に含めていません。送信の仕組みは担当者が設定しています（入力欄の name="…" などは変えないでください）。</p></section>
+<section class="pg" id="pg-common"><h3>ページ共通　<span>ヘッダー・PC表示の左右</span></h3><div class="shots"><img src="img/10_pc.jpg" alt="ページ共通の画面（番号つき）" loading="lazy"></div><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E08</b></td><td data-l="場所">ヘッダー右上のボタン「募集要項」<small class="nt">行き先(href=&quot;#requirements&quot;)は変えない</small></td><td data-l="今の文言">募集要項</td><td data-l="文字数の目安">現状4字→安全5字(限界6字)</td></tr><tr><td data-l="番号"><b class="e">E09</b></td><td data-l="場所">ヘッダー右上のボタン「エントリー」<small class="nt">行き先(href=&quot;#entry&quot;)は変えない</small></td><td data-l="今の文言">エントリー</td><td data-l="文字数の目安">現状5字→安全6字(限界7字)</td></tr><tr><td data-l="番号"><b class="e">E07</b></td><td data-l="場所">PC表示の左側の職種名<small class="nt">PCの広い画面だけに出る</small></td><td data-l="今の文言">鳶職人</td><td data-l="文字数の目安">現状3字→安全18字(被る心配なし・+60字まで確認)(PCの広い画面で測定)</td></tr><tr><td data-l="番号"><b class="e">E67</b></td><td data-l="場所">PC表示の右側のボタン「募集要項」<small class="nt">行き先(href)は変えない</small></td><td data-l="今の文言">募集要項</td><td data-l="文字数の目安">現状4字→安全14字(被る心配なし・+60字まで確認)(PCの広い画面で測定)</td></tr><tr><td data-l="番号"><b class="e">E68</b></td><td data-l="場所">PC表示の右側のボタン「エントリー」<small class="nt">行き先(href)は変えない</small></td><td data-l="今の文言">エントリー</td><td data-l="文字数の目安">現状5字→安全14字(被る心配なし・+60字まで確認)(PCの広い画面で測定)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I03</b></td><td data-l="場所">ロゴ(ヘッダーの左上)</td><td data-l="ファイル"><code>assets/logo.svg</code></td><td data-l="縦横比・サイズ">横長 5:1・SVG(元は 240×48 の枠に、社名の文字を描いた SVG)・容量1KB未満<small class="nt">同じファイルが PC表示の左側でも使われている(1回の差し替えで全部変わる)。PNG や JPG のロゴにしたいときは担当者に相談(ファイル名と拡張子が変わるため)</small><small class="nt">同じファイルがPC表示の左側でも使われている(1回の差し替えで全部変わる)</small></td></tr><tr><td data-l="番号"><b class="i">I03</b></td><td data-l="場所">ロゴ(PC表示の左側)</td><td data-l="ファイル"><code>assets/logo.svg</code></td><td data-l="縦横比・サイズ">横長 5:1・SVG(元は 240×48 の枠に、社名の文字を描いた SVG)・容量1KB未満<small class="nt">同じファイルがヘッダーでも使われている(1回の差し替えで全部変わる)</small></td></tr></tbody></table></div><p class="nt2">PCで広い画面にしたときだけ出る左右と、全ページの上に出るヘッダーです。スマホでもヘッダーは同じものが出ます（TOP の画面にも番号を付けています）。</p></section>
+<section class="pg" id="pg-head"><h3>画面に出ない設定　<span>タブ名・検索結果・シェアした時の表示</span></h3><p class="nt2">ブラウザのタブや検索結果、LINE・SNSでシェアした時に出る文言と画像です。サイトの画面には出ません。<code>index.html</code> のいちばん上の <code>&lt;head&gt;</code> の中にあります。</p><h4>文言（✏️）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>今の文言（冒頭）</th><th>文字数の目安</th></tr></thead><tbody><tr><td data-l="番号"><b class="e">E01</b></td><td data-l="場所">ブラウザのタブ名・検索結果の見出し(title)<small class="nt">ここを変えたら og:title(E03)も同じ文に</small></td><td data-l="今の文言">有限会社岩井田工業｜鳶職人 採用サイ…</td><td data-l="文字数の目安">現状19字｜検索結果で切れにくいのは30字前後まで(一般的な目安・実測ではない)</td></tr><tr><td data-l="番号"><b class="e">E02</b></td><td data-l="場所">検索結果の説明文(description)<small class="nt">ここを変えたら og:description(E04)も同じ文に</small></td><td data-l="今の文言">有限会社岩井田工業 採用サイト。愛知…</td><td data-l="文字数の目安">現状35字｜検索結果で切れにくいのは120字前後まで(一般的な目安・実測ではない)</td></tr><tr><td data-l="番号"><b class="e">E03</b></td><td data-l="場所">OGP タイトル(LINE・SNSでシェアした時の見出し)</td><td data-l="今の文言">有限会社岩井田工業｜鳶職人 採用サイ…</td><td data-l="文字数の目安">現状19字｜シェア時に切れにくいのは40字前後まで(一般的な目安・実測ではない)</td></tr><tr><td data-l="番号"><b class="e">E04</b></td><td data-l="場所">OGP 説明文(シェアした時の説明)</td><td data-l="今の文言">有限会社岩井田工業 採用サイト。愛知…</td><td data-l="文字数の目安">現状35字｜シェア時に切れにくいのは100字前後まで(一般的な目安・実測ではない)</td></tr><tr><td data-l="番号"><b class="e">E05</b></td><td data-l="場所">OGP URL(公開するアドレス)<small class="nt">公開先のアドレスが変わったら、og:image と twitter:image の https://〜 の頭も同じアドレスに</small></td><td data-l="今の文言">https://iwaida-rec…</td><td data-l="文字数の目安">https:// から始まる公開アドレス。文字数の制限なし</td></tr><tr><td data-l="番号"><b class="e">E06</b></td><td data-l="場所">OGP サイト名(シェア時のサイト名)<small class="nt">社名が変わったらここも</small></td><td data-l="今の文言">有限会社岩井田工業 採用サイト</td><td data-l="文字数の目安">現状15字｜シェア画面の表示。現状の長さまでを目安に(実測ではない)</td></tr></tbody></table></div><h4>画像（🖼）</h4><div class="tw"><table class="t"><thead><tr><th>番号</th><th>場所</th><th>ファイル</th><th>縦横比・サイズ</th></tr></thead><tbody><tr><td data-l="番号"><b class="i">I01</b></td><td data-l="場所">OGP画像(LINE・SNSでシェアした時の画像)</td><td data-l="ファイル"><code>assets/ogp.jpg</code></td><td data-l="縦横比・サイズ">横長 約1.9:1・1200×630px(元と同じ。シェア用画像で一般的な大きさ)・JPG・容量111KB<small class="nt">og:image と twitter:image の2か所で同じファイルを指している。ファイルは同じ名前で上書きするのが簡単</small></td></tr><tr><td data-l="番号"><b class="i">I02</b></td><td data-l="場所">タブのアイコン(ファビコン)・スマホのホーム画面のアイコン</td><td data-l="ファイル"><code>assets/favicon.ico</code><br><code>assets/favicon-32.png</code><br><code>assets/apple-touch-icon.png</code></td><td data-l="縦横比・サイズ">正方形1:1・3つのファイル(favicon.ico 複数サイズ入り／favicon-32.png 32×32px・背景が透明なPNG／apple-touch-icon.png 180×180px・PNG)・容量3KB／1KB未満／3KB<small class="nt">3つとも同じ絵柄で、同じファイル名・同じ大きさで上書き。作り直しは担当者に相談がおすすめ</small></td></tr></tbody></table></div></section>
+
+<h2 id="s5">5．やってはいけないこと</h2>
+<div class="box warn">
+<ul>
+<li><b>タグを消さない・変えない。</b><code>&lt;</code> と <code>&gt;</code> で囲まれた部分や、<code>class="…"</code> の中身は、見た目や動きを決める部品です。消したり直したりすると、文字が出なくなったり、レイアウトが崩れたりします。</li>
+<li><b>行（<code>&lt;span class="ln"&gt;</code>）を増やさない・減らさない。</b>改行したいときは <code>&lt;br&gt;</code> です。</li>
+<li><b>改行の印（<code>&lt;wbr&gt;</code>）と、改行しない囲み（<code>class="nb"</code>）を消さない。</b>消すと、言葉の途中で折れたり、画面の右にはみ出したりします。</li>
+<li><b>強調の囲み（<code>class="slogan"</code>・<code>class="perk__em"</code> など）や、番号の札（I・II、01〜03、Q.・A.）を消さない。</b></li>
+<li><b>文字数の目安（特に「安全」）を超えない。</b>超えると、画面の下で切れたり、ほかの文や写真に被ったりします。超えたいときは、担当者にご相談ください。</li>
+<li><b>目印の行（<code>&lt;!--</code> 〜 <code>--&gt;</code>）を消さない。</b>消すと、次に探せなくなります。</li>
+<li><b>目印のない所は触らない。</b>英字の飾り（Be Elegant.・Greeting・Voice など）、背景の星や線、色、余白などは、担当者の作業です。<code>style.css</code>・<code>tokens.css</code>・<code>base.css</code>・<code>swipe.js</code>・<code>site.js</code> は開かない・直さないでください。</li>
+<li><b>画像のファイル名や拡張子（.jpg・.mp4・.svg など）を変えない。</b>縦横比の違う写真や、大きすぎる写真を使わない。</li>
+<li>保存したあと、<b>文字化け（？や□）が出たら、保存し直さず、控えに戻します。</b></li>
+</ul></div>
+<h3>動きの仕様を変えない</h3>
+<p>このサイトは、ページの送り方と、文字や写真の出方に決まった動きがあります。次の所は、文言を直すときも<b>そのまま残してください</b>。</p>
+<div class="box warn">
+<ul>
+<li><b>ページ送り：1回のスワイプ（PCはホイールの1回の操作）で1ページだけ進む作りです。</b>ページの区切り（<code>&lt;section class="page …" id="…"&gt;</code>）を増やす・減らす・順番を変える・<code>id</code> を変えることはしないでください。ヘッダーとPC表示のボタン（募集要項・エントリー）の行き先（<code>href="#requirements"</code>・<code>href="#entry"</code>）とつながっています。</li>
+<li><b>出現の動き：ページに入ると、文字や写真が上から順に、少しずつずれて浮かび上がります。</b>この動きの印が <code>class="… rv"</code> の <code>rv</code> です。<code>rv</code> を消す・ほかの所に足すと、出る順番や出方が変わります。</li>
+<li><b>ずっと続く飾りの動き</b>（星がまたたき・ゆっくり回る、流れ星、夜明けの光、3Pの流れる英字の帯、4Pの時計の針と太陽・月、流れる点）は、<code>aria-hidden="true"</code> の付いた要素で描いています。中身が空に見えても、消さないでください。</li>
+<li><b>5Pのカードの横送り</b>（指で横にスライド・下の点と矢印）と、<b>6Pの質問を1つずつ開く作り</b>（<code>&lt;details class="qa__item rv" name="qa"&gt;</code>。最初の1つだけ <code>open</code>）は変えないでください。カードや質問の数を変えるときは担当者にご相談ください。</li>
+<li><b>募集要項・エントリーの末尾の <code>&lt;span class="page__end"&gt;</code> を消さない。</b>長いページのいちばん下で止まるための印です。</li>
+<li><b>動きを足さない。</b>スクロールに合わせて動く仕組みや、新しいアニメーションを足すと、ページ送りが乱れることがあります。動きを変えたいときは担当者にご相談ください。</li>
+</ul></div>
+
+<h2 id="s6">6．直した後の確認</h2>
+<p>直したページで、次を確認してください。</p>
+<ul class="chk">
+<li>文章が最後まで出る（途中で切れていない）。</li>
+<li>文が画面の右にはみ出していない・言葉の途中で折れていない。</li>
+<li>画面の下の端で、文や写真が切れていない。</li>
+<li>画面の上の、ロゴとボタンのある帯に被っていない。</li>
+<li>1画面（スワイプ1回分）に収まっている（募集要項・エントリーは除く）。</li>
+<li>1回のスワイプ（PCはホイールの1回）で、1ページだけ進む。</li>
+<li>ページに入ったとき、文字や写真が上から順に浮かび上がる。5Pのカードが横にスライドし、6Pの質問が1つずつ開く。</li>
+<li>直していない他のページが、変わっていない。</li>
+</ul>
+<h4>スマホの大きさでの見かた（PCのChromeの場合）</h4>
+<ol>
+<li><code>index.html</code> をChromeで開く。</li>
+<li>キーボードの F12（Macは command＋option＋I）を押す。</li>
+<li>出てきた画面の左上の「スマホとタブレットのアイコン」を押す（または Ctrl＋Shift＋M／Mac は command＋Shift＋M）。</li>
+<li>画面の大きさを「360 × 640」「390 × 540」にして、直したページを見る。いちばん小さい画面で収まれば、たいていの画面で大丈夫です。</li>
+<li>最後に、F12の画面を閉じてPCの広い画面（1280 × 720 くらい）でも見る。</li>
+</ol>
+<p class="nt2">実際のスマホで見るときは、担当者に修正後のフォルダを渡してください。</p>
+
+<h2 id="s7">7．困ったら</h2>
+<ul>
+<li><b>表示が崩れた・文字が出ない・文字化けした：</b>保存した作業をやめ、最初に取った控えのフォルダに戻します（崩れたフォルダは削除せず、名前を変えて残しておくと、原因を調べられます）。</li>
+<li><b>どこを直せばよいか分からない：</b>番号（例：E13）と、直したい文を、そのまま担当者に伝えてください。</li>
+<li><b>公開（本番のサイトへの反映）：</b>直し終わったら、サイトのフォルダを担当者に送ってください。本番のサイトへの反映は担当者が行います。</li>
+<li><b>連絡先：</b>＿＿＿＿＿＿＿＿＿＿（担当者・窓口）</li>
+</ul>
+<footer>有限会社岩井田工業 採用サイト 編集マニュアル（見本）　作成：2026年11月25日</footer>
+</div>
+</body>
+</html>
